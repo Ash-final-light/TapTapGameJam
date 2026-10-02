@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3767697b8930fb4498de4a2706d4fc08, type: 3}
+  m_Name: SplitMother
+  m_EditorClassIdentifier: 
+  Settings:
+    Sprite: {fileID: 21300000, guid: 631849cd504b1b04abb3b06ab6136ef1, type: 3}
+    Color: {r: 0.8, g: 0.5, b: 1, a: 1}
+    VisualSize: 0.3
+    HitRadius: 0.06
+    DurationTicks: 240
+    HitCount: 1
+    DamageConfigId: 0
+    TargetBuffIds: 
+    SplitAgeTicks: 60
+    SplitChild: {fileID: 11400000, guid: d05b0b0df6346494cab9d4d4c6d44e5f, type: 2}
+    SplitCount: 8
+    SplitSpeed: 2.5
+    InheritDirection: 1

@@ -1,0 +1,14 @@
+{
+  "name": "AshFramework.UI.ScreenAdaptation",
+  "rootNamespace": "AshFramework.UI.ScreenAdaptation",
+  "references": [],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

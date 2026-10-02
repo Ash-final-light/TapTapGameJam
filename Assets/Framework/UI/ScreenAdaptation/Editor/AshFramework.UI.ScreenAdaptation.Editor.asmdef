@@ -1,0 +1,18 @@
+{
+  "name": "AshFramework.UI.ScreenAdaptation.Editor",
+  "rootNamespace": "AshFramework.UI.ScreenAdaptation.Editor",
+  "references": [
+    "AshFramework.UI.ScreenAdaptation"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
