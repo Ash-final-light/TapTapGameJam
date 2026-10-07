@@ -21,7 +21,10 @@ namespace TapTap.Danmaku.Editor
             var results = new List<string>();
             Check("八类预设／回拖与连续播放一致", TestPresets, results);
             Check("片段结束帧不多发；结束后子弹保留", TestBoundaries, results);
-            Check("母弹按年龄分裂；清弹不生成后继", TestSplit, results);
+            Check("单次母弹／关键帧分裂／清弹优先／死亡过滤", TestSplit, results);
+            Check("多母弹回收复用／片段隔离／子模板不递归", TestSplitIsolation, results);
+            Check("关键帧时间／空片段／单次限制／编辑工具", TestKeyframes, results);
+            Check("编辑器添加／复制／删除／撤销／预设模板", TestEditorCommands, results);
             Check("固定玩家命中／Enter 去重／Seek 静默", TestHit, results);
             Check("复制片段参数独立", TestCopy, results);
             Check("活跃弹上限停止生成", TestCap, results);
@@ -57,6 +60,7 @@ namespace TapTap.Danmaku.Editor
             s.FieldSize = new Vector2(100, 100); s.CollisionEnabled = false;
             s.ClearAtEnd = false; s.DurationTicks = 600; s.MaxActiveBullets = 4096;
             s.Clips.Add(new DanmakuClip { Id = "fixture", DurationTicks = 60,
+                Keyframes = new() { new DanmakuKeyframe() },
                 ProjectileOverride = new ProjectileSettings { DurationTicks = 600 } });
             return s;
         }
@@ -79,7 +83,9 @@ namespace TapTap.Danmaku.Editor
                 {
                     s.Clips[0].Emission = DanmakuPresetCatalog.Create((BuiltinPattern)i);
                     s.Clips[0].Emission.RandomAngleDegrees = 8;
-                    if (i == 7) s.Clips[0].ProjectileOverride.SplitAgeTicks = 30;
+                    s.Clips[0].Pattern = (BuiltinPattern)i;
+                    if (i == 7) s.Clips[0].Keyframes.Add(new DanmakuKeyframe { LocalTick = 30, Type = DanmakuKeyframeType.Split });
+                    else s.Clips[0].Keyframes.Add(new DanmakuKeyframe { LocalTick = 17 });
                     var live = new DanmakuSimulation(s);
                     for (int t = 0; t < 140; t++) live.Step();
                     var seek = new DanmakuSimulation(s); seek.Seek(140);
@@ -98,7 +104,8 @@ namespace TapTap.Danmaku.Editor
             try
             {
                 s.Clips[0].DurationTicks = 240; s.Clips[0].Emission = DanmakuPresetCatalog.Create(BuiltinPattern.Ring);
-                s.Clips[0].Emission.Count = 24; s.Clips[0].Emission.IntervalTicks = 30;
+                s.Clips[0].Emission.Count = 24; s.Clips[0].Keyframes.Clear();
+                DanmakuKeyframeEditing.Generate(s.Clips[0], 0, 30, 8);
                 var sim = new DanmakuSimulation(s); sim.Seek(241);
                 Assert(sim.TotalSpawned == 192 && sim.Bullets.Count == 192, "EndTick emitted extra wave or killed bullets");
                 s.ClearAtEnd = true; sim.Reset(s); sim.Seek(600);
@@ -112,18 +119,98 @@ namespace TapTap.Danmaku.Editor
             var s = Fixture();
             try
             {
-                s.Clips[0].StartTick = 20; s.Clips[0].DurationTicks = 1;
-                s.Clips[0].ProjectileOverride.SplitAgeTicks = 10;
-                s.Clips[0].ProjectileOverride.SplitCount = 8;
-                var sim = new DanmakuSimulation(s); sim.Seek(29);
-                Assert(sim.Bullets.Count == 1, "Mother split too early");
-                sim.Step(); Assert(sim.Bullets.Count == 0, "Mother did not die at age 10");
-                sim.Step(); Assert(sim.Bullets.Count == 8 && sim.TotalSpawned == 9, "Children not committed next tick");
-                sim.Seek(30); sim.Clear(); sim.Step(); Assert(sim.Bullets.Count == 0, "Clear spawned pending children");
-                s.Events.Add(new DanmakuTimelineEvent { Tick = 25, Type = DanmakuEventType.ClearBullets });
-                sim.Reset(s); sim.Seek(40); Assert(sim.TotalSpawned == 1 && sim.Bullets.Count == 0, "Clear caused split");
+                var clip = s.Clips[0]; clip.StartTick = 20; clip.DurationTicks = 60;
+                clip.Pattern = BuiltinPattern.Split; clip.Emission.Speed = 0;
+                clip.ProjectileOverride.SplitCount = 8;
+                clip.Keyframes.Add(new DanmakuKeyframe { LocalTick = 10, Type = DanmakuKeyframeType.Split });
+                var sim = new DanmakuSimulation(s); sim.Seek(30);
+                Assert(sim.Bullets.Count == 1, "Mother split before keyframe");
+                sim.Step(); Assert(sim.Bullets.Count == 8 && sim.TotalSpawned == 9, "Split children must appear in keyframe tick");
+                foreach (var p in sim.Bullets) Assert(p.Depth == 1 && p.BirthTick == 30, "Child generation/time wrong");
+                sim.Seek(70); Assert(sim.TotalSpawned == 9, "Children split again or mother fired repeatedly");
+                sim.Clear(); sim.Step(); Assert(sim.Bullets.Count == 0, "Clear spawned successors");
+                s.Events.Add(new DanmakuTimelineEvent { Tick = 30, Type = DanmakuEventType.ClearBullets });
+                sim.Reset(s); sim.Seek(40); Assert(sim.TotalSpawned == 1 && sim.Bullets.Count == 0, "Same-tick clear caused split");
+                s.Events.Clear(); clip.ProjectileOverride.DurationTicks = 5;
+                sim.Reset(s); sim.Seek(40); Assert(sim.TotalSpawned == 1 && sim.Bullets.Count == 0, "Expired mother split");
+                clip.ProjectileOverride.DurationTicks = 600; clip.Emission.Speed = 6000;
+                sim.Reset(s); sim.Seek(40); Assert(sim.TotalSpawned == 1 && sim.Bullets.Count == 0, "Out-of-bounds mother split");
+                clip.Emission.Speed = 0; clip.EmitterPosition = Vector2.zero; s.PreviewPlayerPosition = Vector2.zero; s.CollisionEnabled = true;
+                sim.Reset(s); sim.Seek(40); Assert(sim.TotalSpawned == 1 && sim.Bullets.Count == 0, "Hit mother split");
             }
             finally { Object.DestroyImmediate(s); }
+        }
+
+        private static void TestKeyframes()
+        {
+            var s = Fixture();
+            try
+            {
+                var clip = s.Clips[0]; clip.StartTick = 10; clip.Keyframes.Clear();
+                var sim = new DanmakuSimulation(s); sim.Seek(60);
+                Assert(sim.TotalSpawned == 0, "Empty clip fired implicitly");
+                DanmakuKeyframeEditing.Add(clip, DanmakuKeyframeType.Emit, 7);
+                DanmakuKeyframeEditing.Add(clip, DanmakuKeyframeType.Emit, 29);
+                sim.Reset(s); sim.Seek(17); Assert(sim.TotalSpawned == 0, "Keyframe fired early");
+                sim.Step(); Assert(sim.TotalSpawned == 1 && sim.Bullets[0].BirthTick == 17, "Keyframe time incorrect");
+                sim.Seek(39); Assert(sim.TotalSpawned == 1, "Second keyframe fired early");
+                sim.Step(); Assert(sim.TotalSpawned == 2, "Second keyframe missed");
+                clip.Keyframes[0].LocalTick = clip.DurationTicks;
+                sim.Reset(s); Assert(sim.Fault != null, "Out-of-range point was accepted");
+                clip.Keyframes.Clear(); clip.Pattern = BuiltinPattern.Split;
+                DanmakuKeyframeEditing.Add(clip, DanmakuKeyframeType.Emit, 5);
+                Assert(!DanmakuKeyframeEditing.CanAdd(clip, DanmakuKeyframeType.Emit), "Second mother emission allowed");
+                DanmakuKeyframeEditing.Add(clip, DanmakuKeyframeType.Split, 20);
+                Assert(!DanmakuKeyframeEditing.CanAdd(clip, DanmakuKeyframeType.Split) && clip.ValidateKeyframes() == null, "Single split rule broken");
+                clip.Keyframes[1].LocalTick = 5;
+                Assert(clip.ValidateKeyframes() != null, "Same-tick mother split allowed");
+                clip.Keyframes[1].LocalTick = 4;
+                Assert(clip.ValidateKeyframes() != null, "Split before emission allowed");
+                clip.Keyframes[1].LocalTick = 20; clip.Keyframes.RemoveAt(0);
+                Assert(clip.ValidateKeyframes() != null, "Missing mother emission accepted");
+                clip.Keyframes.Add(new DanmakuKeyframe { Type = DanmakuKeyframeType.Split, LocalTick = 30 });
+                Assert(clip.ValidateKeyframes() != null, "Duplicate split accepted");
+                clip.Pattern = BuiltinPattern.Ring;
+                Assert(clip.ValidateKeyframes() != null, "Non-mother split accepted");
+                clip.Keyframes.Clear(); DanmakuKeyframeEditing.Generate(clip, 0, 10, 6);
+                DanmakuKeyframeEditing.Generate(clip, 0, 10, 6);
+                Assert(clip.Keyframes.Count == 6, "Generator duplicated existing points");
+                clip.Keyframes[1].Id = clip.Keyframes[0].Id;
+                Assert(clip.ValidateKeyframes() != null, "Duplicate identity accepted");
+                sim.Reset(s); Assert(sim.Fault != null, "Compilation hid invalid source identity");
+            }
+            finally { Object.DestroyImmediate(s); }
+        }
+
+        private static void TestSplitIsolation()
+        {
+            var s = Fixture(); var child = ScriptableObject.CreateInstance<ProjectileDefinition>();
+            try
+            {
+                child.Settings.DurationTicks = 600; child.Settings.SplitChild = child;
+                var first = s.Clips[0]; first.Pattern = BuiltinPattern.Split; first.Emission.Count = 3;
+                first.Emission.Shape = EmissionShape.Arc; first.Emission.SpawnRadius = 1; first.Emission.Speed = 0;
+                first.ProjectileOverride.SplitSpeed = 0; first.ProjectileOverride.SplitCount = 8;
+                first.ProjectileOverride.SplitChild = child;
+                first.Keyframes.Add(new DanmakuKeyframe { LocalTick = 10, Type = DanmakuKeyframeType.Split });
+                var second = first.Copy(); second.EmitterPosition = new Vector2(-10, 0); second.Emission.Count = 1;
+                second.Keyframes[1].LocalTick = 20; s.Clips.Add(second);
+                var sim = new DanmakuSimulation(s); sim.Seek(10);
+                var positions = new List<FPVector2>();
+                foreach (var p in sim.Bullets) if (p.SourceClip == 0) positions.Add(p.Position);
+                sim.Step(); Assert(sim.Bullets.Count == 25 && sim.TotalSpawned == 28, "Other clip split early or parent snapshot corrupted");
+                var counts = new int[3];
+                foreach (var p in sim.Bullets)
+                {
+                    if (p.SourceClip == 1) { Assert(p.Depth == 0, "Other mother changed"); continue; }
+                    int index = positions.IndexOf(p.Position); Assert(index >= 0, "Recycled parent position corrupted"); counts[index]++;
+                }
+                foreach (int count in counts) Assert(count == 8, "Split count per mother incorrect");
+                sim.Seek(50); Assert(sim.Bullets.Count == 32 && sim.TotalSpawned == 36, "Children recursively split or clip split missed");
+                s.MaxActiveBullets = 5; sim.Reset(s); sim.Seek(11);
+                Assert(sim.Fault != null && sim.Bullets.Count == 5, "Split bypassed capacity limit");
+            }
+            finally { Object.DestroyImmediate(s); Object.DestroyImmediate(child); }
         }
 
         private static void TestHit()
@@ -145,9 +232,58 @@ namespace TapTap.Danmaku.Editor
             finally { Object.DestroyImmediate(s); }
         }
 
+        private static void TestEditorCommands()
+        {
+            var s = Fixture(); s.Clips.Clear();
+            var window = ScriptableObject.CreateInstance<DanmakuEditorWindow>();
+            var preset = ScriptableObject.CreateInstance<EmissionPreset>();
+            int undoGroup = Undo.GetCurrentGroup(); Undo.IncrementCurrentGroup();
+            const System.Reflection.BindingFlags flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+            void Invoke(string name, params object[] args) => typeof(DanmakuEditorWindow).GetMethod(name, flags).Invoke(window, args);
+            void Set(string name, object value) => typeof(DanmakuEditorWindow).GetField(name, flags).SetValue(window, value);
+            try
+            {
+                Invoke("SetSequence", s); Invoke("AddBuiltin", BuiltinPattern.Ring, 10);
+                Assert(s.Clips.Count == 1 && s.Clips[0].Keyframes.Count == 0, "New clip has implicit points");
+                Invoke("AddKeyframe", 0, DanmakuKeyframeType.Emit, 7);
+                Assert(s.Clips[0].Keyframes[0].LocalTick == 7, "Context command time changed");
+                Set("currentTick", 30); Invoke("CopyKeyframe");
+                Assert(s.Clips[0].Keyframes.Count == 2 && s.Clips[0].Keyframes[1].LocalTick == 20, "Copy to playhead failed");
+                Undo.FlushUndoRecordObjects(); Undo.IncrementCurrentGroup();
+                Invoke("DeleteKeyframe"); Undo.FlushUndoRecordObjects();
+                Assert(s.Clips[0].Keyframes.Count == 1, "Delete keyframe failed");
+                Undo.PerformUndo(); Assert(s.Clips[0].Keyframes.Count == 2, "Undo keyframe deletion failed");
+                Undo.PerformRedo(); Assert(s.Clips[0].Keyframes.Count == 1, "Redo keyframe deletion failed");
+                Invoke("Duplicate");
+                Assert(s.Clips.Count == 2 && s.Clips[0].Keyframes[0].Id != s.Clips[1].Keyframes[0].Id, "Clip duplication shares keyframe identity");
+                Invoke("AddBuiltin", BuiltinPattern.Split, 100);
+                Invoke("AddKeyframe", 2, DanmakuKeyframeType.Emit, 0);
+                Invoke("AddKeyframe", 2, DanmakuKeyframeType.Emit, 5);
+                Invoke("AddKeyframe", 2, DanmakuKeyframeType.Split, 10);
+                Invoke("AddKeyframe", 2, DanmakuKeyframeType.Split, 20);
+                Invoke("CopyKeyframe");
+                Assert(s.Clips[2].Keyframes.Count == 2 && s.Clips[2].ValidateKeyframes() == null, "Editor allows second mother emission/split");
+                preset.Pattern = BuiltinPattern.Ring; preset.DurationTicks = 220;
+                preset.Keyframes.Add(new DanmakuKeyframe { LocalTick = 200 });
+                Invoke("AddPreset", preset, 200);
+                Assert(s.Clips[3].DurationTicks == 220 && s.Clips[3].Keyframes[0].LocalTick == 200 &&
+                    s.Clips[3].Keyframes[0].Id != preset.Keyframes[0].Id, "Preset template lost duration or identity");
+                s.Clips[3].Keyframes[0].LocalTick = 5;
+                Assert(preset.Keyframes[0].LocalTick == 200, "Preset keyframe mutated through clip");
+            }
+            finally
+            {
+                Undo.RevertAllDownToGroup(undoGroup + 1);
+                Object.DestroyImmediate(window); Object.DestroyImmediate(preset);
+                if (s) Object.DestroyImmediate(s);
+            }
+        }
+
         private static void TestCopy()
         {
-            var clip = new DanmakuClip(); var copy = clip.Copy();
+            var clip = new DanmakuClip(); clip.Keyframes.Add(new DanmakuKeyframe { LocalTick = 8 }); var copy = clip.Copy();
+            copy.Keyframes[0].LocalTick = 20;
+            Assert(clip.Keyframes[0].LocalTick == 8 && clip.Keyframes[0].Id != copy.Keyframes[0].Id, "Keyframe copy aliased data/identity");
             copy.Emission.Count = 8; copy.ProjectileOverride.HitRadius = 2;
             Assert(copy.Id != clip.Id && clip.Emission.Count == 1 && clip.ProjectileOverride.HitRadius != 2, "Copy aliased local parameters");
         }
@@ -168,12 +304,15 @@ namespace TapTap.Danmaku.Editor
         {
             string path = "Assets/__DanmakuValidation_" + Guid.NewGuid().ToString("N") + ".asset";
             var s = Fixture(); s.Clips[0].Emission.Count = 13;
+            s.Clips[0].Pattern = BuiltinPattern.Ring; s.Clips[0].Keyframes[0].LocalTick = 17;
             try
             {
                 AssetDatabase.CreateAsset(s, path); AssetDatabase.SaveAssets();
                 AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
                 var loaded = AssetDatabase.LoadAssetAtPath<DanmakuSequence>(path);
                 Assert(loaded && loaded.Clips[0].Emission.Count == 13 && loaded.Clips[0].Id == "fixture", "Serialization lost settings");
+                Assert(loaded.Clips[0].Pattern == BuiltinPattern.Ring && loaded.Clips[0].Keyframes.Count == 1 &&
+                    loaded.Clips[0].Keyframes[0].LocalTick == 17 && loaded.Clips[0].Keyframes[0].Id == s.Clips[0].Keyframes[0].Id, "Serialization lost keyframes");
             }
             finally { AssetDatabase.DeleteAsset(path); if (s) Object.DestroyImmediate(s); }
         }
@@ -195,7 +334,7 @@ namespace TapTap.Danmaku.Editor
                 int remaining = count;
                 while (remaining > 0)
                 {
-                    var clip = new DanmakuClip { DurationTicks = 1 };
+                    var clip = new DanmakuClip { DurationTicks = 1, Keyframes = new() { new DanmakuKeyframe() } };
                     clip.Emission.Count = Math.Min(64, remaining);
                     clip.Emission.Speed = 0; clip.ProjectileOverride.DurationTicks = 1201;
                     s.Clips.Add(clip); remaining -= clip.Emission.Count;
@@ -249,7 +388,7 @@ namespace TapTap.Danmaku.Editor
             try
             {
                 s.Clips[0].Emission.Count = 64; s.Clips[0].Emission.SpeedLayers = 8;
-                s.Clips[0].DurationTicks = 2; s.Clips[0].Emission.IntervalTicks = 1;
+                s.Clips[0].DurationTicks = 2; s.Clips[0].Keyframes.Add(new DanmakuKeyframe { LocalTick = 1 });
                 var sim = new DanmakuSimulation(s); sim.Step(); sim.Step();
                 pool = new DanmakuSpritePool(root.transform); pool.Sync(sim, s); pool.Sync(sim, s);
                 Assert(sim.Bullets.Count == 1024 && root.transform.childCount < 10, "Per-bullet GameObjects were created");
@@ -274,7 +413,8 @@ namespace TapTap.Danmaku.Editor
             try
             {
                 s.DurationTicks = 1000; s.Clips[0].DurationTicks = 1000;
-                s.Clips[0].Emission.Count = 50; s.Clips[0].Emission.IntervalTicks = 1; s.Clips[0].Emission.Speed = 0;
+                s.Clips[0].Emission.Count = 50; s.Clips[0].Emission.Speed = 0;
+                DanmakuKeyframeEditing.Generate(s.Clips[0], 0, 1, 1000);
                 s.Clips[0].ProjectileOverride.DurationTicks = 2;
                 var sim = new DanmakuSimulation(s);
                 for (int i = 0; i < 60; i++) sim.Step();

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Framework.FixedPoint;
 using UnityEngine;
 namespace TapTap.Danmaku
@@ -10,7 +11,11 @@ namespace TapTap.Danmaku
         public CompiledProjectile Projectile;
         public FPRandom Random;
         public FPVector2 Start, End, SegmentStart, SegmentEnd;
+        public FPVector2 RandomSpawnMin, RandomSpawnMax;
+        public FP64 PlayerProtectionDistance;
         public FP64 Direction, Arc, SpawnRadius, Speed, SpeedDelta, Rotation, AlternatePhase, RandomAngle;
+        public int NextKeyframe, EmittedRounds;
+        public int ExplosionTick = -1;
     }
 
     public sealed class BossSequenceRunner
@@ -32,19 +37,34 @@ namespace TapTap.Danmaku
                 var s = (source.Clips[i]?.EffectiveEmission ?? new EmissionSettings()).Copy();
                 // Preserve original stable identity for independently seeded random streams.
                 clip.Id = source.Clips[i]?.Id ?? i.ToString();
+                if (!clip.Muted && (solo < 0 || solo == i))
+                {
+                    string error = source.Clips[i].ValidateKeyframes();
+                    if (error != null) world.ReportFault($"片段 {i + 1}（{clip.Name}）：{error}");
+                }
+                // Stable sort by tick/type; list order breaks ties between identical events.
+                clip.Keyframes = clip.Keyframes.FindAll(k => k != null);
+                clip.Keyframes = clip.Keyframes.OrderBy(k => k.LocalTick).ThenBy(k => k.Type).ToList();
                 clips[i] = new CompiledClip
                 {
                     Clip = clip, Emission = s,
-                    Projectile = ProjectileWorld.CompileProjectile(source.Clips[i]?.EffectiveProjectileSettings ?? new ProjectileSettings(), 0),
+                    Projectile = ProjectileWorld.CompileProjectile(source.Clips[i]?.EffectiveProjectileSettings ?? new ProjectileSettings(), clip.IsSplit),
                     Random = new FPRandom(StreamSeed(source.RandomSeed, clip.Id)),
                     Start = DanmakuSimulation.ToFP(clip.EmitterPosition), End = DanmakuSimulation.ToFP(clip.EmitterEndPosition),
                     SegmentStart = DanmakuSimulation.ToFP(s.SegmentStart), SegmentEnd = DanmakuSimulation.ToFP(s.SegmentEnd),
+                    RandomSpawnMin = DanmakuSimulation.ToFP(s.RandomSpawnMin), RandomSpawnMax = DanmakuSimulation.ToFP(s.RandomSpawnMax),
+                    PlayerProtectionDistance = FP64.FromFloat(s.PlayerProtectionDistance),
                     Direction = Degrees(s.DirectionDegrees), Arc = Degrees(s.ArcDegrees),
                     SpawnRadius = FP64.FromFloat(Math.Max(0, s.SpawnRadius)),
                     Speed = FP64.FromFloat(Math.Max(0, s.Speed)), SpeedDelta = FP64.FromFloat(s.SpeedLayerDelta),
                     Rotation = Degrees(s.RotationDegreesPerSecond), AlternatePhase = Degrees(s.AlternatePhaseDegrees),
                     RandomAngle = Degrees(s.RandomAngleDegrees)
                 };
+            }
+            foreach (var c in clips)
+            {
+                var splitKey = c.Clip.Keyframes.Find(k => k.Type == DanmakuKeyframeType.Split);
+                if (splitKey != null) c.ExplosionTick = c.Clip.StartTick + splitKey.LocalTick;
             }
             events = source.Events.ConvertAll(e => new DanmakuTimelineEvent
             { Tick = e.Tick, Type = e.Type, DurationTicks = e.DurationTicks, ClipIndex = e.ClipIndex, Label = e.Label }).ToArray();
@@ -54,6 +74,7 @@ namespace TapTap.Danmaku
             if (Finished) return;
             foreach (var e in events)
                 if (e.Tick == localTick && e.Type == DanmakuEventType.ClearBullets) world.ClearEnemy(e.ClipIndex);
+            for (int phase = 0; phase < 2; phase++)
             for (int i = 0; i < clips.Length; i++)
             {
                 var c = clips[i];
@@ -61,8 +82,15 @@ namespace TapTap.Danmaku
                 int local = localTick - c.Clip.StartTick;
                 if (local >= 0 && local < Math.Max(1, c.Clip.DurationTicks))
                 {
-                    int interval = Math.Max(1, c.Emission.IntervalTicks);
-                    if (local % interval == 0) Emit(c, i, local, local / interval);
+                    while (c.NextKeyframe < c.Clip.Keyframes.Count && c.Clip.Keyframes[c.NextKeyframe].LocalTick <= local)
+                    {
+                        var key = c.Clip.Keyframes[c.NextKeyframe];
+                        if (key.LocalTick == local && (int)key.Type > phase) break;
+                        c.NextKeyframe++;
+                        if (key.LocalTick != local) continue;
+                        if (key.Type == DanmakuKeyframeType.Emit) Emit(c, i, local, c.EmittedRounds++);
+                        else world.SplitMothers(i);
+                    }
                 }
             }
             localTick++;
@@ -107,8 +135,25 @@ namespace TapTap.Danmaku
                         (count == 1 ? FP64.Half : FP64.FromFraction(i, count - 1));
                 point += DirectionVector(angle) * c.SpawnRadius;
                 for (int layer = 0; layer < layers; layer++)
-                    world.Spawn(source, 0, point, angle, FPMath.Max(FP64.Zero, c.Speed + c.SpeedDelta * FP64.FromInt(layer)), c.Projectile);
+                {
+                    FPVector2 spawn = point;
+                    if (s.SpawnPosition == SpawnPositionPolicy.RandomArea && !TryRandomSpawn(c, out spawn))
+                    { world.ReportFault($"片段 {source + 1}：随机出生区域无法满足玩家保护距离，请调整区域或保护距离。"); return; }
+                    world.Spawn(source, 0, spawn, angle, FPMath.Max(FP64.Zero, c.Speed + c.SpeedDelta * FP64.FromInt(layer)), c.Projectile,
+                        explosionTick: c.ExplosionTick);
+                }
             }
+        }
+        private bool TryRandomSpawn(CompiledClip c, out FPVector2 point)
+        {
+            // Bounded deterministic rejection. Never silently place an unsafe orb.
+            for (int attempt = 0; attempt < 32; attempt++)
+            {
+                point = new FPVector2(c.RandomSpawnMin.X == c.RandomSpawnMax.X ? c.RandomSpawnMin.X : c.Random.Range(c.RandomSpawnMin.X, c.RandomSpawnMax.X),
+                    c.RandomSpawnMin.Y == c.RandomSpawnMax.Y ? c.RandomSpawnMin.Y : c.Random.Range(c.RandomSpawnMin.Y, c.RandomSpawnMax.Y));
+                if ((point - world.PlayerState.Position).SqrMagnitude >= c.PlayerProtectionDistance * c.PlayerProtectionDistance) return true;
+            }
+            point = FPVector2.Zero; return false;
         }
 
         private static ulong StreamSeed(int seed, string id)

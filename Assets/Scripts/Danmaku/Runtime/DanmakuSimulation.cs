@@ -41,7 +41,7 @@ namespace TapTap.Danmaku
             if (Finished || Fault != null) return;
             hits.Clear(); World.BeginTick(); Timeline.Step(); World.Advance();
             foreach (var contact in World.Contacts)
-                if (World.TryGet(contact.ProjectileId, out var p))
+                if (contact.TargetKind == CombatTargetKind.Player && World.TryGet(contact.ProjectileId, out var p))
                 { hits.Add(new ProjectileHit(p, Tick, PlayerState)); HitCount++; World.ConsumeHit(p); }
             World.CommitLifecycle(); Timeline.AfterStep();
             if (publish) foreach (var hit in hits) OnHit?.Invoke(hit);

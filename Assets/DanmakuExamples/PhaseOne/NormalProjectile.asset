@@ -23,7 +23,6 @@ MonoBehaviour:
     DamageSource: 0
     Damage: 10
     TargetBuffIds: 
-    SplitAgeTicks: 0
     SplitChild: {fileID: 0}
     SplitCount: 8
     SplitSpeed: 2.5

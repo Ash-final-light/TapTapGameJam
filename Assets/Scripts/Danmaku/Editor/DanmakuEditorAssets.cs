@@ -52,14 +52,15 @@ namespace TapTap.Danmaku.Editor
                 if (!exists)
                 {
                     presets[i].Settings = DanmakuPresetCatalog.Create((BuiltinPattern)i);
+                    presets[i].Pattern = (BuiltinPattern)i;
                     presets[i].Projectile = i == (int)BuiltinPattern.Split ? mother : bullet;
                     EditorUtility.SetDirty(presets[i]);
                 }
             }
-            if (mother.Settings.SplitAgeTicks == 0 && !mother.Settings.SplitChild)
+            if (!mother.Settings.SplitChild)
             {
                 mother.Settings = bullet.Settings.Copy();
-                mother.Settings.SplitAgeTicks = 60; mother.Settings.SplitChild = bullet;
+                mother.Settings.SplitChild = bullet;
                 mother.Settings.VisualSize = 0.3f; mother.Settings.Color = new Color(0.8f, 0.5f, 1);
                 EditorUtility.SetDirty(mother);
             }
@@ -82,6 +83,54 @@ namespace TapTap.Danmaku.Editor
             }
             AssetDatabase.SaveAssets(); Selection.activeObject = sequence;
             return sequence;
+        }
+
+        [MenuItem("Tools/Danmaku/重建关键帧示例资产")]
+        public static void RebuildKeyframeExamples()
+        {
+            CreateExamples();
+            for (int i = 0; i < 8; i++)
+            {
+                var preset = GetOrCreate<EmissionPreset>(((BuiltinPattern)i).ToString());
+                preset.Pattern = (BuiltinPattern)i; preset.Settings = DanmakuPresetCatalog.Create((BuiltinPattern)i);
+                preset.DurationTicks = 180; preset.Keyframes.Clear(); EditorUtility.SetDirty(preset);
+            }
+            var example = AssetDatabase.LoadAssetAtPath<DanmakuSequence>(Root + "/BossExample.asset");
+            RebuildExampleClips(example);
+            var savedExample = AssetDatabase.LoadAssetAtPath<DanmakuSequence>(Root + "/BossSequence.asset");
+            if (savedExample) RebuildExampleClips(savedExample);
+            var battle = AssetDatabase.LoadAssetAtPath<BattleConfig>(BattleEditorSetup.ConfigPath);
+            if (battle && battle.Sequence) RebuildExampleClips(battle.Sequence);
+            AssetDatabase.SaveAssets();
+            // Reserialize owned templates to remove deleted interval/age fields from disk.
+            var paths = new System.Collections.Generic.List<string>();
+            foreach (string guid in AssetDatabase.FindAssets("", new[] { Root }))
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                var asset = AssetDatabase.LoadMainAssetAtPath(path);
+                if (asset is ProjectileDefinition || asset is PlayerWeaponDefinition) paths.Add(path);
+            }
+            AssetDatabase.ForceReserializeAssets(paths);
+            foreach (var window in Resources.FindObjectsOfTypeAll<DanmakuEditorWindow>()) window.RefreshSequence();
+        }
+
+        private static void RebuildExampleClips(DanmakuSequence sequence)
+        {
+            var template = DanmakuSequence.CreateExample();
+            var bullet = GetOrCreate<ProjectileDefinition>("SmallBullet");
+            try
+            {
+                // Replace only example scheduling; retain music/analysis and battle configuration.
+                sequence.Clips = template.Clips; sequence.Events = template.Events;
+                foreach (var clip in sequence.Clips)
+                {
+                    clip.Preset = GetOrCreate<EmissionPreset>(clip.Pattern.ToString()); clip.OverrideEmission = false;
+                    clip.OverrideProjectile = true; clip.ProjectileOverride.Sprite = bullet.Settings.Sprite;
+                    if (clip.IsSplit) clip.ProjectileOverride.SplitChild = bullet;
+                }
+                EditorUtility.SetDirty(sequence);
+            }
+            finally { Object.DestroyImmediate(template); }
         }
 
         private static T GetOrCreate<T>(string name) where T : ScriptableObject

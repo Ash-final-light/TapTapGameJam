@@ -40,7 +40,7 @@ namespace TapTap.Danmaku.Editor
                 fast.Step(default);
                 Assert(fast.Boss.Health == fast.Boss.MaxHealth - FP64.FromInt(10), "高速弹扫掠遗漏或重复结算。");
                 config.PlayerInvulnerableTicks = 0;
-                sequence.Clips.Add(new DanmakuClip { DurationTicks = 1, EmitterPosition = Vector2.zero });
+                sequence.Clips.Add(new DanmakuClip { DurationTicks = 1, EmitterPosition = Vector2.zero, Keyframes = new() { new DanmakuKeyframe() } });
                 sequence.Clips[0].Emission.Speed = 0; sequence.Clips[0].ProjectileOverride.Damage = 1.5f;
                 var enemy = new BattleSimulation(config); enemy.Step(default);
                 Assert(enemy.Player.Health == enemy.Player.MaxHealth - FP64.FromFloat(1.5f), "敌弹小数伤害失败。");

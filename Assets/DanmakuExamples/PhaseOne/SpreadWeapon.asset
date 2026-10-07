@@ -18,7 +18,6 @@ MonoBehaviour:
   Emission:
     Shape: 1
     Count: 5
-    IntervalTicks: 30
     DirectionDegrees: -90
     ArcDegrees: 30
     SpawnRadius: 0

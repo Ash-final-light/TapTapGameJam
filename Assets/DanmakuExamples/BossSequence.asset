@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5063235f47a9b2459c8924f0169f6e3, type: 3}
   m_Name: BossSequence
   m_EditorClassIdentifier: 
-  DurationTicks: 480
+  DurationTicks: 650
   MaxActiveBullets: 256
-  MaxSplitDepth: 2
   RandomSeed: 12345
   Music: {fileID: 8300000, guid: 7fc77a32120835d409041397d4855cf7, type: 3}
   MusicAnalysis: {fileID: 11400000, guid: e1cd430e88e555d469905ef91f52a445, type: 2}
@@ -34,20 +33,39 @@ MonoBehaviour:
   CollisionEnabled: 1
   ClearAtEnd: 1
   Clips:
-  - Id: 23f3fe8e28dc48f5a4d941dab16ba513
+  - Id: bcfa3893c8b34695af8b8b6a8a71844d
     Name: "\u73AF\u5F62\u6269\u6563"
     StartTick: 0
     DurationTicks: 240
     Muted: 0
+    Pattern: 3
+    Keyframes:
+    - Id: 4f985b74ee7f4b0fa84588d7cbc9e30c
+      LocalTick: 0
+      Type: 0
+    - Id: f2586f60a1734fae9f4ee58a568038ed
+      LocalTick: 45
+      Type: 0
+    - Id: 90bb8c38f53e4c138c43f874175cb85c
+      LocalTick: 90
+      Type: 0
+    - Id: fb49947d8ce64f1db59da31c46519b8b
+      LocalTick: 135
+      Type: 0
+    - Id: 41c7b96531d143479c98cce2eb04a0f8
+      LocalTick: 180
+      Type: 0
+    - Id: 30b26d23edb34efb9713b69658ebd7b6
+      LocalTick: 225
+      Type: 0
     EmitterPosition: {x: 0, y: 3}
     EmitterEndPosition: {x: 0, y: 3}
     MoveEmitter: 0
-    Preset: {fileID: 0}
-    OverrideEmission: 1
+    Preset: {fileID: 11400000, guid: 95ba95d7099976e4d801c217875f6a98, type: 2}
+    OverrideEmission: 0
     Emission:
       Shape: 2
       Count: 12
-      IntervalTicks: 45
       DirectionDegrees: -90
       ArcDegrees: 60
       SpawnRadius: 0
@@ -61,9 +79,9 @@ MonoBehaviour:
       SegmentStart: {x: -3, y: 0}
       SegmentEnd: {x: 3, y: 0}
     Projectile: {fileID: 0}
-    OverrideProjectile: 0
+    OverrideProjectile: 1
     ProjectileOverride:
-      Sprite: {fileID: 0}
+      Sprite: {fileID: 21300000, guid: 631849cd504b1b04abb3b06ab6136ef1, type: 3}
       Color: {r: 0.35, g: 0.7, b: 1, a: 1}
       VisualSize: 0.18
       HitRadius: 0.06
@@ -73,25 +91,46 @@ MonoBehaviour:
       DamageSource: 0
       Damage: 1
       TargetBuffIds: 
-      SplitAgeTicks: 0
       SplitChild: {fileID: 0}
       SplitCount: 8
       SplitSpeed: 2.5
       InheritDirection: 1
-  - Id: 8003753af3ad4c969b717a811a7742be
+  - Id: 02a2b0ff15a145a5956cb4ea54a54462
     Name: "\u81EA\u673A\u72D9"
     StartTick: 120
     DurationTicks: 240
     Muted: 0
+    Pattern: 1
+    Keyframes:
+    - Id: fdf83bda100344f0be76534e9f96ac05
+      LocalTick: 0
+      Type: 0
+    - Id: 8e8365aed9ed4ce899af7efef943b45d
+      LocalTick: 36
+      Type: 0
+    - Id: 22b131d8f6b84a7986323457faea36f7
+      LocalTick: 72
+      Type: 0
+    - Id: d72d313de088448c94e2ea8376fd40e9
+      LocalTick: 108
+      Type: 0
+    - Id: c5ffde72fbbc42a594a49a82267450e4
+      LocalTick: 144
+      Type: 0
+    - Id: cef4bfb22a5249b1bb1b06e5ddca42b7
+      LocalTick: 180
+      Type: 0
+    - Id: 9d6ebf3a303c4fd3b8db0f37e334e558
+      LocalTick: 216
+      Type: 0
     EmitterPosition: {x: 0, y: 3}
     EmitterEndPosition: {x: 0, y: 3}
     MoveEmitter: 0
-    Preset: {fileID: 0}
-    OverrideEmission: 1
+    Preset: {fileID: 11400000, guid: 67f7535b453df3345bcdce02f5058a6c, type: 2}
+    OverrideEmission: 0
     Emission:
       Shape: 1
       Count: 5
-      IntervalTicks: 36
       DirectionDegrees: 0
       ArcDegrees: 60
       SpawnRadius: 0
@@ -105,9 +144,9 @@ MonoBehaviour:
       SegmentStart: {x: -3, y: 0}
       SegmentEnd: {x: 3, y: 0}
     Projectile: {fileID: 0}
-    OverrideProjectile: 0
+    OverrideProjectile: 1
     ProjectileOverride:
-      Sprite: {fileID: 0}
+      Sprite: {fileID: 21300000, guid: 631849cd504b1b04abb3b06ab6136ef1, type: 3}
       Color: {r: 1, g: 0.45, b: 0.4, a: 1}
       VisualSize: 0.18
       HitRadius: 0.06
@@ -117,25 +156,31 @@ MonoBehaviour:
       DamageSource: 0
       Damage: 1
       TargetBuffIds: 
-      SplitAgeTicks: 0
       SplitChild: {fileID: 0}
       SplitCount: 8
       SplitSpeed: 2.5
       InheritDirection: 1
-  - Id: 2c6753ea611441899e4b39eb8b41e346
+  - Id: fe541a9bc6d5440e8f3a6f96d1bcdf1c
     Name: "\u5B50\u6BCD\u5F39"
     StartTick: 300
     DurationTicks: 120
     Muted: 0
+    Pattern: 7
+    Keyframes:
+    - Id: 1b7b136479b24503b2e4f01db90fee2a
+      LocalTick: 0
+      Type: 0
+    - Id: 633459a3437844ee9f3f72c49d0e99ff
+      LocalTick: 60
+      Type: 1
     EmitterPosition: {x: 0, y: 3}
     EmitterEndPosition: {x: 0, y: 3}
     MoveEmitter: 0
-    Preset: {fileID: 0}
-    OverrideEmission: 1
+    Preset: {fileID: 11400000, guid: 9e54b451347fcbb4d852e36f6e984476, type: 2}
+    OverrideEmission: 0
     Emission:
       Shape: 1
       Count: 3
-      IntervalTicks: 90
       DirectionDegrees: -90
       ArcDegrees: 50
       SpawnRadius: 0
@@ -149,9 +194,9 @@ MonoBehaviour:
       SegmentStart: {x: -3, y: 0}
       SegmentEnd: {x: 3, y: 0}
     Projectile: {fileID: 0}
-    OverrideProjectile: 0
+    OverrideProjectile: 1
     ProjectileOverride:
-      Sprite: {fileID: 0}
+      Sprite: {fileID: 21300000, guid: 631849cd504b1b04abb3b06ab6136ef1, type: 3}
       Color: {r: 0.75, g: 0.5, b: 1, a: 1}
       VisualSize: 0.28
       HitRadius: 0.06
@@ -161,8 +206,7 @@ MonoBehaviour:
       DamageSource: 0
       Damage: 1
       TargetBuffIds: 
-      SplitAgeTicks: 60
-      SplitChild: {fileID: 0}
+      SplitChild: {fileID: 11400000, guid: d05b0b0df6346494cab9d4d4c6d44e5f, type: 2}
       SplitCount: 8
       SplitSpeed: 2.5
       InheritDirection: 1

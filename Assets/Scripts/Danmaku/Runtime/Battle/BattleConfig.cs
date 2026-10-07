@@ -22,6 +22,11 @@ namespace TapTap.Danmaku
             if (Weapon.FireRate > DanmakuSequence.TickRate) return "第一阶段射速不能超过每秒 60 次。";
             if (PlayerInvulnerableTicks < 0 || MaxActiveProjectiles < 1) return "无敌 Tick 不能为负，弹幕容量必须大于零。";
             if (!Positive(Sequence.FieldSize.x) || !Positive(Sequence.FieldSize.y) || !Positive(Player.HitRadius)) return "场地尺寸和玩家判定半径必须是有限正数。";
+            foreach (var clip in Sequence.Clips)
+            {
+                if (clip == null) return "Sequence 含空片段。";
+                if (!clip.Muted && clip.ValidateKeyframes() is string error) return $"片段 {clip.Name}：{error}";
+            }
             return null;
         }
         private static bool Positive(float value) => value > 0 && !float.IsNaN(value) && !float.IsInfinity(value);

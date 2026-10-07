@@ -127,7 +127,7 @@ namespace TapTap.Danmaku.Editor
             var config = Config(); var sequence = Sequence();
             try
             {
-                var clip = new DanmakuClip { DurationTicks = 1, EmitterPosition = Vector2.zero };
+                var clip = new DanmakuClip { DurationTicks = 1, EmitterPosition = Vector2.zero, Keyframes = new() { new DanmakuKeyframe() } };
                 clip.Emission.AimAtPlayer = true; clip.Emission.DirectionDegrees = 0;
                 clip.Emission.Speed = 0; clip.Emission.Count = 1;
                 sequence.Clips.Add(clip);
@@ -146,7 +146,7 @@ namespace TapTap.Danmaku.Editor
             var sequence = Sequence();
             try
             {
-                var clip = new DanmakuClip { DurationTicks = 1, EmitterPosition = Vector2.zero };
+                var clip = new DanmakuClip { DurationTicks = 1, EmitterPosition = Vector2.zero, Keyframes = new() { new DanmakuKeyframe() } };
                 clip.Emission.Speed = 0; clip.ProjectileOverride.HitCount = 5;
                 sequence.Clips.Add(clip);
                 var sim = new DanmakuSimulation(sequence); ProjectileHit latest = default;

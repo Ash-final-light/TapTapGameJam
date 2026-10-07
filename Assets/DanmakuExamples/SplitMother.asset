@@ -20,8 +20,9 @@ MonoBehaviour:
     DurationTicks: 240
     HitCount: 1
     DamageConfigId: 0
+    DamageSource: 0
+    Damage: 1
     TargetBuffIds: 
-    SplitAgeTicks: 60
     SplitChild: {fileID: 11400000, guid: d05b0b0df6346494cab9d4d4c6d44e5f, type: 2}
     SplitCount: 8
     SplitSpeed: 2.5

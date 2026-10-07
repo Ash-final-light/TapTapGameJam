@@ -69,7 +69,7 @@ namespace TapTap.Danmaku
                 int offset = batch.Vertices.Count;
                 Vector2 position = DanmakuSimulation.ToVector(p.Position);
                 float angle = p.Direction.ToFloat(), sin = Mathf.Sin(angle), cos = Mathf.Cos(angle);
-                float scale = Mathf.Max(0.001f, p.Settings.VisualSize) / group.Size;
+                float scale = Mathf.Max(0.001f, p.VisualSize.ToFloat()) / group.Size;
                 Color32 color = p.Settings.Color;
                 for (int v = 0; v < group.Vertices.Length; v++)
                 {

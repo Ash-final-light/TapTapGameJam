@@ -12,7 +12,7 @@ namespace TapTap.Danmaku
         public int TotalRounds { get; private set; }
         public PlayerWeaponController(PlayerWeaponDefinition weapon)
         {
-            projectile = ProjectileWorld.CompileProjectile(weapon.Projectile.Settings, 0);
+            projectile = ProjectileWorld.CompileProjectile(weapon.Projectile.Settings);
             interval = FP64.FromInt(DanmakuSequence.TickRate) / FP64.FromFloat(weapon.FireRate);
             speed = FP64.FromFloat(weapon.Emission.Speed); arc = FP64.FromFloat(weapon.Emission.ArcDegrees) * FPMath.Deg2Rad;
             count = weapon.Mode == PlayerWeaponMode.Spread ? System.Math.Max(1, System.Math.Min(64, weapon.Emission.Count)) : 1;

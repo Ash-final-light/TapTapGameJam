@@ -10,6 +10,7 @@ namespace TapTap.Danmaku
         public readonly PlayerWeaponController Weapon;
         public readonly ActorState Player, Boss;
         public readonly List<BattleEvent> Events = new();
+        public readonly CombatComboState Combo = new();
         private readonly CombatResolver resolver;
         public int Tick => World.Tick;
         public bool Finished => !Player.Alive || !Boss.Alive;
@@ -18,8 +19,14 @@ namespace TapTap.Danmaku
             string error = config.Validate(); if (error != null) throw new System.ArgumentException(error);
             if (damageConfigs == null)
             {
-                RequireExplicitDamage(config.Weapon.Projectile.Settings, 0);
-                foreach (var clip in config.Sequence.Clips) if (!clip.Muted) RequireExplicitDamage(clip.EffectiveProjectileSettings, 0);
+                RequireExplicitDamage(config.Weapon.Projectile.Settings);
+                foreach (var clip in config.Sequence.Clips)
+                    if (!clip.Muted)
+                    {
+                        RequireExplicitDamage(clip.EffectiveProjectileSettings);
+                        if (clip.IsSplit && clip.EffectiveProjectileSettings.SplitChild)
+                            RequireExplicitDamage(clip.EffectiveProjectileSettings.SplitChild.Settings);
+                    }
             }
             World = new ProjectileWorld(config.Sequence, config.MaxActiveProjectiles);
             BossTimeline = new BossSequenceRunner(config.Sequence, World);
@@ -36,15 +43,13 @@ namespace TapTap.Danmaku
             PlayerMotor.Step(input.Movement); Player.Pose = PlayerMotor.State;
             World.SetPlayerState(Player.Pose); World.SetBossState(Boss.Pose);
             World.BeginTick(); BossTimeline.Step(); Weapon.Step(input, Player.Pose.Position, World);
-            World.Advance(); resolver.Resolve(World, Player, Boss, Events);
+            World.Advance(); resolver.Resolve(World, Player, Boss, Events, Combo);
             World.CommitLifecycle(); BossTimeline.AfterStep();
         }
-        private static void RequireExplicitDamage(ProjectileSettings settings, int depth)
+        private static void RequireExplicitDamage(ProjectileSettings settings)
         {
             if (settings.DamageSource == ProjectileDamageSource.ConfigId)
                 throw new System.ArgumentException("单弹选择了 DamageConfigId，需要明确提供 IDamageConfigResolver。");
-            if (settings.SplitAgeTicks > 0 && settings.SplitChild && depth < 4)
-                RequireExplicitDamage(settings.SplitChild.Settings, depth + 1);
         }
     }
 }

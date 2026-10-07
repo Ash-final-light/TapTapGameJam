@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f957c5045a1805f4d9ccbd8d70672e8e, type: 3}
   m_Name: Petals
   m_EditorClassIdentifier: 
+  Pattern: 6
+  DurationTicks: 180
+  Keyframes: []
   Settings:
     Shape: 2
     Count: 8
-    IntervalTicks: 60
     DirectionDegrees: -90
     ArcDegrees: 60
     SpawnRadius: 0
