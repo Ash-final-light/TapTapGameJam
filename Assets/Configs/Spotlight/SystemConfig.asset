@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82b12e722e3b0014299623029babc2d2, type: 3}
+  m_Name: SystemConfig
+  m_EditorClassIdentifier: 
+  Defaults: {fileID: 11400000, guid: 1f1d75f120910cc49af548f312fe7ad6, type: 2}
+  Levels: {fileID: 11400000, guid: d8e4e9d842959c5458c863bae11ec2f7, type: 2}
+  LoadingTips: {fileID: 11400000, guid: 2870954f1a7b218439c6bf03e74a94ce, type: 2}
+  Controls: {fileID: -944628639613478452, guid: 8bc362d23871cae4393ad39f1cbc75cc, type: 3}
+  UIPrefab: {fileID: 2177213604592188000, guid: 6758b00bee3598745a74830b256d3475, type: 3}
+  SaveFolder: Spotlight
+  TitleScene: Assets/Scenes/Title.unity
+  LoadingScene: Assets/Scenes/Loading.unity

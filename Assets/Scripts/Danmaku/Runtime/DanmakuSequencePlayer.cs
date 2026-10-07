@@ -36,8 +36,8 @@ namespace TapTap.Danmaku
             accumulator = 0; Playing = true;
         }
 
-        public void Pause() => Playing = false;
-        public void Resume() { if (Simulation != null && !Simulation.Finished && Simulation.Fault == null) Playing = true; }
+        public void Pause() { Playing = false; accumulator = 0; }
+        public void Resume() { if (Simulation != null && !Simulation.Finished && Simulation.Fault == null) { accumulator = 0; Playing = true; } }
         public void Seek(int tick)
         {
             if (Simulation == null) Play();
@@ -49,7 +49,8 @@ namespace TapTap.Danmaku
         private void Update()
         {
             if (!Playing || Simulation == null || !Sequence) return;
-            accumulator += Time.deltaTime * PlaybackSpeed;
+            // Preserve elapsed time at low render rates without changing the fixed simulation step.
+            accumulator += (double)Time.unscaledDeltaTime * Time.timeScale * PlaybackSpeed;
             const double step = 1.0 / DanmakuSequence.TickRate;
             int budget = 240; // Keep delayed frames bounded without changing simulation dt.
             while (accumulator >= step && budget-- > 0)

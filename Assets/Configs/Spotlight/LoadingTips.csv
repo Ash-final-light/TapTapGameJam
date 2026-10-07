@@ -1,0 +1,3 @@
+﻿Id,Text,Weight,Enabled
+items,按住 Tab 选择道具，松开后按 R 使用。,1,true
+skills,技能 1：Q　技能 2：E。键位可在设置中修改。,1,true
