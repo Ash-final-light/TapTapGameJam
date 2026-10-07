@@ -57,10 +57,17 @@ namespace TapTap.Danmaku
         [Min(1)] public int MaxActiveBullets = 256;
         [Range(0, 4)] public int MaxSplitDepth = 2;
         public int RandomSeed = 12345;
+        [Header("音乐与离线节拍提示")]
+        public AudioClip Music;
+        public MusicAnalysisAsset MusicAnalysis;
+        public MusicAnalysisSettings MusicAnalysisSettings = new();
+        [Tooltip("正值表示音乐晚于战斗开始；负值表示从歌曲中段开始。")]
+        public float MusicStartSeconds;
         public Vector2 FieldSize = new(9, 11);
-        public Vector2 PlayerPosition = new(0, -4);
-        [Min(0.001f)] public float PlayerHitRadius = 0.08f;
-        public Sprite PlayerSprite;
+        public Vector2 PreviewPlayerPosition = new(0, -4);
+        public DanmakuPlayerConfig PreviewPlayerConfig;
+        public float PreviewHitRadius => PreviewPlayerConfig ? PreviewPlayerConfig.HitRadius : 0.08f;
+        public Sprite PreviewSprite => PreviewPlayerConfig ? PreviewPlayerConfig.Sprite : null;
         public Sprite BossSprite;
         public bool CollisionEnabled = true;
         public bool ClearAtEnd = true;

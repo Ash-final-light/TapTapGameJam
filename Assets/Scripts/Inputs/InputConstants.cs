@@ -8,6 +8,7 @@ namespace Inputs
         public const string Move = "Move";
         public const string Focus = "Focus";
         public const string Fire = "Fire";
+        public const string Aim = "Aim";
         public const string Bomb = "Bomb";
         public const string Pause = "Pause";
 

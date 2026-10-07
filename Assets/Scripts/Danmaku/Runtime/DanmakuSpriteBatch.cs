@@ -42,7 +42,8 @@ namespace TapTap.Danmaku
 
         public DanmakuSpriteBatch(Transform root, Sprite fallback) { this.root = root; this.fallback = fallback; }
 
-        public void Sync(DanmakuSimulation simulation, DanmakuSequence sequence)
+        public void Sync(DanmakuSimulation simulation, DanmakuSequence sequence) => Sync(simulation.World, sequence);
+        public void Sync(ProjectileWorld simulation, DanmakuSequence sequence)
         {
             foreach (var group in groups.Values) group.Cursor = 0;
             foreach (var batch in all)

@@ -13,7 +13,7 @@ namespace TapTap.Danmaku
         private Texture2D fallbackTexture;
         private Sprite fallbackSprite;
 
-        public DanmakuSpritePool(Transform root)
+        public DanmakuSpritePool(Transform root, bool showActors = true)
         {
             this.root = root;
             fallbackTexture = new Texture2D(32, 32, TextureFormat.RGBA32, false)
@@ -28,7 +28,7 @@ namespace TapTap.Danmaku
             fallbackTexture.SetPixels(pixels); fallbackTexture.Apply(false, true);
             fallbackSprite = Sprite.Create(fallbackTexture, new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
             fallbackSprite.hideFlags = HideFlags.HideAndDontSave;
-            player = Create("Fixed test player", 20); boss = Create("Emitter", 10);
+            if (showActors) { player = Create("Fixed test player", 20); boss = Create("Emitter", 10); }
             batches = new DanmakuSpriteBatch(root, fallbackSprite);
         }
 
@@ -44,9 +44,20 @@ namespace TapTap.Danmaku
         public void Sync(DanmakuSimulation simulation, DanmakuSequence sequence)
         {
             batches.Sync(simulation, sequence);
-            Setup(player, sequence.PlayerSprite, Color.white, 0.22f, sequence.PlayerPosition, 0);
-            Setup(boss, sequence.BossSprite, new Color(1, 0.8f, 0.25f), 0.42f,
+            if (player) Setup(player, sequence.PreviewSprite, Color.white,
+                sequence.PreviewPlayerConfig ? sequence.PreviewPlayerConfig.VisualSize : 0.22f,
+                DanmakuSimulation.ToVector(simulation.PlayerState.Position), 0);
+            if (boss) Setup(boss, sequence.BossSprite, new Color(1, 0.8f, 0.25f), 0.42f,
                 sequence.Clips.Count > 0 ? simulation.EmitterPosition(0) : new Vector2(0, 3), 0);
+        }
+
+        public void Sync(BattleSimulation battle, BattleConfig config)
+        {
+            batches.Sync(battle.World, config.Sequence);
+            if (player) Setup(player, config.Player.Sprite, Color.white, config.Player.VisualSize,
+                DanmakuSimulation.ToVector(battle.Player.Pose.Position), 0);
+            if (boss) Setup(boss, config.Sequence.BossSprite, new Color(1, 0.8f, 0.25f), 0.8f,
+                DanmakuSimulation.ToVector(battle.Boss.Pose.Position), 0);
         }
 
         private void Setup(SpriteRenderer view, Sprite sprite, Color color, float size, Vector2 position, float angle)

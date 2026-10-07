@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92ca67d64d74c044c9f52455e2f8c9e0, type: 3}
+  m_Name: SpreadWeapon
+  m_EditorClassIdentifier: 
+  Mode: 1
+  FireRate: 2.5
+  MuzzleOffset: {x: 0, y: 0.2}
+  Emission:
+    Shape: 1
+    Count: 5
+    IntervalTicks: 30
+    DirectionDegrees: -90
+    ArcDegrees: 30
+    SpawnRadius: 0
+    AimAtPlayer: 0
+    RotationDegreesPerSecond: 0
+    AlternatePhaseDegrees: 0
+    Speed: 6
+    SpeedLayers: 1
+    SpeedLayerDelta: 0.4
+    RandomAngleDegrees: 0
+    SegmentStart: {x: -3, y: 0}
+    SegmentEnd: {x: 3, y: 0}
+  Projectile: {fileID: 11400000, guid: edb7a6f906c7caf49aab509efcd102dc, type: 2}

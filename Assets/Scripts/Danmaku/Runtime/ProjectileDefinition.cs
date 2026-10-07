@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace TapTap.Danmaku
 {
+    public enum ProjectileDamageSource { Explicit, ConfigId }
     [Serializable]
     public sealed class ProjectileSettings
     {
@@ -13,6 +14,8 @@ namespace TapTap.Danmaku
         [Min(1)] public int DurationTicks = 240;
         [Min(1)] public int HitCount = 1;
         public int DamageConfigId;
+        public ProjectileDamageSource DamageSource;
+        [Min(0)] public float Damage = 1;
         public int[] TargetBuffIds = Array.Empty<int>();
         [Tooltip("0 禁用；以子弹出生年龄触发。清弹和越界不触发分裂。")]
         [Min(0)] public int SplitAgeTicks;

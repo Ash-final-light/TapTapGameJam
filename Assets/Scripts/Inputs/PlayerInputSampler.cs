@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TapTap.Danmaku;
 
 namespace Inputs
 {
@@ -42,6 +43,13 @@ namespace Inputs
         }
 
         public InputSnapshot ConsumeTick() => buffer.ConsumeTick();
+        public BattleInput ConsumeBattleTick(Camera camera, Transform field)
+        {
+            var action = Manager.GetInputAction(InputConstants.Aim);
+            var input = buffer.ConsumeTick();
+            if (action == null || !action.enabled) return new BattleInput(input, default, false);
+            return BattleInputProjection.Project(input, action.ReadValue<Vector2>(), camera, field);
+        }
         public void DiscardButtons() => buffer.DiscardButtons();
         // Avoid On<Action> names: PlayerInput's default Send Messages uses those with InputValue.
         private void BufferBomb(InputAction.CallbackContext context) => buffer.QueueBomb();

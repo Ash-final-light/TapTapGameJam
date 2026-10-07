@@ -41,6 +41,7 @@ namespace TapTap.Danmaku.Editor
                 bullet.Settings.Sprite = AssetDatabase.LoadAssetAtPath<Sprite>(spritePath);
                 EditorUtility.SetDirty(bullet);
             }
+            var playerConfig = CreatePlayerConfig();
             var presets = new EmissionPreset[8];
             for (int i = 0; i < presets.Length; i++)
             {
@@ -67,7 +68,7 @@ namespace TapTap.Danmaku.Editor
             if (!sequence)
             {
                 sequence = DanmakuSequence.CreateExample(); sequence.name = "BossExample";
-                sequence.PlayerSprite = bullet.Settings.Sprite; sequence.BossSprite = bullet.Settings.Sprite;
+                sequence.PreviewPlayerConfig = playerConfig; sequence.BossSprite = bullet.Settings.Sprite;
                 int[] kinds = { (int)BuiltinPattern.Ring, (int)BuiltinPattern.AimedFan, (int)BuiltinPattern.Split };
                 for (int i = 0; i < sequence.Clips.Count; i++)
                 {
@@ -90,6 +91,21 @@ namespace TapTap.Danmaku.Editor
             if (asset) return asset;
             asset = ScriptableObject.CreateInstance<T>(); asset.name = name;
             AssetDatabase.CreateAsset(asset, path); return asset;
+        }
+
+        [MenuItem("Tools/Danmaku/创建玩家配置示例")]
+        public static void CreatePlayerConfigMenu() => Selection.activeObject = CreatePlayerConfig();
+
+        public static DanmakuPlayerConfig CreatePlayerConfig()
+        {
+            const string path = "Assets/Inputs/DefaultPlayer.asset";
+            Directory.CreateDirectory("Assets/Inputs"); AssetDatabase.Refresh();
+            var config = AssetDatabase.LoadAssetAtPath<DanmakuPlayerConfig>(path);
+            if (config) return config;
+            config = ScriptableObject.CreateInstance<DanmakuPlayerConfig>(); config.name = "DefaultPlayer";
+            config.Sprite = AssetDatabase.LoadAssetAtPath<Sprite>(Root + "/BulletCircle.png");
+            AssetDatabase.CreateAsset(config, path); AssetDatabase.SaveAssets();
+            return config;
         }
 
         [MenuItem("GameObject/Danmaku/Sequence Player", false, 10)]

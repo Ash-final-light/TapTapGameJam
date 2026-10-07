@@ -131,7 +131,7 @@ namespace TapTap.Danmaku.Editor
             var s = Fixture();
             try
             {
-                s.CollisionEnabled = true; s.PlayerPosition = Vector2.zero;
+                s.CollisionEnabled = true; s.PreviewPlayerPosition = Vector2.zero;
                 var clip = s.Clips[0]; clip.EmitterPosition = Vector2.zero;
                 clip.DurationTicks = 1; clip.Emission.Speed = 0; clip.ProjectileOverride.HitCount = 2;
                 clip.ProjectileOverride.DamageConfigId = 123;

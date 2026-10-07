@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Inputs;
+using TapTap.Danmaku;
 
 namespace TapTap.Systems
 {
@@ -85,6 +87,15 @@ namespace TapTap.Systems
         {
             Commands.Clear(); heldSeconds = 0;
             if (selectionHeld) { selectionHeld = false; SelectionHeldChanged?.Invoke(false); }
+        }
+        public BattleInput CaptureBattle(Camera camera, Transform field)
+        {
+            if (!GameplayEnabled) return default;
+            // Read the same runtime actions used by BindingService; never instantiate a second asset.
+            int axis = (gameplay.FindAction("Right", true).IsPressed() ? 1 : 0) - (gameplay.FindAction("Left", true).IsPressed() ? 1 : 0);
+            var input = new InputSnapshot((short)(axis * short.MaxValue), 0, fireHeld: gameplay.FindAction("Fire", true).IsPressed());
+            var point = gameplay.FindAction("Aim", true).ReadValue<Vector2>();
+            return BattleInputProjection.Project(input, point, camera, field);
         }
         public void Dispose()
         {

@@ -108,6 +108,8 @@ namespace TapTap.Systems.Editor
             var game=new InputActionMap("Gameplay");asset.AddActionMap(game);
             for(int i=0;i<SpotlightActions.Names.Length;i++)game.AddAction(SpotlightActions.Names[i],InputActionType.Button,SpotlightActions.DefaultPaths[i],expectedControlLayout:"Button");
             game.AddAction("Pause",InputActionType.Button,"<Keyboard>/escape");
+            game.AddAction("Fire",InputActionType.Button,"<Mouse>/leftButton",expectedControlLayout:"Button");
+            game.AddAction("Aim",InputActionType.Value,"<Mouse>/position",expectedControlLayout:"Vector2");
             for(int i=0;i<10;i++)game.AddAction("Slot"+i,InputActionType.Button,"<Keyboard>/"+(i==9?"0":(i+1).ToString()));
             var ui=new InputActionMap("UI");asset.AddActionMap(ui);
             ui.AddAction("Navigate",InputActionType.Value,expectedControlLayout:"Vector2").AddCompositeBinding("2DVector")

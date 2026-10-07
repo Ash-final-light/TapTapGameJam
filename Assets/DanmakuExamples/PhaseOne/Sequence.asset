@@ -1,0 +1,174 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5063235f47a9b2459c8924f0169f6e3, type: 3}
+  m_Name: Sequence
+  m_EditorClassIdentifier: 
+  DurationTicks: 13619
+  MaxActiveBullets: 256
+  MaxSplitDepth: 2
+  RandomSeed: 12345
+  Music: {fileID: 8300000, guid: 7fc77a32120835d409041397d4855cf7, type: 3}
+  MusicAnalysis: {fileID: 11400000, guid: 1c91dc64bb8832e4ab8fe1226b0310de, type: 2}
+  MusicAnalysisSettings:
+    WindowSize: 2048
+    HopSize: 512
+    ThresholdMultiplier: 1.5
+    MinimumIntervalSeconds: 0.12
+    LowBand: {x: 40, y: 250}
+    MidBand: {x: 250, y: 2000}
+    HighBand: {x: 2000, y: 10000}
+  MusicStartSeconds: 0
+  FieldSize: {x: 9, y: 11}
+  PreviewPlayerPosition: {x: 0, y: -4}
+  PreviewPlayerConfig: {fileID: 11400000, guid: 545978436d8e82748aa44308d81723b6, type: 2}
+  BossSprite: {fileID: 0}
+  CollisionEnabled: 1
+  ClearAtEnd: 1
+  Clips:
+  - Id: a6a1cca897d84cfc91b5a31814645315
+    Name: "\u73AF\u5F62\u6269\u6563"
+    StartTick: 0
+    DurationTicks: 240
+    Muted: 0
+    EmitterPosition: {x: 0, y: 3}
+    EmitterEndPosition: {x: 0, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 0}
+    OverrideEmission: 1
+    Emission:
+      Shape: 2
+      Count: 12
+      IntervalTicks: 45
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 2
+      SpeedLayers: 1
+      SpeedLayerDelta: 0.4
+      RandomAngleDegrees: 0
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+    Projectile: {fileID: 0}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 0.35, g: 0.7, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      DurationTicks: 180
+      HitCount: 1
+      DamageConfigId: 0
+      DamageSource: 0
+      Damage: 1
+      TargetBuffIds: 
+      SplitAgeTicks: 0
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: dbd7365036f048e6b00fe88cbed3a5b2
+    Name: "\u81EA\u673A\u72D9"
+    StartTick: 120
+    DurationTicks: 240
+    Muted: 0
+    EmitterPosition: {x: 0, y: 3}
+    EmitterEndPosition: {x: 0, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 0}
+    OverrideEmission: 1
+    Emission:
+      Shape: 1
+      Count: 5
+      IntervalTicks: 36
+      DirectionDegrees: 0
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 1
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 2
+      SpeedLayers: 1
+      SpeedLayerDelta: 0.4
+      RandomAngleDegrees: 0
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+    Projectile: {fileID: 0}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 0.45, b: 0.4, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      DurationTicks: 180
+      HitCount: 1
+      DamageConfigId: 0
+      DamageSource: 0
+      Damage: 1
+      TargetBuffIds: 
+      SplitAgeTicks: 0
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: cb25f32546c14a1aae9fb3b3659de9d4
+    Name: "\u5B50\u6BCD\u5F39"
+    StartTick: 300
+    DurationTicks: 120
+    Muted: 0
+    EmitterPosition: {x: 0, y: 3}
+    EmitterEndPosition: {x: 0, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 0}
+    OverrideEmission: 1
+    Emission:
+      Shape: 1
+      Count: 3
+      IntervalTicks: 90
+      DirectionDegrees: -90
+      ArcDegrees: 50
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 1.5
+      SpeedLayers: 1
+      SpeedLayerDelta: 0.4
+      RandomAngleDegrees: 0
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+    Projectile: {fileID: 0}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 0.75, g: 0.5, b: 1, a: 1}
+      VisualSize: 0.28
+      HitRadius: 0.06
+      DurationTicks: 180
+      HitCount: 1
+      DamageConfigId: 0
+      DamageSource: 0
+      Damage: 1
+      TargetBuffIds: 
+      SplitAgeTicks: 60
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  Events:
+  - Tick: 270
+    Type: 0
+    Label: "\u5B50\u6BCD\u5F39\u9884\u8B66"
+    DurationTicks: 30
+    ClipIndex: 2
