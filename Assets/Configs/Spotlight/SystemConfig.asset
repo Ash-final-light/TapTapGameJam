@@ -17,6 +17,24 @@ MonoBehaviour:
   LoadingTips: {fileID: 11400000, guid: 2870954f1a7b218439c6bf03e74a94ce, type: 2}
   Controls: {fileID: -944628639613478452, guid: 8bc362d23871cae4393ad39f1cbc75cc, type: 3}
   UIPrefab: {fileID: 2177213604592188000, guid: 6758b00bee3598745a74830b256d3475, type: 3}
+  Songs: {fileID: 11400000, guid: 134a8d65485ef3f4986dafa3dd6b90cd, type: 2}
+  Weapons:
+  - {fileID: 11400000, guid: 610d2d2d9b13fa0489ce609101f5d2dd, type: 2}
+  - {fileID: 11400000, guid: 3ae2c344dfea2f449b8418f170a3b9f9, type: 2}
+  Items:
+  - {fileID: 11400000, guid: 734f0a69f6562394a8f8b0dd9a984763, type: 2}
+  - {fileID: 11400000, guid: c71b865f4c30e5b418cff1c2117b40da, type: 2}
+  - {fileID: 11400000, guid: 6d236b408bc4aa5448fb1fdea0a0fcf7, type: 2}
+  - {fileID: 11400000, guid: 15361cacfb7efad45bb9d6077aea0cd5, type: 2}
+  - {fileID: 11400000, guid: 722b517061262e348b3a4a31e9ceea73, type: 2}
+  - {fileID: 11400000, guid: 8c34bc885122c0f4a8d92f2be44c5603, type: 2}
+  ItemSlotCount: 3
+  Drops: {fileID: 11400000, guid: 49ffb897d68e37b4998689da366d1459, type: 2}
+  ScoreFormulas:
+  - {fileID: 11400000, guid: 208eead7910ec6a40996b912ac00ce98, type: 2}
+  - {fileID: 11400000, guid: 8725756de023fbb478c0f3bf58a33a26, type: 2}
+  - {fileID: 11400000, guid: 4d77c5144a113264b89274217e612d83, type: 2}
+  - {fileID: 11400000, guid: 2512a9c76c97808449b15733eabf4c11, type: 2}
   SaveFolder: Spotlight
   TitleScene: Assets/Scenes/Title.unity
   LoadingScene: Assets/Scenes/Loading.unity

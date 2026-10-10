@@ -1,0 +1,4 @@
+#if UNITY_EDITOR
+// Editor validations exercise the same fixed-tick internals as the runtime.
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Assembly-CSharp-Editor")]
+#endif

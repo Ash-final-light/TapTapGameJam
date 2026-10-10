@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162bbbd40771f404687e42166f6038d0, type: 3}
+  m_Name: Remembrance
+  m_EditorClassIdentifier: 
+  Id: remembrance
+  Title: VISUAL ARTS , Key - Remembrance
+  Subtitle: "\u805A\u5149\u706F \xB7 \u6F14\u51FA\u66F2\u76EE"
+  Artist: VISUAL ARTS / Key
+  Cover: {fileID: 21300000, guid: ff9f7862f5a2ecc4f97fd0bae8fe3c4d, type: 3}
+  Difficulties:
+  - Difficulty: 0
+    Enabled: 1
+    LevelEntryId: tutorial
+    Battle: {fileID: 11400000, guid: c161e67cfd5acda419db2a2f84cd92f2, type: 2}
+    Rating: {fileID: 11400000, guid: 0c774880e034cea45b964c3e9ee7d5e2, type: 2}
+  - Difficulty: 1
+    Enabled: 0
+    LevelEntryId: tutorial
+    Battle: {fileID: 0}
+    Rating: {fileID: 11400000, guid: 0c774880e034cea45b964c3e9ee7d5e2, type: 2}
+  - Difficulty: 2
+    Enabled: 0
+    LevelEntryId: tutorial
+    Battle: {fileID: 0}
+    Rating: {fileID: 11400000, guid: 0c774880e034cea45b964c3e9ee7d5e2, type: 2}
