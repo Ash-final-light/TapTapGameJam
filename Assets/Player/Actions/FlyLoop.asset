@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99cd9c98ddb3ac742acb73b16a95c76b, type: 3}
+  m_Name: FlyLoop
+  m_EditorClassIdentifier: 
+  SchemaVersion: 1
+  StableId: ece3e635432e4c82a0e18921d4a6d0f7
+  DisplayName: FlyLoop
+  DurationTicks: 60
+  ActionKind: 0
+  EndMode: 10
+  ActiveStartTick: -1
+  RecoveryStartTick: -1
+  DefaultAllowFire: 1
+  DefaultTransitions: 0
+  StaminaCost: 0
+  CooldownTicks: 0
+  Nodes:
+  - Id: 266159461e3842478b42ebe93ed78574
+    Name: Spine Jump
+    Kind: 0
+    StartTick: 0
+    EndTick: 60
+    Order: 0
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: Jump
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 1
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 0
+    Conditions: 
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 0}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1

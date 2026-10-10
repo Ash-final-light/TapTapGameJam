@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99cd9c98ddb3ac742acb73b16a95c76b, type: 3}
+  m_Name: Idle
+  m_EditorClassIdentifier: 
+  SchemaVersion: 1
+  StableId: 99fc1e0f82504efd9016780f39254caf
+  DisplayName: Idle
+  DurationTicks: 60
+  ActionKind: 0
+  EndMode: 10
+  ActiveStartTick: -1
+  RecoveryStartTick: -1
+  DefaultAllowFire: 1
+  DefaultTransitions: 0
+  StaminaCost: 0
+  CooldownTicks: 0
+  Nodes:
+  - Id: f8271a9f45a04a10ac48f3463c2b7b4c
+    Name: Spine Standby
+    Kind: 0
+    StartTick: 0
+    EndTick: 60
+    Order: 0
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: Standby
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 1
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 0
+    Conditions: 
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 0}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1

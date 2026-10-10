@@ -1,0 +1,189 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99cd9c98ddb3ac742acb73b16a95c76b, type: 3}
+  m_Name: Dash
+  m_EditorClassIdentifier: 
+  SchemaVersion: 1
+  StableId: cdac445a98db4b9aa96d08b3ecf91bf2
+  DisplayName: Dash
+  DurationTicks: 24
+  ActionKind: 20
+  EndMode: 0
+  ActiveStartTick: 3
+  RecoveryStartTick: 15
+  DefaultAllowFire: 0
+  DefaultTransitions: 0
+  StaminaCost: 0
+  CooldownTicks: 24
+  Nodes:
+  - Id: 74ce669eb1924765a6a87817a2156a14
+    Name: Spine Jump
+    Kind: 0
+    StartTick: 0
+    EndTick: 24
+    Order: 0
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: Jump
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 0
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 0
+    Conditions: 
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 0}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1
+  - Id: 2fe6872514134043a8b55937a664cc1b
+    Name: "\u9501\u5B9A\u65B9\u5411\u51B2\u523A"
+    Kind: 10
+    StartTick: 3
+    EndTick: 15
+    Order: 0
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: 
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 0
+    Motion: 10
+    SpeedScale: 1
+    AllowedIntents: 0
+    Conditions: 
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 0}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1
+  - Id: 4a66b9da5f374e1a896ca6942d96c90f
+    Name: "\u51B2\u523A\u65E0\u654C"
+    Kind: 20
+    StartTick: 3
+    EndTick: 15
+    Order: 0
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: 
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 0
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 0
+    Conditions: 
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 0}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1
+  - Id: af659f6d057f43a1bffc1766fb4e1d8a
+    Name: "\u5141\u8BB8\u63A5\u98DE\u884C"
+    Kind: 30
+    StartTick: 12
+    EndTick: 24
+    Order: 0
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: 
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 0
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 8
+    Conditions: 00000000140000001e00000028000000
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 0}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1
+  - Id: d4daa21dcb17405e9efd572008a7c218
+    Name: "\u63D0\u793A\u97F3"
+    Kind: 60
+    StartTick: 0
+    EndTick: 1
+    Order: 100
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: 
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 0
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 0
+    Conditions: 
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 8300000, guid: 9be5e61431e288f4dbfbf6a311404ca5, type: 3}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1
+  - Id: 2ca8823192894613949e87661b87a719
+    Name: "\u51B2\u523A\u6B8B\u5F71"
+    Kind: 70
+    StartTick: 3
+    EndTick: 15
+    Order: 0
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: 
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 0
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 0
+    Conditions: 
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 0}
+    Volume: 1
+    Effect: {fileID: 8562352932008734387, guid: 68ac4d20a9f86524b83e0534051a0aaf, type: 3}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1

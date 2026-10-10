@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Inputs;
 using TapTap.Danmaku;
+using TapTap.Player;
 
 namespace TapTap.Systems
 {
@@ -96,6 +97,24 @@ namespace TapTap.Systems
             var input = new InputSnapshot((short)(axis * short.MaxValue), 0, fireHeld: gameplay.FindAction("Fire", true).IsPressed());
             var point = gameplay.FindAction("Aim", true).ReadValue<Vector2>();
             return BattleInputProjection.Project(input, point, camera, field);
+        }
+        public PlayerTickInput CapturePlayerTick()
+        {
+            if (!GameplayEnabled) { Commands.Clear(); return default; }
+            PlayerButtonEdges edges = 0;
+            while (Commands.TryConsume(out var command)) edges |= command switch
+            {
+                GameplayCommand.JumpPressed => PlayerButtonEdges.JumpPressed,
+                GameplayCommand.JumpReleased => PlayerButtonEdges.JumpReleased,
+                GameplayCommand.Dodge => PlayerButtonEdges.Dash,
+                GameplayCommand.Skill1 => PlayerButtonEdges.Skill1,
+                GameplayCommand.Skill2 => PlayerButtonEdges.Skill2,
+                GameplayCommand.UseItem => PlayerButtonEdges.UseItem,
+                _ => PlayerButtonEdges.None,
+            };
+            int axis = (gameplay.FindAction("Right", true).IsPressed() ? 1 : 0) - (gameplay.FindAction("Left", true).IsPressed() ? 1 : 0);
+            return new PlayerTickInput((short)(axis * short.MaxValue), gameplay.FindAction("JumpFly", true).IsPressed(),
+                gameplay.FindAction("Fire", true).IsPressed(), edges);
         }
         public void Dispose()
         {

@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99cd9c98ddb3ac742acb73b16a95c76b, type: 3}
+  m_Name: Skill1
+  m_EditorClassIdentifier: 
+  SchemaVersion: 1
+  StableId: e411f672a8064d30a7d71a2528a58c24
+  DisplayName: Skill1
+  DurationTicks: 30
+  ActionKind: 30
+  EndMode: 0
+  ActiveStartTick: 6
+  RecoveryStartTick: 18
+  DefaultAllowFire: 0
+  DefaultTransitions: 0
+  StaminaCost: 0
+  CooldownTicks: 60
+  Nodes:
+  - Id: 1e040e099f024f67ae526b11e7a02529
+    Name: Spine RoadHitGreat1
+    Kind: 0
+    StartTick: 0
+    EndTick: 30
+    Order: 0
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: RoadHitGreat1
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 0
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 0
+    Conditions: 
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 0}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1
+  - Id: f0e7844112af45398886cb80e6f2f029
+    Name: "\u6280\u80FD\u53D1\u5C04"
+    Kind: 50
+    StartTick: 6
+    EndTick: 1
+    Order: 0
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: 
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 0
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 0
+    Conditions: 
+    AllowFire: 0
+    Event: 30
+    Projectile: {fileID: 11400000, guid: 278ab59cd9ccfa7499255f97b25cb7f0, type: 2}
+    ProjectileSpeed: 12
+    Audio: {fileID: 0}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1
+  - Id: 66bbd972905545b99ecef90a7a639334
+    Name: "\u540E\u6447\u53EF\u51B2\u523A"
+    Kind: 30
+    StartTick: 18
+    EndTick: 30
+    Order: 0
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: 
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 0
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 2
+    Conditions: 
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 0}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1
+  - Id: ef4daaeed7b045c1963d7f74eca4295d
+    Name: "\u63D0\u793A\u97F3"
+    Kind: 60
+    StartTick: 0
+    EndTick: 1
+    Order: 100
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: 
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 0
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 0
+    Conditions: 
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 8300000, guid: bb9d51c3181068949983b6a558208fef, type: 3}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1

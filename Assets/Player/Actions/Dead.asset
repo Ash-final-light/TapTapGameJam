@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99cd9c98ddb3ac742acb73b16a95c76b, type: 3}
+  m_Name: Dead
+  m_EditorClassIdentifier: 
+  SchemaVersion: 1
+  StableId: b82caa66fa4745109598faa2044d2f43
+  DisplayName: Dead
+  DurationTicks: 150
+  ActionKind: 60
+  EndMode: 20
+  ActiveStartTick: -1
+  RecoveryStartTick: -1
+  DefaultAllowFire: 0
+  DefaultTransitions: 0
+  StaminaCost: 0
+  CooldownTicks: 0
+  Nodes:
+  - Id: a774b6854e744e8ba0ba734bd661e54a
+    Name: Spine Die
+    Kind: 0
+    StartTick: 0
+    EndTick: 150
+    Order: 0
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: Die
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 0
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 0
+    Conditions: 
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 0}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1
+  - Id: 8aa62883663a4a73a06778273e513dbe
+    Name: "\u7981\u6B62\u79FB\u52A8"
+    Kind: 10
+    StartTick: 0
+    EndTick: 150
+    Order: 0
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: 
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 0
+    Motion: 30
+    SpeedScale: 1
+    AllowedIntents: 0
+    Conditions: 
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 0}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1
+  - Id: 02c77cc029a64e7d9208c05b1e0ff26e
+    Name: "\u63D0\u793A\u97F3"
+    Kind: 60
+    StartTick: 0
+    EndTick: 1
+    Order: 100
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: 
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 0
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 0
+    Conditions: 
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 8300000, guid: 4d355025ca1a43a40bc8a3e1efff11d7, type: 3}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1
