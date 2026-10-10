@@ -400,6 +400,7 @@ namespace TapTap.Danmaku.Editor
                     Undo.RecordObject(sequence, "约束时间轴参数"); ClampTimeline();
                     EditorUtility.SetDirty(sequence); Rebuild();
                 }
+                ApplyPendingKeyframeDeletion();
                 if (selected >= 0 && selected < sequence.Clips.Count)
                 {
                     using (new EditorGUILayout.HorizontalScope())
@@ -603,8 +604,8 @@ namespace TapTap.Danmaku.Editor
             var e = Event.current;
             if (e.type != EventType.KeyDown || EditorGUIUtility.editingTextField) return;
             if (e.keyCode == KeyCode.Space) { TogglePlay(); e.Use(); }
-            else if (e.keyCode == KeyCode.Delete) { if (SelectedKeyframe() != null) DeleteKeyframe(); else Delete(); e.Use(); }
-            else if (e.keyCode == KeyCode.D && e.control) { if (SelectedKeyframe() != null) CopyKeyframe(); else Duplicate(); e.Use(); }
+            else if (e.keyCode == KeyCode.Delete) { DeleteSelection(); e.Use(); }
+            else if (e.keyCode == KeyCode.D && e.control) { if (!string.IsNullOrEmpty(selectedKey)) CopyKeyframe(); else Duplicate(); e.Use(); }
             else if (e.keyCode == KeyCode.LeftArrow) { playing = false; Seek(currentTick - 1); e.Use(); }
             else if (e.keyCode == KeyCode.RightArrow) { playing = false; Seek(currentTick + 1); e.Use(); }
         }

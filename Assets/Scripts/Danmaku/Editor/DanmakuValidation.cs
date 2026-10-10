@@ -252,10 +252,24 @@ namespace TapTap.Danmaku.Editor
                 Undo.FlushUndoRecordObjects(); Undo.IncrementCurrentGroup();
                 Invoke("DeleteKeyframe"); Undo.FlushUndoRecordObjects();
                 Assert(s.Clips[0].Keyframes.Count == 1, "Delete keyframe failed");
+                Invoke("DeleteSelection"); Invoke("DeleteSelection");
+                Assert(s.Clips.Count == 1 && s.Clips[0].Keyframes.Count == 1, "Repeated Delete fell through to clip deletion");
                 Undo.PerformUndo(); Assert(s.Clips[0].Keyframes.Count == 2, "Undo keyframe deletion failed");
                 Undo.PerformRedo(); Assert(s.Clips[0].Keyframes.Count == 1, "Redo keyframe deletion failed");
                 Invoke("Duplicate");
                 Assert(s.Clips.Count == 2 && s.Clips[0].Keyframes[0].Id != s.Clips[1].Keyframes[0].Id, "Clip duplication shares keyframe identity");
+                string originalKey = s.Clips[0].Keyframes[0].Id, copiedKey = s.Clips[1].Keyframes[0].Id;
+                Set("selected", 0); Set("selectedKey", originalKey);
+                Invoke("DeleteKeyframeById", s.Clips[1].Id, copiedKey);
+                Invoke("DeleteKeyframeById", s.Clips[1].Id, copiedKey);
+                Assert(s.Clips[0].Keyframes.Count == 1 && s.Clips[1].Keyframes.Count == 0 &&
+                    (string)typeof(DanmakuEditorWindow).GetField("selectedKey", flags).GetValue(window) == originalKey,
+                    "Context deletion followed selection instead of captured target");
+                Invoke("AddKeyframe", 1, DanmakuKeyframeType.Emit, 3);
+                Set("pendingDeleteClip", s.Clips[0].Id); Set("pendingDeleteKey", originalKey);
+                Invoke("ApplyPendingKeyframeDeletion");
+                Assert(s.Clips.Count == 2 && s.Clips[0].Keyframes.Count == 0 && s.Clips[1].Keyframes.Count == 1,
+                    "Inspector deletion removed another key or its clip");
                 Invoke("AddBuiltin", BuiltinPattern.Split, 100);
                 Invoke("AddKeyframe", 2, DanmakuKeyframeType.Emit, 0);
                 Invoke("AddKeyframe", 2, DanmakuKeyframeType.Emit, 5);

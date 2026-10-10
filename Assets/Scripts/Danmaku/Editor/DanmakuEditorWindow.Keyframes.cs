@@ -9,6 +9,7 @@ namespace TapTap.Danmaku.Editor
         [SerializeField] private string selectedKey;
         private int generateStart, generateInterval = 30, generateCount = 4;
         private bool generateOpen;
+        private string pendingDeleteClip, pendingDeleteKey;
 
         private DanmakuKeyframe SelectedKeyframe() => selected >= 0 && selected < sequence.Clips.Count
             ? sequence.Clips[selected].Keyframes.Find(k => k.Id == selectedKey) : null;
@@ -28,8 +29,39 @@ namespace TapTap.Danmaku.Editor
         private void DeleteKeyframe()
         {
             var key = SelectedKeyframe(); if (key == null) return;
+            DeleteKeyframeById(sequence.Clips[selected].Id, key.Id);
+        }
+
+        private void DeleteKeyframeById(string clipId, string keyId)
+        {
+            int index = sequence.Clips.FindIndex(c => c.Id == clipId);
+            if (index < 0) return;
+            var clip = sequence.Clips[index];
+            var key = clip.Keyframes.Find(k => k.Id == keyId);
+            if (key == null) return;
             Undo.RecordObject(sequence, "删除弹幕关键帧");
-            sequence.Clips[selected].Keyframes.Remove(key); selectedKey = null; KeyframesChanged();
+            clip.Keyframes.Remove(key);
+            if (selected == index && selectedKey == keyId)
+            {
+                // Keep the key selection identity so a repeated Delete cannot delete the clip.
+                if (dragIndex == index && dragMode == 2)
+                { dragIndex = -1; if (GUIUtility.hotControl == dragControl) GUIUtility.hotControl = 0; }
+            }
+            KeyframesChanged();
+        }
+
+        private void DeleteSelection()
+        {
+            if (!string.IsNullOrEmpty(selectedKey)) DeleteKeyframe();
+            else Delete();
+        }
+
+        private void ApplyPendingKeyframeDeletion()
+        {
+            if (pendingDeleteKey == null) return;
+            string clipId = pendingDeleteClip, keyId = pendingDeleteKey;
+            pendingDeleteClip = pendingDeleteKey = null;
+            DeleteKeyframeById(clipId, keyId);
         }
 
         private void CopyKeyframe()
@@ -51,7 +83,17 @@ namespace TapTap.Danmaku.Editor
             if (clip.Keyframes.Count == 0) GUILayout.Label("没有发射点，此片段不会发射。", EditorStyles.miniLabel);
             var property = clipProperty.FindPropertyRelative("Keyframes");
             foreach (var key in clip.Keyframes.OrderBy(k => k.LocalTick))
-                if (GUILayout.Toggle(selectedKey == key.Id, $"{(key.Type == DanmakuKeyframeType.Emit ? "发射" : "分裂")} · {key.LocalTick} Tick / {key.LocalTick / 60f:0.###} 秒", EditorStyles.miniButton)) selectedKey = key.Id;
+            {
+                using (new EditorGUILayout.HorizontalScope())
+                {
+                    if (GUILayout.Toggle(selectedKey == key.Id, $"{(key.Type == DanmakuKeyframeType.Emit ? "发射" : "分裂")} · {key.LocalTick} Tick / {key.LocalTick / 60f:0.###} 秒", EditorStyles.miniButton)) selectedKey = key.Id;
+                    if (GUILayout.Button(new GUIContent("删除", "仅删除这一关键帧，保留片段及其他关键帧；可撤销。"), EditorStyles.miniButton, GUILayout.Width(40)))
+                    {
+                        // Apply only after the Inspector commits its serialized snapshot.
+                        selectedKey = key.Id; pendingDeleteClip = clip.Id; pendingDeleteKey = key.Id;
+                    }
+                }
+            }
             int index = clip.Keyframes.FindIndex(k => k.Id == selectedKey);
             if (index >= 0)
             {
@@ -134,7 +176,8 @@ namespace TapTap.Danmaku.Editor
                 menu.AddItem(new GUIContent("编辑此关键帧"), false, Repaint);
                 if (DanmakuKeyframeEditing.CanAdd(clip, hovered.Type)) menu.AddItem(new GUIContent("复制到播放头"), false, CopyKeyframe);
                 else menu.AddDisabledItem(new GUIContent("子母弹仅允许一次发射／分裂"));
-                menu.AddItem(new GUIContent("删除此关键帧"), false, DeleteKeyframe); menu.AddSeparator("");
+                string clipId = clip.Id, keyId = hovered.Id;
+                menu.AddItem(new GUIContent("删除此关键帧"), false, () => DeleteKeyframeById(clipId, keyId)); menu.AddSeparator("");
             }
             else selectedKey = null;
             if (DanmakuKeyframeEditing.CanAdd(clip, DanmakuKeyframeType.Emit))
