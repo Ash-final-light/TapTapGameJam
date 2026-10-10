@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5063235f47a9b2459c8924f0169f6e3, type: 3}
   m_Name: BossSequence
   m_EditorClassIdentifier: 
-  DurationTicks: 650
+  DurationTicks: 480
   MaxActiveBullets: 256
   RandomSeed: 12345
   Music: {fileID: 8300000, guid: 7fc77a32120835d409041397d4855cf7, type: 3}
-  MusicAnalysis: {fileID: 11400000, guid: e1cd430e88e555d469905ef91f52a445, type: 2}
+  MusicAnalysis: {fileID: 11400000, guid: e6c28a1111b08e342bc9f83986f646c1, type: 2}
   MusicAnalysisSettings:
     WindowSize: 2048
     HopSize: 512
@@ -33,36 +33,36 @@ MonoBehaviour:
   CollisionEnabled: 1
   ClearAtEnd: 1
   Clips:
-  - Id: bcfa3893c8b34695af8b8b6a8a71844d
+  - Id: 7dba4a66f05a471196541379cb17f9f3
     Name: "\u73AF\u5F62\u6269\u6563"
     StartTick: 0
     DurationTicks: 240
     Muted: 0
     Pattern: 3
     Keyframes:
-    - Id: 4f985b74ee7f4b0fa84588d7cbc9e30c
-      LocalTick: 0
+    - Id: a6ab2443f722487fb28ac81290599677
+      LocalTick: 213
       Type: 0
-    - Id: f2586f60a1734fae9f4ee58a568038ed
-      LocalTick: 45
+    - Id: ab542f32028e4400b3cde5dc10c860b6
+      LocalTick: 65
       Type: 0
-    - Id: 90bb8c38f53e4c138c43f874175cb85c
-      LocalTick: 90
+    - Id: bc65e4eafd4c4efa93de351328052b12
+      LocalTick: 107
       Type: 0
-    - Id: fb49947d8ce64f1db59da31c46519b8b
-      LocalTick: 135
+    - Id: 6284c7c0fbb047f58ff829d3b87e30ea
+      LocalTick: 87
       Type: 0
-    - Id: 41c7b96531d143479c98cce2eb04a0f8
+    - Id: 6b5c0c528c9947069481608e6bcc4b73
       LocalTick: 180
       Type: 0
-    - Id: 30b26d23edb34efb9713b69658ebd7b6
+    - Id: fa7d94a656de40a3b45313618d79873f
       LocalTick: 225
       Type: 0
     EmitterPosition: {x: 0, y: 3}
     EmitterEndPosition: {x: 0, y: 3}
     MoveEmitter: 0
-    Preset: {fileID: 11400000, guid: 95ba95d7099976e4d801c217875f6a98, type: 2}
-    OverrideEmission: 0
+    Preset: {fileID: 0}
+    OverrideEmission: 1
     Emission:
       Shape: 2
       Count: 12
@@ -72,19 +72,29 @@ MonoBehaviour:
       AimAtPlayer: 0
       RotationDegreesPerSecond: 0
       AlternatePhaseDegrees: 0
-      Speed: 2
+      Speed: 10
       SpeedLayers: 1
       SpeedLayerDelta: 0.4
       RandomAngleDegrees: 0
       SegmentStart: {x: -3, y: 0}
       SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
     Projectile: {fileID: 0}
-    OverrideProjectile: 1
+    OverrideProjectile: 0
     ProjectileOverride:
-      Sprite: {fileID: 21300000, guid: 631849cd504b1b04abb3b06ab6136ef1, type: 3}
+      Sprite: {fileID: 0}
       Color: {r: 0.35, g: 0.7, b: 1, a: 1}
       VisualSize: 0.18
       HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
       DurationTicks: 180
       HitCount: 1
       DamageConfigId: 0
@@ -95,39 +105,39 @@ MonoBehaviour:
       SplitCount: 8
       SplitSpeed: 2.5
       InheritDirection: 1
-  - Id: 02a2b0ff15a145a5956cb4ea54a54462
+  - Id: f96f8ad5ea984d35b02ba8784b76ad8c
     Name: "\u81EA\u673A\u72D9"
     StartTick: 120
     DurationTicks: 240
     Muted: 0
     Pattern: 1
     Keyframes:
-    - Id: fdf83bda100344f0be76534e9f96ac05
+    - Id: 6bb68744182341c0b4a6c72d55db8a2c
       LocalTick: 0
       Type: 0
-    - Id: 8e8365aed9ed4ce899af7efef943b45d
+    - Id: 66725afe664843c4abd05e5076c1afe8
       LocalTick: 36
       Type: 0
-    - Id: 22b131d8f6b84a7986323457faea36f7
+    - Id: edd38024bb1a4761a72d4b3e81acd504
       LocalTick: 72
       Type: 0
-    - Id: d72d313de088448c94e2ea8376fd40e9
+    - Id: 16e74bb0f80b41bd800562c3a2987238
       LocalTick: 108
       Type: 0
-    - Id: c5ffde72fbbc42a594a49a82267450e4
+    - Id: e9f1f4a942004d6c9f6919acd6cb5711
       LocalTick: 144
       Type: 0
-    - Id: cef4bfb22a5249b1bb1b06e5ddca42b7
+    - Id: ac8411743feb416db4708e4da32b0f05
       LocalTick: 180
       Type: 0
-    - Id: 9d6ebf3a303c4fd3b8db0f37e334e558
+    - Id: 5651e4ab8d4c46f3a2f495281d6db21d
       LocalTick: 216
       Type: 0
     EmitterPosition: {x: 0, y: 3}
     EmitterEndPosition: {x: 0, y: 3}
     MoveEmitter: 0
-    Preset: {fileID: 11400000, guid: 67f7535b453df3345bcdce02f5058a6c, type: 2}
-    OverrideEmission: 0
+    Preset: {fileID: 0}
+    OverrideEmission: 1
     Emission:
       Shape: 1
       Count: 5
@@ -143,13 +153,23 @@ MonoBehaviour:
       RandomAngleDegrees: 0
       SegmentStart: {x: -3, y: 0}
       SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
     Projectile: {fileID: 0}
-    OverrideProjectile: 1
+    OverrideProjectile: 0
     ProjectileOverride:
-      Sprite: {fileID: 21300000, guid: 631849cd504b1b04abb3b06ab6136ef1, type: 3}
+      Sprite: {fileID: 0}
       Color: {r: 1, g: 0.45, b: 0.4, a: 1}
       VisualSize: 0.18
       HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
       DurationTicks: 180
       HitCount: 1
       DamageConfigId: 0
@@ -160,24 +180,24 @@ MonoBehaviour:
       SplitCount: 8
       SplitSpeed: 2.5
       InheritDirection: 1
-  - Id: fe541a9bc6d5440e8f3a6f96d1bcdf1c
+  - Id: c8544e38608c44198e1088cbd400e82b
     Name: "\u5B50\u6BCD\u5F39"
     StartTick: 300
     DurationTicks: 120
     Muted: 0
     Pattern: 7
     Keyframes:
-    - Id: 1b7b136479b24503b2e4f01db90fee2a
+    - Id: 318d60fe9f7b45408ba66e8e0b979c22
       LocalTick: 0
       Type: 0
-    - Id: 633459a3437844ee9f3f72c49d0e99ff
+    - Id: 03a0502501d34717be68bf0bf83b2390
       LocalTick: 60
       Type: 1
     EmitterPosition: {x: 0, y: 3}
     EmitterEndPosition: {x: 0, y: 3}
     MoveEmitter: 0
-    Preset: {fileID: 11400000, guid: 9e54b451347fcbb4d852e36f6e984476, type: 2}
-    OverrideEmission: 0
+    Preset: {fileID: 0}
+    OverrideEmission: 1
     Emission:
       Shape: 1
       Count: 3
@@ -193,20 +213,30 @@ MonoBehaviour:
       RandomAngleDegrees: 0
       SegmentStart: {x: -3, y: 0}
       SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
     Projectile: {fileID: 0}
-    OverrideProjectile: 1
+    OverrideProjectile: 0
     ProjectileOverride:
-      Sprite: {fileID: 21300000, guid: 631849cd504b1b04abb3b06ab6136ef1, type: 3}
+      Sprite: {fileID: 0}
       Color: {r: 0.75, g: 0.5, b: 1, a: 1}
       VisualSize: 0.28
       HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
       DurationTicks: 180
       HitCount: 1
       DamageConfigId: 0
       DamageSource: 0
       Damage: 1
       TargetBuffIds: 
-      SplitChild: {fileID: 11400000, guid: d05b0b0df6346494cab9d4d4c6d44e5f, type: 2}
+      SplitChild: {fileID: 0}
       SplitCount: 8
       SplitSpeed: 2.5
       InheritDirection: 1
