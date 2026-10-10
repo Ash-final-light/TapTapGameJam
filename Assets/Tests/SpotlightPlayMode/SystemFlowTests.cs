@@ -95,6 +95,9 @@ namespace Spotlight.Tests
             InputSystem.settings.backgroundBehavior=previousBackground;
             InputSystem.settings.editorInputBehaviorInPlayMode=previousEditorInput;
             if(root is Component component && component) UnityEngine.Object.Destroy(component.gameObject);
+            if(testedDifficulty!=null) Set(testedDifficulty,"Battle",previousBattle);
+            if(testBattle) UnityEngine.Object.Destroy(testBattle); if(testSequence) UnityEngine.Object.Destroy(testSequence);
+            testedDifficulty=null; testBattle=testSequence=previousBattle=null;
             if(config) Set(config,"SaveFolder",previousFolder);
             Application.targetFrameRate=60;
             yield return Frames();
@@ -148,44 +151,20 @@ namespace Spotlight.Tests
             Assert.AreEqual("<Keyboard>/a",live.FindAction("Gameplay/Left").bindings[0].effectivePath,"重置并应用必须持久恢复默认键位");
         }
         [UnityTest]
-        public IEnumerator ExitGameplayDiscardsProgressAndReturnsToTitle()
+        public IEnumerator ExitGameplayPreservesPermanentSaveAndReturnsToTitle()
         {
-            var menu=Get(ui,"Menu");var settings=Get(ui,"Settings");
-            Click(menu,"SettingsButton");yield return Frames();
-            ((Slider[])Get(settings,"Volumes"))[0].value=72;
-            Click(settings,"ApplyButton");yield return Frames(8);Click(settings,"CancelButton");yield return Frames();
+            Click(Get(ui,"Menu"),"StartButton"); yield return WaitForContext("SongSelect");
+            var saves=Get(root,"Saves"); Assert.IsTrue((bool)Get(Call(saves,"GrantItem","item-1",2),"Success"));
             string directory=Path.Combine(Application.persistentDataPath,(string)Get(config,"SaveFolder"));
-            string settingsJson=File.ReadAllText(Path.Combine(directory,"settings.json"));
-            string progressPath=Path.Combine(directory,"progress.json");
-            var originalRoot=root;
-            Click(menu,"StartButton");yield return WaitForContext("Gameplay");
-            Assert.AreEqual("Missing",Get(Get(root,"Saves"),"Status").ToString());
-            Assert.IsFalse(File.Exists(progressPath),"开始新游戏不能生成进度文件");
-            var data=UnityEngine.Object.FindObjectOfType(Runtime("HudDebugDataSource"));Call(data,"AddGrowth");
-            var pause=Get(ui,"Pause");Call(ui,"OpenPause");Click(pause,"ExitButton");
-            yield return WaitForContext("Title");
-            Assert.AreEqual("Assets/Scenes/Title.unity",SceneManager.GetActiveScene().path);
-            Assert.AreSame(originalRoot,root,"退出本局应返回标题，不能关闭系统或程序");
-            Assert.IsFalse(((Button)Get(menu,"ContinueButton")).interactable);
-            Assert.IsNull(Get(Get(root,"Saves"),"Current"));Assert.IsFalse(File.Exists(progressPath));
-            Assert.IsFalse((bool)Get(ui,"IsPauseOpen"));Assert.IsFalse((bool)Get(Get(root,"Pause"),"IsPaused"));
-            Assert.IsFalse((bool)Get(Get(root,"Input"),"GameplayEnabled"));
-            Assert.AreEqual(settingsJson,File.ReadAllText(Path.Combine(directory,"settings.json")),"放弃本局必须保留个人设置");
-            Click(menu,"StartButton");yield return WaitForContext("Gameplay");
-            data=UnityEngine.Object.FindObjectOfType(Runtime("HudDebugDataSource"));
-            Assert.AreEqual(0,Get(data,"DebugGrowth"),"再次开始不能恢复已放弃的本局结果");
-            Call(data,"AddGrowth");Call(ui,"OpenPause");Click(pause,"SaveButton");yield return Frames();
-            Call(data,"AddGrowth");Click(pause,"SaveButton");yield return Frames();
-            Assert.AreEqual("Valid",Get(Get(root,"Saves"),"Status").ToString());
-            Assert.IsTrue(File.Exists(progressPath+".bak"),"第二次保存应产生测试备份");
-            Click(pause,"ExitButton");yield return WaitForContext("Title");
-            Assert.IsFalse(((Button)Get(menu,"ContinueButton")).interactable);
-            foreach(string suffix in new[]{"",".bak",".tmp"}) Assert.IsFalse(File.Exists(progressPath+suffix),"放弃本局必须清理进度及附属文件");
-            UnityEngine.Object.Destroy(((Component)root).gameObject);yield return Frames();
-            yield return SceneManager.LoadSceneAsync("Assets/Scenes/Title.unity");yield return Frames();
-            root=Runtime("SystemRoot").GetProperty("Instance").GetValue(null);ui=Get(root,"UI");
-            Assert.IsFalse(((Button)Get(Get(ui,"Menu"),"ContinueButton")).interactable,"重新启动后也不能继续已放弃的本局");
-            Assert.AreEqual(72,Get(Get(Get(root,"Settings"),"Current"),"MasterVolume"));
+            string original=File.ReadAllText(Path.Combine(directory,"game.json"));
+            yield return PrepareAndStartBattle();
+            Call(ui,"OpenPause"); yield return Frames();
+            Assert.IsNull(GO(Get(ui,"Pause")).transform.Find("Buttons/Save"));
+            Click(Get(ui,"Pause"),"ExitButton"); yield return WaitForContext("Title");
+            Assert.IsTrue(((Button)Get(Get(ui,"Menu"),"ContinueButton")).interactable);
+            Assert.AreEqual(original,File.ReadAllText(Path.Combine(directory,"game.json")),"放弃本局不能清空歌曲与道具");
+            Click(Get(ui,"Menu"),"ContinueButton"); yield return WaitForContext("SongSelect");
+            Assert.AreEqual(2,Call(saves,"Quantity","item-1"));
         }
         [UnityTest]
         public IEnumerator LongRenderFrameKeepsSimulationTimeAndPauseState()
@@ -210,97 +189,86 @@ namespace Spotlight.Tests
             }
             finally { Time.maximumDeltaTime=previousMaximum; UnityEngine.Object.Destroy(actor); UnityEngine.Object.Destroy(sequence); }
         }
-        [UnityTest]
-        public IEnumerator MenuSettingsLoadHudPauseAndSave()
+        private UnityEngine.Object testBattle, testSequence;
+        private object testedDifficulty;
+        private UnityEngine.Object previousBattle;
+        private IEnumerator PrepareAndStartBattle(bool equipFirstItem=false)
         {
-            var menu=Get(ui,"Menu"); var settings=Get(ui,"Settings"); var hud=Get(ui,"Hud");
-            Assert.IsFalse(((Button)Get(menu,"ContinueButton")).interactable,"无档继续应禁用");
-            yield return Capture("01-Title");
-            Click(menu,"SettingsButton"); yield return Frames();
-            Assert.IsTrue(GO(settings).activeSelf);
-            Assert.AreEqual(11,((TMP_Dropdown)Get(settings,"Resolution")).options.Count);
-            yield return Capture("02-SettingsGraphics");
-            var tabs=(Button[])Get(settings,"Tabs"); tabs[1].onClick.Invoke(); yield return Frames();
-            var volumeSlider=((Slider[])Get(settings,"Volumes"))[0];var volumeRect=(RectTransform)volumeSlider.transform;
-            var pointer=RectTransformUtility.WorldToScreenPoint(null,volumeRect.TransformPoint(new Vector3(volumeRect.rect.width*.25f,0,0)));
-            InputSystem.QueueStateEvent(mouse,new MouseState{position=pointer,buttons=1});yield return Frames();
-            InputSystem.QueueStateEvent(mouse,new MouseState{position=pointer});yield return Frames();
-            Assert.That(volumeSlider.value,Is.InRange(70f,80f),"点击滑条轨道应改变音量");
-            volumeSlider.value=23; yield return Frames();
-            Assert.AreEqual(23,Get(Get(Get(settings,"Session"),"Draft"),"MasterVolume"));
-            yield return Capture("03-SettingsAudio");
-            Click(settings,"CancelButton"); yield return Frames();
-            Assert.AreEqual(100,Get(Get(Get(root,"Settings"),"Current"),"MasterVolume"));
-            Click(menu,"SettingsButton"); tabs[2].onClick.Invoke(); yield return Frames();
-            var rows=(Array)Get(settings,"KeyRows"); Assert.AreEqual(9,rows.Length);
-            // Exercise actual interactive capture and the linked jump/fly rows.
-            Click(rows.GetValue(5),"Button"); yield return Frames();
-            Assert.IsTrue((bool)Get(settings,"WaitingForKey"));
-            yield return Keys(Key.J); yield return Keys();
-            Assert.IsFalse((bool)Get(settings,"WaitingForKey"));
-            var draftControls=(InputActionAsset)Get(Get(settings,"Session"),"Controls");
-            Assert.AreEqual("<Keyboard>/j",draftControls.FindAction("Gameplay/Skill1").bindings[0].effectivePath);
-            Click(settings,"ApplyButton"); yield return Frames(8);
-            Assert.IsFalse((bool)Get(settings,"Applying"));
-            Assert.That(((TMP_Text)Get(hud,"Skill1Key")).text.ToLowerInvariant(),Does.Contain("j"));
-            yield return Capture("04-SettingsBindings");
-            Click(settings,"CancelButton");
-            float started=Time.realtimeSinceStartup; Click(menu,"StartButton");
-            yield return Frames(5); yield return Capture("05-Loading");
-            float deadline=Time.realtimeSinceStartup+20;
-            while(Get(ui,"Context").ToString()!="Gameplay" && Time.realtimeSinceStartup<deadline) yield return null;
-            Assert.AreEqual("Gameplay",Get(ui,"Context").ToString());
-            Assert.GreaterOrEqual(Time.realtimeSinceStartup-started,1f);
-            var data=UnityEngine.Object.FindObjectOfType(Runtime("HudDebugDataSource")); Assert.IsNotNull(data);
-            Assert.AreEqual("Missing",Get(Get(root,"Saves"),"Status").ToString(),"开始新游戏不能自动保存进度");
-            var items=(Array)Get(data,"Items"); Assert.AreEqual(3,Get(items.GetValue(0),"Count"));
-            yield return Frames(); Assert.IsTrue((bool)Get(Get(root,"Input"),"GameplayEnabled"),"进入HUD后应启用游戏输入");
-            yield return Keys(Key.Tab);
-            var liveControls=(InputActionAsset)Get(Get(root,"Input"),"Controls");
-            Assert.IsTrue(liveControls.FindAction("Gameplay/ItemSelect").IsPressed(),"Tab action没有收到按下: "+liveControls.FindAction("Gameplay/ItemSelect").bindings[0].effectivePath+" | keyboard="+keyboard.tabKey.isPressed);
-            Assert.IsTrue(((GameObject)Get(hud,"Selector")).activeSelf,"Tab动作收到后应显示道具栏");
-            yield return Keys(Key.Tab,Key.Digit2); Assert.AreEqual("potion",Get(data,"SelectedItemId"));
-            yield return Capture("06-HudSelector");
-            yield return Keys(); Assert.IsFalse(((GameObject)Get(hud,"Selector")).activeSelf);
-            Assert.AreEqual("potion",Get(data,"SelectedItemId")); Assert.AreEqual(2,Get(items.GetValue(1),"Count"));
-            yield return Keys(Key.R); Assert.AreEqual(1,Get(items.GetValue(1),"Count"),"使用应消费一次");
-            yield return Frames(8); Assert.AreEqual(1,Get(items.GetValue(1),"Count"),"按住R不重复使用");
-            yield return Keys();yield return Keys(Key.R);yield return Keys();
-            Assert.AreEqual(0,Get(items.GetValue(1),"Count"));Assert.AreEqual("crystal",Get(data,"SelectedItemId"));
-            yield return Keys(Key.Tab);Assert.AreEqual(1,((System.Collections.ICollection)Get(hud,"VisibleItems")).Count,"零数量道具应从选择栏移除");yield return Keys();
-            yield return Keys(Key.J); Assert.That((string)Get(data,"Warning"),Does.Contain("技能 1"));
-            yield return Keys(); yield return Keys(Key.E); Assert.That((string)Get(data,"Warning"),Does.Contain("技能 2"));
-            yield return Keys(); Call(data,"SpendStamina"); Call(data,"LoseHealth"); yield return Frames();
-            Assert.AreEqual(.75f,((Image)Get(hud,"Stamina")).fillAmount,.001f);
-            yield return Capture("07-Hud");
-            yield return Keys(Key.Escape); Assert.IsTrue((bool)Get(ui,"IsPauseOpen"));
-            yield return Keys(); var pause=Get(ui,"Pause"); yield return Capture("08-Pause");
-            Click(pause,"SettingsButton"); yield return Frames(); Click(settings,"CancelButton"); yield return Frames();
-            Assert.IsTrue((bool)Get(ui,"IsPauseOpen"));
-            Call(data,"AddGrowth"); Click(pause,"SaveButton"); yield return Frames();
-            var saved=(Array)Get(Get(Get(root,"Saves"),"Current"),"CharacterValues"); Assert.AreEqual(1,Get(saved.GetValue(0),"Value"));
-            Click(pause,"ResumeButton"); yield return Frames(); Assert.IsFalse((bool)Get(ui,"IsPauseOpen"));
-            yield return SceneManager.LoadSceneAsync("Assets/Scenes/Title.unity"); yield return Frames();
-            Assert.IsTrue(((Button)Get(menu,"ContinueButton")).interactable);
-            Click(menu,"StartButton"); yield return Frames(); Assert.IsTrue(GO(Get(ui,"Dialog")).activeSelf);
-            Call(Get(ui,"Dialog"),"Cancel"); Click(menu,"ContinueButton");
-            deadline=Time.realtimeSinceStartup+20;
-            while(Get(ui,"Context").ToString()!="Gameplay" && Time.realtimeSinceStartup<deadline) yield return null;
-            yield return Frames(); data=UnityEngine.Object.FindObjectOfType(Runtime("HudDebugDataSource"));
-            Assert.AreEqual(1,Get(data,"DebugGrowth"),"继续恢复局外养成");
-            items=(Array)Get(data,"Items"); Assert.AreEqual(2,Get(items.GetValue(1),"Count"),"继续从关卡入口重建局内状态");
-            Assert.AreEqual(1,UnityEngine.Object.FindObjectsOfType(Runtime("SystemRoot")).Length);
+            if(testBattle==null)
+            {
+                var songs=(Array)Get(Get(config,"Songs"),"Songs");
+                testedDifficulty=((Array)Get(songs.GetValue(0),"Difficulties")).GetValue(0);
+                previousBattle=(UnityEngine.Object)Get(testedDifficulty,"Battle");
+                testBattle=UnityEngine.Object.Instantiate(previousBattle);
+                testSequence=UnityEngine.Object.Instantiate((UnityEngine.Object)Get(testBattle,"Sequence"));
+                Set(testSequence,"Music",null); Set(testSequence,"DurationTicks",2400);
+                ((IList)Get(testSequence,"Clips")).Clear(); ((IList)Get(testSequence,"Events")).Clear();
+                Set(testBattle,"Sequence",testSequence); Set(testedDifficulty,"Battle",testBattle);
+            }
+            if(Get(ui,"Context").ToString()=="Title") { Click(Get(ui,"Menu"),"ContinueButton"); yield return WaitForContext("SongSelect"); }
+            Click(Get(ui,"Songs"),"Confirm"); yield return WaitForContext("Loadout");
+            if(equipFirstItem)
+            {
+                var buttons=((RectTransform)Get(Get(ui,"Loadout"),"ItemsRoot")).GetComponentsInChildren<Button>();
+                Assert.IsTrue(buttons[0].interactable); buttons[0].onClick.Invoke(); yield return Frames();
+            }
+            Click(Get(ui,"Loadout"),"StartButton"); yield return WaitForContext("Gameplay");
+        }
+        [UnityTest]
+        public IEnumerator EquippedItemUsesAcceptedIntentAndRestoresOnRetry()
+        {
+            Click(Get(ui,"Menu"),"StartButton"); yield return WaitForContext("SongSelect");
+            var saves=Get(root,"Saves"); Call(saves,"GrantItem","item-1",1);
+            yield return PrepareAndStartBattle(true);
+            var manager=UnityEngine.Object.FindObjectOfType(Type.GetType("TapTap.Danmaku.BattleManager, Assembly-CSharp",true));
+            var items=(Array)Get(Get(manager,"Current"),"Items"); Assert.AreEqual(3,Get(items.GetValue(0),"Count"));
+            yield return Keys(Key.R); yield return Keys();
+            items=(Array)Get(Get(manager,"Current"),"Items"); Assert.AreEqual(2,Get(items.GetValue(0),"Count"),"同一次使用请求不能被多 Tick 重复执行");
+            Assert.AreEqual(1,Call(saves,"Quantity","item-1"),"局内使用不能扣永久获取数量");
+            for(int i=0;i<12 && Get(ui,"Context").ToString()!="Result";i++) Call(manager,"AdvanceFrame",10d);
+            yield return WaitForContext("Result"); Click(Get(ui,"Result"),"Retry"); yield return WaitForContext("Gameplay");
+            manager=UnityEngine.Object.FindObjectOfType(Type.GetType("TapTap.Danmaku.BattleManager, Assembly-CSharp",true));
+            items=(Array)Get(Get(manager,"Current"),"Items"); Assert.AreEqual(3,Get(items.GetValue(0),"Count"),"重试必须恢复道具使用次数");
+        }
+        [UnityTest]
+        public IEnumerator SongLoadoutBattleResultDropRetryContinueAndNewGame()
+        {
+            var menu=Get(ui,"Menu"); Assert.IsFalse(((Button)Get(menu,"ContinueButton")).interactable);
+            Click(menu,"StartButton"); yield return WaitForContext("SongSelect");
+            var songs=Get(ui,"Songs"); var difficulties=(Button[])Get(songs,"DifficultyButtons");
+            Assert.IsTrue(difficulties[0].interactable); Assert.IsFalse(difficulties[1].interactable); Assert.IsFalse(difficulties[2].interactable);
+            yield return Keys(Key.RightArrow); yield return Keys();
+            Assert.AreSame(difficulties[0].gameObject,UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject,"歌曲列表必须能用方向键进入难度区");
+            yield return Capture("SongSelect");
+            Click(songs,"Confirm"); yield return WaitForContext("Loadout"); yield return Capture("LoadoutLocked");
+            Call(ui,"OpenSongSelection"); yield return PrepareAndStartBattle();
             Assert.AreEqual(1,UnityEngine.Object.FindObjectsOfType<UnityEngine.EventSystems.EventSystem>().Length);
-            // Starting over replaces an existing save only after confirmation, without auto-saving the new run.
-            yield return SceneManager.LoadSceneAsync("Assets/Scenes/Title.unity");yield return Frames();
-            Click(menu,"StartButton");yield return Frames();Call(Get(ui,"Dialog"),"Cancel");
-            Assert.AreEqual("Valid",Get(Get(root,"Saves"),"Status").ToString(),"取消开始新游戏必须保留原存档");
-            Click(menu,"StartButton");yield return Frames();Click(Get(ui,"Dialog"),"ConfirmButton");
-            yield return WaitForContext("Gameplay");
-            Assert.AreEqual("Missing",Get(Get(root,"Saves"),"Status").ToString(),"确认新游戏必须清理原进度且不自动保存新局");
-            data=UnityEngine.Object.FindObjectOfType(Runtime("HudDebugDataSource"));Assert.AreEqual(0,Get(data,"DebugGrowth"));
-            Call(ui,"OpenPause");Click(Get(ui,"Pause"),"ExitButton");yield return WaitForContext("Title");
-            Assert.IsFalse(((Button)Get(menu,"ContinueButton")).interactable);
+            var manager=UnityEngine.Object.FindObjectOfType(Type.GetType("TapTap.Danmaku.BattleManager, Assembly-CSharp",true));
+            Call(ui,"OpenPause"); int paused=(int)Get(Get(manager,"Simulation"),"Tick"); yield return Frames(5);
+            Assert.AreEqual(paused,Get(Get(manager,"Simulation"),"Tick")); Click(Get(ui,"Pause"),"ResumeButton"); yield return Frames();
+            for(int i=0;i<12 && Get(ui,"Context").ToString()!="Result";i++) Call(manager,"AdvanceFrame",10d);
+            yield return WaitForContext("Result"); yield return Capture("ResultCompleted");
+            var result=Get(root,"LastResult"); Assert.IsTrue((bool)Get(Get(result,"Stats"),"Completed"));
+            var saves=Get(root,"Saves"); string itemId=(string)Get(result,"DropItemId");
+            Assert.AreEqual(1,Call(saves,"Quantity",itemId)); Call(root,"CompleteRun",result); Assert.AreEqual(1,Call(saves,"Quantity",itemId),"重复结算重复掉落");
+            Assert.IsTrue((bool)Get(Call(root,"RetryResultSave"),"Success")); Assert.AreEqual(1,Call(saves,"Quantity",itemId));
+            var firstSetup=Get(root,"ActiveRun"); Click(Get(ui,"Result"),"Retry"); yield return WaitForContext("Gameplay");
+            Assert.AreSame(firstSetup,Get(root,"ActiveRun")); manager=UnityEngine.Object.FindObjectOfType(Type.GetType("TapTap.Danmaku.BattleManager, Assembly-CSharp",true));
+            var simulation=Get(manager,"Simulation"); var fp=Type.GetType("Framework.FixedPoint.FP64, Assembly-CSharp",true);
+            var damage=fp.GetMethod("FromInt").Invoke(null,new object[]{999}); Call(Get(simulation,"PlayerSystem"),"ReceiveDamage",damage);
+            Call(manager,"AdvanceFrame",.2d); yield return WaitForContext("Result"); yield return Capture("ResultFailed");
+            result=Get(root,"LastResult"); Assert.IsFalse((bool)Get(Get(result,"Stats"),"Completed"));
+            var acquired=(IList)Get(Get(saves,"Current"),"Items"); int quantity=0; foreach(var item in acquired) quantity+=(int)Get(item,"Quantity"); Assert.AreEqual(2,quantity);
+            Click(Get(ui,"Result"),"Next"); yield return WaitForContext("Title");
+            Click(menu,"ContinueButton"); yield return WaitForContext("SongSelect");
+            Click(Get(ui,"Songs"),"Confirm"); yield return WaitForContext("Loadout"); yield return Capture("LoadoutUnlocked");
+            var loadout=Get(ui,"Loadout"); var choices=((RectTransform)Get(loadout,"ItemsRoot")).GetComponentsInChildren<Button>();
+            Assert.IsTrue(Array.Exists(choices,b=>b.interactable));
+            Call(ui,"OpenSongSelection"); Click(Get(ui,"Songs"),"Back"); yield return WaitForContext("Title");
+            Click(menu,"StartButton"); yield return Frames(); Assert.IsTrue(GO(Get(ui,"Dialog")).activeSelf);
+            Call(Get(ui,"Dialog"),"Cancel"); Assert.AreEqual(2,quantity);
+            Click(menu,"StartButton"); Click(Get(ui,"Dialog"),"ConfirmButton"); yield return WaitForContext("SongSelect");
+            Assert.AreEqual(0,((IList)Get(Get(saves,"Current"),"Items")).Count); Assert.AreEqual(0,((IList)Get(Get(saves,"Current"),"Records")).Count);
         }
     }
 }

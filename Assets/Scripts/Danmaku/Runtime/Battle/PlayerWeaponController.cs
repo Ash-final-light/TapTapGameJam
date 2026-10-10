@@ -4,7 +4,9 @@ namespace TapTap.Danmaku
     public sealed class PlayerWeaponController
     {
         private readonly CompiledProjectile projectile;
-        private readonly FP64 interval, speed, arc;
+        private readonly FP64 baseFireRate, speed, arc;
+        private FP64 interval;
+        public TapTap.Systems.BattleStatModifiers Modifiers { get; set; }
         private readonly FPVector2 muzzle;
         private readonly int count;
         private FP64 remaining, direction = FPMath.PI_OVER_2;
@@ -13,13 +15,17 @@ namespace TapTap.Danmaku
         public PlayerWeaponController(PlayerWeaponDefinition weapon)
         {
             projectile = ProjectileWorld.CompileProjectile(weapon.Projectile.Settings);
-            interval = FP64.FromInt(DanmakuSequence.TickRate) / FP64.FromFloat(weapon.FireRate);
+            baseFireRate = FP64.FromFloat(weapon.FireRate);
+            interval = FP64.FromInt(DanmakuSequence.TickRate) / baseFireRate;
+            Modifiers = new TapTap.Systems.BuffManager().Current;
             speed = FP64.FromFloat(weapon.Emission.Speed); arc = FP64.FromFloat(weapon.Emission.ArcDegrees) * FPMath.Deg2Rad;
             count = weapon.Mode == PlayerWeaponMode.Spread ? System.Math.Max(1, System.Math.Min(64, weapon.Emission.Count)) : 1;
             muzzle = DanmakuSimulation.ToFP(weapon.MuzzleOffset);
         }
         public void Step(in BattleInput input, FPVector2 position, ProjectileWorld world)
         {
+            var rate = FPMath.Clamp((baseFireRate + Modifiers.FireFlat) * Modifiers.FireMultiplier, FP64.FromFloat(0.001f), FP64.FromInt(60));
+            interval = FP64.FromInt(DanmakuSequence.TickRate) / rate;
             FPVector2 origin = position + muzzle;
             var delta = input.AimPosition - origin;
             if (input.AimValid && delta.SqrMagnitude > FP64.FromFloat(0.000001f)) direction = FPMath.Atan2(delta.Y, delta.X);
@@ -31,7 +37,7 @@ namespace TapTap.Danmaku
                 for (int i = 0; i < count; i++)
                 {
                     var angle = direction + (count > 1 ? arc * (FP64.FromFraction(i, count - 1) - FP64.Half) : FP64.Zero);
-                    world.SpawnFriendly(projectile, origin, angle, speed);
+                    world.SpawnFriendly(projectile, origin, angle, FPMath.Max(FP64.Zero, (speed + Modifiers.SpeedFlat) * Modifiers.SpeedMultiplier), Modifiers.DamageFlat, Modifiers.DamageMultiplier);
                 }
                 TotalRounds++; remaining += interval;
             }

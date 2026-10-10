@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using TapTap.Systems;
+using TapTap.Player.Editor;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -31,6 +32,7 @@ namespace TapTap.Danmaku.Editor
                 var manager = managers.FirstOrDefault();
                 if (!manager) { var root = new GameObject("BattleManager"); SceneManager.MoveGameObjectToScene(root, scene); manager = root.AddComponent<BattleManager>(); }
                 manager.Config = config; manager.AimCamera = cameras[0];
+                manager.PlayerDefinition = PlayerEditorAssets.EnsureAssets();
                 cameras[0].orthographicSize = Mathf.Max(cameras[0].orthographicSize, config.Sequence.FieldSize.y * 0.54f);
                 foreach (var debug in scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<HudDebugDataSource>(true))) debug.enabled = false;
                 if (!scene.GetRootGameObjects().Any(g => g.GetComponentInChildren<SystemRoot>(true)))
@@ -70,7 +72,7 @@ namespace TapTap.Danmaku.Editor
                 sequence.DurationTicks = Mathf.CeilToInt(music.length * 60); AssetDatabase.CreateAsset(sequence, seqPath);
             }
             sequence.Music = music;
-            var config = GetOrCreate<BattleConfig>("Battle"); config.Sequence = sequence; config.Player = player; config.Weapon = weapon;
+            var config = GetOrCreate<BattleConfig>("Battle"); config.Sequence = sequence;
             foreach (var asset in new UnityEngine.Object[] { player, normal, spread, weapon, fan, sequence, config }) EditorUtility.SetDirty(asset);
             AssetDatabase.SaveAssets(); return config;
         }

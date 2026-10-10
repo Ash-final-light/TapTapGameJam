@@ -1,0 +1,14 @@
+.player-editor { flex-grow: 1; }
+.player-toolbar { flex-direction: row; flex-wrap: wrap; padding: 6px; border-bottom-width: 1px; border-bottom-color: #555555; }
+.player-toolbar > * { margin-right: 6px; }
+.player-object { min-width: 210px; flex-grow: 1; }
+.player-body { flex-grow: 1; flex-direction: row; }
+.player-library { width: 145px; border-right-width: 1px; border-right-color: #555555; padding: 6px; }
+.player-library Button { margin-bottom: 4px; }
+.player-library .selected { background-color: #355777; color: #ffffff; }
+.player-center { flex-grow: 1; min-width: 340px; }
+.player-preview { height: 260px; }
+.player-timeline { min-height: 325px; }
+.player-inspector { width: 285px; border-left-width: 1px; border-left-color: #555555; padding: 6px; }
+.player-debug { min-height: 150px; padding: 6px; border-top-width: 1px; border-top-color: #555555; }
+.player-status { white-space: normal; padding: 4px; }

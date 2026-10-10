@@ -14,15 +14,15 @@ namespace TapTap.Systems
         public SystemInputRouter Input { get; private set; }
         public BindingService Binding { get; private set; }
         public SettingsService Settings { get; private set; }
-        public ProgressSaveService Saves { get; private set; }
+        public GameSaveService Saves { get; private set; }
+        public BattleStartData ActiveRun { get; internal set; }
+        public RunResult LastResult { get; internal set; }
         public AudioVolumeService Audio { get; private set; }
         public PauseService Pause { get; private set; }
         public SceneFlowService Scenes { get; private set; }
         public SystemUIController UI { get; private set; }
         public string CurrentEntryId { get; internal set; }
-        internal bool PendingNewGame, PendingProgressRestore;
         private IHudDataSource source;
-        private IProgressDataProvider progress;
         public bool Initialized { get; private set; }
         public bool ExternalCommandConsumer { get; set; }
         public event Action<GameplayCommand> CommandConsumed;
@@ -36,7 +36,7 @@ namespace TapTap.Systems
             Audio = new AudioVolumeService(); Pause = new PauseService();
             var store = new JsonFileStore(System.IO.Path.Combine(Application.persistentDataPath, config.SaveFolder));
             Settings = new SettingsService(store, config.Defaults, Binding, Audio, new UnityDisplaySettings());
-            Saves = new ProgressSaveService(store, config.Levels); Scenes = new SceneFlowService(this);
+            Saves = new GameSaveService(store); Scenes = new SceneFlowService(this);
             UI = Instantiate(config.UIPrefab, transform); UI.gameObject.SetActive(false); UI.Bind(this); UI.gameObject.SetActive(true);
             SceneManager.sceneLoaded += OnSceneLoaded; Application.focusChanged += OnFocus;
             Initialized = true;
@@ -70,18 +70,25 @@ namespace TapTap.Systems
         }
         public void AttachGameplay(IHudDataSource data, IGameplayRequestSink requests, IProgressDataProvider provider)
         {
-            source = data; progress = provider; UI.BindHud(data, requests);
-            if (PendingNewGame) { provider?.ResetNewGame(); PendingNewGame = false; }
-            else if (PendingProgressRestore) { if (Saves.Current != null) provider?.Restore(Saves.Current.CharacterValues); PendingProgressRestore = false; }
+            source = data; UI.BindHud(data, requests); provider?.ResetNewGame();
         }
         public void DetachGameplay(IHudDataSource data)
-        { if (!ReferenceEquals(source, data)) return; UI?.BindHud(null, null); source = null; progress = null; }
-        public OperationResult SaveProgress()
+        { if (!ReferenceEquals(source, data)) return; UI?.BindHud(null, null); source = null; }
+        public OperationResult NewGame()
         {
-            if (Scenes.Busy || UI.Context != UIContext.Gameplay) return OperationResult.Fail("仅能在本局游戏中保存进度。");
-            if (progress == null) return OperationResult.Fail("局外数据源尚未接入，无法保存进度。");
-            var result = Saves.Save(CurrentEntryId ?? config.Levels.FirstEntryId, progress.Export()); UI.RefreshContinue(); return result;
+            var result = Saves.NewGame();
+            if (result.Success) { ActiveRun = null; LastResult = null; UI.RefreshContinue(); UI.OpenSongSelection(); }
+            return result;
         }
+        public void CompleteRun(RunResult result)
+        {
+            if (LastResult?.RunId == result.RunId) return;
+            var drop = config.Drops.Pick(new System.Random()); result.DropItemId = drop.Item.Id; result.DropQuantity = drop.Quantity;
+            LastResult = result;
+            var saved = Saves.Settle(result);
+            UI.ShowResult(result, saved);
+        }
+        public OperationResult RetryResultSave() => LastResult == null ? OperationResult.Fail("没有待保存的结算。") : Saves.Settle(LastResult);
         public void AbandonGame()
         {
             if (UI.Context != UIContext.Gameplay) return;

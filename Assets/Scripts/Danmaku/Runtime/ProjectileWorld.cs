@@ -42,6 +42,7 @@ namespace TapTap.Danmaku
         public FP64 VisualSize { get; internal set; }
         public FP64 GrowthProgress { get; internal set; }
         public int ExplosionTick { get; internal set; }
+        internal FP64 DamageFlat, DamageMultiplier = FP64.One;
         internal CompiledProjectile Definition;
         internal FP64 Radius, PreviousRadius;
     }
@@ -88,6 +89,7 @@ namespace TapTap.Danmaku
         public DanmakuPlayerState BossState { get; private set; }
         public IReadOnlyList<ProjectileState> Bullets => bullets;
         public readonly List<CombatContact> Contacts = new();
+        public event Action<int> EnergyOrbMissed;
         private struct SplitSpawn
         {
             public int SourceClip, OwnerId, Count;
@@ -132,6 +134,11 @@ namespace TapTap.Danmaku
         { Spawn(-1, 0, position, angle, speed, CompileProjectile(settings), ProjectileFaction.Player, 1); }
         internal void SpawnFriendly(CompiledProjectile definition, FPVector2 position, FP64 angle, FP64 speed)
         { Spawn(-1, 0, position, angle, speed, definition, ProjectileFaction.Player, 1); }
+        internal void SpawnFriendly(CompiledProjectile definition, FPVector2 position, FP64 angle, FP64 speed, FP64 damageFlat, FP64 damageMultiplier)
+        {
+            Spawn(-1, 0, position, angle, speed, definition, ProjectileFaction.Player, 1);
+            if (bullets.Count > 0 && Fault == null) { var p = bullets[bullets.Count - 1]; p.DamageFlat = damageFlat; p.DamageMultiplier = damageMultiplier; }
+        }
         public void BeginTick()
         {
             deaths.Clear(); Contacts.Clear();
@@ -234,6 +241,7 @@ namespace TapTap.Danmaku
             {
                 var p = bullets[i];
                 if (!deaths.TryGetValue(p.Id, out var reason)) continue;
+                if (p.IsEnergyOrb && (reason == ProjectileDeathReason.Duration || reason == ProjectileDeathReason.OutOfBounds)) EnergyOrbMissed?.Invoke(p.Id);
                 RemoveAt(i, p);
             }
         }
@@ -267,6 +275,7 @@ namespace TapTap.Danmaku
                 definition.Settings.Interaction == ProjectileInteraction.EnergyOrb;
             p.Health = p.IsEnergyOrb ? FP64.FromInt(EnergyOrbSettings.MaxHealth) : FP64.Zero;
             p.ExplosionTick = explosionTick;
+            p.DamageFlat = FP64.Zero; p.DamageMultiplier = FP64.One;
             bullets.Add(p); byId.Add(id, p); TotalSpawned++;
             PeakBullets = Math.Max(PeakBullets, bullets.Count);
         }
@@ -312,6 +321,8 @@ namespace TapTap.Danmaku
                     Direction = parent.Settings.InheritDirection ? parent.Direction : FP64.Zero,
                     Speed = parent.Definition.ChildSpeed, Definition = parent.Definition.Child
                 });
+                // An intact mother that reaches its explosion deadline was not destroyed in time.
+                if (parent.IsEnergyOrb) EnergyOrbMissed?.Invoke(parent.Id);
                 RemoveAt(i, parent);
             }
             foreach (var p in splits)

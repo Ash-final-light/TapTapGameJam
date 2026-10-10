@@ -57,6 +57,7 @@ namespace TapTap.Systems.Editor
             foreach(var scene in EditorBuildSettings.scenes) if(!buildScenes.Exists(s=>s.path==scene.path)) buildScenes.Add(scene);
             EditorBuildSettings.scenes=buildScenes.ToArray();
             AssetDatabase.SaveAssets(); AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+            SpotlightRunAssetBuilder.Install();
             Directory.CreateDirectory("Logs"); File.WriteAllText("Logs/SpotlightAssetBuild.txt","PASS: UI Prefabs, SystemRoot, three scenes, input actions, settings and loading configuration generated through Unity Editor API.\n");
             Debug.Log("[Spotlight] 系统 UI 与占位场景已生成。打开 Title 场景开始。");
             if(!Application.isBatchMode) EditorSceneManager.OpenScene(config.TitleScene);
@@ -169,7 +170,7 @@ namespace TapTap.Systems.Editor
             var panel=Panel("Pause",parent,new Color(0,0,0,.65f));var view=panel.gameObject.AddComponent<PauseView>();
             var title=Text("PauseTitle",panel,"游戏暂停",92,Color.white);SetRect(title.rectTransform,new Vector2(.5f,.72f),new Vector2(750,145));
             var buttons=Rect("Buttons",panel);SetRect(buttons,new Vector2(.5f,.4f),new Vector2(300,450));Vertical(buttons,30);
-            view.ResumeButton=Button("Resume",buttons,"继续游戏",300,80);view.SaveButton=Button("Save",buttons,"保存进度",300,80);
+            view.ResumeButton=Button("Resume",buttons,"继续游戏",300,80);
             view.SettingsButton=Button("Settings",buttons,"设置",300,80);view.ExitButton=Button("Exit",buttons,"退出游戏",300,80);return view;
         }
         private static DialogView BuildDialog(Transform parent)

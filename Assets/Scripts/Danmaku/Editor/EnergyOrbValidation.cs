@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Framework.FixedPoint;
 using UnityEditor;
+using TapTap.Player;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -16,7 +17,9 @@ namespace TapTap.Danmaku.Editor
         {
             public readonly DanmakuSequence Sequence = ScriptableObject.CreateInstance<DanmakuSequence>();
             public readonly BattleConfig Config = ScriptableObject.CreateInstance<BattleConfig>();
-            public readonly DanmakuPlayerConfig Player = ScriptableObject.CreateInstance<DanmakuPlayerConfig>();
+            public readonly PlayerDefinition Player = ScriptableObject.CreateInstance<PlayerDefinition>();
+            public readonly PlayerActionLibrary Actions = ScriptableObject.CreateInstance<PlayerActionLibrary>();
+            public Vector2 Spawn = new(-20, -20);
             public readonly PlayerWeaponDefinition Weapon = ScriptableObject.CreateInstance<PlayerWeaponDefinition>();
             public readonly ProjectileDefinition Shot = ScriptableObject.CreateInstance<ProjectileDefinition>();
             public DanmakuClip Clip => Sequence.Clips[0];
@@ -36,19 +39,19 @@ namespace TapTap.Danmaku.Editor
                         DurationTicks = 120, SplitCount = 8, SplitSpeed = 0
                     }
                 });
-                Config.Sequence = Sequence; Config.Player = Player; Config.Weapon = Weapon;
-                Config.PlayerSpawn = new Vector2(-20, -20); Config.BossPosition = new Vector2(0, 4);
-                Config.BossHealth = 1000; Config.PlayerInvulnerableTicks = 0;
+                Config.Sequence = Sequence; Player.Actions = Actions; Player.Weapon = Weapon; Player.Motor.Gravity = 0; Player.Motor.GroundHeight = -20;
+                Config.BossPosition = new Vector2(0, 4);
+                Config.BossHealth = 1000; Player.HurtInvulnerableTicks = 0;
                 Weapon.Projectile = Shot; Shot.Settings.Damage = 10; Shot.Settings.DurationTicks = 120;
             }
-            public BattleSimulation Battle() => new(Config);
+            public BattleSimulation Battle() => new(Config, Player, Spawn);
             public void Fire(BattleSimulation battle, Vector2 point, float speed = 0, int hits = 1, float angle = 0)
             {
                 var s = Shot.Settings.Copy(); s.HitCount = hits;
                 battle.World.SpawnFriendly(s, DanmakuSimulation.ToFP(point), FP64.FromFloat(angle), FP64.FromFloat(speed));
             }
             public void Dispose()
-            { foreach (var o in new Object[] { Sequence, Config, Player, Weapon, Shot }) Object.DestroyImmediate(o); }
+            { foreach (var o in new Object[] { Sequence, Config, Player, Actions, Weapon, Shot }) Object.DestroyImmediate(o); }
         }
         private static void Assert(bool ok, string message) { if (!ok) throw new InvalidOperationException(message); }
         private static int Count(BattleSimulation b, BattleEventType type) => b.Events.Count(e => e.Type == type);
@@ -157,13 +160,13 @@ namespace TapTap.Danmaku.Editor
             f.Clip.ProjectileOverride.DurationTicks = 10; b = f.Battle(); Step(b, 12); Assert(b.World.TotalSpawned == 1, "过期球爆炸。");
             f.Clip.ProjectileOverride.DurationTicks = 120; f.Clip.EmitterPosition = new Vector2(100, 0);
             b = f.Battle(); Step(b, 12); Assert(b.World.TotalSpawned == 1, "越界球爆炸。");
-            f.Clip.EmitterPosition = f.Config.PlayerSpawn; f.Clip.ProjectileOverride.EnergyOrb.ContactDamage = true;
+            f.Clip.EmitterPosition = f.Spawn; f.Clip.ProjectileOverride.EnergyOrb.ContactDamage = true;
             f.Clip.ProjectileOverride.HitCount = 5;
             b = f.Battle(); Step(b, 12); Assert(b.World.TotalSpawned == 1 && b.Combo.Count == 0, "已接触消耗的母球爆炸或增加连击。");
         }
         private static void TestInteractions()
         {
-            using var f = new Fixture(); f.Clip.EmitterPosition = f.Config.PlayerSpawn;
+            using var f = new Fixture(); f.Clip.EmitterPosition = f.Spawn;
             var b = f.Battle(); b.Step(default); Assert(b.Player.Health == b.Player.MaxHealth, "关闭接触伤害仍伤害玩家。");
             f.Clip.ProjectileOverride.EnergyOrb.ContactDamage = true; b = f.Battle(); b.Step(default);
             Assert(b.Player.Health == b.Player.MaxHealth - FP64.One, "母球接触伤害未走统一结算。");

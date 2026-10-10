@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+  <ui:Style src="PlayerActionEditorWindow.uss" />
+  <ui:VisualElement name="editorRoot" class="player-editor">
+    <ui:VisualElement name="toolbar" class="player-toolbar" />
+    <ui:VisualElement class="player-body">
+      <ui:ScrollView name="library" class="player-library" />
+      <ui:ScrollView class="player-center">
+        <ui:IMGUIContainer name="preview" class="player-preview" />
+        <ui:IMGUIContainer name="timeline" class="player-timeline" />
+      </ui:ScrollView>
+      <ui:ScrollView class="player-inspector">
+        <ui:IMGUIContainer name="inspector" />
+      </ui:ScrollView>
+    </ui:VisualElement>
+    <ui:IMGUIContainer name="debug" class="player-debug" />
+    <ui:Label name="status" class="player-status" />
+  </ui:VisualElement>
+</ui:UXML>

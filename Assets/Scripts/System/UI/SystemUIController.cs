@@ -16,6 +16,9 @@ namespace TapTap.Systems.UI
         public PauseView Pause;
         public HudView Hud;
         public DialogView Dialog;
+        public SongSelectView Songs;
+        public LoadoutView Loadout;
+        public ResultView Result;
         public TMP_Text ToastLabel;
         public EventSystem EventSystem;
         public InputSystemUIInputModule InputModule;
@@ -35,10 +38,12 @@ namespace TapTap.Systems.UI
             Menu.StartButton.onClick.AddListener(NewGame); Menu.ContinueButton.onClick.AddListener(Continue);
             Menu.SettingsButton.onClick.AddListener(OpenSettings); Menu.ExitButton.onClick.AddListener(root.ExitGame);
             Pause.ResumeButton.onClick.AddListener(Resume); Pause.SettingsButton.onClick.AddListener(OpenSettings);
-            Pause.SaveButton.onClick.AddListener(Save); Pause.ExitButton.onClick.AddListener(root.AbandonGame);
+            Pause.ExitButton.onClick.AddListener(root.AbandonGame);
             Hud.PauseButton.onClick.AddListener(OpenPause); Hud.SlotClicked=SelectSlot;
             Loading.Retry.onClick.AddListener(Retry); Loading.Back.onClick.AddListener(BackToTitle);
             Settings.Bind(root); Settings.CloseRequested=SettingsClosed;
+            Songs.Bind(root); Loadout.Bind(root); Result.Bind(root);
+            Songs.gameObject.SetActive(false); Loadout.gameObject.SetActive(false); Result.gameObject.SetActive(false);
             root.Input.PauseRequested+=OnEscape; root.Input.CancelRequested+=OnEscape;
             root.Input.SelectionHeldChanged+=ShowSelector; root.Input.SlotRequested+=SelectSlot;
             root.Scenes.Changed+=RefreshLoading;
@@ -58,29 +63,35 @@ namespace TapTap.Systems.UI
         {
             Context=context;
             Menu.gameObject.SetActive(context==UIContext.Title); Loading.gameObject.SetActive(context==UIContext.Loading); Hud.gameObject.SetActive(context==UIContext.Gameplay);
-            if(context!=UIContext.Gameplay) { pauseLease?.Dispose(); pauseLease=null; Pause.gameObject.SetActive(false); }
+            Songs.gameObject.SetActive(context==UIContext.SongSelect); Loadout.gameObject.SetActive(context==UIContext.Loadout); Result.gameObject.SetActive(context==UIContext.Result);
+            if(context!=UIContext.Gameplay) { Pause.gameObject.SetActive(false); var lease = pauseLease; pauseLease=null; lease?.Dispose(); Hud.Selector.SetActive(false); }
             Hud.Warning.gameObject.SetActive(!IsPauseOpen);
             root.Input.SetGameplay(context==UIContext.Gameplay && !IsPauseOpen && !Settings.gameObject.activeSelf);
             RefreshContinue();
             if(context==UIContext.Title) Select(Menu.StartButton.gameObject);
             if(context==UIContext.Loading) { Loading.Tip.text=root.Config.LoadingTips.Pick(new System.Random()); RefreshLoading(); }
             if(context==UIContext.Gameplay) EventSystem.SetSelectedGameObject(null);
+            if(context==UIContext.SongSelect) { Songs.Open(); Select(Songs.List.Rows[Songs.List.Rows.Length/2].gameObject); }
+            if(context==UIContext.Loadout) { Loadout.Open(); Select(Loadout.StartButton.gameObject); }
+            if(context==UIContext.Result) Select(Result.Retry.gameObject);
         }
         private void Select(GameObject target) { EventSystem.SetSelectedGameObject(null); EventSystem.SetSelectedGameObject(target); }
         public void RefreshContinue() { Menu.ContinueButton.interactable=root.Saves.Status==SaveStatus.Valid; }
         private void NewGame()
         {
-            if(root.Saves.Status==SaveStatus.Valid) Dialog.Show("开始新游戏会重置养成与关卡进度，个人设置将保留。是否继续？",()=>Begin(root.Config.Levels.FirstEntryId,true));
-            else Begin(root.Config.Levels.FirstEntryId,true);
+            if(root.Saves.Status==SaveStatus.Valid) Dialog.Show("开始游戏会清空歌曲成绩和道具获取数量，个人设置将保留。是否继续？",StartFresh);
+            else StartFresh();
         }
-        private void Continue() { if(root.Saves.Current!=null) Begin(root.Saves.Current.LevelEntryId,false); }
-        private void Begin(string id,bool fresh)
+        private void StartFresh()
         {
-            var result=root.Scenes.Begin(id,fresh);
-            if(!result.Success) { ShowContext(UIContext.Loading); Toast(result.Error); RefreshLoading(); }
+            var result=root.NewGame(); if (result.Success) Loadout.ResetDraft(); else Toast(result.Error);
         }
+        private void Continue() { if(root.Saves.Status==SaveStatus.Valid) OpenSongSelection(); }
+        public void OpenSongSelection() => ShowContext(UIContext.SongSelect);
+        public void OpenLoadout() => ShowContext(UIContext.Loadout);
+        public void ShowResult(RunResult result,OperationResult save) { Result.Show(result,save); ShowContext(UIContext.Result); }
         private void Retry() { var result=root.Scenes.Retry(); if(!result.Success) Toast(result.Error); }
-        private void BackToTitle() { if(root.Scenes.Busy) return; SceneManager.LoadScene(root.Config.TitleScene); ShowContext(UIContext.Title); }
+        private void BackToTitle() { if(root.Scenes.Busy) return; var result=root.Scenes.AbandonToTitle(); if(!result.Success) Toast(result.Error); }
         private void RefreshLoading()
         {
             Loading.Progress.value=root.Scenes.Progress;
@@ -108,13 +119,14 @@ namespace TapTap.Systems.UI
         private void SettingsClosed()
         { if(settingsFromPause) Select(Pause.ResumeButton.gameObject); else if(Context==UIContext.Title) Select(Menu.SettingsButton.gameObject); }
         private void OnSettingsApplied() { root.Input.Clear(); Hud.RefreshBindings(root.Binding, root.Input.Controls); }
-        private void Save() { var result=root.SaveProgress(); Toast(result.Success ? "局外进度已保存。" : result.Error); }
         private void OnEscape()
         {
             if(escapeFrame==Time.frameCount) return; escapeFrame=Time.frameCount;
             if(Settings.WaitingForKey) { Settings.Cancel(); return; }
             if(Dialog.gameObject.activeSelf) { Dialog.Cancel(); return; }
             if(Settings.gameObject.activeSelf) { Settings.Cancel(); return; }
+            if(Context==UIContext.SongSelect) { ShowContext(UIContext.Title); return; }
+            if(Context==UIContext.Loadout) { OpenSongSelection(); return; }
             if(IsPauseOpen) Resume(); else if(Context==UIContext.Gameplay) OpenPause();
         }
         public void BindHud(IHudDataSource source,IGameplayRequestSink sink)

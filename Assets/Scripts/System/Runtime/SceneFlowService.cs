@@ -13,32 +13,33 @@ namespace TapTap.Systems
         public float Progress { get; private set; }
         public string Error { get; private set; }
         public event Action Changed;
-        private bool newGame;
-        private string entryId;
         public SceneFlowService(SystemRoot root) { this.root = root; }
-        public OperationResult Begin(string id, bool fresh)
+        public OperationResult StartRun(BattleStartData setup)
         {
             if (Busy) return OperationResult.Fail("关卡正在加载，请稍候。");
-            entryId = id; newGame = fresh;
+            if (setup == null) return OperationResult.Fail("本局配置缺失。");
+            string error = setup.Validate(root.Config, root.Saves);
+            if (error != null) return OperationResult.Fail(error);
+            var previous = root.ActiveRun; root.ActiveRun = setup;
+            var result = Begin(setup.Difficulty.LevelEntryId);
+            if (!result.Success) root.ActiveRun = previous;
+            else root.LastResult = null;
+            return result;
+        }
+        public OperationResult RetryRun() => StartRun(root.ActiveRun);
+        private OperationResult Begin(string id)
+        {
+            if (Busy) return OperationResult.Fail("关卡正在加载，请稍候。");
             Failed = false; Error = null; Progress = 0;
             var entry = root.Config.Levels.Find(id);
             if (entry == null || !Application.CanStreamedLevelBeLoaded(entry.ScenePath) || !Application.CanStreamedLevelBeLoaded(root.Config.LoadingScene))
             { Failed = true; Error = "关卡资源未配置或未加入构建，请检查关卡入口。"; Changed?.Invoke(); return OperationResult.Fail(Error); }
-            if (fresh)
-            {
-                var cleared = root.Saves.Clear();
-                if (!cleared.Success) { Failed = true; Error = cleared.Error; Changed?.Invoke(); return cleared; }
-                root.UI.RefreshContinue();
-            }
             Busy = true; root.StartCoroutine(Load(entry)); return OperationResult.Ok();
         }
         public OperationResult AbandonToTitle()
         {
             if (Busy) return OperationResult.Fail("场景正在切换，请稍候。");
             if (!Application.CanStreamedLevelBeLoaded(root.Config.TitleScene)) return OperationResult.Fail("标题场景未加入构建。");
-            var cleared = root.Saves.Clear();
-            if (!cleared.Success) return cleared;
-            root.PendingNewGame = root.PendingProgressRestore = false;
             root.CurrentEntryId = null;
             root.Input.SetGameplay(false);
             root.UI.RefreshContinue();
@@ -54,7 +55,7 @@ namespace TapTap.Systems
             Busy = false; Progress = 0;
             root.UI.ShowContext(UIContext.Title);
         }
-        public OperationResult Retry() => Begin(entryId, newGame);
+        public OperationResult Retry() => RetryRun();
         private IEnumerator Load(LevelEntry entry)
         {
             root.Input.SetGameplay(false); root.UI.ShowContext(UIContext.Loading); Changed?.Invoke();
@@ -73,13 +74,12 @@ namespace TapTap.Systems
                 { timeout = true; Error = "加载时间较长，正在等待当前请求结束，请勿重复加载。"; }
                 Changed?.Invoke(); yield return null;
             }
-            root.PendingNewGame = newGame; root.PendingProgressRestore = !newGame;
             root.CurrentEntryId = entry.Id;
             operation.allowSceneActivation = true;
             while (!operation.isDone) yield return null;
             // Start callbacks in the destination scene run after activation.
             yield return null;
-            Progress = 1; Busy = false; Error = null; Changed?.Invoke(); root.UI.ShowContext(UIContext.Gameplay);
+            Progress = 1; Busy = false; Error = null; Changed?.Invoke(); root.UI.ShowContext(root.LastResult == null ? UIContext.Gameplay : UIContext.Result);
         }
         private AsyncOperation TryLoad(string path)
         {

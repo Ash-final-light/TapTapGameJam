@@ -54,8 +54,8 @@ namespace TapTap.Danmaku
         public void Sync(BattleSimulation battle, BattleConfig config)
         {
             batches.Sync(battle.World, config.Sequence);
-            if (player) Setup(player, config.Player.Sprite, Color.white, config.Player.VisualSize,
-                DanmakuSimulation.ToVector(battle.Player.Pose.Position), 0);
+            // The independent PlayerSpineView owns the player's presentation.
+            if (player) player.enabled = false;
             if (boss) Setup(boss, config.Sequence.BossSprite, new Color(1, 0.8f, 0.25f), 0.8f,
                 DanmakuSimulation.ToVector(battle.Boss.Pose.Position), 0);
         }

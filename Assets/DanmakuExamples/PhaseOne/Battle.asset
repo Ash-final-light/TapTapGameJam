@@ -12,14 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae225d7fcbc99e428498642c10f82ba, type: 3}
   m_Name: Battle
   m_EditorClassIdentifier: 
-  Sequence: {fileID: 11400000, guid: 3443ef7eb944b6a4591ca0b706feb00e, type: 2}
-  Player: {fileID: 11400000, guid: 545978436d8e82748aa44308d81723b6, type: 2}
-  Weapon: {fileID: 11400000, guid: 610d2d2d9b13fa0489ce609101f5d2dd, type: 2}
-  PlayerHealth: 5
+  Sequence: {fileID: 11400000, guid: 6a9eaad0adb21c44d94c3dc047465b63, type: 2}
   BossHealth: 1000
-  PlayerSpawn: {x: 0, y: -4}
   BossPosition: {x: 0, y: 3}
   BossHitRadius: 0.4
-  PlayerInvulnerableTicks: 30
   ConsumeBulletWhenInvulnerable: 1
   MaxActiveProjectiles: 2048

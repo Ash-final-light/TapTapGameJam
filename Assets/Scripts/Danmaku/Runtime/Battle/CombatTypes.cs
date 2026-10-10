@@ -65,6 +65,7 @@ namespace TapTap.Danmaku
     {
         public int Count { get; private set; }
         internal int Increment() { if (Count < int.MaxValue) Count++; return Count; }
+        internal void Reset() { Count = 0; }
     }
     public interface IDamageConfigResolver { FP64 Resolve(int damageConfigId); }
 }
