@@ -207,24 +207,84 @@ namespace Spotlight.Tests
             }
             if(Get(ui,"Context").ToString()=="Title") { Click(Get(ui,"Menu"),"ContinueButton"); yield return WaitForContext("SongSelect"); }
             Click(Get(ui,"Songs"),"Confirm"); yield return WaitForContext("Loadout");
+            var weaponButtons=((RectTransform)Get(Get(ui,"Loadout"),"WeaponsRoot")).GetComponentsInChildren<Button>();
+            weaponButtons[0].onClick.Invoke(); weaponButtons[0].onClick.Invoke(); yield return Frames();
             if(equipFirstItem)
             {
                 var buttons=((RectTransform)Get(Get(ui,"Loadout"),"ItemsRoot")).GetComponentsInChildren<Button>();
-                Assert.IsTrue(buttons[0].interactable); buttons[0].onClick.Invoke(); yield return Frames();
+                Assert.IsTrue(buttons[1].interactable); buttons[1].onClick.Invoke(); buttons[1].onClick.Invoke(); yield return Frames();
             }
             Click(Get(ui,"Loadout"),"StartButton"); yield return WaitForContext("Gameplay");
+        }
+        [UnityTest]
+        public IEnumerator LoadoutPreviewDoubleClickSlotsAndStartGate()
+        {
+            Click(Get(ui,"Menu"),"StartButton"); yield return WaitForContext("SongSelect");
+            Click(Get(ui,"Songs"),"Confirm"); yield return WaitForContext("Loadout");
+            var loadout=Get(ui,"Loadout"); var start=(Button)Get(loadout,"StartButton");
+            var description=(TMP_Text)Get(loadout,"Description");
+            Assert.IsFalse(start.interactable); Assert.IsNull(Get(loadout,"SelectedWeapon")); Assert.AreEqual("",description.text);
+            yield return Capture("LoadoutEmpty");
+            var options=((RectTransform)Get(loadout,"ItemsRoot")).GetComponentsInChildren<Button>();
+            options[0].onClick.Invoke();
+            Assert.IsTrue(description.text.Contains("恢复2点"),"未解锁道具应能查看说明");
+            options[0].onClick.Invoke(); Assert.AreEqual(0,((IList)Get(loadout,"Equipment")).Count,"未解锁道具不能装备");
+            yield return Capture("LoadoutLockedPreview");
+            var weaponButtons=((RectTransform)Get(loadout,"WeaponsRoot")).GetComponentsInChildren<Button>();
+            weaponButtons[0].onClick.Invoke(); Assert.IsFalse(start.interactable,"单击弹幕仅查看说明");
+            weaponButtons[0].onClick.Invoke(); yield return Frames(); Assert.IsTrue(start.interactable);
+            var equippedWeapon=(Button)Get(loadout,"EquippedWeapon"); equippedWeapon.onClick.Invoke();
+            Assert.IsTrue(start.interactable,"单击已装备弹幕不应卸下"); equippedWeapon.onClick.Invoke();
+            yield return Frames(); Assert.IsFalse(start.interactable,"卸下弹幕后按钮应禁用");
+            weaponButtons=((RectTransform)Get(loadout,"WeaponsRoot")).GetComponentsInChildren<Button>();
+            weaponButtons[1].onClick.Invoke(); weaponButtons[1].onClick.Invoke(); yield return Frames(); Assert.IsTrue(start.interactable);
+            var saves=Get(root,"Saves"); for(int i=1;i<=4;i++) Call(saves,"GrantItem","item-"+i,3);
+            Call(loadout,"Open"); yield return Frames();
+            options=((RectTransform)Get(loadout,"ItemsRoot")).GetComponentsInChildren<Button>();
+            options[0].onClick.Invoke(); Assert.AreEqual(0,((IList)Get(loadout,"Equipment")).Count,"单击道具不应装备");
+            options[0].onClick.Invoke(); yield return Frames();
+            for(int i=1;i<3;i++)
+            {
+                options=((RectTransform)Get(loadout,"ItemsRoot")).GetComponentsInChildren<Button>();
+                options[i].onClick.Invoke(); options[i].onClick.Invoke(); yield return Frames();
+            }
+            options=((RectTransform)Get(loadout,"ItemsRoot")).GetComponentsInChildren<Button>();
+            options[3].onClick.Invoke(); options[3].onClick.Invoke(); yield return Frames();
+            Assert.AreEqual(3,((IList)Get(loadout,"Equipment")).Count,"不能超过3个装备槽");
+            options[0].onClick.Invoke(); options[0].onClick.Invoke(); yield return Frames();
+            Assert.AreEqual(3,((IList)Get(loadout,"Equipment")).Count,"重复双击右侧道具不应卸下或重复装备");
+            var slots=((RectTransform)Get(loadout,"EquippedRoot")).GetComponentsInChildren<Button>();
+            slots[0].onClick.Invoke(); Assert.AreEqual(3,((IList)Get(loadout,"Equipment")).Count);
+            Assert.IsTrue(slots[0].GetComponent<Outline>().enabled); Assert.Greater(slots[0].GetComponent<Outline>().effectDistance.x,2);
+            yield return new WaitForSecondsRealtime(4.1f);
+            yield return Capture("LoadoutEquippedSelected");
+            yield return new WaitForSecondsRealtime(.35f);
+            slots[0].onClick.Invoke(); slots[0].onClick.Invoke(); yield return Frames();
+            Assert.AreEqual(2,((IList)Get(loadout,"Equipment")).Count);
+            var scroll=((RectTransform)Get(loadout,"ItemsRoot")).GetComponentInParent<ScrollRect>();
+            Assert.IsTrue(scroll.vertical); Assert.IsFalse(scroll.horizontal);
+            var oldItems=(Array)Get(config,"Items"); var extended=Array.CreateInstance(oldItems.GetType().GetElementType(),12);
+            for(int i=0;i<12;i++) extended.SetValue(oldItems.GetValue(i%oldItems.Length),i);
+            try
+            {
+                Set(config,"Items",extended); Call(loadout,"Open"); yield return Frames(); Canvas.ForceUpdateCanvases();
+                Assert.Greater(scroll.content.rect.height,scroll.viewport.rect.height,"扩展道具列表未增长");
+                scroll.verticalNormalizedPosition=0; yield return Frames(); yield return Capture("LoadoutScrolled");
+            }
+            finally { Set(config,"Items",oldItems); }
+            Click(loadout,"Back"); yield return WaitForContext("SongSelect");
         }
         [UnityTest]
         public IEnumerator EquippedItemUsesAcceptedIntentAndRestoresOnRetry()
         {
             Click(Get(ui,"Menu"),"StartButton"); yield return WaitForContext("SongSelect");
-            var saves=Get(root,"Saves"); Call(saves,"GrantItem","item-1",1);
+            var saves=Get(root,"Saves"); Call(saves,"GrantItem","item-2",3);
             yield return PrepareAndStartBattle(true);
             var manager=UnityEngine.Object.FindObjectOfType(Type.GetType("TapTap.Danmaku.BattleManager, Assembly-CSharp",true));
             var items=(Array)Get(Get(manager,"Current"),"Items"); Assert.AreEqual(3,Get(items.GetValue(0),"Count"));
             yield return Keys(Key.R); yield return Keys();
             items=(Array)Get(Get(manager,"Current"),"Items"); Assert.AreEqual(2,Get(items.GetValue(0),"Count"),"同一次使用请求不能被多 Tick 重复执行");
-            Assert.AreEqual(1,Call(saves,"Quantity","item-1"),"局内使用不能扣永久获取数量");
+            Assert.AreEqual(3,Call(saves,"Quantity","item-2"),"局内使用不能扣永久获取数量");
             for(int i=0;i<12 && Get(ui,"Context").ToString()!="Result";i++) Call(manager,"AdvanceFrame",10d);
             yield return WaitForContext("Result"); Click(Get(ui,"Result"),"Retry"); yield return WaitForContext("Gameplay");
             manager=UnityEngine.Object.FindObjectOfType(Type.GetType("TapTap.Danmaku.BattleManager, Assembly-CSharp",true));

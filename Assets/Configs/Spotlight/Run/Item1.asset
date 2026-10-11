@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Item1
   m_EditorClassIdentifier: 
   Id: item-1
-  DisplayName: "\u8282\u594F\u5FBD\u7AE0"
-  Description: "\u9053\u5177\u6548\u679C\u5360\u4F4D\uFF1A\u4F7F\u7528\u65F6\u5728
-    Console \u8F93\u51FA\u4E00\u6761\u8BED\u53E5\u3002"
+  DisplayName: "\u8840\u91CF\u56DE\u590D\u9053\u5177"
+  Description: "\u5355\u6B21\u6062\u590D2\u70B9\u751F\u547D\u503C\uFF1B\u4E0D\u4F1A\u8D85\u8FC7\u751F\u547D\u503C\u4E0A\u9650\u3002\u6EE1\u8840\u65F6\u4E0D\u6D88\u8017\u6B21\u6570\u3002"
   Icon: {fileID: 21300000, guid: 631849cd504b1b04abb3b06ab6136ef1, type: 3}
   Passive: 0
+  MaxHeldPerRun: 3
   UsesPerRun: 3
   CooldownTicks: 60
-  Effect: {fileID: 11400000, guid: 61b6041499a211941a43e64aa9db8032, type: 2}
+  Effect: {fileID: 11400000, guid: ec72784c742f81f4cb669929d377d237, type: 2}

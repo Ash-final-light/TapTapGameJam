@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: item-4
   DisplayName: "\u6F14\u51FA\u8033\u673A"
-  Description: "\u9053\u5177\u6548\u679C\u5360\u4F4D\uFF1A\u5F00\u5C40\u65F6\u5728
-    Console \u8F93\u51FA\u4E00\u6761\u8BED\u53E5\u3002"
+  Description: "\u9053\u5177\u6548\u679C\u5360\u4F4D\uFF0C\u540E\u7EED\u914D\u7F6E\u3002"
   Icon: {fileID: 21300000, guid: 631849cd504b1b04abb3b06ab6136ef1, type: 3}
   Passive: 1
+  MaxHeldPerRun: 3
   UsesPerRun: 3
   CooldownTicks: 60
   Effect: {fileID: 11400000, guid: 61b6041499a211941a43e64aa9db8032, type: 2}

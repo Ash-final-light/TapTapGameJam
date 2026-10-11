@@ -72,7 +72,7 @@ namespace TapTap.Systems.UI
             if(context==UIContext.Loading) { Loading.Tip.text=root.Config.LoadingTips.Pick(new System.Random()); RefreshLoading(); }
             if(context==UIContext.Gameplay) EventSystem.SetSelectedGameObject(null);
             if(context==UIContext.SongSelect) { Songs.Open(); Select(Songs.List.Rows[Songs.List.Rows.Length/2].gameObject); }
-            if(context==UIContext.Loadout) { Loadout.Open(); Select(Loadout.StartButton.gameObject); }
+            if(context==UIContext.Loadout) { Loadout.Open(); Select(Loadout.StartButton.interactable ? Loadout.StartButton.gameObject : Loadout.Back.gameObject); }
             if(context==UIContext.Result) Select(Result.Retry.gameObject);
         }
         private void Select(GameObject target) { EventSystem.SetSelectedGameObject(null); EventSystem.SetSelectedGameObject(target); }
