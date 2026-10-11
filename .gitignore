@@ -10,6 +10,9 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
+# Local research, validation copies, and generated experiment artifacts
+/tmp/
+
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
 
