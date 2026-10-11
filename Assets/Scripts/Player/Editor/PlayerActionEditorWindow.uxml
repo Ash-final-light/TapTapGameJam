@@ -12,7 +12,9 @@
         <ui:IMGUIContainer name="inspector" />
       </ui:ScrollView>
     </ui:VisualElement>
-    <ui:IMGUIContainer name="debug" class="player-debug" />
+    <ui:Foldout name="debugFoldout" text="输入调试" value="false" class="player-debug">
+      <ui:IMGUIContainer name="debug" />
+    </ui:Foldout>
     <ui:Label name="status" class="player-status" />
   </ui:VisualElement>
 </ui:UXML>
