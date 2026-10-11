@@ -15,6 +15,7 @@ namespace TapTap.Systems
         public BindingService Binding { get; private set; }
         public SettingsService Settings { get; private set; }
         public GameSaveService Saves { get; private set; }
+        public Music.ImportedMusicLibrary Music { get; private set; }
         public BattleStartData ActiveRun { get; internal set; }
         public RunResult LastResult { get; internal set; }
         public AudioVolumeService Audio { get; private set; }
@@ -37,6 +38,7 @@ namespace TapTap.Systems
             var store = new JsonFileStore(System.IO.Path.Combine(Application.persistentDataPath, config.SaveFolder));
             Settings = new SettingsService(store, config.Defaults, Binding, Audio, new UnityDisplaySettings());
             Saves = new GameSaveService(store); Scenes = new SceneFlowService(this);
+            Music = new Music.ImportedMusicLibrary(System.IO.Path.Combine(store.DirectoryPath, "ImportedMusic"));
             UI = Instantiate(config.UIPrefab, transform); UI.gameObject.SetActive(false); UI.Bind(this); UI.gameObject.SetActive(true);
             SceneManager.sceneLoaded += OnSceneLoaded; Application.focusChanged += OnFocus;
             Initialized = true;

@@ -1,0 +1,6 @@
+PASS main menu integration initialized
+PASS separate player restart restores two songs
+PASS restart retains decimal BPM and first beat
+PASS audio decoded and waveform available
+PASS restored alignment appears in input field
+ALL PASS

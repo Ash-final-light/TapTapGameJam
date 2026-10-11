@@ -6,7 +6,7 @@ namespace TapTap.Systems
     public enum DisplayMode { Windowed, FullScreen, Borderless }
     public enum MicrophoneState { Off, On, Unavailable }
     public enum SaveStatus { Missing, Valid, Corrupt, UnsupportedVersion }
-    public enum UIContext { Title, Gameplay, Loading, SongSelect, Loadout, Result }
+    public enum UIContext { Title, Gameplay, Loading, SongSelect, Loadout, Result, ImportedMusic, AudioAlignment }
 
     [Serializable] public sealed class SettingsData
     {

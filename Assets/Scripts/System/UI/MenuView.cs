@@ -7,5 +7,6 @@ namespace TapTap.Systems.UI
     {
         public UnityEngine.UI.Button StartButton, ContinueButton, SettingsButton, ExitButton;
         public TMP_Text Title;
+        [System.NonSerialized] public UnityEngine.UI.Button MusicButton;
     }
 }
