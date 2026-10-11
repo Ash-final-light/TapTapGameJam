@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TapTap.Danmaku
 {
-    [CreateAssetMenu(menuName = "Danmaku/Player Config", fileName = "PlayerConfig")]
+    [CreateAssetMenu(menuName = "弹幕/预览玩家配置", fileName = "PlayerConfig")]
     public sealed class DanmakuPlayerConfig : ScriptableObject
     {
         [Min(0)] public float NormalMoveSpeed = 4;

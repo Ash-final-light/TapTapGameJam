@@ -13,7 +13,7 @@ namespace TapTap.Danmaku
         public FPVector2 Start, End, SegmentStart, SegmentEnd;
         public FPVector2 RandomSpawnMin, RandomSpawnMax;
         public FP64 PlayerProtectionDistance;
-        public FP64 Direction, Arc, SpawnRadius, Speed, SpeedDelta, Rotation, AlternatePhase, RandomAngle;
+        public FP64 Direction, Arc, SpawnRadius, Speed, Rotation, AlternatePhase;
         public int NextKeyframe, EmittedRounds;
         public int ExplosionTick = -1;
     }
@@ -56,9 +56,8 @@ namespace TapTap.Danmaku
                     PlayerProtectionDistance = FP64.FromFloat(s.PlayerProtectionDistance),
                     Direction = Degrees(s.DirectionDegrees), Arc = Degrees(s.ArcDegrees),
                     SpawnRadius = FP64.FromFloat(Math.Max(0, s.SpawnRadius)),
-                    Speed = FP64.FromFloat(Math.Max(0, s.Speed)), SpeedDelta = FP64.FromFloat(s.SpeedLayerDelta),
-                    Rotation = Degrees(s.RotationDegreesPerSecond), AlternatePhase = Degrees(s.AlternatePhaseDegrees),
-                    RandomAngle = Degrees(s.RandomAngleDegrees)
+                    Speed = FP64.FromFloat(Math.Max(0, s.Speed)),
+                    Rotation = Degrees(s.RotationDegreesPerSecond), AlternatePhase = Degrees(s.AlternatePhaseDegrees)
                 };
             }
             foreach (var c in clips)
@@ -113,7 +112,7 @@ namespace TapTap.Danmaku
         private void Emit(CompiledClip c, int source, int local, int round)
         {
             var s = c.Emission;
-            int count = Math.Max(1, Math.Min(64, s.Count)), layers = Math.Max(1, Math.Min(8, s.SpeedLayers));
+            int count = Math.Max(1, Math.Min(64, s.Count));
             FPVector2 origin = Emitter(c, local);
             FP64 center = c.Direction + c.Rotation * FP64.FromFraction(local, DanmakuSequence.TickRate);
             if (s.AimAtPlayer)
@@ -128,20 +127,15 @@ namespace TapTap.Danmaku
                 if (s.Shape == EmissionShape.Ring) angle += FPMath.PI_TIMES_2 * FP64.FromFraction(i, count);
                 else if (s.Shape == EmissionShape.Arc && count > 1)
                     angle += c.Arc * (FP64.FromFraction(i, count - 1) - FP64.Half);
-                if (c.RandomAngle.Raw > 0) angle += c.Random.Range(-c.RandomAngle, c.RandomAngle);
                 FPVector2 point = origin;
                 if (s.Shape == EmissionShape.Segment)
                     point += c.SegmentStart + (c.SegmentEnd - c.SegmentStart) *
                         (count == 1 ? FP64.Half : FP64.FromFraction(i, count - 1));
                 point += DirectionVector(angle) * c.SpawnRadius;
-                for (int layer = 0; layer < layers; layer++)
-                {
-                    FPVector2 spawn = point;
-                    if (s.SpawnPosition == SpawnPositionPolicy.RandomArea && !TryRandomSpawn(c, out spawn))
-                    { world.ReportFault($"片段 {source + 1}：随机出生区域无法满足玩家保护距离，请调整区域或保护距离。"); return; }
-                    world.Spawn(source, 0, spawn, angle, FPMath.Max(FP64.Zero, c.Speed + c.SpeedDelta * FP64.FromInt(layer)), c.Projectile,
-                        explosionTick: c.ExplosionTick);
-                }
+                FPVector2 spawn = point;
+                if (s.SpawnPosition == SpawnPositionPolicy.RandomArea && !TryRandomSpawn(c, out spawn))
+                { world.ReportFault($"片段 {source + 1}：随机出生区域无法满足玩家保护距离，请调整区域或保护距离。"); return; }
+                world.Spawn(source, 0, spawn, angle, c.Speed, c.Projectile, explosionTick: c.ExplosionTick);
             }
         }
         private bool TryRandomSpawn(CompiledClip c, out FPVector2 point)

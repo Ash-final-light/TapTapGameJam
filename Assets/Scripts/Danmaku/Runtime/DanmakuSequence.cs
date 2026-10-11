@@ -18,7 +18,7 @@ namespace TapTap.Danmaku
     [Serializable]
     public sealed class DanmakuClip
     {
-        public string Id = Guid.NewGuid().ToString("N");
+        [HideInInspector] public string Id = Guid.NewGuid().ToString("N");
         public string Name = "发射片段";
         [Min(0)] public int StartTick;
         [Min(1)] public int DurationTicks = 180;
@@ -100,7 +100,7 @@ namespace TapTap.Danmaku
         public int ClipIndex = -1;
     }
 
-    [CreateAssetMenu(menuName = "Danmaku/Boss Sequence", fileName = "BossSequence")]
+    [CreateAssetMenu(menuName = "弹幕/攻击编排", fileName = "BossSequence")]
     public sealed class DanmakuSequence : ScriptableObject
     {
         public const int TickRate = 60;
@@ -113,6 +113,10 @@ namespace TapTap.Danmaku
         public MusicAnalysisSettings MusicAnalysisSettings = new();
         [Tooltip("正值表示音乐晚于战斗开始；负值表示从歌曲中段开始。")]
         public float MusicStartSeconds;
+        [Tooltip("手动节拍速度，每分钟拍数；0表示不启用手动节拍。")]
+        [Min(0)] public float ManualMusicBpm;
+        [Tooltip("第一拍在音乐文件中的位置，以秒为单位；与音乐开始偏移一起决定时间轴位置。")]
+        [Min(0)] public float ManualMusicBeatOffsetSeconds;
         public Vector2 FieldSize = new(9, 11);
         public Vector2 PreviewPlayerPosition = new(0, -4);
         public DanmakuPlayerConfig PreviewPlayerConfig;

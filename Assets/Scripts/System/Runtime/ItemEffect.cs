@@ -7,7 +7,9 @@ namespace TapTap.Systems
         public readonly BuffManager Buffs;
         public readonly int Tick;
         public readonly string ItemId;
-        public ItemEffectContext(BuffManager buffs, int tick, string itemId) { Buffs = buffs; Tick = tick; ItemId = itemId; }
+        public readonly TapTap.Danmaku.ActorState Player;
+        public ItemEffectContext(BuffManager buffs, int tick, string itemId, TapTap.Danmaku.ActorState player = null)
+        { Buffs = buffs; Tick = tick; ItemId = itemId; Player = player; }
     }
     public abstract class ItemEffect : ScriptableObject, IItemEffect { public abstract bool Apply(ItemEffectContext context); }
 }

@@ -26,6 +26,8 @@ MonoBehaviour:
     MidBand: {x: 250, y: 2000}
     HighBand: {x: 2000, y: 10000}
   MusicStartSeconds: 0
+  ManualMusicBpm: 0
+  ManualMusicBeatOffsetSeconds: 0
   FieldSize: {x: 9, y: 11}
   PreviewPlayerPosition: {x: 0, y: -4}
   PreviewPlayerConfig: {fileID: 11400000, guid: 545978436d8e82748aa44308d81723b6, type: 2}
@@ -73,11 +75,12 @@ MonoBehaviour:
       RotationDegreesPerSecond: 0
       AlternatePhaseDegrees: 0
       Speed: 2
-      SpeedLayers: 1
-      SpeedLayerDelta: 0.4
-      RandomAngleDegrees: 0
       SegmentStart: {x: -3, y: 0}
       SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
     Projectile: {fileID: 0}
     OverrideProjectile: 1
     ProjectileOverride:
@@ -85,12 +88,13 @@ MonoBehaviour:
       Color: {r: 0.35, g: 0.7, b: 1, a: 1}
       VisualSize: 0.18
       HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
       DurationTicks: 180
-      HitCount: 1
-      DamageConfigId: 0
-      DamageSource: 0
-      Damage: 1
-      TargetBuffIds: 
       SplitChild: {fileID: 0}
       SplitCount: 8
       SplitSpeed: 2.5
@@ -138,11 +142,12 @@ MonoBehaviour:
       RotationDegreesPerSecond: 0
       AlternatePhaseDegrees: 0
       Speed: 2
-      SpeedLayers: 1
-      SpeedLayerDelta: 0.4
-      RandomAngleDegrees: 0
       SegmentStart: {x: -3, y: 0}
       SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
     Projectile: {fileID: 0}
     OverrideProjectile: 1
     ProjectileOverride:
@@ -150,12 +155,13 @@ MonoBehaviour:
       Color: {r: 1, g: 0.45, b: 0.4, a: 1}
       VisualSize: 0.18
       HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
       DurationTicks: 180
-      HitCount: 1
-      DamageConfigId: 0
-      DamageSource: 0
-      Damage: 1
-      TargetBuffIds: 
       SplitChild: {fileID: 0}
       SplitCount: 8
       SplitSpeed: 2.5
@@ -188,11 +194,12 @@ MonoBehaviour:
       RotationDegreesPerSecond: 0
       AlternatePhaseDegrees: 0
       Speed: 1.5
-      SpeedLayers: 1
-      SpeedLayerDelta: 0.4
-      RandomAngleDegrees: 0
       SegmentStart: {x: -3, y: 0}
       SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
     Projectile: {fileID: 0}
     OverrideProjectile: 1
     ProjectileOverride:
@@ -200,12 +207,13 @@ MonoBehaviour:
       Color: {r: 0.75, g: 0.5, b: 1, a: 1}
       VisualSize: 0.28
       HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
       DurationTicks: 180
-      HitCount: 1
-      DamageConfigId: 0
-      DamageSource: 0
-      Damage: 1
-      TargetBuffIds: 
       SplitChild: {fileID: 11400000, guid: d05b0b0df6346494cab9d4d4c6d44e5f, type: 2}
       SplitCount: 8
       SplitSpeed: 2.5

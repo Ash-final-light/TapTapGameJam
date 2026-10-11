@@ -18,9 +18,9 @@ namespace TapTap.Player.Editor
         public const string Root = "Assets/Player";
         public const string DefinitionPath = Root + "/MaidGhost.asset";
         private const string LegacyBattle = "Assets/DanmakuExamples/PhaseOne/Battle.asset";
-        [MenuItem("Tools/Player/创建默认玩家与动作库")]
+        [MenuItem("Tools/角色/创建默认角色与动作库")]
         public static void CreateMenu() { Selection.activeObject = EnsureAssets(); PlayerActionEditorWindow.Open(); }
-        [MenuItem("Tools/Player/耐力仅用于飞行")]
+        [MenuItem("Tools/角色/体力仅用于飞行")]
         public static void ApplyFlightOnlyStamina()
         {
             var definition = EnsureAssets();
@@ -140,7 +140,7 @@ namespace TapTap.Player.Editor
             }
             finally { UnityEngine.Object.DestroyImmediate(root); }
         }
-        [MenuItem("Tools/Player/迁移现有战斗玩家并接入场景")]
+        [MenuItem("Tools/角色/迁移现有战斗角色并接入场景")]
         public static void Migrate()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("迁移需要退出 PlayMode。");

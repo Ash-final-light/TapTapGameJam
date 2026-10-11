@@ -23,7 +23,11 @@ namespace TapTap.Danmaku
         private double seconds, remainingDelay;
         public bool Playing { get; private set; }
         public double Seconds => seconds;
-        public int TargetTick => MusicTime.CompletedTick(seconds);
+        public double SongSeconds => seconds - offset;
+        public bool AudioPlaying => Playing && audioLaunched && !audioEnded && backend.HasStarted && backend.IsPlaying;
+        public bool WaitingForAudio => Playing && clip && !audioEnded && (!audioLaunched || !backend.HasStarted);
+        public bool AudioEnded => audioEnded;
+        public int TargetTick => audioEnded ? MusicTime.EndTick(seconds) : MusicTime.CompletedTick(seconds);
         public MusicTimelineTransport(AudioClip clip, double offset, IMusicPlaybackBackend backend)
         { this.clip = clip; this.offset = offset; this.backend = backend; }
         public void Play() { Seek(0); Resume(); }

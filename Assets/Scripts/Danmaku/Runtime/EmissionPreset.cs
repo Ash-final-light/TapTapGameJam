@@ -20,9 +20,6 @@ namespace TapTap.Danmaku
         public float RotationDegreesPerSecond;
         public float AlternatePhaseDegrees;
         [Min(0)] public float Speed = 2;
-        [Range(1, 8)] public int SpeedLayers = 1;
-        public float SpeedLayerDelta = 0.4f;
-        [Range(0, 180)] public float RandomAngleDegrees;
         public Vector2 SegmentStart = new(-3, 0);
         public Vector2 SegmentEnd = new(3, 0);
         [Tooltip("RandomArea 使用战斗局部坐标中的绝对矩形；独立采样每颗弹，覆盖形状的位置偏移。")]
@@ -32,7 +29,7 @@ namespace TapTap.Danmaku
         public EmissionSettings Copy() => (EmissionSettings)MemberwiseClone();
     }
 
-    [CreateAssetMenu(menuName = "Danmaku/Emission Preset", fileName = "Emission")]
+    [CreateAssetMenu(menuName = "弹幕/发射预设", fileName = "Emission")]
     public sealed class EmissionPreset : ScriptableObject
     {
         public BuiltinPattern Pattern;
@@ -46,8 +43,8 @@ namespace TapTap.Danmaku
     {
         public static readonly string[] Names =
         {
-            "定向单发／连射", "自机狙扇形", "固定扇形", "环形／多层环",
-            "旋转扫射／螺旋", "线阵／墙弹", "花瓣／交错环", "子母弹（单次发射／分裂）"
+            "直线发射", "瞄准扇形", "固定扇形", "圆环扩散",
+            "旋转扫射", "横排墙弹", "交错圆环", "子母弹"
         };
 
         public static EmissionSettings Create(BuiltinPattern pattern)
@@ -69,7 +66,7 @@ namespace TapTap.Danmaku
                 case BuiltinPattern.Wall:
                     s.Shape = EmissionShape.Segment; s.Count = 9; break;
                 case BuiltinPattern.Petals:
-                    s.Shape = EmissionShape.Ring; s.Count = 8; s.SpeedLayers = 2;
+                    s.Shape = EmissionShape.Ring; s.Count = 8;
                     s.AlternatePhaseDegrees = 22.5f; break;
                 case BuiltinPattern.Split:
                     s.Shape = EmissionShape.Arc; s.Count = 3; s.ArcDegrees = 50;

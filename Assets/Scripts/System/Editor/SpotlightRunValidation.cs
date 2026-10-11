@@ -32,8 +32,8 @@ namespace TapTap.Systems.Editor
                 Test("Buff 叠层、移除、Tick 到期与资源隔离",Buffs);
                 Test("主动道具冷却、数量、被动效果与重试恢复",Items);
                 Test("掉落权重、必掉一个、坏配置拒绝",Drops);
-                Test("时间轴通关、Boss 死亡不结束、玩家死亡失败",EndConditions);
-                Test("Buff 实际影响移速、射速、子弹速度和伤害",RuntimeStats);
+                Test("时间轴通关、玩家子弹穿过 Boss、玩家倒下结束",EndConditions);
+                Test("Buff 实际影响移速、射速、子弹速度",RuntimeStats);
                 Test("能量球到期、分裂遗漏、击破及清理区分",OrbLifecycle);
                 Test("配置与 Prefab 完整、暂停保存按钮已删除",Assets);
             }
@@ -117,24 +117,25 @@ namespace TapTap.Systems.Editor
             var definition = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<PlayerDefinition>("Assets/Player/MaidGhost.asset")); owned.Add(definition);
             definition.Motor.MoveSpeed = 2; definition.Motor.GroundHeight = 0;
             var weapon = Make<PlayerWeaponDefinition>(); weapon.Projectile = Make<ProjectileDefinition>(); weapon.FireRate = 5; weapon.Emission.Speed = 1; definition.Weapon = weapon;
-            var config = Make<BattleConfig>(); config.Sequence = Make<DanmakuSequence>(); config.Sequence.Clips.Clear(); config.Sequence.Events.Clear(); config.Sequence.DurationTicks = duration; config.Sequence.ClearAtEnd = false; config.BossHealth = 1;
+            var config = Make<BattleConfig>(); config.Sequence = Make<DanmakuSequence>(); config.Sequence.Clips.Clear(); config.Sequence.Events.Clear(); config.Sequence.DurationTicks = duration; config.Sequence.ClearAtEnd = false;
             return new BattleSimulation(config,definition,Vector2.zero);
         }
         private static void EndConditions()
         {
-            var battle = Battle(3); battle.World.SpawnFriendly(new ProjectileSettings { Damage = 1 },DanmakuSimulation.ToFP(new Vector2(0,3)),FP64.Zero,FP64.Zero); battle.Step(default);
-            Require(!battle.Boss.Alive && !battle.Finished,"Boss 死亡提前结束"); battle.Step(default); battle.Step(default); Require(battle.Finished && battle.Player.Alive,"时间轴未结束");
+            var battle = Battle(3); battle.World.SpawnFriendly(new ProjectileSettings(),DanmakuSimulation.ToFP(new Vector2(0,3)),FP64.Zero,FP64.Zero); battle.Step(default);
+            Require(battle.World.Bullets.Count == 1 && !battle.Finished && battle.Events.Count == 0,"Boss 阻挡了玩家子弹或提前结束"); battle.Step(default); battle.Step(default); Require(battle.Finished && battle.Player.Alive,"时间轴未结束");
             battle = Battle(); battle.PlayerSystem.ReceiveDamage(FP64.FromInt(999)); Require(battle.Finished && !battle.Player.Alive,"玩家死亡未结束");
         }
         private static void RuntimeStats()
         {
             var basic = Battle(); var enhanced = Battle();
-            enhanced.Buffs.Add("stats",new[] { new BuffModifier { Stat = BuffStat.MoveSpeed, Multiplier = 2 }, new BuffModifier { Stat = BuffStat.FireRate, Multiplier = 2 }, new BuffModifier { Stat = BuffStat.ProjectileSpeed, Multiplier = 2 }, new BuffModifier { Stat = BuffStat.Damage, Multiplier = 3 } },0,0);
+            enhanced.Buffs.Add("stats",new[] { new BuffModifier { Stat = BuffStat.MoveSpeed, Multiplier = 2 }, new BuffModifier { Stat = BuffStat.FireRate, Multiplier = 2 }, new BuffModifier { Stat = BuffStat.ProjectileSpeed, Multiplier = 2 } },0,0);
             var fire = new BattleInput(new InputSnapshot(short.MaxValue,0,fireHeld:true),DanmakuSimulation.ToFP(new Vector2(0,3)),true);
             var input = new PlayerTickInput(short.MaxValue,fireHeld:true);
             basic.Step(fire,input); enhanced.Step(fire,input);
             Require(enhanced.Player.Pose.Position.X == basic.Player.Pose.Position.X * FP64.FromInt(2),"移速未生效");
-            Require(enhanced.World.Bullets[0].DamageMultiplier == FP64.FromInt(3) && enhanced.World.Bullets[0].DamageFlat == FP64.Zero,"子弹伤害快照缺失");
+            Require((enhanced.World.Bullets[0].Position - enhanced.Player.Pose.Position).Magnitude >
+                (basic.World.Bullets[0].Position - basic.Player.Pose.Position).Magnitude,"子弹速度未生效");
             for (int i = 1; i < 60; i++) { basic.Step(default,new PlayerTickInput(0,fireHeld:true)); enhanced.Step(default,new PlayerTickInput(0,fireHeld:true)); }
             Require(basic.Weapon.TotalRounds == 5 && enhanced.Weapon.TotalRounds == 10,"射速未生效");
             Require(enhanced.PlayerSystem.Definition.Motor.MoveSpeed == 2,"基础资源被污染");

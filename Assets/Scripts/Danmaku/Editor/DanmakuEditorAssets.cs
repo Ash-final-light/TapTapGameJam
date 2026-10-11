@@ -8,7 +8,7 @@ namespace TapTap.Danmaku.Editor
     {
         private const string Root = "Assets/DanmakuExamples";
 
-        [MenuItem("Tools/Danmaku/创建八类示例资产")]
+        [MenuItem("工具/弹幕/创建八类示例资产")]
         public static void CreateExamplesMenu() => CreateExamples();
 
         public static DanmakuSequence CreateExamples()
@@ -85,7 +85,7 @@ namespace TapTap.Danmaku.Editor
             return sequence;
         }
 
-        [MenuItem("Tools/Danmaku/重建关键帧示例资产")]
+        [MenuItem("工具/弹幕/重建关键帧示例资产")]
         public static void RebuildKeyframeExamples()
         {
             CreateExamples();
@@ -142,7 +142,7 @@ namespace TapTap.Danmaku.Editor
             AssetDatabase.CreateAsset(asset, path); return asset;
         }
 
-        [MenuItem("Tools/Danmaku/创建玩家配置示例")]
+        [MenuItem("工具/弹幕/创建玩家配置示例")]
         public static void CreatePlayerConfigMenu() => Selection.activeObject = CreatePlayerConfig();
 
         public static DanmakuPlayerConfig CreatePlayerConfig()
@@ -157,7 +157,7 @@ namespace TapTap.Danmaku.Editor
             return config;
         }
 
-        [MenuItem("GameObject/Danmaku/Sequence Player", false, 10)]
+        [MenuItem("GameObject/弹幕/攻击播放器", false, 10)]
         private static void CreatePlayer()
         {
             var obj = new GameObject("Danmaku Sequence Player");

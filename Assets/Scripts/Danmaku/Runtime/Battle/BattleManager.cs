@@ -14,10 +14,15 @@ namespace TapTap.Danmaku
         public Camera AimCamera;
         [Tooltip("独立场景明确指定现有采样器；存在 SystemRoot 时使用 SystemRoot.Input。")]
         public PlayerInputSampler StandaloneInput;
-        public MonoBehaviour DamageConfigProvider;
         public bool PlayOnStart = true;
         public BattleSimulation Simulation { get; private set; }
         public bool IsRunning { get; private set; }
+        // Presentation observes the existing playback; it never owns or advances the transport.
+        public AudioSource MusicSource => musicSource;
+        public double MusicSongSeconds => music?.SongSeconds ?? 0;
+        public bool MusicPlaying => music?.AudioPlaying == true;
+        public bool MusicWaitingForAudio => music?.WaitingForAudio == true;
+        public bool MusicPaused => music != null && Simulation != null && !Simulation.Finished && (!IsRunning || syncCatchup);
         public event Action<BattleEvent> Resolved;
         public event Action<HudSnapshot> Changed;
         private SystemRoot system;
@@ -62,9 +67,13 @@ namespace TapTap.Danmaku
             { Debug.LogError("SystemRoot 尚未初始化完成。", this); system = null; return; }
             if (!system && !StandaloneInput)
             { Debug.LogError("需要场景中的 SystemRoot，或明确指定现有 PlayerInputSampler；不会自动创建另一套输入。", this); return; }
-            if (DamageConfigProvider && !(DamageConfigProvider is IDamageConfigResolver))
-            { Debug.LogError("DamageConfigProvider 必须实现 IDamageConfigResolver。", this); return; }
-            try { Simulation = new BattleSimulation(Config, PlayerDefinition, PlayerSpawn, DamageConfigProvider as IDamageConfigResolver, setup?.Weapon); }
+            // Directly playing a registered gameplay scene also needs a song result context.
+            if (system && setup == null)
+            {
+                setup = BattleStartData.FindForBattle(system.Config, Config, PlayerDefinition.Weapon);
+                if (setup != null) system.ActiveRun = setup;
+            }
+            try { Simulation = new BattleSimulation(Config, PlayerDefinition, PlayerSpawn, setup?.Weapon); }
             catch (ArgumentException error) { Debug.LogError(error.Message, this); system = null; return; }
             var obj = new GameObject("Battle Views"); obj.transform.SetParent(transform, false); viewRoot = obj.transform;
             views = new DanmakuSpritePool(viewRoot); views.Sync(Simulation, Config);
@@ -79,7 +88,7 @@ namespace TapTap.Danmaku
             Result = null; runId = Guid.NewGuid().ToString("N"); missedThisTick = 0;
             scores = setup == null ? null : new ScoreManager(system.Config.ScoreFormulas);
             Simulation.World.EnergyOrbMissed += OnOrbMissed;
-            items = setup == null ? null : new ItemRuntime(setup.Items, Simulation.Buffs, () => Simulation.Tick);
+            items = setup == null ? null : new ItemRuntime(setup.Items, Simulation.Buffs, () => Simulation.Tick, Simulation.Player, system.Saves.Quantity);
             if (system)
             {
                 previousExternalConsumer = system.ExternalCommandConsumer; system.ExternalCommandConsumer = true;
@@ -95,6 +104,7 @@ namespace TapTap.Danmaku
         public void AdvanceFrame(double deltaSeconds)
         {
             if (!IsRunning || Simulation == null) return;
+            if (Simulation.Finished) { FinishRun(); return; }
             if (!system)
             {
                 if (!StandaloneInput) { Pause(); return; }
@@ -118,15 +128,7 @@ namespace TapTap.Danmaku
                 while (missedThisTick > 0) { scores?.MissOrb(); missedThisTick--; }
                 Changed?.Invoke(Current);
                 if (Simulation.World.Fault != null) { Debug.LogError(Simulation.World.Fault, this); Pause(); }
-                else if (Simulation.Finished)
-                {
-                    Pause(); playerView?.SetPaused(false);
-                    if (scores != null && Result == null)
-                    {
-                        Result = scores.Finish(runId, setup, Simulation.Tick, Simulation.Player.Alive ? RunEndReason.Completed : RunEndReason.PlayerDied);
-                        RunFinished?.Invoke(Result); system.CompleteRun(Result);
-                    }
-                }
+                else if (Simulation.Finished) FinishRun();
             }
             if (music != null && IsRunning)
             {
@@ -139,6 +141,15 @@ namespace TapTap.Danmaku
             playerView?.Sync(Simulation.PlayerSystem);
         }
         private void OnOrbMissed(int id) { missedThisTick++; }
+        private void FinishRun()
+        {
+            Pause(); playerView?.SetPaused(false);
+            if (scores == null || Result != null) return;
+            // Both song completion and player death use the same result and save flow.
+            Result = scores.Finish(runId, setup, Simulation.Tick, Simulation.EndReason);
+            system.CompleteRun(Result);
+            RunFinished?.Invoke(Result);
+        }
         public void Pause() { IsRunning = false; clock.Reset(); music?.Pause(); StandaloneInput?.DiscardButtons(); Simulation?.PlayerSystem.ClearInput(); system?.Input.Clear(); playerView?.SetPaused(true); }
         public void Resume()
         { if (Simulation == null || Simulation.Finished || Simulation.World.Fault != null) return; clock.Reset(); if (!syncCatchup) music?.Resume(); playerView?.SetPaused(false); IsRunning = true; }

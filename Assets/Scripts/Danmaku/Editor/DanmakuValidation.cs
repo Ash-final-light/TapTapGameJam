@@ -15,7 +15,7 @@ namespace TapTap.Danmaku.Editor
     /// <summary>Engine-backed regression checks, callable from the menu or Unity batch mode.</summary>
     public static class DanmakuValidation
     {
-        [MenuItem("Tools/Danmaku/运行模拟验证")]
+        [MenuItem("工具/弹幕/运行模拟验证")]
         public static void Run()
         {
             var results = new List<string>();
@@ -25,6 +25,7 @@ namespace TapTap.Danmaku.Editor
             Check("多母弹回收复用／片段隔离／子模板不递归", TestSplitIsolation, results);
             Check("关键帧时间／空片段／单次限制／编辑工具", TestKeyframes, results);
             Check("编辑器添加／复制／删除／撤销／预设模板", TestEditorCommands, results);
+            Check("简化发射／模板默认点／时间设置撤销", TestSimpleEditing, results);
             Check("固定玩家命中／Enter 去重／Seek 静默", TestHit, results);
             Check("复制片段参数独立", TestCopy, results);
             Check("活跃弹上限停止生成", TestCap, results);
@@ -70,7 +71,7 @@ namespace TapTap.Danmaku.Editor
             var sb = new StringBuilder().Append(sim.Tick).Append('|').Append(sim.TotalSpawned).Append('|').Append(sim.HitCount);
             foreach (var p in sim.Bullets)
                 sb.Append('|').Append(p.Id).Append(':').Append(p.Position.X.Raw).Append(',').Append(p.Position.Y.Raw)
-                    .Append(',').Append(p.BirthTick).Append(',').Append(p.RemainingHits).Append(',').Append(p.Depth);
+                    .Append(',').Append(p.BirthTick).Append(',').Append(p.Depth);
             return sb.ToString();
         }
 
@@ -82,7 +83,9 @@ namespace TapTap.Danmaku.Editor
                 try
                 {
                     s.Clips[0].Emission = DanmakuPresetCatalog.Create((BuiltinPattern)i);
-                    s.Clips[0].Emission.RandomAngleDegrees = 8;
+                    s.Clips[0].Emission.SpawnPosition = SpawnPositionPolicy.RandomArea;
+                    s.Clips[0].Emission.RandomSpawnMin = new Vector2(-2, -2);
+                    s.Clips[0].Emission.RandomSpawnMax = new Vector2(2, 2);
                     s.Clips[0].Pattern = (BuiltinPattern)i;
                     if (i == 7) s.Clips[0].Keyframes.Add(new DanmakuKeyframe { LocalTick = 30, Type = DanmakuKeyframeType.Split });
                     else s.Clips[0].Keyframes.Add(new DanmakuKeyframe { LocalTick = 17 });
@@ -220,14 +223,13 @@ namespace TapTap.Danmaku.Editor
             {
                 s.CollisionEnabled = true; s.PreviewPlayerPosition = Vector2.zero;
                 var clip = s.Clips[0]; clip.EmitterPosition = Vector2.zero;
-                clip.DurationTicks = 1; clip.Emission.Speed = 0; clip.ProjectileOverride.HitCount = 2;
-                clip.ProjectileOverride.DamageConfigId = 123;
+                clip.DurationTicks = 1; clip.Emission.Speed = 0;
                 var sim = new DanmakuSimulation(s); int callbacks = 0;
-                sim.OnHit += h => { callbacks++; Assert(h.DamageConfigId == 123, "Config id lost"); };
+                sim.OnHit += h => { callbacks++; Assert(h.Tick == 1 && h.PlayerPosition == FPVector2.Zero, "Hit snapshot lost"); };
                 sim.Step(); sim.Step(); Assert(sim.HitCount == 1 && callbacks == 1, "Stay produced repeated hits");
                 sim.Seek(2); Assert(callbacks == 1 && sim.HitCount == 1, "Seek published real callback");
-                clip.ProjectileOverride.HitCount = 1; sim.Reset(s); sim.Step();
-                Assert(sim.Bullets.Count == 0, "HitCount death failed");
+                sim.Reset(s); sim.Step();
+                Assert(sim.Bullets.Count == 0, "First effective hit did not consume projectile");
             }
             finally { Object.DestroyImmediate(s); }
         }
@@ -244,7 +246,11 @@ namespace TapTap.Danmaku.Editor
             try
             {
                 Invoke("SetSequence", s); Invoke("AddBuiltin", BuiltinPattern.Ring, 10);
-                Assert(s.Clips.Count == 1 && s.Clips[0].Keyframes.Count == 0, "New clip has implicit points");
+                Assert(s.Clips.Count == 1 && s.Clips[0].Keyframes.Count == 6, "Built-in clip needs ready-to-preview points");
+                var added = new DanmakuSimulation(s); added.Seek(11);
+                Assert(added.TotalSpawned == 12 && added.Fault == null, "Built-in ring did not preview immediately");
+                s.Clips.Clear(); Set("currentTick", 10); Invoke("AddBlank");
+                Assert(s.Clips[0].Keyframes.Count == 0, "Blank clip unexpectedly emitted");
                 Invoke("AddKeyframe", 0, DanmakuKeyframeType.Emit, 7);
                 Assert(s.Clips[0].Keyframes[0].LocalTick == 7, "Context command time changed");
                 Set("currentTick", 30); Invoke("CopyKeyframe");
@@ -291,6 +297,56 @@ namespace TapTap.Danmaku.Editor
                 Object.DestroyImmediate(window); Object.DestroyImmediate(preset);
                 if (s) Object.DestroyImmediate(s);
             }
+        }
+
+        private static void TestSimpleEditing()
+        {
+            var s = Fixture(); s.Clips.Clear();
+            var window = ScriptableObject.CreateInstance<DanmakuEditorWindow>();
+            int undoGroup = Undo.GetCurrentGroup(); Undo.IncrementCurrentGroup();
+            const System.Reflection.BindingFlags flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+            void Invoke(string name, params object[] args) => typeof(DanmakuEditorWindow).GetMethod(name, flags).Invoke(window, args);
+            void Set(string name, object value) => typeof(DanmakuEditorWindow).GetField(name, flags).SetValue(window, value);
+            try
+            {
+                Invoke("SetSequence", s);
+                for (int pattern = 0; pattern < 8; pattern++)
+                {
+                    Invoke("AddBuiltin", (BuiltinPattern)pattern, 0);
+                    var clip = s.Clips[pattern];
+                    Assert(clip.Keyframes.Count > 0 && clip.ValidateKeyframes() == null, "Built-in needs valid default points " + pattern);
+                    var emission = clip.Emission; int expected = emission.Count;
+                    if (pattern != 7)
+                    {
+                        var one = ScriptableObject.CreateInstance<DanmakuSequence>();
+                        try
+                        {
+                            one.CollisionEnabled = false; one.Clips.Add(clip.Copy());
+                            var sim = new DanmakuSimulation(one); sim.Step();
+                            Assert(sim.TotalSpawned == expected, "Emission is no longer one speed layer " + pattern);
+                            foreach (var bullet in sim.Bullets)
+                                Assert(Mathf.Abs((DanmakuSimulation.ToVector(bullet.Position - bullet.PreviousPosition) * 60).magnitude - emission.Speed) < 0.001f, "Inconsistent single speed");
+                        }
+                        finally { Object.DestroyImmediate(one); }
+                    }
+                }
+                Set("selected", 0); Set("scheduleMode", 1); Set("generateStart", 5); Set("generateInterval", 20); Set("generateCount", 4);
+                Undo.FlushUndoRecordObjects(); Undo.IncrementCurrentGroup(); Invoke("ApplyEmissionSchedule"); Undo.FlushUndoRecordObjects();
+                Assert(s.Clips[0].Keyframes.Count == 4 && s.Clips[0].Keyframes[3].LocalTick == 65, "Schedule replacement failed");
+                Undo.PerformUndo(); Assert(s.Clips[0].Keyframes.Count == 6, "Schedule undo lost original points");
+                Undo.PerformRedo(); Assert(s.Clips[0].Keyframes.Count == 4, "Schedule redo failed");
+                Set("generateCount", 100); Invoke("ApplyEmissionSchedule");
+                Assert(s.Clips[0].Keyframes.Count == 4, "Invalid schedule changed keys");
+                Set("scheduleMode", 0); Set("generateStart", 0); Invoke("ApplyEmissionSchedule");
+                Assert(s.Clips[0].Keyframes.Count == 1, "Single shot did not replace repeated shots");
+                s.Clips[0].Pattern = BuiltinPattern.Split; Invoke("ApplySplitSchedule");
+                Assert(s.Clips[0].Keyframes.Count == 2 && s.Clips[0].ValidateKeyframes() == null, "Switch to split schedule failed");
+                s.Clips[0].Pattern = BuiltinPattern.Single; Invoke("ApplyEmissionSchedule");
+                Assert(s.Clips[0].Keyframes.Count == 1 && s.Clips[0].ValidateKeyframes() == null, "Switch from split left an unsupported point");
+                Invoke("AddBuiltin", BuiltinPattern.Split, s.DurationTicks - 1);
+                Assert(s.Clips[s.Clips.Count - 1].ValidateKeyframes() == null, "Split at end has invalid duration");
+            }
+            finally { Undo.RevertAllDownToGroup(undoGroup + 1); Object.DestroyImmediate(window); if (s) Object.DestroyImmediate(s); }
         }
 
         private static void TestCopy()
@@ -401,9 +457,10 @@ namespace TapTap.Danmaku.Editor
             DanmakuSpritePool pool = null;
             try
             {
-                s.Clips[0].Emission.Count = 64; s.Clips[0].Emission.SpeedLayers = 8;
-                s.Clips[0].DurationTicks = 2; s.Clips[0].Keyframes.Add(new DanmakuKeyframe { LocalTick = 1 });
-                var sim = new DanmakuSimulation(s); sim.Step(); sim.Step();
+                s.Clips[0].Emission.Count = 64;
+                s.Clips[0].DurationTicks = 16;
+                DanmakuKeyframeEditing.Generate(s.Clips[0], 0, 1, 16);
+                var sim = new DanmakuSimulation(s); sim.Seek(16);
                 pool = new DanmakuSpritePool(root.transform); pool.Sync(sim, s); pool.Sync(sim, s);
                 Assert(sim.Bullets.Count == 1024 && root.transform.childCount < 10, "Per-bullet GameObjects were created");
                 Assert(pool.ActiveBatchCount > 0, "No sprite geometry batches");

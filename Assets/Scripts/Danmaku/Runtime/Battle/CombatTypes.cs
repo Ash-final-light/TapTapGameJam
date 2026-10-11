@@ -5,7 +5,7 @@ namespace TapTap.Danmaku
 {
     public enum ProjectileFaction { Enemy, Player }
     public enum BattleEventType { Damage, ActorDied, EnergyOrbDestroyed, ComboChanged }
-    public enum CombatTargetKind { Player, Boss, EnergyOrb }
+    public enum CombatTargetKind { Player = 0, EnergyOrb = 2 }
     public readonly struct CombatContact
     {
         public readonly int ProjectileId, TargetId;
@@ -34,7 +34,6 @@ namespace TapTap.Danmaku
         public readonly FP64 MaxHealth;
         public FP64 Health { get; internal set; }
         public DanmakuPlayerState Pose { get; internal set; }
-        public int InvulnerableUntilTick { get; internal set; }
         public bool Alive => Health > FP64.Zero;
         public ActorState(int id, FP64 health, DanmakuPlayerState pose)
         { Id = id; MaxHealth = Health = health; Pose = pose; }
@@ -44,19 +43,18 @@ namespace TapTap.Danmaku
         public readonly BattleEventType Type;
         public readonly int Tick, TargetId, ProjectileId, OwnerId;
         public readonly FP64 Damage, RemainingHealth;
-        public readonly int DamageConfigId;
         public readonly CombatTargetKind TargetKind;
         public readonly int ComboCount;
         public readonly FPVector2 Position;
         public BattleEvent(BattleEventType type, int tick, ActorState target, ProjectileState p, FP64 damage, CombatTargetKind targetKind)
         { Type = type; Tick = tick; TargetId = target.Id; ProjectileId = p.Id; OwnerId = p.OwnerId;
-            Damage = damage; RemainingHealth = target.Health; DamageConfigId = p.Settings.DamageConfigId;
+            Damage = damage; RemainingHealth = target.Health;
             TargetKind = targetKind;
             ComboCount = 0; Position = target.Pose.Position; }
         public BattleEvent(BattleEventType type, int tick, ProjectileState target, ProjectileState source, FP64 damage, int comboCount)
         {
             Type = type; Tick = tick; TargetId = target.Id; ProjectileId = source.Id; OwnerId = source.OwnerId;
-            Damage = damage; RemainingHealth = target.Health; DamageConfigId = source.Settings.DamageConfigId;
+            Damage = damage; RemainingHealth = target.Health;
             TargetKind = CombatTargetKind.EnergyOrb; ComboCount = comboCount; Position = target.Position;
         }
     }
@@ -67,5 +65,4 @@ namespace TapTap.Danmaku
         internal int Increment() { if (Count < int.MaxValue) Count++; return Count; }
         internal void Reset() { Count = 0; }
     }
-    public interface IDamageConfigResolver { FP64 Resolve(int damageConfigId); }
 }

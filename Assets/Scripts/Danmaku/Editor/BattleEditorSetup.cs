@@ -15,7 +15,7 @@ namespace TapTap.Danmaku.Editor
         public const string MusicPath = "Assets/AudioAsset/VISUAL ARTS , Key - Remembrance.mp3";
         public const string ConfigPath = "Assets/DanmakuExamples/PhaseOne/Battle.asset";
         private const string Folder = "Assets/DanmakuExamples/PhaseOne";
-        [MenuItem("Tools/Danmaku/第一阶段/接入 GameplayPlaceholder")]
+        [MenuItem("工具/弹幕/第一阶段/接入 GameplayPlaceholder")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("请退出 PlayMode 后接入场景。");
@@ -55,8 +55,8 @@ namespace TapTap.Danmaku.Editor
             var music = AssetDatabase.LoadAssetAtPath<AudioClip>(MusicPath);
             if (!music) throw new InvalidOperationException("指定音乐尚未导入或路径不存在：" + MusicPath);
             var player = GetOrCreate<DanmakuPlayerConfig>("Player");
-            var normal = GetOrCreate<ProjectileDefinition>("NormalProjectile"); normal.Settings.Damage = 10;
-            var spread = GetOrCreate<ProjectileDefinition>("SpreadProjectile"); spread.Settings.Damage = 5;
+            var normal = GetOrCreate<ProjectileDefinition>("NormalProjectile");
+            var spread = GetOrCreate<ProjectileDefinition>("SpreadProjectile");
             var sprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/DanmakuExamples/BulletCircle.png");
             normal.Settings.Sprite = spread.Settings.Sprite = player.Sprite = sprite;
             var weapon = GetOrCreate<PlayerWeaponDefinition>("NormalWeapon");
@@ -83,7 +83,7 @@ namespace TapTap.Danmaku.Editor
             if (asset) return asset;
             asset = ScriptableObject.CreateInstance<T>(); AssetDatabase.CreateAsset(asset, path); return asset;
         }
-        [MenuItem("Tools/Danmaku/第一阶段/解析 Remembrance")]
+        [MenuItem("工具/弹幕/第一阶段/解析 Remembrance")]
         public static void AnalyzeMusic()
         {
             var config = AssetDatabase.LoadAssetAtPath<BattleConfig>(ConfigPath);

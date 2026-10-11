@@ -8,7 +8,6 @@ namespace TapTap.Danmaku.Editor
     {
         [SerializeField] private string selectedKey;
         private int generateStart, generateInterval = 30, generateCount = 4;
-        private bool generateOpen;
         private string pendingDeleteClip, pendingDeleteKey;
 
         private DanmakuKeyframe SelectedKeyframe() => selected >= 0 && selected < sequence.Clips.Count
@@ -86,7 +85,7 @@ namespace TapTap.Danmaku.Editor
             {
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    if (GUILayout.Toggle(selectedKey == key.Id, $"{(key.Type == DanmakuKeyframeType.Emit ? "发射" : "分裂")} · {key.LocalTick} Tick / {key.LocalTick / 60f:0.###} 秒", EditorStyles.miniButton)) selectedKey = key.Id;
+                    if (GUILayout.Toggle(selectedKey == key.Id, $"{(key.Type == DanmakuKeyframeType.Emit ? "发射" : "分裂")} · {key.LocalTick} 帧 / {key.LocalTick / 60f:0.###} 秒", EditorStyles.miniButton)) selectedKey = key.Id;
                     if (GUILayout.Button(new GUIContent("删除", "仅删除这一关键帧，保留片段及其他关键帧；可撤销。"), EditorStyles.miniButton, GUILayout.Width(40)))
                     {
                         // Apply only after the Inspector commits its serialized snapshot.
@@ -98,7 +97,7 @@ namespace TapTap.Danmaku.Editor
             if (index >= 0)
             {
                 var keyProperty = property.GetArrayElementAtIndex(index);
-                EditorGUILayout.PropertyField(keyProperty.FindPropertyRelative("LocalTick"), new GUIContent("片段内时间 / Tick"));
+                DanmakuChineseGUI.Time(keyProperty.FindPropertyRelative("LocalTick"), "片段内时间");
                 EditorGUILayout.LabelField("全局时间 / 秒", ((clip.StartTick + clip.Keyframes[index].LocalTick) / 60f).ToString("0.###"));
             }
             string error = clip.ValidateKeyframes();
@@ -117,21 +116,7 @@ namespace TapTap.Danmaku.Editor
                     if (GUILayout.Button("删除选中点")) DeleteKeyframe();
                 }
             }
-            if (clip.IsSplit) return;
-            generateOpen = EditorGUILayout.Foldout(generateOpen, "按间隔生成发射点", true);
-            if (!generateOpen) return;
-            generateStart = EditorGUILayout.IntField("起始局部 Tick", generateStart);
-            generateInterval = EditorGUILayout.IntField("间隔 / Tick", generateInterval);
-            generateCount = EditorGUILayout.IntField("发射点数量", generateCount);
-            bool valid = generateStart >= 0 && generateInterval > 0 && generateCount > 0 &&
-                (long)generateStart + (long)(generateCount - 1) * generateInterval < clip.DurationTicks;
-            using (new EditorGUI.DisabledScope(!valid))
-                if (GUILayout.Button("生成（保留已有点）"))
-                {
-                    Undo.RecordObject(sequence, "生成发射关键帧");
-                    DanmakuKeyframeEditing.Generate(clip, generateStart, generateInterval, generateCount); KeyframesChanged();
-                }
-            if (!valid) EditorGUILayout.HelpBox("生成范围必须在片段内，间隔和数量至少为 1。", MessageType.Warning);
+            GUILayout.Label("右键时间轴片段可添加发射点；子母弹还可添加分裂点。", EditorStyles.wordWrappedMiniLabel);
         }
 
         private void DrawKeyframeMarkers(int index, Rect bar, float labelWidth, int control)
@@ -156,7 +141,7 @@ namespace TapTap.Danmaku.Editor
                     EditorGUI.DrawRect(new Rect(x - 1, bar.y + 17, 2, 9), color);
                     EditorGUI.DrawRect(new Rect(x - 3, bar.y + 17, 6, 4), color);
                 }
-                GUI.Label(hit, new GUIContent("", $"{(key.Type == DanmakuKeyframeType.Emit ? "发射" : "分裂")}：局部 {key.LocalTick} Tick · 全局 {(clip.StartTick + key.LocalTick) / 60f:0.###} 秒"));
+                GUI.Label(hit, new GUIContent("", $"{(key.Type == DanmakuKeyframeType.Emit ? "发射" : "分裂")}：局部 {key.LocalTick} 帧 · 全局 {(clip.StartTick + key.LocalTick) / 60f:0.###} 秒"));
                 if (hit.Contains(e.mousePosition)) hovered = key;
             }
             if (hovered != null && e.type == EventType.MouseDown && e.button == 0)

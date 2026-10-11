@@ -23,7 +23,7 @@ namespace TapTap.Danmaku
         public int SampleFrame, Band;
         public float Strength;
     }
-    [CreateAssetMenu(menuName = "Danmaku/Music Analysis")]
+    [CreateAssetMenu(menuName = "弹幕/音乐解析结果")]
     public sealed class MusicAnalysisAsset : ScriptableObject
     {
         public const int CurrentAlgorithmVersion = 1;
@@ -36,6 +36,7 @@ namespace TapTap.Danmaku
     }
     public static class MusicTime
     {
+        public static int EndTick(double seconds) => Math.Max(1, (int)Math.Ceiling(seconds * DanmakuSequence.TickRate - 1e-8));
         public static int CompletedTick(double seconds) => Math.Max(0, (int)Math.Floor(seconds * DanmakuSequence.TickRate + 1e-8));
         public static int MarkerTick(MusicMarker marker, MusicAnalysisAsset analysis, double musicStartSeconds)
             => Math.Max(0, (int)Math.Round(((double)marker.SampleFrame / analysis.SampleRate + musicStartSeconds) * DanmakuSequence.TickRate));

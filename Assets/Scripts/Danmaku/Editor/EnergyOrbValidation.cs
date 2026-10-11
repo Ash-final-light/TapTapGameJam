@@ -41,13 +41,13 @@ namespace TapTap.Danmaku.Editor
                 });
                 Config.Sequence = Sequence; Player.Actions = Actions; Player.Weapon = Weapon; Player.Motor.Gravity = 0; Player.Motor.GroundHeight = -20;
                 Config.BossPosition = new Vector2(0, 4);
-                Config.BossHealth = 1000; Player.HurtInvulnerableTicks = 0;
-                Weapon.Projectile = Shot; Shot.Settings.Damage = 10; Shot.Settings.DurationTicks = 120;
+                Player.HurtInvulnerableTicks = 0;
+                Weapon.Projectile = Shot; Shot.Settings.DurationTicks = 120;
             }
             public BattleSimulation Battle() => new(Config, Player, Spawn);
-            public void Fire(BattleSimulation battle, Vector2 point, float speed = 0, int hits = 1, float angle = 0)
+            public void Fire(BattleSimulation battle, Vector2 point, float speed = 0, float angle = 0)
             {
-                var s = Shot.Settings.Copy(); s.HitCount = hits;
+                var s = Shot.Settings.Copy();
                 battle.World.SpawnFriendly(s, DanmakuSimulation.ToFP(point), FP64.FromFloat(angle), FP64.FromFloat(speed));
             }
             public void Dispose()
@@ -56,7 +56,7 @@ namespace TapTap.Danmaku.Editor
         private static void Assert(bool ok, string message) { if (!ok) throw new InvalidOperationException(message); }
         private static int Count(BattleSimulation b, BattleEventType type) => b.Events.Count(e => e.Type == type);
         private static void Step(BattleSimulation b, int ticks) { for (int i = 0; i < ticks; i++) b.Step(default); }
-        [MenuItem("Tools/Danmaku/第二阶段/运行能量球与连击验证")]
+        [MenuItem("工具/弹幕/第二阶段/运行能量球与连击验证")]
         public static void Run()
         {
             var report = new List<string>();
@@ -66,7 +66,7 @@ namespace TapTap.Danmaku.Editor
                 Check("高速穿越／Boss 与能量球目标分流／命中耗弹", TestSweep);
                 Check("双方高速相对移动／网格覆盖母球路径", TestMovingTarget);
                 Check("同 Tick 多弹去重／事件值快照／累计连击", TestDedup);
-                Check("贯穿多球与 Boss／接触按时间排序", TestPiercing);
+                Check("一次命中仅击碎最近的球／玩家子弹穿过 Boss", TestPiercing);
                 Check("分裂 Tick 开始前击碎／同 Tick 爆炸优先", TestBoundary);
                 Check("清弹不分裂／寿命与越界过滤／接触耗尽过滤", TestLifecycle);
                 Check("母球接触伤害开关／普通敌弹不可击碎", TestInteractions);
@@ -112,11 +112,11 @@ namespace TapTap.Danmaku.Editor
         {
             using var f = new Fixture(); var b = f.Battle();
             f.Fire(b, new Vector2(-3, 0), 600); b.Step(default);
-            Assert(b.Combo.Count == 1 && b.World.Bullets.Count == 0 && b.Boss.Health == b.Boss.MaxHealth, "高速击碎遗漏／击碎伤害误写 Boss／未耗弹。");
-            Assert(b.World.Contacts.Any(c => c.TargetKind == CombatTargetKind.EnergyOrb && c.TargetId != b.Boss.Id), "接触没有记录球实体与种类。");
+            Assert(b.Combo.Count == 1 && b.World.Bullets.Count == 0, "高速击碎遗漏／未耗弹。");
+            Assert(b.World.Contacts.Any(c => c.TargetKind == CombatTargetKind.EnergyOrb), "接触没有记录球实体与种类。");
             Step(b, 15); Assert(b.World.TotalSpawned == 2, "击碎后仍爆炸。");
             var boss = f.Battle(); f.Fire(boss, new Vector2(0, 1), 600, angle: Mathf.PI / 2); boss.Step(default);
-            Assert(boss.Combo.Count == 0 && boss.Boss.Health == boss.Boss.MaxHealth - FP64.FromInt(10), "Boss 接触误写连击。");
+            Assert(boss.Combo.Count == 0 && boss.World.Bullets.Any(p => p.Faction == ProjectileFaction.Player) && boss.Events.Count == 0, "玩家子弹未穿过 Boss 或产生了受伤事件。");
         }
         private static void TestMovingTarget()
         {
@@ -130,7 +130,7 @@ namespace TapTap.Danmaku.Editor
             using var f = new Fixture(); var b = f.Battle();
             f.Fire(b, Vector2.zero); f.Fire(b, Vector2.zero); b.Step(default);
             Assert(b.Combo.Count == 1 && Count(b, BattleEventType.EnergyOrbDestroyed) == 1 && Count(b, BattleEventType.ComboChanged) == 1, "重复击碎或计数。");
-            Assert(b.World.Bullets.Count == 1 && b.World.Bullets[0].RemainingHits == 1, "被先前子弹击碎的目标仍消耗后续子弹。");
+            Assert(b.World.Bullets.Count == 1 && b.World.Bullets[0].Faction == ProjectileFaction.Player, "被先前子弹击碎的目标仍消耗后续子弹。");
             var snapshot = b.Events[0]; int id = snapshot.TargetId;
             Step(b, 11); Assert(snapshot.TargetId == id && snapshot.ComboCount == 1 && snapshot.RemainingHealth == FP64.Zero, "事件引用了池对象。");
             var next = f.Clip.Copy(); next.Id = "next"; next.StartTick = 15; f.Sequence.Clips.Add(next);
@@ -141,10 +141,10 @@ namespace TapTap.Danmaku.Editor
         {
             using var f = new Fixture(); f.Clip.EmitterPosition = new Vector2(-1, 0); f.Config.BossPosition = new Vector2(3, 0);
             var second = f.Clip.Copy(); second.EmitterPosition = new Vector2(1, 0); f.Sequence.Clips.Add(second);
-            var b = f.Battle(); f.Fire(b, new Vector2(-3, 0), 600, 3); b.Step(default);
-            Assert(b.Combo.Count == 2 && b.Boss.Health == b.Boss.MaxHealth - FP64.FromInt(10) && b.World.Bullets.Count == 0, "多目标命中耗弹／顺序错误。");
-            b = f.Battle(); f.Fire(b, new Vector2(-3, 0), 600); b.Step(default);
-            Assert(b.Combo.Count == 1 && b.Boss.Health == b.Boss.MaxHealth && b.World.Bullets.Count == 1, "单次命中弹穿透了先命中的球。");
+            var b = f.Battle(); f.Fire(b, new Vector2(-3, 0), 600); b.Step(default);
+            Assert(b.Combo.Count == 1 && b.World.Bullets.Count == 1 && b.World.Bullets[0].IsEnergyOrb &&
+                b.World.Bullets[0].Position.X == FP64.One, "单次命中弹穿透了先命中的球或未按距离排序。");
+            Assert(b.Events.Where(e => e.Type == BattleEventType.EnergyOrbDestroyed).All(e => e.Damage == FP64.One), "击碎伤害不是1。");
         }
         private static void TestBoundary()
         {
@@ -161,7 +161,6 @@ namespace TapTap.Danmaku.Editor
             f.Clip.ProjectileOverride.DurationTicks = 120; f.Clip.EmitterPosition = new Vector2(100, 0);
             b = f.Battle(); Step(b, 12); Assert(b.World.TotalSpawned == 1, "越界球爆炸。");
             f.Clip.EmitterPosition = f.Spawn; f.Clip.ProjectileOverride.EnergyOrb.ContactDamage = true;
-            f.Clip.ProjectileOverride.HitCount = 5;
             b = f.Battle(); Step(b, 12); Assert(b.World.TotalSpawned == 1 && b.Combo.Count == 0, "已接触消耗的母球爆炸或增加连击。");
         }
         private static void TestInteractions()
@@ -189,13 +188,12 @@ namespace TapTap.Danmaku.Editor
         {
             using var f = new Fixture(); var b = f.Battle(); f.Fire(b, new Vector2(0.4f, 0)); Step(b, 10);
             Assert(b.Combo.Count == 1, "半径增长接触遗漏。");
-            f.Shot.Settings.Damage = 0.25f; b = f.Battle(); f.Fire(b, Vector2.zero, hits: 10); Step(b, 5);
-            Assert(b.Combo.Count == 0 && b.World.Bullets.First(p => p.IsEnergyOrb).Health == FP64.FromFloat(0.75f) &&
-                b.World.Bullets.First(p => p.Faction == ProjectileFaction.Player).RemainingHits == 9, "持续重叠重复耗弹／伤害。");
+            b = f.Battle(); f.Fire(b, Vector2.zero); Step(b, 5);
+            Assert(b.Combo.Count == 1 && b.World.Bullets.Count == 0, "持续重叠重复计数或命中后未回收。");
         }
         private static void TestReuse()
         {
-            using var f = new Fixture(); f.Clip.Emission.Count = 3; f.Clip.ProjectileOverride.HitCount = 5;
+            using var f = new Fixture(); f.Clip.Emission.Count = 3;
             var second = f.Clip.Copy(); second.Id = "second"; second.EmitterPosition = new Vector2(10, 0); second.Keyframes[1].LocalTick = 20; f.Sequence.Clips.Add(second);
             var b = f.Battle(); Step(b, 11);
             Assert(b.World.Bullets.Count(p => p.IsEnergyOrb && p.SourceClip == 1) == 3 && b.World.Bullets.Count(p => p.Depth == 1 && p.SourceClip == 0) == 24, "片段隔离或池复用丢失母球位置。");

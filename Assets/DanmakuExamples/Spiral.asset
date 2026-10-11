@@ -25,9 +25,10 @@ MonoBehaviour:
     RotationDegreesPerSecond: 75
     AlternatePhaseDegrees: 0
     Speed: 2
-    SpeedLayers: 1
-    SpeedLayerDelta: 0.4
-    RandomAngleDegrees: 0
     SegmentStart: {x: -3, y: 0}
     SegmentEnd: {x: 3, y: 0}
+    SpawnPosition: 0
+    RandomSpawnMin: {x: 0, y: 0}
+    RandomSpawnMax: {x: 0, y: 0}
+    PlayerProtectionDistance: 0
   Projectile: {fileID: 11400000, guid: d05b0b0df6346494cab9d4d4c6d44e5f, type: 2}

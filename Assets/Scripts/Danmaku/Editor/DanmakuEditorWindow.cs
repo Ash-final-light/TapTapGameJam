@@ -27,17 +27,15 @@ namespace TapTap.Danmaku.Editor
         private int solo = -1;
         private float speed = 1, pixelsPerTick = 1.2f;
         private double lastTime, accumulator;
-        private Vector2 inspectorScroll, timelineScroll, libraryScroll;
+        private Vector2 inspectorScroll, timelineScroll;
         private int dragIndex = -1, dragControl, dragMode, originalStart, originalDuration, dragTick;
-        private int presetDrag = -1;
-        private Vector2 presetMouse;
         private static readonly Color[] TrackColors =
         { new(0.3f, 0.65f, 1), new(1, 0.45f, 0.35f), new(0.7f, 0.5f, 1), new(0.3f, 0.8f, 0.6f) };
 
-        [MenuItem("Tools/Danmaku/Boss 弹幕编辑器")]
+        [MenuItem("工具/弹幕/弹幕编辑器")]
         public static void Open()
         {
-            var window = GetWindow<DanmakuEditorWindow>("Boss 弹幕编辑器");
+            var window = GetWindow<DanmakuEditorWindow>("弹幕编辑器");
             window.minSize = new Vector2(880, 640);
             if (Selection.activeObject is DanmakuSequence asset) window.SetSequence(asset);
         }
@@ -46,12 +44,13 @@ namespace TapTap.Danmaku.Editor
         private static bool OnOpenAsset(int instanceId, int line)
         {
             if (!(EditorUtility.InstanceIDToObject(instanceId) is DanmakuSequence asset)) return false;
-            var window = GetWindow<DanmakuEditorWindow>("Boss 弹幕编辑器");
+            var window = GetWindow<DanmakuEditorWindow>("弹幕编辑器");
             window.SetSequence(asset); return true;
         }
 
         private void OnEnable()
         {
+            timelineRatio = EditorPrefs.GetFloat(LayoutKey, 0.33f);
             Undo.undoRedoPerformed += OnUndo;
             EditorApplication.update += UpdatePlayback;
             EditorApplication.playModeStateChanged += OnPlayModeChanged;
@@ -147,7 +146,7 @@ namespace TapTap.Danmaku.Editor
                 if (simulation.Fault != null) { playing = false; music?.Pause(); break; }
             }
             if (music != null && simulation.Tick < music.TargetTick && playing)
-            { playing = false; music.Seek(simulation.Tick / 60.0); Debug.LogWarning("预览补步超过预算，已暂停并将音乐定位到当前逻辑 Tick。"); }
+            { playing = false; music.Seek(simulation.Tick / 60.0); Debug.LogWarning("预览补步超过预算，已暂停并将音乐定位到当前逻辑帧。"); }
             currentTick = simulation.Tick; Repaint();
         }
 
@@ -156,12 +155,14 @@ namespace TapTap.Danmaku.Editor
             if (!sequence || simulation == null) return;
             DrawToolbar();
             DrawMusicControls();
-            using (new EditorGUILayout.HorizontalScope())
+            timelineHeight = Mathf.Clamp(position.height * timelineRatio, 120, TimelineMaxHeight);
+            float topHeight = Mathf.Max(200, position.height - timelineHeight - (sequence.Music ? 138 : musicOpen ? 116 : 94));
+            using (new EditorGUILayout.HorizontalScope(GUILayout.Height(topHeight)))
             {
-                DrawLibrary();
-                using (new EditorGUILayout.VerticalScope(GUILayout.MinWidth(260), GUILayout.ExpandWidth(true))) DrawPreview();
+                using (new EditorGUILayout.VerticalScope(GUILayout.MinWidth(260), GUILayout.ExpandWidth(true), GUILayout.Height(topHeight))) DrawPreview();
                 DrawInspector();
             }
+            DrawTimelineSplitter();
             DrawTransport();
             DrawTimeline();
             if (simulation.Fault != null) EditorGUILayout.HelpBox(simulation.Fault, MessageType.Error);
@@ -172,38 +173,35 @@ namespace TapTap.Danmaku.Editor
         private int SnapTick(int tick) => snapMusic ? MusicTimelineDrawer.Snap(sequence, tick, pixelsPerTick, musicBandMask) : tick;
         private void DrawMusicControls()
         {
+            if (!sequence.Music && !musicOpen)
+            {
+                return;
+            }
             using (new EditorGUILayout.HorizontalScope(EditorStyles.toolbar))
             {
                 using (new EditorGUI.DisabledScope(MusicAnalysisJob.Running))
                 {
                     var clip = (AudioClip)EditorGUILayout.ObjectField("音乐", sequence.Music, typeof(AudioClip), false);
                     if (clip != sequence.Music)
-                    { playing = false; Undo.RecordObject(sequence, "设置音乐"); sequence.Music = clip; EditorUtility.SetDirty(sequence); Rebuild(); }
+                    { playing = false; Undo.RecordObject(sequence, "设置音乐"); sequence.Music = clip;
+                        sequence.ManualMusicBpm = 0; sequence.ManualMusicBeatOffsetSeconds = 0; EditorUtility.SetDirty(sequence); Rebuild(); }
                 }
                 using (new EditorGUI.DisabledScope(!sequence.Music || !AssetDatabase.Contains(sequence) || MusicAnalysisJob.Running))
                     if (GUILayout.Button("解析音乐", EditorStyles.toolbarButton, GUILayout.Width(65)))
                     { playing = false; music?.Pause(); try { MusicAnalysisJob.Start(sequence, Rebuild); } catch (Exception e) { Debug.LogException(e); } }
                 if (MusicAnalysisJob.Running && GUILayout.Button("取消", EditorStyles.toolbarButton, GUILayout.Width(40))) MusicAnalysisJob.Cancel();
-                snapMusic = GUILayout.Toggle(snapMusic, "吸附节拍", EditorStyles.toolbarButton, GUILayout.Width(65));
-                musicBandMask = EditorGUILayout.MaskField(musicBandMask, new[] { "低频", "中频", "高频" }, GUILayout.Width(95));
-                musicSettingsOpen = GUILayout.Toggle(musicSettingsOpen, "解析设置", EditorStyles.toolbarButton, GUILayout.Width(65));
+                using (new EditorGUI.DisabledScope(!sequence.Music))
+                {
+                    if (GUILayout.Button(playing ? "暂停试听" : "同步试听", EditorStyles.toolbarButton, GUILayout.Width(65))) TogglePlay();
+                    snapMusic = GUILayout.Toggle(snapMusic, "吸附节拍", EditorStyles.toolbarButton, GUILayout.Width(65));
+                }
+                if (sequence.Music && !AssetDatabase.Contains(sequence)) GUILayout.Label("请先保存再解析", EditorStyles.miniLabel);
+                else if (sequence.Music && !MusicAnalysisJob.IsCurrent(sequence)) GUILayout.Label("音乐待解析", EditorStyles.miniLabel);
+                if (sequence.Music && !EditorMusicBackend.Available) GUILayout.Label("当前编辑器无法试听音乐", EditorStyles.miniLabel);
+                if (GUILayout.Button("设置", EditorStyles.toolbarButton, GUILayout.Width(40))) { inspectorPage = 1; musicSettingsOpen = true; }
+                if (!sequence.Music && GUILayout.Button("收起", EditorStyles.toolbarButton, GUILayout.Width(40))) musicOpen = false;
             }
-            if (sequence.Music)
-            {
-                if (!EditorMusicBackend.Available) EditorGUILayout.HelpBox("当前 Unity 试听 API 不可用，音乐同步预览不能启用。请在 PlayMode 验证。", MessageType.Error);
-                if (!AssetDatabase.Contains(sequence)) EditorGUILayout.HelpBox("先保存 Sequence 资产再解析音乐。", MessageType.Info);
-                else if (!MusicAnalysisJob.IsCurrent(sequence)) EditorGUILayout.HelpBox("音乐尚未解析，或源文件/解析参数已变化。候选点不会自动改动已有片段。", MessageType.Info);
-            }
-            if (musicSettingsOpen)
-            {
-                serialized.Update(); EditorGUI.BeginChangeCheck();
-                EditorGUILayout.PropertyField(serialized.FindProperty("MusicAnalysisSettings"), new GUIContent("分析参数"), true);
-                EditorGUILayout.PropertyField(serialized.FindProperty("MusicStartSeconds"), new GUIContent("音乐开始偏移 / 秒"));
-                bool changed = EditorGUI.EndChangeCheck(); serialized.ApplyModifiedProperties();
-                if (changed) { playing = false; Rebuild(); }
-                if (sequence.Music && GUILayout.Button("将总帧数设为音乐结束位置"))
-                { Undo.RecordObject(sequence, "设置歌曲时长"); sequence.DurationTicks = Math.Max(1, (int)Math.Ceiling((sequence.Music.length + sequence.MusicStartSeconds) * 60)); ClampTimeline(); EditorUtility.SetDirty(sequence); Rebuild(); }
-            }
+            if (sequence.Music) DrawManualBpmControls();
         }
 
         private void DrawToolbar()
@@ -217,16 +215,21 @@ namespace TapTap.Danmaku.Editor
                     var fresh = CreateInstance<DanmakuSequence>(); fresh.hideFlags = HideFlags.DontSave;
                     SetSequence(fresh);
                 }
-                if (GUILayout.Button("示例", EditorStyles.toolbarButton, GUILayout.Width(45)))
-                {
-                    var example = DanmakuSequence.CreateExample(); example.hideFlags = HideFlags.DontSave;
-                    SetSequence(example);
-                }
                 if (GUILayout.Button("保存", EditorStyles.toolbarButton, GUILayout.Width(45))) Save(false);
-                if (GUILayout.Button("另存为", EditorStyles.toolbarButton, GUILayout.Width(60))) Save(true);
+                if (GUILayout.Button("＋添加弹幕", EditorStyles.toolbarButton, GUILayout.Width(85))) ShowAddPopup(GUILayoutUtility.GetLastRect());
+                if (!sequence.Music && GUILayout.Button("＋添加音乐", EditorStyles.toolbarButton, GUILayout.Width(85))) musicOpen = !musicOpen;
                 GUILayout.FlexibleSpace();
+                if (GUILayout.Button("攻击设置", EditorStyles.toolbarButton, GUILayout.Width(65))) inspectorPage = 1;
                 showHitboxes = GUILayout.Toggle(showHitboxes, "判定圈", EditorStyles.toolbarButton, GUILayout.Width(60));
-                if (GUILayout.Button("验证", EditorStyles.toolbarButton, GUILayout.Width(45))) DanmakuValidation.Run();
+                if (GUILayout.Button("更多", EditorStyles.toolbarButton, GUILayout.Width(45)))
+                {
+                    var menu = new GenericMenu();
+                    menu.AddItem(new GUIContent("另存为"), false, () => Save(true));
+                    menu.AddItem(new GUIContent("打开内存示例"), false, () => { var example = DanmakuSequence.CreateExample(); example.hideFlags = HideFlags.DontSave; SetSequence(example); });
+                    menu.AddItem(new GUIContent("创建八类示例资产"), false, () => SetSequence(DanmakuEditorAssets.CreateExamples()));
+                    menu.AddItem(new GUIContent("运行模拟验证"), false, DanmakuValidation.Run);
+                    menu.ShowAsContext();
+                }
             }
         }
 
@@ -242,45 +245,12 @@ namespace TapTap.Danmaku.Editor
             EditorUtility.SetDirty(sequence); AssetDatabase.SaveAssets();
         }
 
-        private void DrawLibrary()
-        {
-            using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox, GUILayout.Width(170), GUILayout.Height(300)))
-            {
-                libraryScroll = EditorGUILayout.BeginScrollView(libraryScroll);
-                GUILayout.Label("内置发射预设", EditorStyles.boldLabel);
-                for (int i = 0; i < DanmakuPresetCatalog.Names.Length; i++)
-                {
-                    var e = Event.current;
-                    // Button consumes MouseDown; capture it before drawing for drag initiation.
-                    Vector2 mouse = e.mousePosition;
-                    bool mouseDown = e.type == EventType.MouseDown;
-                    if (GUILayout.Button(DanmakuPresetCatalog.Names[i], GUILayout.Height(25))) AddBuiltin((BuiltinPattern)i, currentTick);
-                    Rect r = GUILayoutUtility.GetLastRect();
-                    if (mouseDown && r.Contains(mouse))
-                    { presetDrag = i; presetMouse = mouse; }
-                    if (e.type == EventType.MouseDrag && presetDrag >= 0 && (e.mousePosition - presetMouse).sqrMagnitude > 12)
-                    {
-                        DragAndDrop.PrepareStartDrag();
-                        DragAndDrop.SetGenericData("DanmakuPattern", (BuiltinPattern)presetDrag);
-                        DragAndDrop.StartDrag(DanmakuPresetCatalog.Names[presetDrag]);
-                        presetDrag = -1; e.Use();
-                    }
-                }
-                GUILayout.Label("点击添加／拖至时间轴", EditorStyles.miniLabel);
-                GUILayout.Space(10);
-                GUILayout.Label("项目发射预设", EditorStyles.boldLabel);
-                var preset = (EmissionPreset)EditorGUILayout.ObjectField(null, typeof(EmissionPreset), false);
-                if (preset) AddPreset(preset, currentTick);
-                GUILayout.Space(10);
-                if (GUILayout.Button("创建八类示例资产")) SetSequence(DanmakuEditorAssets.CreateExamples());
-                EditorGUILayout.EndScrollView();
-            }
-        }
-
         private void AddBuiltin(BuiltinPattern pattern, int tick)
         {
             tick = SnapTick(tick);
             Undo.RecordObject(sequence, "添加弹幕片段");
+            if (pattern == BuiltinPattern.Split && sequence.DurationTicks < 2) sequence.DurationTicks = 2;
+            tick = Mathf.Clamp(tick, 0, sequence.DurationTicks - (pattern == BuiltinPattern.Split ? 2 : 1));
             var clip = new DanmakuClip
             {
                 Name = DanmakuPresetCatalog.Names[(int)pattern], Pattern = pattern, StartTick = Mathf.Clamp(tick, 0, sequence.DurationTicks - 1),
@@ -289,8 +259,13 @@ namespace TapTap.Danmaku.Editor
                 ProjectileOverride = new ProjectileSettings { Color = TrackColors[sequence.Clips.Count % TrackColors.Length] }
             };
             if (pattern == BuiltinPattern.Split)
-            { clip.ProjectileOverride.VisualSize = 0.3f; }
-            sequence.Clips.Add(clip); selected = sequence.Clips.Count - 1; selectedKey = null;
+            {
+                clip.ProjectileOverride.VisualSize = 0.3f;
+                clip.Keyframes.Add(new DanmakuKeyframe());
+                clip.Keyframes.Add(new DanmakuKeyframe { LocalTick = Mathf.Min(60, clip.DurationTicks - 1), Type = DanmakuKeyframeType.Split });
+            }
+            else DanmakuKeyframeEditing.Generate(clip, 0, 30, (clip.DurationTicks - 1) / 30 + 1);
+            sequence.Clips.Add(clip); selected = sequence.Clips.Count - 1; selectedKey = null; inspectorPage = 0;
             EditorUtility.SetDirty(sequence); Rebuild();
         }
 
@@ -326,8 +301,8 @@ namespace TapTap.Danmaku.Editor
 
         private void DrawPreview()
         {
-            GUILayout.Label("Sprite 战斗预览 · 固定测试玩家", EditorStyles.boldLabel);
-            Rect rect = GUILayoutUtility.GetRect(100, 285, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+            GUILayout.Label("战斗预览", EditorStyles.boldLabel);
+            Rect rect = GUILayoutUtility.GetRect(100, 100, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
             if (Event.current.type != EventType.Repaint || rect.width < 1 || rect.height < 1) return;
             EnsurePreview(); sprites.Sync(simulation, sequence);
             float halfHeight = Mathf.Max(sequence.FieldSize.y * 0.5f, sequence.FieldSize.x * 0.5f / (rect.width / rect.height));
@@ -357,69 +332,10 @@ namespace TapTap.Danmaku.Editor
             Handles.EndGUI();
         }
 
-        private void DrawInspector()
-        {
-            using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox, GUILayout.Width(270), GUILayout.Height(300)))
-            {
-                inspectorScroll = EditorGUILayout.BeginScrollView(inspectorScroll);
-                serialized.Update();
-                EditorGUI.BeginChangeCheck();
-                GUILayout.Label("攻击设置", EditorStyles.boldLabel);
-                Property("DurationTicks", "总帧数（60 Hz）"); Property("RandomSeed", "随机种子");
-                Property("MaxActiveBullets", "活跃弹上限");
-                Property("FieldSize", "场地大小"); Property("PreviewPlayerPosition", "测试玩家位置");
-                Property("PreviewPlayerConfig", "预览玩家配置");
-                EditorGUILayout.LabelField("预览判定半径", sequence.PreviewHitRadius.ToString("0.###"));
-                Property("BossSprite", "Boss Sprite"); Property("CollisionEnabled", "测试碰撞");
-                Property("ClearAtEnd", "攻击结束清弹");
-                GUILayout.Space(8);
-                if (selected >= 0 && selected < sequence.Clips.Count)
-                {
-                    GUILayout.Label("选中发射片段", EditorStyles.boldLabel);
-                    var clip = serialized.FindProperty("Clips").GetArrayElementAtIndex(selected);
-                    ClipProperty(clip, "Name", "名称"); ClipProperty(clip, "StartTick", "开始帧");
-                    ClipProperty(clip, "DurationTicks", "持续帧数"); ClipProperty(clip, "Muted", "静音");
-                    ClipProperty(clip, "EmitterPosition", "发射位置"); ClipProperty(clip, "MoveEmitter", "移动发射器");
-                    if (sequence.Clips[selected].MoveEmitter) ClipProperty(clip, "EmitterEndPosition", "结束位置");
-                    ClipProperty(clip, "Preset", "发射预设"); ClipProperty(clip, "OverrideEmission", "本片段覆盖发射参数");
-                    if (sequence.Clips[selected].OverrideEmission || !sequence.Clips[selected].Preset)
-                    {
-                        ClipProperty(clip, "Pattern", "预设类型");
-                        ClipProperty(clip, "Emission", "发射参数", true);
-                    }
-                    ClipProperty(clip, "Projectile", "单弹模板"); ClipProperty(clip, "OverrideProjectile", "本片段覆盖单弹参数");
-                    if (sequence.Clips[selected].OverrideProjectile || !sequence.Clips[selected].EffectiveProjectile)
-                        ClipProperty(clip, "ProjectileOverride", "单弹参数", true);
-                    DrawKeyframeInspector(clip);
-                }
-                Property("Events", "预警／清弹事件", true);
-                bool changed = EditorGUI.EndChangeCheck();
-                serialized.ApplyModifiedProperties();
-                if (changed)
-                {
-                    Undo.RecordObject(sequence, "约束时间轴参数"); ClampTimeline();
-                    EditorUtility.SetDirty(sequence); Rebuild();
-                }
-                ApplyPendingKeyframeDeletion();
-                if (selected >= 0 && selected < sequence.Clips.Count)
-                {
-                    using (new EditorGUILayout.HorizontalScope())
-                    {
-                        if (GUILayout.Button("复制")) Duplicate();
-                        if (GUILayout.Button("删除")) Delete();
-                        if (GUILayout.Button(solo == selected ? "取消独奏" : "独奏")) { solo = solo == selected ? -1 : selected; Rebuild(); }
-                    }
-                    if (GUILayout.Button("另存发射预设")) SavePreset();
-                    DrawKeyframeTools();
-                }
-                EditorGUILayout.EndScrollView();
-            }
-        }
-
         private void Property(string name, string label, bool children = false)
-            => EditorGUILayout.PropertyField(serialized.FindProperty(name), new GUIContent(label), children);
+            => DanmakuChineseGUI.Field(serialized.FindProperty(name), label);
         private static void ClipProperty(SerializedProperty clip, string name, string label, bool children = false)
-            => EditorGUILayout.PropertyField(clip.FindPropertyRelative(name), new GUIContent(label), children);
+            => DanmakuChineseGUI.Field(clip.FindPropertyRelative(name), label);
 
         private void ClampTimeline()
         {
@@ -446,7 +362,7 @@ namespace TapTap.Danmaku.Editor
             if (clip.OverrideProjectile || !preset.Projectile)
             {
                 var projectile = CreateInstance<ProjectileDefinition>();
-                projectile.name = "Projectile"; projectile.Settings = clip.EffectiveProjectileSettings.Copy();
+                projectile.name = "子弹模板"; projectile.Settings = clip.EffectiveProjectileSettings.Copy();
                 AssetDatabase.AddObjectToAsset(projectile, preset); preset.Projectile = projectile;
                 EditorUtility.SetDirty(preset);
             }
@@ -460,7 +376,7 @@ namespace TapTap.Danmaku.Editor
             var clip = sequence.Clips[selected].Copy(); clip.Name += " 副本";
             clip.StartTick = Mathf.Min(currentTick, sequence.DurationTicks - 1);
             clip.DurationTicks = Mathf.Min(clip.DurationTicks, sequence.DurationTicks - clip.StartTick);
-            sequence.Clips.Add(clip); selected = sequence.Clips.Count - 1; selectedKey = null;
+            sequence.Clips.Add(clip); selected = sequence.Clips.Count - 1; selectedKey = null; inspectorPage = 0;
             EditorUtility.SetDirty(sequence); Rebuild();
         }
 
@@ -485,12 +401,17 @@ namespace TapTap.Danmaku.Editor
                 if (GUILayout.Button("◀", EditorStyles.toolbarButton, GUILayout.Width(30))) { playing = false; Seek(currentTick - 1); }
                 if (GUILayout.Button(playing ? "暂停" : "播放", EditorStyles.toolbarButton, GUILayout.Width(45))) TogglePlay();
                 if (GUILayout.Button("▶", EditorStyles.toolbarButton, GUILayout.Width(30))) { playing = false; Seek(currentTick + 1); }
-                int tick = EditorGUILayout.IntField(currentTick, GUILayout.Width(55));
+                float previousLabelWidth = EditorGUIUtility.labelWidth;
+                EditorGUIUtility.labelWidth = 62;
+                int tick = DanmakuChineseGUI.TimeValue("时间", currentTick, 0, GUILayout.Width(115));
+                EditorGUIUtility.labelWidth = previousLabelWidth;
                 if (tick != currentTick) { playing = false; Seek(tick); }
-                GUILayout.Label($"/ {sequence.DurationTicks} · {currentTick / 60f:F2} s", GUILayout.Width(135));
+                GUILayout.Label(frames ? $"/ {sequence.DurationTicks} 帧" : $"/ {sequence.DurationTicks / 60f:0.##} 秒", GUILayout.Width(80));
+                frames = GUILayout.Toggle(frames, "显示帧", EditorStyles.toolbarButton, GUILayout.Width(55));
+                DanmakuChineseGUI.ShowFrames = frames;
                 loop = GUILayout.Toggle(loop, "循环", EditorStyles.toolbarButton, GUILayout.Width(45));
                 using (new EditorGUI.DisabledScope(sequence.Music)) speed = EditorGUILayout.Slider(sequence.Music ? 1 : speed, 0.1f, 2, GUILayout.Width(120));
-                GUILayout.Label(sequence.Music ? "音乐1x" : "倍速", GUILayout.Width(48));
+                GUILayout.Label(sequence.Music ? "音乐原速" : "倍速", GUILayout.Width(48));
                 GUILayout.FlexibleSpace();
                 GUILayout.Label("缩放", GUILayout.Width(30));
                 pixelsPerTick = GUILayout.HorizontalSlider(pixelsPerTick, 0.5f, 6, GUILayout.Width(100));
@@ -509,8 +430,10 @@ namespace TapTap.Danmaku.Editor
         private void DrawTimeline()
         {
             const float labelWidth = 125, headerHeight = 25, rowHeight = 32;
-            Rect viewport = GUILayoutUtility.GetRect(100, 205, GUILayout.ExpandWidth(true));
-            float musicRows = sequence.Music ? 4 * rowHeight : 0;
+            Rect viewport = GUILayoutUtility.GetRect(100, timelineHeight, GUILayout.ExpandWidth(true));
+            bool insideTimeline = viewport.Contains(Event.current.mousePosition);
+            float musicRows = sequence.Music ? ((musicBandsOpen ? 4 : 1) +
+                (ManualMusicBeatGrid.TryCreate(sequence, out _) ? 1 : 0)) * rowHeight : 0;
             float maxTick = sequence.Music ? Mathf.Max(sequence.DurationTicks, (sequence.Music.length + sequence.MusicStartSeconds) * 60) : sequence.DurationTicks;
             float width = Mathf.Max(viewport.width - 18, labelWidth + maxTick * pixelsPerTick + 15);
             Rect content = new(0, 0, width, headerHeight + musicRows + (sequence.Clips.Count + 1) * rowHeight + 15);
@@ -518,20 +441,20 @@ namespace TapTap.Danmaku.Editor
             EditorGUI.DrawRect(content, EditorGUIUtility.isProSkin ? new Color(0.14f, 0.14f, 0.14f) : new Color(0.88f, 0.88f, 0.88f));
             GUI.Label(new Rect(4, 0, labelWidth, 22), "发射器／片段", EditorStyles.boldLabel);
             if (sequence.Music) MusicTimelineDrawer.Draw(sequence, headerHeight, labelWidth, pixelsPerTick, rowHeight,
-                Mathf.Max(labelWidth, timelineScroll.x), timelineScroll.x + viewport.width, musicBandMask);
+                Mathf.Max(labelWidth, timelineScroll.x), timelineScroll.x + viewport.width, musicBandMask, musicBandsOpen);
             int rulerStep = pixelsPerTick < 1 ? 60 : pixelsPerTick < 3 ? 30 : 10;
             for (int tick = 0; tick <= maxTick; tick += rulerStep)
             {
                 float x = labelWidth + tick * pixelsPerTick;
                 EditorGUI.DrawRect(new Rect(x, 22, 1, content.height - 22), new Color(0.5f, 0.5f, 0.5f, 0.2f));
-                GUI.Label(new Rect(x + 2, 0, 65, 20), $"{tick / 60f:0.#} s", EditorStyles.miniLabel);
+                GUI.Label(new Rect(x + 2, 0, 65, 20), frames ? $"{tick} 帧" : $"{tick / 60f:0.#} 秒", EditorStyles.miniLabel);
             }
             var e = Event.current;
             int control = GUIUtility.GetControlID(FocusType.Passive);
             for (int i = 0; i < sequence.Clips.Count; i++)
             {
                 var clip = sequence.Clips[i]; float y = headerHeight + musicRows + i * rowHeight;
-                if (GUI.Button(new Rect(3, y, labelWidth - 6, rowHeight - 2), (clip.Muted ? "[静音] " : "") + clip.Name, EditorStyles.miniButton)) { selected = i; selectedKey = null; }
+                if (GUI.Button(new Rect(3, y, labelWidth - 6, rowHeight - 2), (clip.Muted ? "[禁用] " : "") + clip.Name, EditorStyles.miniButton)) { selected = i; selectedKey = null; inspectorPage = 0; }
                 Rect r = new(labelWidth + clip.StartTick * pixelsPerTick, y + 3, Mathf.Max(4, clip.DurationTicks * pixelsPerTick), rowHeight - 6);
                 Color color = TrackColors[i % TrackColors.Length]; color.a = clip.Muted ? 0.2f : selected == i ? 0.85f : 0.5f;
                 EditorGUI.DrawRect(r, color); GUI.Label(new Rect(r.x + 3, r.y, r.width - 3, 16), clip.Name, EditorStyles.whiteLabel);
@@ -540,7 +463,7 @@ namespace TapTap.Danmaku.Editor
                 EditorGUIUtility.AddCursorRect(new Rect(r.xMax - 6, r.y, 6, r.height), MouseCursor.ResizeHorizontal);
                 if (e.type == EventType.MouseDown && e.button == 0 && r.Contains(e.mousePosition))
                 {
-                    selected = dragIndex = i; selectedKey = null; playing = false;
+                    selected = dragIndex = i; selectedKey = null; playing = false; inspectorPage = 0;
                     originalStart = clip.StartTick; originalDuration = clip.DurationTicks;
                     dragTick = Mathf.RoundToInt((e.mousePosition.x - labelWidth) / pixelsPerTick);
                     dragMode = e.mousePosition.x < r.x + 6 ? -1 : e.mousePosition.x > r.xMax - 6 ? 1 : 0;
@@ -577,9 +500,9 @@ namespace TapTap.Danmaku.Editor
                 else if (e.type == EventType.MouseUp)
                 { dragIndex = -1; GUIUtility.hotControl = 0; e.Use(); }
             }
-            else if (e.type == EventType.MouseDown && e.button == 0 && e.mousePosition.x >= labelWidth)
+            else if (insideTimeline && e.type == EventType.MouseDown && e.button == 0 && e.mousePosition.x >= labelWidth)
             { playing = false; Seek(SnapTick(Mathf.RoundToInt((e.mousePosition.x - labelWidth) / pixelsPerTick))); e.Use(); }
-            if ((e.type == EventType.DragUpdated || e.type == EventType.DragPerform) && e.mousePosition.x >= labelWidth)
+            if (insideTimeline && (e.type == EventType.DragUpdated || e.type == EventType.DragPerform) && e.mousePosition.x >= labelWidth)
             {
                 object pattern = DragAndDrop.GetGenericData("DanmakuPattern");
                 var preset = DragAndDrop.objectReferences.OfType<EmissionPreset>().FirstOrDefault();

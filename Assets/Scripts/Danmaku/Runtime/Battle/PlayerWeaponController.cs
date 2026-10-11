@@ -26,6 +26,7 @@ namespace TapTap.Danmaku
         {
             var rate = FPMath.Clamp((baseFireRate + Modifiers.FireFlat) * Modifiers.FireMultiplier, FP64.FromFloat(0.001f), FP64.FromInt(60));
             interval = FP64.FromInt(DanmakuSequence.TickRate) / rate;
+            int shotCount = FPMath.Clamp((FP64.FromInt(count) + Modifiers.CountFlat) * Modifiers.CountMultiplier, FP64.One, FP64.FromInt(64)).ToIntFloor();
             FPVector2 origin = position + muzzle;
             var delta = input.AimPosition - origin;
             if (input.AimValid && delta.SqrMagnitude > FP64.FromFloat(0.000001f)) direction = FPMath.Atan2(delta.Y, delta.X);
@@ -34,10 +35,10 @@ namespace TapTap.Danmaku
             held = true;
             while (remaining <= FP64.Zero && world.Fault == null)
             {
-                for (int i = 0; i < count; i++)
+                for (int i = 0; i < shotCount; i++)
                 {
-                    var angle = direction + (count > 1 ? arc * (FP64.FromFraction(i, count - 1) - FP64.Half) : FP64.Zero);
-                    world.SpawnFriendly(projectile, origin, angle, FPMath.Max(FP64.Zero, (speed + Modifiers.SpeedFlat) * Modifiers.SpeedMultiplier), Modifiers.DamageFlat, Modifiers.DamageMultiplier);
+                    var angle = direction + (shotCount > 1 ? arc * (FP64.FromFraction(i, shotCount - 1) - FP64.Half) : FP64.Zero);
+                    world.SpawnFriendly(projectile, origin, angle, FPMath.Max(FP64.Zero, (speed + Modifiers.SpeedFlat) * Modifiers.SpeedMultiplier));
                 }
                 TotalRounds++; remaining += interval;
             }

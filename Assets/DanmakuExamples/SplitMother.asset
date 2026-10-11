@@ -17,12 +17,13 @@ MonoBehaviour:
     Color: {r: 0.8, g: 0.5, b: 1, a: 1}
     VisualSize: 0.3
     HitRadius: 0.06
+    Interaction: 0
+    EnergyOrb:
+      ContactDamage: 0
+      FinalVisualSize: 0.18
+      FinalHitRadius: 0.06
+      GrowthCurve: 0
     DurationTicks: 240
-    HitCount: 1
-    DamageConfigId: 0
-    DamageSource: 0
-    Damage: 1
-    TargetBuffIds: 
     SplitChild: {fileID: 11400000, guid: d05b0b0df6346494cab9d4d4c6d44e5f, type: 2}
     SplitCount: 8
     SplitSpeed: 2.5

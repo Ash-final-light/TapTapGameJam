@@ -12,40 +12,33 @@ namespace TapTap.Danmaku
         public readonly PlayerRuntime PlayerSystem;
         public PlayerMotor PlayerMotor => PlayerSystem.Motor;
         public readonly PlayerWeaponController Weapon;
-        public readonly ActorState Player, Boss;
+        public readonly ActorState Player;
+        public readonly FPVector2 BossPosition;
+        public readonly int EndTick;
         public readonly List<BattleEvent> Events = new();
         public readonly CombatComboState Combo = new();
         public readonly BuffManager Buffs = new();
         private readonly CombatResolver resolver;
         private readonly Dictionary<string, CompiledProjectile> actionProjectiles = new();
         public int Tick => World.Tick;
-        public bool Finished => !Player.Alive || BossTimeline.Finished;
-        public BattleSimulation(BattleConfig config, PlayerDefinition playerDefinition, Vector2 playerSpawn, IDamageConfigResolver damageConfigs = null, PlayerWeaponDefinition selectedWeapon = null)
+        public bool Finished => !Player.Alive || Tick >= EndTick;
+        public RunEndReason EndReason => Player.Alive ? RunEndReason.Completed : RunEndReason.PlayerDied;
+        public BattleSimulation(BattleConfig config, PlayerDefinition playerDefinition, Vector2 playerSpawn, PlayerWeaponDefinition selectedWeapon = null)
         {
             string error = config.Validate(); if (error != null) throw new System.ArgumentException(error);
             if (!playerDefinition) throw new System.ArgumentException("请指定独立 PlayerDefinition。");
             string playerError = playerDefinition.Validate(); if (playerError != null) throw new System.ArgumentException(playerError);
-            if (damageConfigs == null)
-            {
-                RequireExplicitDamage((selectedWeapon ? selectedWeapon : playerDefinition.Weapon).Projectile.Settings);
-                foreach (var binding in playerDefinition.Actions.Bindings)
-                    foreach (var node in binding.Clip.Nodes) if (node.Projectile) RequireExplicitDamage(node.Projectile.Settings);
-                foreach (var clip in config.Sequence.Clips)
-                    if (!clip.Muted)
-                    {
-                        RequireExplicitDamage(clip.EffectiveProjectileSettings);
-                        if (clip.IsSplit && clip.EffectiveProjectileSettings.SplitChild)
-                            RequireExplicitDamage(clip.EffectiveProjectileSettings.SplitChild.Settings);
-                    }
-            }
+            // Music defines the run length; without music use the authored timeline.
+            EndTick = config.Sequence.Music
+                ? MusicTime.EndTick(config.Sequence.MusicStartSeconds + (double)config.Sequence.Music.samples / config.Sequence.Music.frequency)
+                : System.Math.Max(1, config.Sequence.DurationTicks);
             World = new ProjectileWorld(config.Sequence, config.MaxActiveProjectiles);
             BossTimeline = new BossSequenceRunner(config.Sequence, World);
             PlayerSystem = new PlayerRuntime(playerDefinition, config.Sequence.FieldSize, playerSpawn);
             Player = PlayerSystem.Actor;
-            var pos = DanmakuSimulation.ToFP(config.BossPosition);
-            Boss = new ActorState(2, FP64.FromFloat(config.BossHealth), new DanmakuPlayerState(pos, pos, FP64.FromFloat(config.BossHitRadius)));
-            World.SetPlayerState(Player.Pose); World.SetBossState(Boss.Pose);
-            Weapon = new PlayerWeaponController(selectedWeapon ? selectedWeapon : playerDefinition.Weapon); resolver = new CombatResolver(config, damageConfigs);
+            BossPosition = DanmakuSimulation.ToFP(config.BossPosition);
+            World.SetPlayerState(Player.Pose);
+            Weapon = new PlayerWeaponController(selectedWeapon ? selectedWeapon : playerDefinition.Weapon); resolver = new CombatResolver(config);
             World.EnergyOrbMissed += _ => Combo.Reset();
             // Compile point-event projectile templates with the same lifetime as this battle.
             foreach (var binding in playerDefinition.Actions.Bindings)
@@ -61,7 +54,7 @@ namespace TapTap.Danmaku
             PlayerMotor.MoveFlat = modifiers.MoveFlat; PlayerMotor.MoveMultiplier = modifiers.MoveMultiplier;
             Weapon.Modifiers = modifiers;
             PlayerSystem.BeginTick(playerInput);
-            World.SetPlayerState(Player.Pose); World.SetBossState(Boss.Pose);
+            World.SetPlayerState(Player.Pose);
             World.BeginTick(); BossTimeline.Step();
             var gated = new BattleInput(new Inputs.InputSnapshot(playerInput.Horizontal, 0, fireHeld: playerInput.FireHeld && PlayerSystem.FireAllowed), input.AimPosition, input.AimValid);
             Weapon.Step(gated, Player.Pose.Position, World);
@@ -71,16 +64,11 @@ namespace TapTap.Danmaku
                     var delta = input.AimPosition - Player.Pose.Position;
                     var angle = input.AimValid && delta.SqrMagnitude > FP64.Zero ? FPMath.Atan2(delta.Y, delta.X) : FPMath.PI_OVER_2;
                     if (actionProjectiles.TryGetValue(e.Clip.GetInstanceID() + ":" + e.Node.Id, out var projectile))
-                        World.SpawnFriendly(projectile, Player.Pose.Position, angle, FPMath.Max(FP64.Zero, (FP64.FromFloat(e.Node.ProjectileSpeed) + modifiers.SpeedFlat) * modifiers.SpeedMultiplier), modifiers.DamageFlat, modifiers.DamageMultiplier);
+                        World.SpawnFriendly(projectile, Player.Pose.Position, angle, FPMath.Max(FP64.Zero, (FP64.FromFloat(e.Node.ProjectileSpeed) + modifiers.SpeedFlat) * modifiers.SpeedMultiplier));
                 }
-            World.Advance(); resolver.Resolve(World, PlayerSystem, Boss, Events, Combo);
+            World.Advance(); resolver.Resolve(World, PlayerSystem, Events, Combo);
             World.CommitLifecycle(); BossTimeline.AfterStep();
             PlayerSystem.EndTick();
-        }
-        private static void RequireExplicitDamage(ProjectileSettings settings)
-        {
-            if (settings.DamageSource == ProjectileDamageSource.ConfigId)
-                throw new System.ArgumentException("单弹选择了 DamageConfigId，需要明确提供 IDamageConfigResolver。");
         }
     }
 }

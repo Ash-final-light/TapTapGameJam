@@ -5,20 +5,17 @@ using Framework.Physics.LightweightPhysics;
 using UnityEngine;
 namespace TapTap.Danmaku
 {
-    public enum ProjectileDeathReason { HitCount, Duration, Split, OutOfBounds, Clear, Destroyed }
+    public enum ProjectileDeathReason { Hit, Duration, Split, OutOfBounds, Clear, Destroyed }
 
     public readonly struct ProjectileHit
     {
-        public readonly int ProjectileId, Tick, DamageConfigId;
+        public readonly int ProjectileId, Tick;
         public readonly FPVector2 Position;
         public readonly FPVector2 PlayerPosition;
         public readonly FP64 PlayerHitRadius;
-        public readonly int[] TargetBuffIds;
         public ProjectileHit(ProjectileState p, int tick, in DanmakuPlayerState player)
         {
             ProjectileId = p.Id; Tick = tick; Position = p.Position;
-            DamageConfigId = p.Settings.DamageConfigId;
-            TargetBuffIds = p.Settings.TargetBuffIds;
             PlayerPosition = player.Position; PlayerHitRadius = player.HitRadius;
         }
     }
@@ -29,7 +26,6 @@ namespace TapTap.Danmaku
         public int SourceClip { get; internal set; }
         public int BirthTick { get; internal set; }
         public int Depth { get; internal set; }
-        public int RemainingHits { get; internal set; }
         public FPVector2 Position { get; internal set; }
         public FP64 Direction { get; internal set; }
         public ProjectileSettings Settings { get; internal set; }
@@ -42,7 +38,6 @@ namespace TapTap.Danmaku
         public FP64 VisualSize { get; internal set; }
         public FP64 GrowthProgress { get; internal set; }
         public int ExplosionTick { get; internal set; }
-        internal FP64 DamageFlat, DamageMultiplier = FP64.One;
         internal CompiledProjectile Definition;
         internal FP64 Radius, PreviousRadius;
     }
@@ -58,7 +53,7 @@ namespace TapTap.Danmaku
 
     public sealed class ProjectileWorld
     {
-        internal const ushort EnemyBulletLayer = 1, PlayerLayer = 2, FriendlyBulletLayer = 4, BossLayer = 8;
+        internal const ushort EnemyBulletLayer = 1, PlayerLayer = 2, FriendlyBulletLayer = 4;
         private readonly List<ProjectileState> bullets = new(256);
         private readonly Dictionary<int, ProjectileState> byId = new(256);
         private readonly Stack<ProjectileState> recycled = new(256);
@@ -79,14 +74,12 @@ namespace TapTap.Danmaku
         }
         private readonly LWPhysicsWorld world;
         private readonly int maxBullets, playerId;
-        private int bossId;
         private readonly FPVector2 halfField;
         public int Tick { get; private set; }
         public int TotalSpawned { get; private set; }
         public int PeakBullets { get; private set; }
         public string Fault { get; private set; }
         public DanmakuPlayerState PlayerState { get; private set; }
-        public DanmakuPlayerState BossState { get; private set; }
         public IReadOnlyList<ProjectileState> Bullets => bullets;
         public readonly List<CombatContact> Contacts = new();
         public event Action<int> EnergyOrbMissed;
@@ -105,7 +98,7 @@ namespace TapTap.Danmaku
             var config = LWPhysicsConfig.Default;
             config.InitialBodyCapacity = Math.Max(16, maxBullets + 2);
             config.SleepLinearSpeedSqr = FP64.Zero;
-            world = new LWPhysicsWorld(config, new BulletTargetBroadphase(EnemyBulletLayer | FriendlyBulletLayer, PlayerLayer | BossLayer));
+            world = new LWPhysicsWorld(config, new BulletTargetBroadphase(EnemyBulletLayer, PlayerLayer));
             PlayerState = new DanmakuPlayerState(DanmakuSimulation.ToFP(sequence.PreviewPlayerPosition), DanmakuSimulation.ToFP(sequence.PreviewPlayerPosition), FP64.FromFloat(Math.Max(0.001f, sequence.PreviewHitRadius)), sequence.CollisionEnabled);
             var def = LWBodyDef.Static(LWShape.Circle(PlayerState.HitRadius), PlayerState.Position);
             def.Layer = PlayerLayer; def.Mask = sequence.CollisionEnabled ? EnemyBulletLayer : (ushort)0;
@@ -113,17 +106,6 @@ namespace TapTap.Danmaku
         }
         public void SetPlayerState(in DanmakuPlayerState state)
         { PlayerState = state; SetTarget(playerId, state, EnemyBulletLayer); }
-        public void SetBossState(in DanmakuPlayerState state)
-        {
-            BossState = state;
-            if (bossId == 0)
-            {
-                var def = LWBodyDef.Static(LWShape.Circle(state.HitRadius), state.Position);
-                def.Layer = BossLayer; def.Mask = FriendlyBulletLayer; def.Flags |= LWBodyFlags.Trigger;
-                bossId = world.AddBody(def);
-            }
-            SetTarget(bossId, state, FriendlyBulletLayer);
-        }
         private void SetTarget(int id, in DanmakuPlayerState state, ushort mask)
         {
             var body = world.GetBody(id); body.Position = state.Position;
@@ -134,11 +116,6 @@ namespace TapTap.Danmaku
         { Spawn(-1, 0, position, angle, speed, CompileProjectile(settings), ProjectileFaction.Player, 1); }
         internal void SpawnFriendly(CompiledProjectile definition, FPVector2 position, FP64 angle, FP64 speed)
         { Spawn(-1, 0, position, angle, speed, definition, ProjectileFaction.Player, 1); }
-        internal void SpawnFriendly(CompiledProjectile definition, FPVector2 position, FP64 angle, FP64 speed, FP64 damageFlat, FP64 damageMultiplier)
-        {
-            Spawn(-1, 0, position, angle, speed, definition, ProjectileFaction.Player, 1);
-            if (bullets.Count > 0 && Fault == null) { var p = bullets[bullets.Count - 1]; p.DamageFlat = damageFlat; p.DamageMultiplier = damageMultiplier; }
-        }
         public void BeginTick()
         {
             deaths.Clear(); Contacts.Clear();
@@ -163,13 +140,12 @@ namespace TapTap.Danmaku
                         AddContact(p, orb.Id, CombatTargetKind.EnergyOrb, orb.PreviousPosition, orb.Position, orb.PreviousRadius, orb.Radius);
                     }
                 }
-                if (p.IsEnergyOrb && !p.Settings.EnergyOrb.ContactDamage) continue;
-                var target = p.Faction == ProjectileFaction.Enemy ? PlayerState : BossState;
-                if (!target.CollisionEnabled || (p.Faction == ProjectileFaction.Player && bossId == 0)) continue;
+                if (p.Faction != ProjectileFaction.Enemy || (p.IsEnergyOrb && !p.Settings.EnergyOrb.ContactDamage)) continue;
+                var target = PlayerState;
+                if (!target.CollisionEnabled) continue;
                 // A bullet created after the motor moved cannot hit the earlier actor path.
                 var targetStart = p.BirthTick == Tick - 1 ? target.Position : target.PreviousPosition;
-                AddContact(p, p.Faction == ProjectileFaction.Enemy ? 1 : 2,
-                    p.Faction == ProjectileFaction.Enemy ? CombatTargetKind.Player : CombatTargetKind.Boss,
+                AddContact(p, 1, CombatTargetKind.Player,
                     targetStart, target.Position, target.HitRadius, target.HitRadius);
             }
             (touching, nextTouching) = (nextTouching, touching);
@@ -217,9 +193,8 @@ namespace TapTap.Danmaku
         internal bool TryGet(int id, out ProjectileState p) => byId.TryGetValue(id, out p) && !deaths.ContainsKey(id);
         internal void ConsumeHit(ProjectileState p)
         {
-            p.RemainingHits--;
-            // A mother orb that has hit an actor must never later explode.
-            if (p.IsEnergyOrb || p.RemainingHits <= 0) deaths[p.Id] = ProjectileDeathReason.HitCount;
+            // Every projectile is consumed by its first effective hit.
+            deaths[p.Id] = ProjectileDeathReason.Hit;
         }
         internal bool DamageEnergyOrb(ProjectileState p, FP64 damage)
         {
@@ -263,19 +238,18 @@ namespace TapTap.Danmaku
                 return;
             }
             var def = LWBodyDef.Dynamic(LWShape.Circle(definition.Radius), position, FP64.One);
-            def.Layer = faction == ProjectileFaction.Enemy ? EnemyBulletLayer : FriendlyBulletLayer; def.Mask = faction == ProjectileFaction.Enemy ? PlayerLayer : BossLayer; def.Flags = LWBodyFlags.Trigger;
+            def.Layer = faction == ProjectileFaction.Enemy ? EnemyBulletLayer : FriendlyBulletLayer; def.Mask = faction == ProjectileFaction.Enemy ? PlayerLayer : (ushort)0; def.Flags = LWBodyFlags.Trigger;
             def.Velocity = DirectionVector(angle) * speed;
             int id = world.AddBody(def);
             var p = recycled.Count > 0 ? recycled.Pop() : new ProjectileState();
             p.Id = id; p.Faction = faction; p.OwnerId = ownerId; p.PreviousPosition = position; p.SourceClip = source; p.BirthTick = Tick; p.Depth = depth;
-            p.RemainingHits = Math.Max(1, definition.Settings.HitCount); p.Position = position;
+            p.Position = position;
             p.Direction = angle; p.Settings = definition.Settings; p.Definition = definition; p.Radius = definition.Radius;
             p.PreviousRadius = p.Radius; p.VisualSize = definition.VisualSize; p.GrowthProgress = FP64.Zero;
             p.IsEnergyOrb = faction == ProjectileFaction.Enemy && depth == 0 && definition.Child != null &&
                 definition.Settings.Interaction == ProjectileInteraction.EnergyOrb;
             p.Health = p.IsEnergyOrb ? FP64.FromInt(EnergyOrbSettings.MaxHealth) : FP64.Zero;
             p.ExplosionTick = explosionTick;
-            p.DamageFlat = FP64.Zero; p.DamageMultiplier = FP64.One;
             bullets.Add(p); byId.Add(id, p); TotalSpawned++;
             PeakBullets = Math.Max(PeakBullets, bullets.Count);
         }

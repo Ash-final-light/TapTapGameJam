@@ -200,7 +200,7 @@ namespace TapTap.Player.Editor
         {
             using var f = new Fixture(); var sequence = f.Make<DanmakuSequence>(); sequence.FieldSize = new Vector2(100, 100);
             sequence.Clips.Add(new DanmakuClip { DurationTicks = 2, EmitterPosition = Vector2.zero, Keyframes = new() { new DanmakuKeyframe(), new DanmakuKeyframe { LocalTick = 1 } } });
-            sequence.Clips[0].Emission.Speed = 0; sequence.Clips[0].ProjectileOverride.Damage = 1;
+            sequence.Clips[0].Emission.Speed = 0;
             var config = f.Make<BattleConfig>(); config.Sequence = sequence;
             var immune = f.Library.Get(PlayerClipSlot.Dash).Nodes.First(n => n.Kind == PlayerActionNodeKind.Invulnerability); immune.StartTick = 0; immune.EndTick = 1;
             var b = new BattleSimulation(config, f.Definition, Vector2.zero);

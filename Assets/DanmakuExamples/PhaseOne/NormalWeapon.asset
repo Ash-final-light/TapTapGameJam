@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ca67d64d74c044c9f52455e2f8c9e0, type: 3}
   m_Name: NormalWeapon
   m_EditorClassIdentifier: 
+  DisplayName: "\u666E\u901A\u5F39\u5E55"
+  Description: "\u5411\u7784\u51C6\u65B9\u5411\u8FDE\u7EED\u53D1\u5C04\u666E\u901A\u5F39\u5E55\u3002"
+  Unlocked: 1
   Mode: 0
   FireRate: 5
   MuzzleOffset: {x: 0, y: 0.2}
@@ -25,9 +28,10 @@ MonoBehaviour:
     RotationDegreesPerSecond: 0
     AlternatePhaseDegrees: 0
     Speed: 8
-    SpeedLayers: 1
-    SpeedLayerDelta: 0.4
-    RandomAngleDegrees: 0
     SegmentStart: {x: -3, y: 0}
     SegmentEnd: {x: 3, y: 0}
+    SpawnPosition: 0
+    RandomSpawnMin: {x: 0, y: 0}
+    RandomSpawnMax: {x: 0, y: 0}
+    PlayerProtectionDistance: 0
   Projectile: {fileID: 11400000, guid: 278ab59cd9ccfa7499255f97b25cb7f0, type: 2}

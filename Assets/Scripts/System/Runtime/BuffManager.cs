@@ -4,7 +4,7 @@ using Framework.FixedPoint;
 using UnityEngine;
 namespace TapTap.Systems
 {
-    public enum BuffStat { MoveSpeed, FireRate, ProjectileSpeed, Damage }
+    public enum BuffStat { MoveSpeed, FireRate, ProjectileSpeed, ProjectileCount }
     [Serializable] public sealed class BuffModifier
     {
         public BuffStat Stat;
@@ -13,9 +13,10 @@ namespace TapTap.Systems
     }
     public readonly struct BattleStatModifiers
     {
-        public readonly FP64 MoveFlat, MoveMultiplier, FireFlat, FireMultiplier, SpeedFlat, SpeedMultiplier, DamageFlat, DamageMultiplier;
+        public readonly FP64 MoveFlat, MoveMultiplier, FireFlat, FireMultiplier, SpeedFlat, SpeedMultiplier;
+        public readonly FP64 CountFlat, CountMultiplier;
         public BattleStatModifiers(FP64[] flat, FP64[] multiplier)
-        { MoveFlat = flat[0]; MoveMultiplier = multiplier[0]; FireFlat = flat[1]; FireMultiplier = multiplier[1]; SpeedFlat = flat[2]; SpeedMultiplier = multiplier[2]; DamageFlat = flat[3]; DamageMultiplier = multiplier[3]; }
+        { MoveFlat = flat[0]; MoveMultiplier = multiplier[0]; FireFlat = flat[1]; FireMultiplier = multiplier[1]; SpeedFlat = flat[2]; SpeedMultiplier = multiplier[2]; CountFlat = flat[3]; CountMultiplier = multiplier[3]; }
     }
     public sealed class BuffManager
     {

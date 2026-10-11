@@ -28,7 +28,7 @@ namespace TapTap.Systems.UI
             Cover.sprite = song ? song.Cover : null; Cover.enabled = Cover.sprite;
             Difficulty.text = result.Difficulty.ToString(); Score.text = result.Score.ToString("D6"); Grade.text = result.Grade;
             Grade.color = result.GradeColor == Color.white ? new Color(.12f,.17f,.23f) : result.GradeColor;
-            Statistics.text = $"{(result.Stats.Completed ? "演出完成" : "演出结束")}\n最高连击：{result.Stats.MaxCombo}\nMISS：{result.Stats.Misses}\n击破：{result.Stats.DestroyedOrbs}    受伤：{result.Stats.DamageTakenCount}";
+            Statistics.text = $"{(result.Stats.Completed ? "歌曲完成" : "角色倒下，歌曲结束")}\n最高连击：{result.Stats.MaxCombo}\nMISS：{result.Stats.Misses}\n击破：{result.Stats.DestroyedOrbs}    受伤：{result.Stats.DamageTakenCount}";
             var item = System.Array.Find(root.Config.Items, i => i && i.Id == result.DropItemId);
             Drop.text = $"获得道具：{(item ? item.DisplayName : result.DropItemId)} ×{result.DropQuantity}";
             DropIcon.sprite = item ? item.Icon : null; DropIcon.enabled = DropIcon.sprite;

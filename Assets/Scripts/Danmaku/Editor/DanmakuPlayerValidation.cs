@@ -11,7 +11,7 @@ namespace TapTap.Danmaku.Editor
 {
     public static class DanmakuPlayerValidation
     {
-        [MenuItem("Tools/Danmaku/运行玩家移动与判定验证")]
+        [MenuItem("工具/弹幕/运行玩家移动与判定验证")]
         public static void Run()
         {
             var results = new List<string>();
@@ -147,7 +147,7 @@ namespace TapTap.Danmaku.Editor
             try
             {
                 var clip = new DanmakuClip { DurationTicks = 1, EmitterPosition = Vector2.zero, Keyframes = new() { new DanmakuKeyframe() } };
-                clip.Emission.Speed = 0; clip.ProjectileOverride.HitCount = 5;
+                clip.Emission.Speed = 0;
                 sequence.Clips.Add(clip);
                 var sim = new DanmakuSimulation(sequence); ProjectileHit latest = default;
                 sim.OnHit += hit => latest = hit;
@@ -158,6 +158,8 @@ namespace TapTap.Danmaku.Editor
                 sim.SetPlayerState(new DanmakuPlayerState(FPVector2.Zero, FPVector2.Zero, FP64.FromFloat(0.1f)));
                 sim.Step(); sim.Step(); Assert(sim.HitCount == 1, "Dynamic target position or Enter dedup failed");
                 var position = FPVector2.FromFloat(0.25f, 0);
+                // The first projectile was consumed; spawn another to verify the updated radius.
+                sim.World.Spawn(0, 0, FPVector2.Zero, FP64.Zero, FP64.Zero, ProjectileWorld.CompileProjectile(clip.ProjectileOverride));
                 sim.SetPlayerState(new DanmakuPlayerState(position, FPVector2.Zero, FP64.FromFloat(0.1f))); sim.Step();
                 sim.SetPlayerState(new DanmakuPlayerState(position, position, FP64.FromFloat(0.3f))); sim.Step();
                 Assert(sim.HitCount == 2 && latest.PlayerPosition == position && Near(latest.PlayerHitRadius, 0.3f), "Radius/body update or hit snapshot failed");
