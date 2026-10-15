@@ -17,3 +17,6 @@ MonoBehaviour:
   - Id: tutorial
     ScenePath: Assets/Scenes/GameplayPlaceholder.unity
     DisplayName: "\u65B0\u624B\u5173\u5361\uFF08\u5360\u4F4D\uFF09"
+  - Id: custom-song
+    ScenePath: Assets/Scenes/CustomSongBattle.unity
+    DisplayName: "\u5171\u9E23\u821E\u53F0"

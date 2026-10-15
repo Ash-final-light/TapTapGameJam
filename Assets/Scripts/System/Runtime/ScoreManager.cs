@@ -122,8 +122,10 @@ namespace TapTap.Systems
             int finalScore = Evaluate(snapshot, breakdown);
             var rating = setup?.Difficulty?.Rating ? setup.Difficulty.Rating.Evaluate(finalScore, snapshot) : new RatingValue();
             result = new RunResult { RunId = runId, SongId = setup?.Song ? setup.Song.Id : "standalone",
+                IsCustom = setup?.IsCustom == true, SongTitle = setup?.Song ? setup.Song.Title : null,
                 Difficulty = setup?.Difficulty?.Difficulty ?? SongDifficulty.Normal,
                 Score = finalScore, Grade = rating.Name, GradeColor = rating.Color, Stats = snapshot, Breakdown = breakdown.ToArray() };
+            if (result.IsCustom) { result.Grade = snapshot.Completed ? "完成" : "未完成"; result.GradeColor = UnityEngine.Color.white; }
             return result;
         }
         public static int Multiply(int value, int coefficient) => (int)Math.Max(int.MinValue, Math.Min(int.MaxValue, (long)value * coefficient));

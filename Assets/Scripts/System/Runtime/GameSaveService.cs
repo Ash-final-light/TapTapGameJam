@@ -42,13 +42,15 @@ namespace TapTap.Systems
         public OperationResult NewGame() => Write(Empty());
         public OperationResult Settle(RunResult result)
         {
-            if (result == null || string.IsNullOrWhiteSpace(result.RunId) || string.IsNullOrWhiteSpace(result.SongId) || string.IsNullOrWhiteSpace(result.DropItemId) || result.DropQuantity <= 0 || result.Score < 0) return OperationResult.Fail("结算数据不完整。");
+            if (result == null || string.IsNullOrWhiteSpace(result.RunId) || string.IsNullOrWhiteSpace(result.SongId) || result.Score < 0 ||
+                (!result.IsCustom && (string.IsNullOrWhiteSpace(result.DropItemId) || result.DropQuantity <= 0)) ||
+                (result.IsCustom && (!result.SongId.StartsWith("custom:v", StringComparison.Ordinal) || result.DropQuantity != 0 || !string.IsNullOrEmpty(result.DropItemId)))) return OperationResult.Fail("结算数据不完整。");
             if (Current?.LastSettledRunId == result.RunId) return OperationResult.Ok();
             var draft = Current == null ? Empty() : JsonUtility.FromJson<GameSaveData>(JsonUtility.ToJson(Current));
             var record = draft.Records.Find(r => r.SongId == result.SongId && r.Difficulty == result.Difficulty);
             if (record == null) { record = new SongRecord { SongId = result.SongId, Difficulty = result.Difficulty }; draft.Records.Add(record); record.Score = result.Score; record.Grade = result.Grade; }
             else if (result.Score > record.Score) { record.Score = result.Score; record.Grade = result.Grade; }
-            AddItem(draft, result.DropItemId, result.DropQuantity);
+            if (!result.IsCustom) AddItem(draft, result.DropItemId, result.DropQuantity);
             draft.LastSettledRunId = result.RunId;
             return Write(draft);
         }

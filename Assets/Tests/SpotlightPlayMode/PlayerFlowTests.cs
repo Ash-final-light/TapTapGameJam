@@ -17,6 +17,8 @@ namespace Spotlight.Tests
         private object manager, root;
         private Keyboard keyboard;
         private ScriptableObject battle, sequence;
+        private ScriptableObject systemConfig;
+        private string previousSaveFolder;
         private InputSettings.BackgroundBehavior oldBackground;
         private InputSettings.EditorInputBehaviorInPlayMode oldEditorInput;
         private static object Get(object owner, string name) => owner.GetType().GetProperty(name)?.GetValue(owner) ?? owner.GetType().GetField(name)?.GetValue(owner);
@@ -37,6 +39,9 @@ namespace Spotlight.Tests
             InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
             InputSystem.settings.editorInputBehaviorInPlayMode = InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
             keyboard = InputSystem.AddDevice<Keyboard>();
+            systemConfig = AssetDatabase.LoadAssetAtPath<ScriptableObject>("Assets/Configs/Spotlight/SystemConfig.asset");
+            previousSaveFolder = (string)Get(systemConfig, "SaveFolder");
+            Set(systemConfig, "SaveFolder", "SpotlightTests/Player-" + Guid.NewGuid().ToString("N"));
             yield return SceneManager.LoadSceneAsync("Assets/Scenes/GameplayPlaceholder.unity"); yield return null;
             foreach (var component in UnityEngine.Object.FindObjectsOfType<MonoBehaviour>())
             {
@@ -47,6 +52,9 @@ namespace Spotlight.Tests
             battle = UnityEngine.Object.Instantiate((ScriptableObject)Get(manager, "Config"));
             sequence = ScriptableObject.CreateInstance(Type.GetType("TapTap.Danmaku.DanmakuSequence, Assembly-CSharp", true));
             Set(sequence, "FieldSize", new Vector2(20, 20)); Set(battle, "Sequence", sequence); Set(manager, "Config", battle);
+            // Direct scene startup registers its authored song. This fixture deliberately
+            // uses a silent simulation, so remove that context before playing the clone.
+            root.GetType().GetProperty("ActiveRun").SetValue(root, null);
             Keys(); Call(manager, "Play"); Call(manager, "Pause");
             Assert.IsNotNull(Get(manager, "Simulation"));
         }
@@ -59,6 +67,7 @@ namespace Spotlight.Tests
             if (keyboard != null && keyboard.added) InputSystem.RemoveDevice(keyboard);
             InputSystem.settings.backgroundBehavior = oldBackground; InputSystem.settings.editorInputBehaviorInPlayMode = oldEditorInput;
             if (battle) UnityEngine.Object.Destroy(battle); if (sequence) UnityEngine.Object.Destroy(sequence);
+            if (systemConfig) Set(systemConfig, "SaveFolder", previousSaveFolder);
             manager = root = null;
         }
         [UnityTest]
@@ -112,7 +121,8 @@ namespace Spotlight.Tests
             var actor = Get(Player, "Actor"); var pose = Get(actor, "Pose");
             float radius = (float)Call(Get(pose, "HitRadius"), "ToFloat");
             Assert.AreEqual(radius, Vector2.Distance(ring.GetPosition(0), playerVisual.position), 0.0001f);
-            Assert.AreEqual(Color.cyan.g, ring.startColor.g, 0.0001f);
+            var expectedColor = (Color)Get(Get(manager, "PlayerDefinition"), "InvulnerableHitRangeColor");
+            Assert.AreEqual(expectedColor.g, ring.startColor.g, 0.0001f);
             Assert.Greater(ring.sortingOrder, mesh.GetComponent<Renderer>().sortingOrder);
             foreach (var component in playerVisual.GetComponentsInChildren<MonoBehaviour>())
                 if (component.GetType().FullName == "Spine.Unity.SkeletonAnimation")

@@ -8,8 +8,10 @@ namespace TapTap.Systems
         public readonly SongDifficultyConfig Difficulty;
         public readonly PlayerWeaponDefinition Weapon;
         public readonly ItemDefinition[] Items;
-        public BattleStartData(SongDefinition song, SongDifficultyConfig difficulty, PlayerWeaponDefinition weapon, ItemDefinition[] items)
-        { Song = song; Difficulty = difficulty; Weapon = weapon; Items = items == null ? Array.Empty<ItemDefinition>() : (ItemDefinition[])items.Clone(); }
+        public readonly CustomSongSession CustomSong;
+        public bool IsCustom => CustomSong != null;
+        public BattleStartData(SongDefinition song, SongDifficultyConfig difficulty, PlayerWeaponDefinition weapon, ItemDefinition[] items, CustomSongSession customSong = null)
+        { Song = song; Difficulty = difficulty; Weapon = weapon; Items = items == null ? Array.Empty<ItemDefinition>() : (ItemDefinition[])items.Clone(); CustomSong = customSong; }
         public static BattleStartData FindForBattle(SystemConfig config, BattleConfig battle, PlayerWeaponDefinition weapon)
         {
             if (!config || !config.Songs) return null;
@@ -22,6 +24,18 @@ namespace TapTap.Systems
         }
         public string Validate(SystemConfig config, GameSaveService saves)
         {
+            if (IsCustom)
+            {
+                if (CustomSong.Disposed || CustomSong.Setup != this || !Song || Song != CustomSong.Song || Song.Id != CustomSong.RecordId ||
+                    Difficulty == null || Song.Find(SongDifficulty.Normal) != Difficulty || !Difficulty.Enabled ||
+                    Difficulty.LevelEntryId != CustomSongChallengeService.EntryId || config.Levels.Find(Difficulty.LevelEntryId)?.ScenePath != CustomSongChallengeService.ScenePath ||
+                    !Difficulty.Battle || Difficulty.Battle != CustomSong.Battle || Difficulty.Battle.Validate() != null ||
+                    !CustomSong.Audio || !CustomSong.Sequence || Difficulty.Battle.Sequence != CustomSong.Sequence || CustomSong.Sequence.Music != CustomSong.Audio ||
+                    !Weapon || !Weapon.Unlocked || Array.IndexOf(config.Weapons, Weapon) < 0 || Weapon.Mode != PlayerWeaponMode.Normal ||
+                    !Weapon.Projectile || Weapon.FireRate <= 0 || Weapon.FireRate > 60 || Items.Length != 0)
+                    return "自定义歌曲挑战数据无效，请返回歌曲库重新准备。";
+                return null;
+            }
             if (!Song || !config.Songs || config.Songs.Find(Song.Id) != Song || Difficulty == null || Song.Find(Difficulty.Difficulty) != Difficulty || !Difficulty.Enabled)
                 return "歌曲或难度未开放。";
             if (!Difficulty.Battle || Difficulty.Battle.Validate() != null || !Difficulty.Rating || config.Levels.Find(Difficulty.LevelEntryId) == null)
@@ -42,6 +56,8 @@ namespace TapTap.Systems
     public sealed class RunResult
     {
         public string RunId, SongId, Grade, DropItemId;
+        public bool IsCustom;
+        public string SongTitle;
         public SongDifficulty Difficulty;
         public int Score, DropQuantity;
         public UnityEngine.Color GradeColor;

@@ -37,6 +37,10 @@ namespace TapTap.Systems
             Busy = true; root.StartCoroutine(Load(entry)); return OperationResult.Ok();
         }
         public OperationResult AbandonToTitle()
+            => ReturnToMenu(false);
+        public OperationResult AbandonToMusic()
+            => ReturnToMenu(true);
+        private OperationResult ReturnToMenu(bool music)
         {
             if (Busy) return OperationResult.Fail("场景正在切换，请稍候。");
             if (!Application.CanStreamedLevelBeLoaded(root.Config.TitleScene)) return OperationResult.Fail("标题场景未加入构建。");
@@ -44,16 +48,17 @@ namespace TapTap.Systems
             root.Input.SetGameplay(false);
             root.UI.RefreshContinue();
             Busy = true; Failed = false; Error = null;
-            root.StartCoroutine(ReturnToTitle());
+            root.StartCoroutine(ReturnToTitle(music));
             return OperationResult.Ok();
         }
-        private IEnumerator ReturnToTitle()
+        private IEnumerator ReturnToTitle(bool music)
         {
             var operation = TryLoad(root.Config.TitleScene);
             if (operation == null) { root.UI.Toast(Error); yield break; }
             while (!operation.isDone) yield return null;
             Busy = false; Progress = 0;
-            root.UI.ShowContext(UIContext.Title);
+            root.CustomSongs.ReleasePrepared();
+            root.UI.ShowContext(music ? UIContext.ImportedMusic : UIContext.Title);
         }
         public OperationResult Retry() => RetryRun();
         private IEnumerator Load(LevelEntry entry)

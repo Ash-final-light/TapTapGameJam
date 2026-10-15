@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="19" result="Passed" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-15 12:20:52Z" end-time="2026-10-15 12:21:46Z" duration="53.1993169">
+  <test-suite type="TestSuite" id="1000" name="TapTap_GameJam" fullname="TapTap_GameJam" runstate="Runnable" testcasecount="19" result="Passed" start-time="2026-10-15 12:20:52Z" end-time="2026-10-15 12:21:46Z" duration="53.199317" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties />
+    <test-suite type="Assembly" id="1026" name="Spotlight.PlayModeTests.dll" fullname="D:/UnityProject/TapTap_GameJam/tmp/custom-song-validation/Library/ScriptAssemblies/Spotlight.PlayModeTests.dll" runstate="Runnable" testcasecount="19" result="Passed" start-time="2026-10-15 12:20:52Z" end-time="2026-10-15 12:21:46Z" duration="53.191813" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="13796" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+      </properties>
+      <test-suite type="TestSuite" id="1027" name="Spotlight" fullname="Spotlight" runstate="Runnable" testcasecount="19" result="Passed" start-time="2026-10-15 12:20:52Z" end-time="2026-10-15 12:21:46Z" duration="53.189035" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1028" name="Tests" fullname="Spotlight.Tests" runstate="Runnable" testcasecount="19" result="Passed" start-time="2026-10-15 12:20:52Z" end-time="2026-10-15 12:21:46Z" duration="53.187954" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="AudioWaveformTests" fullname="Spotlight.Tests.AudioWaveformTests" classname="Spotlight.Tests.AudioWaveformTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-15 12:20:52Z" end-time="2026-10-15 12:20:53Z" duration="0.105670" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1002" name="InactiveCreationIncludesRendererBeforeAnyGraphicGetter" fullname="Spotlight.Tests.AudioWaveformTests.InactiveCreationIncludesRendererBeforeAnyGraphicGetter" methodname="InactiveCreationIncludesRendererBeforeAnyGraphicGetter" classname="Spotlight.Tests.AudioWaveformTests" runstate="Runnable" seed="764496614" result="Passed" start-time="2026-10-15 12:20:52Z" end-time="2026-10-15 12:20:52Z" duration="0.023604" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1003" name="RaycastWorksDuringLoadingAfterPopulationAndReopen" fullname="Spotlight.Tests.AudioWaveformTests.RaycastWorksDuringLoadingAfterPopulationAndReopen" methodname="RaycastWorksDuringLoadingAfterPopulationAndReopen" classname="Spotlight.Tests.AudioWaveformTests" runstate="Runnable" seed="1782526265" result="Passed" start-time="2026-10-15 12:20:52Z" end-time="2026-10-15 12:20:53Z" duration="0.063225" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1004" name="CustomSongFlowTests" fullname="Spotlight.Tests.CustomSongFlowTests" classname="Spotlight.Tests.CustomSongFlowTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-15 12:20:53Z" end-time="2026-10-15 12:21:19Z" duration="26.355395" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1006" name="CancelPreparationAndRegenerateFromCacheWithoutStaleSession" fullname="Spotlight.Tests.CustomSongFlowTests.CancelPreparationAndRegenerateFromCacheWithoutStaleSession" methodname="CancelPreparationAndRegenerateFromCacheWithoutStaleSession" classname="Spotlight.Tests.CustomSongFlowTests" runstate="Runnable" seed="1925062919" result="Passed" start-time="2026-10-15 12:20:53Z" end-time="2026-10-15 12:20:54Z" duration="1.707478" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+            </test-case>
+            <test-case id="1007" name="FailureGradeFitsAndRetryCountdownClearsPreviousDeath" fullname="Spotlight.Tests.CustomSongFlowTests.FailureGradeFitsAndRetryCountdownClearsPreviousDeath" methodname="FailureGradeFitsAndRetryCountdownClearsPreviousDeath" classname="Spotlight.Tests.CustomSongFlowTests" runstate="Runnable" seed="1553584629" result="Passed" start-time="2026-10-15 12:20:54Z" end-time="2026-10-15 12:21:03Z" duration="8.300889" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+            </test-case>
+            <test-case id="1005" name="ImportedSongGeneratesPlaysSettlesRetriesAndReturnsWithoutDrops" fullname="Spotlight.Tests.CustomSongFlowTests.ImportedSongGeneratesPlaysSettlesRetriesAndReturnsWithoutDrops" methodname="ImportedSongGeneratesPlaysSettlesRetriesAndReturnsWithoutDrops" classname="Spotlight.Tests.CustomSongFlowTests" runstate="Runnable" seed="538847011" result="Passed" start-time="2026-10-15 12:21:03Z" end-time="2026-10-15 12:21:19Z" duration="16.344295" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1008" name="MusicPreviewTests" fullname="Spotlight.Tests.MusicPreviewTests" classname="Spotlight.Tests.MusicPreviewTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-15 12:21:19Z" end-time="2026-10-15 12:21:19Z" duration="0.032195" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1010" name="ClickHasAudibleBodyAndSmoothEdges" fullname="Spotlight.Tests.MusicPreviewTests.ClickHasAudibleBodyAndSmoothEdges" methodname="ClickHasAudibleBodyAndSmoothEdges" classname="Spotlight.Tests.MusicPreviewTests" runstate="Runnable" seed="398520682" result="Passed" start-time="2026-10-15 12:21:19Z" end-time="2026-10-15 12:21:19Z" duration="0.008599" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1009" name="MetronomeMixRestoresPreviewAndRespectsGlobalSettings" fullname="Spotlight.Tests.MusicPreviewTests.MetronomeMixRestoresPreviewAndRespectsGlobalSettings" methodname="MetronomeMixRestoresPreviewAndRespectsGlobalSettings" classname="Spotlight.Tests.MusicPreviewTests" runstate="Runnable" seed="634422857" result="Passed" start-time="2026-10-15 12:21:19Z" end-time="2026-10-15 12:21:19Z" duration="0.006317" asserts="0">
+              <properties />
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1011" name="PlayerFlowTests" fullname="Spotlight.Tests.PlayerFlowTests" classname="Spotlight.Tests.PlayerFlowTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-15 12:21:19Z" end-time="2026-10-15 12:21:21Z" duration="2.411491" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1014" name="HoldingJumpEntersFlightAndReleaseExits" fullname="Spotlight.Tests.PlayerFlowTests.HoldingJumpEntersFlightAndReleaseExits" methodname="HoldingJumpEntersFlightAndReleaseExits" classname="Spotlight.Tests.PlayerFlowTests" runstate="Runnable" seed="1022034688" result="Passed" start-time="2026-10-15 12:21:19Z" end-time="2026-10-15 12:21:20Z" duration="0.699732" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+            </test-case>
+            <test-case id="1015" name="PauseFreezesTickAndClearsBufferedInput" fullname="Spotlight.Tests.PlayerFlowTests.PauseFreezesTickAndClearsBufferedInput" methodname="PauseFreezesTickAndClearsBufferedInput" classname="Spotlight.Tests.PlayerFlowTests" runstate="Runnable" seed="2005641131" result="Passed" start-time="2026-10-15 12:21:20Z" end-time="2026-10-15 12:21:20Z" duration="0.413323" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+            </test-case>
+            <test-case id="1012" name="SameTickUsesSkillPriorityAndKeepsLowerRequests" fullname="Spotlight.Tests.PlayerFlowTests.SameTickUsesSkillPriorityAndKeepsLowerRequests" methodname="SameTickUsesSkillPriorityAndKeepsLowerRequests" classname="Spotlight.Tests.PlayerFlowTests" runstate="Runnable" seed="1655335452" result="Passed" start-time="2026-10-15 12:21:20Z" end-time="2026-10-15 12:21:20Z" duration="0.407357" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+            </test-case>
+            <test-case id="1013" name="SkillTwoDoesNotConsumeStamina" fullname="Spotlight.Tests.PlayerFlowTests.SkillTwoDoesNotConsumeStamina" methodname="SkillTwoDoesNotConsumeStamina" classname="Spotlight.Tests.PlayerFlowTests" runstate="Runnable" seed="1600778093" result="Passed" start-time="2026-10-15 12:21:20Z" end-time="2026-10-15 12:21:21Z" duration="0.444245" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+            </test-case>
+            <test-case id="1016" name="SpineMeshAndHudFollowPlayerState" fullname="Spotlight.Tests.PlayerFlowTests.SpineMeshAndHudFollowPlayerState" methodname="SpineMeshAndHudFollowPlayerState" classname="Spotlight.Tests.PlayerFlowTests" runstate="Runnable" seed="85762271" result="Passed" start-time="2026-10-15 12:21:21Z" end-time="2026-10-15 12:21:21Z" duration="0.442206" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1017" name="SystemFlowTests" fullname="Spotlight.Tests.SystemFlowTests" classname="Spotlight.Tests.SystemFlowTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-15 12:21:21Z" end-time="2026-10-15 12:21:46Z" duration="24.261094" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1018" name="AppliedBindingsSurviveReopenApplyAndRestart" fullname="Spotlight.Tests.SystemFlowTests.AppliedBindingsSurviveReopenApplyAndRestart" methodname="AppliedBindingsSurviveReopenApplyAndRestart" classname="Spotlight.Tests.SystemFlowTests" runstate="Runnable" seed="229685356" result="Passed" start-time="2026-10-15 12:21:21Z" end-time="2026-10-15 12:21:24Z" duration="2.601047" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+            </test-case>
+            <test-case id="1022" name="EquippedItemUsesAcceptedIntentAndRestoresOnRetry" fullname="Spotlight.Tests.SystemFlowTests.EquippedItemUsesAcceptedIntentAndRestoresOnRetry" methodname="EquippedItemUsesAcceptedIntentAndRestoresOnRetry" classname="Spotlight.Tests.SystemFlowTests" runstate="Runnable" seed="852647646" result="Passed" start-time="2026-10-15 12:21:24Z" end-time="2026-10-15 12:21:28Z" duration="4.369110" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+            </test-case>
+            <test-case id="1019" name="ExitGameplayPreservesPermanentSaveAndReturnsToTitle" fullname="Spotlight.Tests.SystemFlowTests.ExitGameplayPreservesPermanentSaveAndReturnsToTitle" methodname="ExitGameplayPreservesPermanentSaveAndReturnsToTitle" classname="Spotlight.Tests.SystemFlowTests" runstate="Runnable" seed="865114059" result="Passed" start-time="2026-10-15 12:21:28Z" end-time="2026-10-15 12:21:31Z" duration="2.973037" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+            </test-case>
+            <test-case id="1021" name="LoadoutPreviewDoubleClickSlotsAndStartGate" fullname="Spotlight.Tests.SystemFlowTests.LoadoutPreviewDoubleClickSlotsAndStartGate" methodname="LoadoutPreviewDoubleClickSlotsAndStartGate" classname="Spotlight.Tests.SystemFlowTests" runstate="Runnable" seed="2071399678" result="Passed" start-time="2026-10-15 12:21:31Z" end-time="2026-10-15 12:21:38Z" duration="6.746171" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+            </test-case>
+            <test-case id="1020" name="LongRenderFrameKeepsSimulationTimeAndPauseState" fullname="Spotlight.Tests.SystemFlowTests.LongRenderFrameKeepsSimulationTimeAndPauseState" methodname="LongRenderFrameKeepsSimulationTimeAndPauseState" classname="Spotlight.Tests.SystemFlowTests" runstate="Runnable" seed="270327424" result="Passed" start-time="2026-10-15 12:21:38Z" end-time="2026-10-15 12:21:40Z" duration="1.794994" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+            </test-case>
+            <test-case id="1023" name="SongLoadoutBattleResultDropRetryContinueAndNewGame" fullname="Spotlight.Tests.SystemFlowTests.SongLoadoutBattleResultDropRetryContinueAndNewGame" methodname="SongLoadoutBattleResultDropRetryContinueAndNewGame" classname="Spotlight.Tests.SystemFlowTests" runstate="Runnable" seed="1128743924" result="Passed" start-time="2026-10-15 12:21:40Z" end-time="2026-10-15 12:21:46Z" duration="5.759220" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1024" name="WindowedDisplayTests" fullname="Spotlight.Tests.WindowedDisplayTests" classname="Spotlight.Tests.WindowedDisplayTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-15 12:21:46Z" end-time="2026-10-15 12:21:46Z" duration="0.019070" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1025" name="SavedLargeWindowRemainsVisibleAfterMovingToSmallerDesktop" fullname="Spotlight.Tests.WindowedDisplayTests.SavedLargeWindowRemainsVisibleAfterMovingToSmallerDesktop" methodname="SavedLargeWindowRemainsVisibleAfterMovingToSmallerDesktop" classname="Spotlight.Tests.WindowedDisplayTests" runstate="Runnable" seed="553689388" result="Passed" start-time="2026-10-15 12:21:46Z" end-time="2026-10-15 12:21:46Z" duration="0.002533" asserts="0">
+              <properties />
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

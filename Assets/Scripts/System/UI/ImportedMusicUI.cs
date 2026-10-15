@@ -17,9 +17,11 @@ namespace TapTap.Systems.UI
             Transform parent = ui.Menu.transform.parent;
             ui.ImportedMusic = BuildLibrary(parent, font);
             ui.Alignment = BuildAlignment(parent, font);
+            ui.CustomSong = BuildChallenge(parent, font);
             ui.ImportedMusic.transform.SetSiblingIndex(ui.Menu.transform.GetSiblingIndex() + 1);
             ui.Alignment.transform.SetSiblingIndex(ui.Menu.transform.GetSiblingIndex() + 2);
             ui.ImportedMusic.Bind(root); ui.Alignment.Bind(root);
+            ui.CustomSong.Bind(root);
         }
         private static ImportedMusicView BuildLibrary(Transform parent, TMP_FontAsset font)
         {
@@ -52,8 +54,25 @@ namespace TapTap.Systems.UI
             view.PreviewButton = Button("Preview", panel, "试听", new Vector2(220, 65), new Vector2(200, -240), font);
             view.Align = Button("Align", panel, "设置对齐", new Vector2(240, 65), new Vector2(455, -240), font);
             view.Remove = Button("Remove", panel, "移除", new Vector2(150, 65), new Vector2(695, -240), font);
+            view.Challenge = Button("Challenge", panel, "进入挑战", new Vector2(740, 65), new Vector2(440, -330), font);
             view.Status = Text("Status", panel, "", 26, new Vector2(1600, 90), new Vector2(0, -400), font);
             var preview = new GameObject("MusicPreview"); preview.transform.SetParent(panel, false); view.Preview = preview.AddComponent<MusicPreview>();
+            return view;
+        }
+        private static CustomSongPrepareView BuildChallenge(Transform parent, TMP_FontAsset font)
+        {
+            var panel = Panel("CustomSongPrepare", parent); panel.gameObject.SetActive(false);
+            var view = panel.gameObject.AddComponent<CustomSongPrepareView>();
+            Text("Heading", panel, "共鸣舞台", 52, new Vector2(1000, 90), new Vector2(0, 430), font);
+            view.Back = Button("Back", panel, "返回我的音乐", new Vector2(250, 65), new Vector2(-720, 430), font);
+            view.SongDetails = Text("SongDetails", panel, "", 32, new Vector2(1550, 170), new Vector2(0, 245), font);
+            Text("Rules", panel, "存活到歌曲结束 · 跟随节拍开火并命中 Boss 得分\n左右移动、跳跃、长按飞行、冲刺 · 鼠标瞄准射击\n普通难度 · 固定普通武器 · 成绩按本曲记录", 29,
+                new Vector2(1500, 170), new Vector2(0, 55), font);
+            view.Status = Text("Status", panel, "", 28, new Vector2(1550, 155), new Vector2(0, -135), font);
+            view.Progress = Slider("Progress", panel, new Vector2(1400, 24), new Vector2(0, -245));
+            view.Progress.interactable = false;
+            view.Generate = Button("Generate", panel, "分析并生成弹幕", new Vector2(440, 75), new Vector2(-270, -360), font);
+            view.StartBattle = Button("StartBattle", panel, "开始挑战", new Vector2(440, 75), new Vector2(270, -360), font);
             return view;
         }
         private static AudioAlignmentView BuildAlignment(Transform parent, TMP_FontAsset font)

@@ -28,7 +28,18 @@ namespace TapTap.Systems
             if (Application.isEditor) return;
             var mode = data.DisplayMode == DisplayMode.Windowed ? FullScreenMode.Windowed :
                 data.DisplayMode == DisplayMode.Borderless ? FullScreenMode.FullScreenWindow : FullScreenMode.ExclusiveFullScreen;
-            Screen.SetResolution(data.Width, data.Height, mode);
+            var size = mode == FullScreenMode.Windowed
+                ? FitWindowedResolution(data.Width, data.Height, Screen.currentResolution.width, Screen.currentResolution.height)
+                : new Vector2Int(data.Width, data.Height);
+            Screen.SetResolution(size.x, size.y, mode);
+        }
+        // A saved window can exceed the current desktop after a display change.
+        // Leave room for its frame and taskbar; retain the requested settings for later mode switches.
+        public static Vector2Int FitWindowedResolution(int width, int height, int desktopWidth, int desktopHeight)
+        {
+            if (width <= 0 || height <= 0 || desktopWidth <= 0 || desktopHeight <= 0) return new Vector2Int(width, height);
+            float scale = Mathf.Min(1, Mathf.Max(1, desktopWidth - 32f) / width, Mathf.Max(1, desktopHeight - 80f) / height);
+            return new Vector2Int(Mathf.Max(1, Mathf.RoundToInt(width * scale)), Mathf.Max(1, Mathf.RoundToInt(height * scale)));
         }
         public void CaptureActual(SettingsData data)
         {

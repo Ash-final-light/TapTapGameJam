@@ -9,7 +9,7 @@ namespace TapTap.Systems.UI
 {
     public sealed class ImportedMusicView : MonoBehaviour
     {
-        public UnityEngine.UI.Button Import, Back, PreviewButton, Align, RenameButton, Remove;
+        public UnityEngine.UI.Button Import, Back, PreviewButton, Align, RenameButton, Remove, Challenge;
         public UnityEngine.UI.Button RowTemplate;
         public RectTransform Content;
         public TMP_Text Status, Details;
@@ -22,6 +22,7 @@ namespace TapTap.Systems.UI
         public void Bind(SystemRoot owner)
         {
             root = owner; Preview.Bind(root.Audio);
+            Challenge.onClick.AddListener(() => { if (root.Music.Find(selectedId) is ImportedSong song) root.UI.OpenCustomSong(song); });
             Import.onClick.AddListener(() => { if (!busy) root.StartCoroutine(PickAndImport()); });
             Back.onClick.AddListener(() => root.UI.ShowContext(UIContext.Title));
             Align.onClick.AddListener(() => { var song = root.Music.Find(selectedId); if (song != null) root.UI.OpenAudioAlignment(song); });
@@ -60,11 +61,12 @@ namespace TapTap.Systems.UI
             var song = root.Music.Find(selectedId); bool valid = song != null;
             bool exists = valid && File.Exists(root.Music.PathFor(song));
             Align.interactable = PreviewButton.interactable = exists && !busy;
+            Challenge.interactable = exists && valid && song.Aligned && !busy;
             RenameButton.interactable = Remove.interactable = NameInput.interactable = valid && !busy;
             NameInput.SetTextWithoutNotify(song?.Title ?? "");
             Details.text = song == null ? "选择一首歌曲，开始试听或对齐。" : song.Title + "\n\n" +
                 FormatTime(song.Duration) + " · " + song.Frequency + " Hz · " + song.Channels + " 声道\n\n" +
-                (song.Aligned ? "BPM  " + song.Bpm.ToString("0.###") + "\n首拍  " + song.FirstBeat.ToString("0.000") + " 秒" : "尚未设置 BPM 和首拍。\n可以稍后再对齐。") +
+                (song.Aligned ? "BPM  " + song.Bpm.ToString("0.###") + "\n首拍  " + song.FirstBeat.ToString("0.000") + " 秒\n已对齐，可进入挑战" : "尚未设置 BPM 和首拍。\n保存对齐后即可挑战。") +
                 (exists ? "" : "\n\n音频副本缺失，请重新导入同一文件以修复。");
             PreviewButton.GetComponentInChildren<TMP_Text>().text = Preview.Playing ? "暂停试听" : "试听";
         }

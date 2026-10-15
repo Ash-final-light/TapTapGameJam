@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-namespace TapTap.Danmaku.Editor
+namespace TapTap.Danmaku
 {
     /// <summary>Incremental multichannel onset analysis; no Unity object or asset operations.</summary>
     public sealed class MusicSpectrumAnalyzer

@@ -35,6 +35,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8725756de023fbb478c0f3bf58a33a26, type: 2}
   - {fileID: 11400000, guid: 4d77c5144a113264b89274217e612d83, type: 2}
   - {fileID: 11400000, guid: 2512a9c76c97808449b15733eabf4c11, type: 2}
+  CustomSongTemplate: {fileID: 11400000, guid: c161e67cfd5acda419db2a2f84cd92f2, type: 2}
   SaveFolder: Spotlight
   TitleScene: Assets/Scenes/Title.unity
   LoadingScene: Assets/Scenes/Loading.unity

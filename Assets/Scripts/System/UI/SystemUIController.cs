@@ -21,6 +21,7 @@ namespace TapTap.Systems.UI
         public ResultView Result;
         [NonSerialized] public ImportedMusicView ImportedMusic;
         [NonSerialized] public AudioAlignmentView Alignment;
+        [NonSerialized] public CustomSongPrepareView CustomSong;
         public TMP_Text ToastLabel;
         public EventSystem EventSystem;
         public InputSystemUIInputModule InputModule;
@@ -65,10 +66,11 @@ namespace TapTap.Systems.UI
         public void ShowContext(UIContext context)
         {
             Context=context;
-            ToastLabel.color=context==UIContext.ImportedMusic || context==UIContext.AudioAlignment ? new Color(.13f,.16f,.2f) : Color.white;
+            ToastLabel.color=context==UIContext.ImportedMusic || context==UIContext.AudioAlignment || context==UIContext.CustomSongPrepare ? new Color(.13f,.16f,.2f) : Color.white;
             Menu.gameObject.SetActive(context==UIContext.Title); Loading.gameObject.SetActive(context==UIContext.Loading); Hud.gameObject.SetActive(context==UIContext.Gameplay);
             Songs.gameObject.SetActive(context==UIContext.SongSelect); Loadout.gameObject.SetActive(context==UIContext.Loadout); Result.gameObject.SetActive(context==UIContext.Result);
             ImportedMusic.gameObject.SetActive(context==UIContext.ImportedMusic); Alignment.gameObject.SetActive(context==UIContext.AudioAlignment);
+            CustomSong.gameObject.SetActive(context==UIContext.CustomSongPrepare);
             if(context!=UIContext.Gameplay) { Pause.gameObject.SetActive(false); var lease = pauseLease; pauseLease=null; lease?.Dispose(); Hud.Selector.SetActive(false); }
             Hud.Warning.gameObject.SetActive(!IsPauseOpen);
             root.Input.SetGameplay(context==UIContext.Gameplay && !IsPauseOpen && !Settings.gameObject.activeSelf);
@@ -96,6 +98,7 @@ namespace TapTap.Systems.UI
         public void OpenSongSelection() => ShowContext(UIContext.SongSelect);
         public void OpenLoadout() => ShowContext(UIContext.Loadout);
         public void OpenImportedMusic() => ShowContext(UIContext.ImportedMusic);
+        public void OpenCustomSong(Music.ImportedSong song) { ShowContext(UIContext.CustomSongPrepare); CustomSong.Open(song); Select(CustomSong.Generate.gameObject); }
         public void OpenAudioAlignment(Music.ImportedSong song) { ShowContext(UIContext.AudioAlignment); Alignment.Open(song); Select(Alignment.Back.gameObject); }
         public void ShowResult(RunResult result,OperationResult save) { Result.Show(result,save); ShowContext(UIContext.Result); }
         private void Retry() { var result=root.Scenes.Retry(); if(!result.Success) Toast(result.Error); }
@@ -135,6 +138,7 @@ namespace TapTap.Systems.UI
             if(Settings.gameObject.activeSelf) { Settings.Cancel(); return; }
             if(Context==UIContext.AudioAlignment) { Alignment.RequestClose(); return; }
             if(Context==UIContext.ImportedMusic) { ShowContext(UIContext.Title); return; }
+            if(Context==UIContext.CustomSongPrepare) { CustomSong.Close(); return; }
             if(Context==UIContext.SongSelect) { ShowContext(UIContext.Title); return; }
             if(Context==UIContext.Loadout) { OpenSongSelection(); return; }
             if(IsPauseOpen) Resume(); else if(Context==UIContext.Gameplay) OpenPause();

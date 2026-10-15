@@ -16,6 +16,7 @@ namespace TapTap.Systems
         public SettingsService Settings { get; private set; }
         public GameSaveService Saves { get; private set; }
         public Music.ImportedMusicLibrary Music { get; private set; }
+        public CustomSongChallengeService CustomSongs { get; private set; }
         public BattleStartData ActiveRun { get; internal set; }
         public RunResult LastResult { get; internal set; }
         public AudioVolumeService Audio { get; private set; }
@@ -39,6 +40,7 @@ namespace TapTap.Systems
             Settings = new SettingsService(store, config.Defaults, Binding, Audio, new UnityDisplaySettings());
             Saves = new GameSaveService(store); Scenes = new SceneFlowService(this);
             Music = new Music.ImportedMusicLibrary(System.IO.Path.Combine(store.DirectoryPath, "ImportedMusic"));
+            CustomSongs = new CustomSongChallengeService(this);
             UI = Instantiate(config.UIPrefab, transform); UI.gameObject.SetActive(false); UI.Bind(this); UI.gameObject.SetActive(true);
             SceneManager.sceneLoaded += OnSceneLoaded; Application.focusChanged += OnFocus;
             Initialized = true;
@@ -85,7 +87,8 @@ namespace TapTap.Systems
         public void CompleteRun(RunResult result)
         {
             if (LastResult?.RunId == result.RunId) return;
-            var drop = config.Drops.Pick(new System.Random()); result.DropItemId = drop.Item.Id; result.DropQuantity = drop.Quantity;
+            if (!result.IsCustom)
+            { var drop = config.Drops.Pick(new System.Random()); result.DropItemId = drop.Item.Id; result.DropQuantity = drop.Quantity; }
             LastResult = result;
             var saved = Saves.Settle(result);
             UI.ShowResult(result, saved);
@@ -94,7 +97,7 @@ namespace TapTap.Systems
         public void AbandonGame()
         {
             if (UI.Context != UIContext.Gameplay) return;
-            var result = Scenes.AbandonToTitle();
+            var result = ActiveRun?.IsCustom == true ? Scenes.AbandonToMusic() : Scenes.AbandonToTitle();
             if (!result.Success) UI.Toast(result.Error);
         }
         public void ExitGame()
@@ -109,7 +112,7 @@ namespace TapTap.Systems
         {
             if (Instance != this) return;
             SceneManager.sceneLoaded -= OnSceneLoaded; Application.focusChanged -= OnFocus;
-            if (UI) UI.Unbind(); Input?.Dispose(); Instance = null;
+            if (UI) UI.Unbind(); CustomSongs?.Dispose(); Input?.Dispose(); Instance = null;
         }
     }
 }

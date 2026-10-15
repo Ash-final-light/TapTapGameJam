@@ -1,0 +1,30 @@
+PASS alignment high
+PASS runtime analysis high 
+PASS valid timeline high
+PASS high input drives high attacks
+PASS alignment low
+PASS runtime analysis low 
+PASS valid timeline low
+PASS low input drives low attacks
+PASS alignment mid
+PASS runtime analysis mid 
+PASS valid timeline mid
+PASS mid input drives mid attacks
+PASS alignment mixed_short
+PASS runtime analysis mixed_short 
+PASS valid timeline mixed_short
+PASS mixed input retains three attack families
+PASS alignment real_music
+PASS runtime analysis real_music 
+PASS valid timeline real_music
+PASS prepare battle
+PASS start custom scene
+PASS pause freezes music and simulation
+PASS complete imported song
+PASS ordinary and on-beat hit scoring
+PASS record without item drops
+PASS nonzero playback and sample/tick sync error=0.01600933
+PASS retry preserves timeline
+PASS death settles custom failure
+PASS return releases song resources
+PASS no player errors

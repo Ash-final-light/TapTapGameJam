@@ -1,0 +1,6 @@
+Screen=2560x1440 safe=(x:0.00, y:0.00, width:2560.00, height:1440.00) current=1920 x 1080 @ 60Hz
+Root=SystemRoot (TapTap.Systems.SystemRoot) initialized=True context=Title
+SpotlightUI(Clone) active=True rect=(x:-960.00, y:-540.00, width:1920.00, height:1080.00) scale=(1.33, 1.33, 1.33) pos=(1280.00, 720.00, 0.00) corners=(0.00, 0.00, 0.00),(0.00, 1440.00, 0.00),(2560.00, 1440.00, 0.00),(2560.00, 0.00, 0.00)
+SafeAreaRoot active=True rect=(x:0.00, y:0.00, width:1920.00, height:1080.00) scale=(1.33, 1.33, 1.33) pos=(0.00, 0.00, 0.00) corners=(0.00, 0.00, 0.00),(0.00, 1440.00, 0.00),(2560.00, 1440.00, 0.00),(2560.00, 0.00, 0.00)
+StartGame active=True rect=(x:-130.00, y:-40.00, width:260.00, height:80.00) scale=(1.33, 1.33, 1.33) pos=(688.00, 201.60, 0.00) corners=(514.67, 148.27, 0.00),(514.67, 254.93, 0.00),(861.33, 254.93, 0.00),(861.33, 148.27, 0.00)
+MyMusic active=True rect=(x:-110.00, y:-32.00, width:220.00, height:64.00) scale=(1.33, 1.33, 1.33) pos=(2353.33, 1353.33, 0.00) corners=(2206.67, 1310.67, 0.00),(2206.67, 1396.00, 0.00),(2500.00, 1396.00, 0.00),(2500.00, 1310.67, 0.00)

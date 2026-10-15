@@ -18,6 +18,7 @@ namespace TapTap.Systems
         [Range(1, 10)] public int ItemSlotCount = 3;
         public ItemDropTable Drops;
         public ScoreFormula[] ScoreFormulas = System.Array.Empty<ScoreFormula>();
+        public TapTap.Danmaku.BattleConfig CustomSongTemplate;
         public string SaveFolder = "Spotlight";
         public string TitleScene = "Assets/Scenes/Title.unity", LoadingScene = "Assets/Scenes/Loading.unity";
     }
