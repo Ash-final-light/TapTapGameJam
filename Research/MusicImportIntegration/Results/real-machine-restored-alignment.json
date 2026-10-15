@@ -1,0 +1,36 @@
+{
+    "Context": "AudioAlignment",
+    "Status": "输入 BPM，点击波形标记首拍，再开启节拍器试听。设置需点击保存。",
+    "Bpm": "137.5",
+    "FirstBeat": "0.123",
+    "ErrorCount": 0,
+    "SongCount": 1,
+    "Dialog": false,
+    "WaveformRenderer": true,
+    "AlignmentPlaying": false,
+    "LibraryPlaying": false,
+    "Metronome": false,
+    "Position": 0.0,
+    "MissingRenderers": [],
+    "Buttons": [
+        "Back",
+        "Play",
+        "Mark",
+        "Zoom",
+        "Save"
+    ],
+    "Songs": [
+        {
+            "Id": "bb3f3077aeeea2b04b04f81200f0619f8295cda61e5089773fe0e68a38fe1463",
+            "FileName": "bb3f3077aeeea2b04b04f81200f0619f8295cda61e5089773fe0e68a38fe1463.wav",
+            "Title": "真机回归校准曲",
+            "Duration": 20.0,
+            "Bpm": 137.5,
+            "FirstBeat": 0.123,
+            "Frequency": 48000,
+            "Channels": 1,
+            "Samples": 960000,
+            "Aligned": true
+        }
+    ]
+}

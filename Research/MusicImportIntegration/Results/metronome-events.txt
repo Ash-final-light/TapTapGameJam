@@ -1,0 +1,17 @@
+START real Windows UI input; no callbacks invoked by probe
+31.149 BUTTON MyMusic
+45.644 BUTTON Import
+113.462 TOGGLE Metronome=True
+176.895 TOGGLE Metronome=False
+241.938 BUTTON Play
+254.815 TOGGLE Metronome=True
+268.979 BUTTON Back
+291.713 BUTTON Preview
+354.073 BUTTON Import
+388.698 SLIDER Seek=90.72
+443.402 INPUT BPM=155
+443.430 TOGGLE Metronome=True
+495.577 BUTTON Save
+520.110 BUTTON Back
+542.962 BUTTON Exit
+543.003 END

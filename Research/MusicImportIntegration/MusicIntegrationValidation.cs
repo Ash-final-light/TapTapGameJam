@@ -18,6 +18,7 @@ public sealed class MusicIntegrationValidation : MonoBehaviour
     private SystemRoot root;
     private void Start()
     {
+        if (Arg("-manualUI") != null) return;
         output = Arg("-resultRoot"); inputs = Arg("-inputRoot"); Directory.CreateDirectory(output);
         StartCoroutine(Guard(Test()));
     }

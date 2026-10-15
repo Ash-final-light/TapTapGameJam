@@ -66,6 +66,7 @@ namespace TapTap.Systems.UI
             Text("Instructions", panel, "手动输入 BPM，点击波形标记首拍，开启节拍器检查是否跟随歌曲。", 27, new Vector2(1650, 65), new Vector2(0, 340), font);
             var waveBack = Image("WaveformBackground", panel, new Color(.1f, .15f, .2f), new Vector2(1600, 300), new Vector2(0, 140));
             var waveform = Rect("Waveform", waveBack.transform, new Vector2(1560, 275), Vector2.zero);
+            waveform.gameObject.AddComponent<CanvasRenderer>();
             view.Waveform = waveform.gameObject.AddComponent<AudioWaveformGraphic>(); view.Waveform.color = new Color(.1f, .74f, .9f); view.Waveform.raycastTarget = true;
             view.WindowLabel = Text("Window", panel, "", 25, new Vector2(1550, 50), new Vector2(0, -40), font);
             view.Seek = Slider("Seek", panel, new Vector2(1570, 30), new Vector2(0, -90));
@@ -76,7 +77,7 @@ namespace TapTap.Systems.UI
             var toggleBox = Image("Metronome", panel, Color.white, new Vector2(45, 45), new Vector2(430, -175)); toggleBox.raycastTarget = true;
             view.Metronome = toggleBox.gameObject.AddComponent<UnityEngine.UI.Toggle>(); view.Metronome.targetGraphic = toggleBox;
             var check = Image("Check", toggleBox.transform, Blue, new Vector2(29, 29), Vector2.zero); view.Metronome.graphic = check;
-            Text("MetronomeLabel", panel, "节拍器试听", 29, new Vector2(280, 65), new Vector2(615, -175), font);
+            view.MetronomeFeedback = Text("MetronomeLabel", panel, "节拍器试听", 27, new Vector2(280, 65), new Vector2(615, -175), font);
             view.PlayButton = Button("Play", panel, "播放", new Vector2(200, 70), new Vector2(-700, -290), font);
             view.Mark = Button("Mark", panel, "当前位置设为首拍", new Vector2(310, 70), new Vector2(-400, -290), font);
             view.Zoom = Button("Zoom", panel, "查看全曲", new Vector2(230, 70), new Vector2(-90, -290), font);

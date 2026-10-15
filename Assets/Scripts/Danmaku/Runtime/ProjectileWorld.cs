@@ -25,6 +25,7 @@ namespace TapTap.Danmaku
         public int Id { get; internal set; }
         public int SourceClip { get; internal set; }
         public int BirthTick { get; internal set; }
+        public int FireTick { get; internal set; }
         public int Depth { get; internal set; }
         public FPVector2 Position { get; internal set; }
         public FP64 Direction { get; internal set; }
@@ -80,6 +81,9 @@ namespace TapTap.Danmaku
         public int PeakBullets { get; private set; }
         public string Fault { get; private set; }
         public DanmakuPlayerState PlayerState { get; private set; }
+        public FPVector2 BossPosition { get; private set; }
+        private FP64 bossRadius;
+        private bool bossTargetEnabled;
         public IReadOnlyList<ProjectileState> Bullets => bullets;
         public readonly List<CombatContact> Contacts = new();
         public event Action<int> EnergyOrbMissed;
@@ -106,6 +110,8 @@ namespace TapTap.Danmaku
         }
         public void SetPlayerState(in DanmakuPlayerState state)
         { PlayerState = state; SetTarget(playerId, state, EnemyBulletLayer); }
+        public void SetBossTarget(FPVector2 position, FP64 radius)
+        { BossPosition = position; bossRadius = radius; bossTargetEnabled = radius > FP64.Zero; }
         private void SetTarget(int id, in DanmakuPlayerState state, ushort mask)
         {
             var body = world.GetBody(id); body.Position = state.Position;
@@ -132,6 +138,8 @@ namespace TapTap.Danmaku
             {
                 if (p.Faction == ProjectileFaction.Player)
                 {
+                    if (bossTargetEnabled)
+                        AddContact(p, 2, CombatTargetKind.Boss, BossPosition, BossPosition, bossRadius, bossRadius);
                     orbGrid.Query(p, orbCandidates);
                     foreach (int id in orbCandidates)
                     {
@@ -242,7 +250,7 @@ namespace TapTap.Danmaku
             def.Velocity = DirectionVector(angle) * speed;
             int id = world.AddBody(def);
             var p = recycled.Count > 0 ? recycled.Pop() : new ProjectileState();
-            p.Id = id; p.Faction = faction; p.OwnerId = ownerId; p.PreviousPosition = position; p.SourceClip = source; p.BirthTick = Tick; p.Depth = depth;
+            p.Id = id; p.Faction = faction; p.OwnerId = ownerId; p.PreviousPosition = position; p.SourceClip = source; p.BirthTick = p.FireTick = Tick; p.Depth = depth;
             p.Position = position;
             p.Direction = angle; p.Settings = definition.Settings; p.Definition = definition; p.Radius = definition.Radius;
             p.PreviousRadius = p.Radius; p.VisualSize = definition.VisualSize; p.GrowthProgress = FP64.Zero;

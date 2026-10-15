@@ -21,9 +21,14 @@ namespace TapTap.Systems.UI
         public void Bind(AudioVolumeService service)
         {
             volumes = service; music = MakeSource("ImportedSongPreview", AudioChannel.Music, 1);
-            for (int i = 0; i < clicks.Length; i++) clicks[i] = MakeSource("AlignmentClick" + i, AudioChannel.Effects, .45f);
-            const int rate = 48000; var samples = new float[rate / 50];
-            for (int i = 0; i < samples.Length; i++) samples[i] = (float)(Math.Sin(i * 2 * Math.PI * 1600 / rate) * Math.Exp(-i / (rate * .003)) * .7);
+            for (int i = 0; i < clicks.Length; i++) clicks[i] = MakeSource("AlignmentClick" + i, AudioChannel.Effects, .85f);
+            const int rate = 48000; var samples = new float[rate / 20];
+            for (int i = 0; i < samples.Length; i++)
+            {
+                double time = (double)i / rate;
+                double tone = .75 * Math.Sin(time * 2 * Math.PI * 2200) + .25 * Math.Sin(time * 2 * Math.PI * 3300);
+                samples[i] = (float)(.8 * tone * Math.Min(1, time / .001) * Math.Exp(-time / .012));
+            }
             clickClip = AudioClip.Create("Alignment metronome", samples.Length, 1, rate, false); clickClip.SetData(samples, 0);
             foreach (var source in clicks) source.clip = clickClip;
         }
@@ -37,6 +42,7 @@ namespace TapTap.Systems.UI
         public void Configure(double value, double offset, bool enabled)
         {
             bpm = value; firstBeat = offset; Metronome = enabled;
+            ApplyPreviewGain();
             foreach (var source in clicks) source.Stop();
             if (Playing) ResetNextBeat(Position);
         }
@@ -46,12 +52,13 @@ namespace TapTap.Systems.UI
             if (pausedPosition >= Duration - .001) pausedPosition = 0;
             origin = pausedPosition; startDsp = AudioSettings.dspTime + .1;
             music.timeSamples = Math.Min(Clip.samples - 1, (int)Math.Round(origin * Clip.frequency));
-            music.PlayScheduled(startDsp); Playing = true; ResetNextBeat(origin);
+            music.PlayScheduled(startDsp); Playing = true; ApplyPreviewGain(); ResetNextBeat(origin);
             ScheduleClicks();
         }
         public void Pause()
         {
             pausedPosition = Position; Playing = false;
+            ApplyPreviewGain();
             if (music) music.Stop(); foreach (var source in clicks) if (source) source.Stop();
         }
         public void Seek(double seconds)
@@ -59,6 +66,8 @@ namespace TapTap.Systems.UI
             bool resume = Playing; Pause(); pausedPosition = Math.Max(0, Math.Min(Duration, seconds)); if (resume) Play();
         }
         private void ResetNextBeat(double position) => nextBeat = Math.Max(0, (long)Math.Ceiling((position - firstBeat) * bpm / 60 - 1e-8));
+        // Keep the click above the song without changing saved/global channel volumes.
+        private void ApplyPreviewGain() => volumes?.SetGain(music, Playing && Metronome ? .3f : 1);
         private void ScheduleClicks()
         {
             if (!Playing || !Metronome || !ImportedMusicLibrary.ValidAlignment(bpm, firstBeat, Duration)) return;
@@ -82,7 +91,7 @@ namespace TapTap.Systems.UI
         }
         public void Clear()
         {
-            Pause(); pausedPosition = 0;
+            Pause(); pausedPosition = 0; Metronome = false;
             if (music && music.clip) { var clip = music.clip; music.clip = null; Destroy(clip); }
         }
         private void OnApplicationFocus(bool focused) { if (!focused) Pause(); }

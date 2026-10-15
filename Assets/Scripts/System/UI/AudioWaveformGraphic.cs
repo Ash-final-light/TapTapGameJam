@@ -4,11 +4,19 @@ using UnityEngine.EventSystems;
 
 namespace TapTap.Systems.UI
 {
+    [RequireComponent(typeof(CanvasRenderer))]
     public sealed class AudioWaveformGraphic : UnityEngine.UI.MaskableGraphic, IPointerClickHandler
     {
         public float[] Peaks;
         public double Duration, WindowStart, WindowEnd, Bpm = 120, FirstBeat, Position;
         public Action<double> Clicked;
+        protected override void OnEnable()
+        {
+            // RequireComponent does not repair instances created before a script reload.
+            // Restore the dependency before Graphic registers with the Canvas/raycaster.
+            if (!GetComponent<CanvasRenderer>()) gameObject.AddComponent<CanvasRenderer>();
+            base.OnEnable();
+        }
         public void Refresh() => SetVerticesDirty();
         public void OnPointerClick(PointerEventData data)
         {

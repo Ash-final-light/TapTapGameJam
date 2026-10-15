@@ -1,0 +1,39 @@
+{
+    "Context": "AudioAlignment",
+    "Status": "节拍器已开启：歌曲试听音量降低，橙色文字随每拍闪动。",
+    "Bpm": "120",
+    "FirstBeat": "0",
+    "MetronomeFeedback": "● 第 48 拍",
+    "PreviewMusicVolume": 0.30000001192092898,
+    "ClickVolume": 0.8500000238418579,
+    "ErrorCount": 0,
+    "SongCount": 1,
+    "Dialog": false,
+    "WaveformRenderer": true,
+    "AlignmentPlaying": true,
+    "LibraryPlaying": false,
+    "Metronome": true,
+    "Position": 23.665333333333338,
+    "MissingRenderers": [],
+    "Buttons": [
+        "Back",
+        "Play",
+        "Mark",
+        "Zoom",
+        "Save"
+    ],
+    "Songs": [
+        {
+            "Id": "e6d64e705b85e5fe801184c4fc5aa7ca71e26892df953e536a8ad0e28c0693cb",
+            "FileName": "e6d64e705b85e5fe801184c4fc5aa7ca71e26892df953e536a8ad0e28c0693cb.wav",
+            "Title": "tone-440hz",
+            "Duration": 180.0,
+            "Bpm": 0.0,
+            "FirstBeat": 0.0,
+            "Frequency": 48000,
+            "Channels": 1,
+            "Samples": 8640000,
+            "Aligned": false
+        }
+    ]
+}

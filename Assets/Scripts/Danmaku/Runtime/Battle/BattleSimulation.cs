@@ -23,7 +23,8 @@ namespace TapTap.Danmaku
         public int Tick => World.Tick;
         public bool Finished => !Player.Alive || Tick >= EndTick;
         public RunEndReason EndReason => Player.Alive ? RunEndReason.Completed : RunEndReason.PlayerDied;
-        public BattleSimulation(BattleConfig config, PlayerDefinition playerDefinition, Vector2 playerSpawn, PlayerWeaponDefinition selectedWeapon = null)
+        public BattleSimulation(BattleConfig config, PlayerDefinition playerDefinition, Vector2 playerSpawn, PlayerWeaponDefinition selectedWeapon = null,
+            BossScoringSettings bossScoring = null)
         {
             string error = config.Validate(); if (error != null) throw new System.ArgumentException(error);
             if (!playerDefinition) throw new System.ArgumentException("请指定独立 PlayerDefinition。");
@@ -37,6 +38,12 @@ namespace TapTap.Danmaku
             PlayerSystem = new PlayerRuntime(playerDefinition, config.Sequence.FieldSize, playerSpawn);
             Player = PlayerSystem.Actor;
             BossPosition = DanmakuSimulation.ToFP(config.BossPosition);
+            if (bossScoring?.Enabled == true)
+            {
+                string scoreError = bossScoring.Validate();
+                if (scoreError != null) throw new System.ArgumentException(scoreError);
+                World.SetBossTarget(BossPosition, FP64.FromFloat(bossScoring.HitRadius));
+            }
             World.SetPlayerState(Player.Pose);
             Weapon = new PlayerWeaponController(selectedWeapon ? selectedWeapon : playerDefinition.Weapon); resolver = new CombatResolver(config);
             World.EnergyOrbMissed += _ => Combo.Reset();

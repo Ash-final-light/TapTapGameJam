@@ -9,7 +9,7 @@ namespace TapTap.Systems.UI
 {
     public sealed class AudioAlignmentView : MonoBehaviour
     {
-        public TMP_Text Heading, Status, WindowLabel;
+        public TMP_Text Heading, Status, WindowLabel, MetronomeFeedback;
         public TMP_InputField BpmInput, OffsetInput;
         public UnityEngine.UI.Button Save, Back, PlayButton, Mark, Zoom;
         public UnityEngine.UI.Toggle Metronome;
@@ -26,7 +26,11 @@ namespace TapTap.Systems.UI
         {
             root = owner; Preview.Bind(root.Audio);
             BpmInput.onValueChanged.AddListener(_ => Changed()); OffsetInput.onValueChanged.AddListener(_ => Changed());
-            Metronome.onValueChanged.AddListener(_ => ConfigurePreview());
+            Metronome.onValueChanged.AddListener(enabled =>
+            {
+                ConfigurePreview();
+                if (enabled && Preview.Metronome && !Preview.Playing) Preview.Play();
+            });
             PlayButton.onClick.AddListener(() => { if (Preview.Playing) Preview.Pause(); else Preview.Play(); });
             Seek.onValueChanged.AddListener(value => Preview.Seek(value));
             Mark.onClick.AddListener(() => SetFirstBeat(Preview.Position));
@@ -69,7 +73,7 @@ namespace TapTap.Systems.UI
                 if (++batch % 16 == 0) yield return null;
             }
             Waveform.Peaks = peaks; Waveform.Refresh(); loaded = true; PlayButton.interactable = Mark.interactable = Seek.interactable = true;
-            ConfigurePreview(); Status.text = "输入 BPM，点击波形标记首拍，再开启节拍器试听。设置需点击保存。";
+            ConfigurePreview();
         }
         private bool Parameters(out double bpm, out double offset) =>
             double.TryParse(BpmInput.text, NumberStyles.Float, CultureInfo.InvariantCulture, out bpm) &
@@ -86,6 +90,10 @@ namespace TapTap.Systems.UI
             Preview.Configure(valid ? bpm : 120, valid ? offset : 0, loaded && valid && Metronome.isOn);
             Waveform.Bpm = valid ? bpm : 0; Waveform.FirstBeat = valid ? offset : 0;
             if (loaded) Status.text = valid ? "点击波形标首拍 · 金线为首拍，白线为播放位置 · " + (dirty ? "有未保存的修改" : "试听后点击保存") : "BPM 需在 30–300 之间，首拍需在音频范围内。";
+            if (loaded && valid && Metronome.isOn)
+                Status.text = root.Settings.Current.MasterVolume == 0 || root.Settings.Current.EffectsVolume == 0
+                    ? "节拍器已开启，但总音量或音效音量为 0。请在设置中调高后试听。"
+                    : "节拍器已开启：歌曲试听音量降低，橙色文字随每拍闪动。" + (dirty ? "有未保存的修改。" : "");
         }
         private void SetFirstBeat(double value)
         {
@@ -113,6 +121,15 @@ namespace TapTap.Systems.UI
             Waveform.WindowStart = Math.Max(0, Math.Min(song.Duration - span, position - span / 2)); Waveform.WindowEnd = Waveform.WindowStart + span; Waveform.Refresh();
             WindowLabel.text = Waveform.WindowStart.ToString("0.00") + " 秒 — " + Waveform.WindowEnd.ToString("0.00") + " 秒    ·    播放 " + position.ToString("0.000") + " 秒 / " + ImportedMusicView.FormatTime(song.Duration);
             PlayButton.GetComponentInChildren<TMP_Text>().text = Preview.Playing ? "暂停" : "播放";
+            if (MetronomeFeedback)
+            {
+                double beats = Preview.Metronome && Preview.Playing && position >= Waveform.FirstBeat
+                    ? (position - Waveform.FirstBeat) * Waveform.Bpm / 60 : -1;
+                bool pulse = beats >= 0 && (beats - Math.Floor(beats)) * 60 / Waveform.Bpm < .12;
+                MetronomeFeedback.text = !Metronome.isOn ? "节拍器试听" : !Preview.Metronome ? "参数无效"
+                    : !Preview.Playing ? "已开启 · 已暂停" : beats < 0 ? "等待首拍" : "● 第 " + ((long)Math.Floor(beats) + 1) + " 拍";
+                MetronomeFeedback.color = pulse ? new Color(.9f, .3f, .04f) : new Color(.13f, .16f, .2f);
+            }
         }
         private void OnDisable() { generation++; loaded = false; if (Preview) Preview.Clear(); }
     }

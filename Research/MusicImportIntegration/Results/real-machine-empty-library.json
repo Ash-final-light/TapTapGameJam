@@ -1,0 +1,20 @@
+{
+    "Context": "ImportedMusic",
+    "Status": "还没有导入歌曲。点击右上方导入第一首。",
+    "Bpm": "120",
+    "FirstBeat": "0",
+    "ErrorCount": 0,
+    "SongCount": 0,
+    "Dialog": false,
+    "WaveformRenderer": true,
+    "AlignmentPlaying": false,
+    "LibraryPlaying": false,
+    "Metronome": false,
+    "Position": 0.0,
+    "MissingRenderers": [],
+    "Buttons": [
+        "Back",
+        "Import"
+    ],
+    "Songs": []
+}

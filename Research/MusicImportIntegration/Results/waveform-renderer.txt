@@ -1,0 +1,34 @@
+Date: 2026-10-12
+Platform: Windows, Unity Editor 2022.3.62f1c1, PlayMode
+Project: isolated copy under ignored tmp/run-validation
+Filter: Spotlight.Tests.AudioWaveformTests;Spotlight.Tests.SystemFlowTests
+
+Before fix: 2 tests, 0 passed, 2 failed (expected regression baseline)
+Spotlight.Tests.AudioWaveformTests.InactiveCreationIncludesRendererBeforeAnyGraphicGetter: Failed
+Adding AudioWaveformGraphic must create CanvasRenderer while the UI is still inactive.
+  Expected: not null
+  But was:  null
+Spotlight.Tests.AudioWaveformTests.RaycastWorksDuringLoadingAfterPopulationAndReopen: Failed
+UnityEngine.MissingComponentException : There is no 'CanvasRenderer' attached to the "Waveform" game object, but a script is trying to access it.
+You probably need to add a CanvasRenderer to the game object "Waveform". Or your script needs to check if the component is attached before using it.
+at (wrapper managed-to-native) UnityEngine.CanvasRenderer.get_cull(UnityEngine.CanvasRenderer)
+  at UnityEngine.UI.GraphicRaycaster.Raycast (UnityEngine.Canvas canvas, UnityEngine.Camera eventCamera, UnityEngine.Vector2 pointerPosition, System.Collections.Generic.IList`1[T] foundGraphics, System.Collections.Generic.List`1[T] results) [0x00013] in .\Library\PackageCache\com.unity.ugui@1.0.0\Runtime\UI\Core\GraphicRaycaster.cs:323
+  at UnityEngine.UI.GraphicRaycaster.Raycast (UnityEngine.EventSystems.PointerEventData eventData, System.Collections.Generic.List`1[T] resultAppendList) [0x0023e] in .\Library\PackageCache\com.unity.ugui@1.0.0\Runtime\UI\Core\GraphicRaycaster.cs:224
+  at UnityEngine.EventSystems.EventSystem.RaycastAll (UnityEngine.EventSystems.PointerEventData eventData, System.Collections.Generic.List`1[T] raycastResults) [0x00030] in .\Library\PackageCache\com.unity.ugui@1.0.0\Runtime\EventSystem\EventSystem.cs:276
+  at Spotlight.Tests.AudioWaveformTests.Raycast () [0x00006] in D:\UnityProject\TapTap_GameJam\tmp\run-validation\Assets\Tests\SpotlightPlayMode\AudioWaveformTests.cs:92
+  at Spotlight.Tests.AudioWaveformTests+<RaycastWorksDuringLoadingAfterPopulationAndReopen>d__7.MoveNext () [0x00059] in D:\UnityProject\TapTap_GameJam\tmp\run-validation\Assets\Tests\SpotlightPlayMode\AudioWaveformTests.cs:61
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1.1.33\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:46
+
+Fix: AudioWaveformGraphic explicitly requires CanvasRenderer.
+After fix: 8 tests, 8 passed, 0 failed; Unity CLI exit code 0
+Spotlight.Tests.AudioWaveformTests.InactiveCreationIncludesRendererBeforeAnyGraphicGetter: Passed
+Spotlight.Tests.AudioWaveformTests.RaycastWorksDuringLoadingAfterPopulationAndReopen: Passed
+Spotlight.Tests.SystemFlowTests.AppliedBindingsSurviveReopenApplyAndRestart: Passed
+Spotlight.Tests.SystemFlowTests.EquippedItemUsesAcceptedIntentAndRestoresOnRetry: Passed
+Spotlight.Tests.SystemFlowTests.ExitGameplayPreservesPermanentSaveAndReturnsToTitle: Passed
+Spotlight.Tests.SystemFlowTests.LoadoutPreviewDoubleClickSlotsAndStartGate: Passed
+Spotlight.Tests.SystemFlowTests.LongRenderFrameKeepsSimulationTimeAndPauseState: Passed
+Spotlight.Tests.SystemFlowTests.SongLoadoutBattleResultDropRetryContinueAndNewGame: Passed
+
+No Windows player rebuild in this regression run.
+Raw NUnit reports: tmp/music-import-compile/WaveformBefore.xml and WaveformAfter.xml

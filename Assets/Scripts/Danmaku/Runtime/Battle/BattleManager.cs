@@ -15,6 +15,9 @@ namespace TapTap.Danmaku
         [Tooltip("独立场景明确指定现有采样器；存在 SystemRoot 时使用 SystemRoot.Input。")]
         public PlayerInputSampler StandaloneInput;
         public bool PlayOnStart = true;
+        [Header("Boss 命中与节拍计分")]
+        public BossScoringSettings BossScoring = new();
+        public ScoreManager Scores => scores;
         public BattleSimulation Simulation { get; private set; }
         public bool IsRunning { get; private set; }
         // Presentation observes the existing playback; it never owns or advances the transport.
@@ -73,7 +76,11 @@ namespace TapTap.Danmaku
                 setup = BattleStartData.FindForBattle(system.Config, Config, PlayerDefinition.Weapon);
                 if (setup != null) system.ActiveRun = setup;
             }
-            try { Simulation = new BattleSimulation(Config, PlayerDefinition, PlayerSpawn, setup?.Weapon); }
+            try
+            {
+                scores = new ScoreManager(system ? system.Config.ScoreFormulas : null, BossScoring, Config.Sequence);
+                Simulation = new BattleSimulation(Config, PlayerDefinition, PlayerSpawn, setup?.Weapon, BossScoring);
+            }
             catch (ArgumentException error) { Debug.LogError(error.Message, this); system = null; return; }
             var obj = new GameObject("Battle Views"); obj.transform.SetParent(transform, false); viewRoot = obj.transform;
             views = new DanmakuSpritePool(viewRoot); views.Sync(Simulation, Config);
@@ -86,7 +93,6 @@ namespace TapTap.Danmaku
             }
             clock.Reset(); IsRunning = true;
             Result = null; runId = Guid.NewGuid().ToString("N"); missedThisTick = 0;
-            scores = setup == null ? null : new ScoreManager(system.Config.ScoreFormulas);
             Simulation.World.EnergyOrbMissed += OnOrbMissed;
             items = setup == null ? null : new ItemRuntime(setup.Items, Simulation.Buffs, () => Simulation.Tick, Simulation.Player, system.Saves.Quantity);
             if (system)
@@ -124,6 +130,7 @@ namespace TapTap.Danmaku
                 // UI/item adapters are notified only after the player resolver accepts the request.
                 foreach (var e in Simulation.PlayerSystem.Events)
                     if (system && e.Kind == PlayerRuntimeEventKind.IntentExecuted && e.Intent == PlayerIntentKind.UseItem) system.UI.DispatchCommand(GameplayCommand.UseItem);
+                scores?.Advance(Simulation.Tick);
                 foreach (var result in Simulation.Events) { scores?.Consume(result); Resolved?.Invoke(result); }
                 while (missedThisTick > 0) { scores?.MissOrb(); missedThisTick--; }
                 Changed?.Invoke(Current);
@@ -147,7 +154,7 @@ namespace TapTap.Danmaku
             if (scores == null || Result != null) return;
             // Both song completion and player death use the same result and save flow.
             Result = scores.Finish(runId, setup, Simulation.Tick, Simulation.EndReason);
-            system.CompleteRun(Result);
+            if (system && setup != null) system.CompleteRun(Result);
             RunFinished?.Invoke(Result);
         }
         public void Pause() { IsRunning = false; clock.Reset(); music?.Pause(); StandaloneInput?.DiscardButtons(); Simulation?.PlayerSystem.ClearInput(); system?.Input.Clear(); playerView?.SetPaused(true); }

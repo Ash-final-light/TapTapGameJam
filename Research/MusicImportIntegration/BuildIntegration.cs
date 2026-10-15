@@ -21,6 +21,7 @@ public static class BuildIntegration
         var root = new GameObject("SystemRoot").AddComponent<SystemRoot>();
         var serialized = new SerializedObject(root); serialized.FindProperty("config").objectReferenceValue = config; serialized.ApplyModifiedPropertiesWithoutUndo();
         new GameObject("IntegrationValidation").AddComponent<MusicIntegrationValidation>();
+        new GameObject("InteractionProbe").AddComponent<MusicUIInteractionProbe>();
         EditorSceneManager.SaveScene(scene, config.TitleScene);
         AssetDatabase.SaveAssets();
         PlayerSettings.companyName = "TapTapResearch"; PlayerSettings.productName = "MusicImportIntegration";

@@ -13,6 +13,13 @@ namespace TapTap.Danmaku
             foreach (var contact in world.Contacts)
             {
                 if (!world.TryGet(contact.ProjectileId, out var p)) continue;
+                if (contact.TargetKind == CombatTargetKind.Boss)
+                {
+                    if (p.Faction != ProjectileFaction.Player) continue;
+                    world.ConsumeHit(p);
+                    events.Add(new BattleEvent(world.Tick, p, world.BossPosition));
+                    continue;
+                }
                 if (contact.TargetKind == CombatTargetKind.EnergyOrb)
                 {
                     if (p.Faction != ProjectileFaction.Player || !world.TryGet(contact.TargetId, out var orb) || !orb.IsEnergyOrb) continue;
