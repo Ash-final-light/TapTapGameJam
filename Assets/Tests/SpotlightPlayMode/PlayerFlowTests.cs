@@ -71,6 +71,26 @@ namespace Spotlight.Tests
             manager = root = null;
         }
         [UnityTest]
+        public IEnumerator CameraBoundsAllowMovementBeyondAuthoredFieldAndFollowResize()
+        {
+            Call(manager, "Stop");
+            Set(sequence, "FieldSize", new Vector2(9, 11)); Set(sequence, "UseCameraBounds", true);
+            var camera = (Camera)Get(manager, "AimCamera");
+            camera.orthographic = true; camera.orthographicSize = 5.94f; camera.aspect = 16f / 9;
+            Keys(); Call(manager, "Play"); Call(manager, "Pause");
+            Keys(Key.D); Call(manager, "Resume"); Tick(240);
+            var pose = Get(Get(Player, "Actor"), "Pose");
+            float x = (float)Call(Get(Get(pose, "Position"), "X"), "ToFloat");
+            Assert.Greater(x, 4.5f, "Player is still blocked by the SO field edge.");
+            Keys(); camera.aspect = 4f / 3; Tick();
+            pose = Get(Get(Player, "Actor"), "Pose");
+            x = (float)Call(Get(Get(pose, "Position"), "X"), "ToFloat");
+            float radius = (float)Call(Get(pose, "HitRadius"), "ToFloat");
+            Assert.AreEqual(camera.orthographicSize * camera.aspect - radius, x, 0.002f);
+            Assert.AreEqual(new Vector2(9, 11), (Vector2)Get(sequence, "FieldSize"), "Runtime must not overwrite the authored SO field.");
+            Call(manager, "Pause"); yield return null;
+        }
+        [UnityTest]
         public IEnumerator SameTickUsesSkillPriorityAndKeepsLowerRequests()
         {
             Keys(Key.Q, Key.LeftShift, Key.Space); Call(manager, "Resume"); Tick();

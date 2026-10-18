@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f957c5045a1805f4d9ccbd8d70672e8e, type: 3}
+  m_Name: "155BPM_\u73AF\u5F62_\u56DB\u62CD"
+  m_EditorClassIdentifier: 
+  Pattern: 3
+  DurationTicks: 372
+  Keyframes:
+  - Id: 717082c7162c464fadda182d10b9309a
+    LocalTick: 81
+    Type: 0
+  - Id: eb488b70a54447219dc8f5946ca9efba
+    LocalTick: 174
+    Type: 0
+  - Id: 9c96a24381f94e30a8dae706b7ead7c6
+    LocalTick: 267
+    Type: 0
+  - Id: b4e18e281e4947c8a3a7ad270efa6a06
+    LocalTick: 360
+    Type: 0
+  Settings:
+    Shape: 2
+    Count: 12
+    DirectionDegrees: -90
+    ArcDegrees: 60
+    SpawnRadius: 0
+    AimAtPlayer: 0
+    RotationDegreesPerSecond: 12.1
+    AlternatePhaseDegrees: 11.97
+    Speed: 20
+    SegmentStart: {x: -3, y: 0}
+    SegmentEnd: {x: 3, y: 0}
+    SpawnPosition: 0
+    RandomSpawnMin: {x: 0, y: 0}
+    RandomSpawnMax: {x: 0, y: 0}
+    PlayerProtectionDistance: 0
+  Projectile: {fileID: 5677631186617168813}
+--- !u!114 &5677631186617168813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3767697b8930fb4498de4a2706d4fc08, type: 3}
+  m_Name: "\u5B50\u5F39\u6A21\u677F"
+  m_EditorClassIdentifier: 
+  Settings:
+    Sprite: {fileID: 0}
+    Color: {r: 0.35, g: 0.7, b: 1, a: 1}
+    VisualSize: 0.18
+    HitRadius: 0.06
+    Interaction: 0
+    EnergyOrb:
+      ContactDamage: 0
+      FinalVisualSize: 0.18
+      FinalHitRadius: 0.06
+      GrowthCurve: 0
+    DurationTicks: 180
+    SplitChild: {fileID: 0}
+    SplitCount: 8
+    SplitSpeed: 2.5
+    InheritDirection: 1

@@ -65,11 +65,11 @@ namespace TapTap.Player
         public PlayerMotionMode Motion { get; private set; }
         public FP64 MotionScale { get; private set; } = FP64.One;
         public PlayerActionInstance VisualAction => Action ?? LocomotionAction;
-        public PlayerRuntime(PlayerDefinition definition, Vector2 fieldSize, Vector2 spawn, PlayerClipSlot? previewSlot = null)
+        public PlayerRuntime(PlayerDefinition definition, Vector2 fieldSize, Vector2 spawn, PlayerClipSlot? previewSlot = null, Rect? bounds = null)
         {
             if (!definition) throw new ArgumentNullException(nameof(definition));
             string error = definition.Validate(); if (error != null) throw new ArgumentException(error);
-            Definition = definition; Motor = new(definition, fieldSize, spawn); Inputs = new(definition.Input);
+            Definition = definition; Motor = new(definition, fieldSize, spawn, bounds); Inputs = new(definition.Input);
             Actor = new(1, FP64.FromFloat(definition.MaxHealth), Motor.State);
             maxStamina = Stamina = FP64.FromFloat(definition.MaxStamina); recovery = FP64.FromFloat(definition.StaminaRecoveryPerSecond) * Dt;
             flightDrain = FP64.FromFloat(definition.Motor.FlightStaminaPerSecond) * Dt;

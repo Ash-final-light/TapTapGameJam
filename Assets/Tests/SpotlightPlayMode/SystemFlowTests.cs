@@ -192,6 +192,75 @@ namespace Spotlight.Tests
         private UnityEngine.Object testBattle, testSequence;
         private object testedDifficulty;
         private UnityEngine.Object previousBattle;
+        [UnityTest]
+        public IEnumerator AuthoredDrumsSongPlaysToMusicEndSettlesAndRetries()
+        {
+            Click(Get(ui,"Menu"),"StartButton"); yield return WaitForContext("SongSelect");
+            Assert.AreEqual("drums155-90s-v1",Get(Get(Get(ui,"Songs"),"SelectedSong"),"Id"));
+            Assert.That(((TMP_Text)Get(Get(ui,"Songs"),"Title")).text,Does.Contain("155 BPM"));
+            Click(Get(ui,"Songs"),"Confirm"); yield return WaitForContext("Loadout");
+            var weapons=((RectTransform)Get(Get(ui,"Loadout"),"WeaponsRoot")).GetComponentsInChildren<Button>();
+            weapons[0].onClick.Invoke();weapons[0].onClick.Invoke();yield return Frames();
+            Click(Get(ui,"Loadout"),"StartButton");yield return WaitForContext("Gameplay");
+            var manager=UnityEngine.Object.FindObjectOfType(Type.GetType("TapTap.Danmaku.BattleManager, Assembly-CSharp",true));
+            var simulation=Get(manager,"Simulation");var setup=Get(root,"ActiveRun");
+            var sequence=Get(Get(manager,"Config"),"Sequence");
+            Assert.AreEqual(35,((IList)Get(sequence,"Clips")).Count);
+            Assert.AreEqual(5403,Get(sequence,"DurationTicks"));
+            Assert.AreEqual(5f,Scalar(Get(Get(simulation,"Player"),"MaxHealth")));
+            Call(ui,"OpenPause");int paused=(int)Get(simulation,"Tick");yield return Frames(8);
+            Assert.AreEqual(paused,Get(simulation,"Tick"));Call(ui,"Resume");
+            float deadline=Time.realtimeSinceStartup+110;bool heardAudio=false;int nextLog=0;
+            var camera=(Camera)Get(manager,"AimCamera");
+            while(Get(ui,"Context").ToString()=="Gameplay" && Time.realtimeSinceStartup<deadline)
+            {
+                int tick=(int)Get(simulation,"Tick");
+                Vector2 player=Vector(Get(Get(Get(simulation,"Player"),"Pose"),"Position"));
+                float target=Mathf.Sin(tick/95f)*6;
+                var buttons=new System.Collections.Generic.List<Key>{target>=player.x?Key.D:Key.A};
+                bool threat=false;Vector2 aim=Vector(Get(simulation,"BossPosition"));bool orbSelected=false;
+                foreach(var projectile in (IEnumerable)Get(Get(simulation,"World"),"Bullets"))
+                {
+                    bool orb=(bool)Get(projectile,"IsEnergyOrb");
+                    Vector2 point=Vector(Get(projectile,"Position"));
+                    if(orb && !orbSelected){aim=point;orbSelected=true;}
+                    if(Get(projectile,"Faction").ToString()!="Enemy" || orb)continue;
+                    Vector2 soon=point+(point-Vector(Get(projectile,"PreviousPosition")))*8;
+                    if(Vector2.Distance(soon,player)<.8f)threat=true;
+                }
+                if(threat && tick%3==0)buttons.Add(Key.LeftShift);
+                InputSystem.QueueStateEvent(keyboard,new KeyboardState(buttons.ToArray()));
+                Vector3 world=((Component)manager).transform.TransformPoint(new Vector3(aim.x,aim.y,0));
+                Vector3 screen=camera.WorldToScreenPoint(world);
+                InputSystem.QueueStateEvent(mouse,new MouseState{position=new Vector2(screen.x,screen.y)}.WithButton(MouseButton.Left));
+                var source=(AudioSource)Get(manager,"MusicSource");heardAudio|=source && source.isPlaying;
+                if(tick>=nextLog){Debug.Log("Authored155 full-song playback tick="+tick);nextLog+=720;}
+                yield return null;
+            }
+            InputSystem.QueueStateEvent(keyboard,new KeyboardState());
+            InputSystem.QueueStateEvent(mouse,new MouseState());
+            yield return WaitForContext("Result");
+            var result=Get(root,"LastResult");
+            Assert.IsTrue(heardAudio,"Actual authored music AudioSource never started.");
+            Assert.IsTrue((bool)Get(Get(result,"Stats"),"Completed"),"Normal 5 HP input route did not reach the actual music end.");
+            Assert.AreEqual(5403,Get(simulation,"Tick"));Assert.AreEqual("drums155-90s-v1",Get(result,"SongId"));
+            yield return Capture("Authored155Completed");
+            var saves=Get(root,"Saves");string item=(string)Get(result,"DropItemId");int quantity=(int)Call(saves,"Quantity",item);
+            Call(root,"CompleteRun",result);Assert.AreEqual(quantity,Call(saves,"Quantity",item));
+            Assert.IsNull(Call(saves,"Record","remembrance",Get(result,"Difficulty")),"New chart overwrote the previous song record.");
+            Click(Get(ui,"Result"),"Retry");yield return WaitForContext("Gameplay");
+            Assert.AreSame(setup,Get(root,"ActiveRun"));
+            manager=UnityEngine.Object.FindObjectOfType(Type.GetType("TapTap.Danmaku.BattleManager, Assembly-CSharp",true));
+            Assert.AreSame(sequence,Get(Get(manager,"Config"),"Sequence"));
+            var damage=Type.GetType("Framework.FixedPoint.FP64, Assembly-CSharp",true).GetMethod("FromInt").Invoke(null,new object[]{999});
+            Call(Get(Get(manager,"Simulation"),"PlayerSystem"),"ReceiveDamage",damage);
+            yield return WaitForContext("Result");
+            Assert.IsFalse((bool)Get(Get(Get(root,"LastResult"),"Stats"),"Completed"));
+            Click(Get(ui,"Result"),"Next");yield return WaitForContext("Title");
+
+            float Scalar(object value)=>(float)Call(value,"ToFloat");
+            Vector2 Vector(object value)=>new(Scalar(Get(value,"X")),Scalar(Get(value,"Y")));
+        }
         private IEnumerator PrepareAndStartBattle(bool equipFirstItem=false)
         {
             if(testBattle==null)

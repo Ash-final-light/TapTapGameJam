@@ -173,6 +173,8 @@ namespace TapTap.Danmaku.Editor
         {
             GUILayout.Label("整场攻击", EditorStyles.boldLabel);
             Property("DurationTicks", "攻击总时长"); Property("FieldSize", "场地大小"); Property("ClearAtEnd", "攻击结束清弹");
+            Property("UseCameraBounds", "实战使用相机可视边界");
+            if (sequence.UseCameraBounds) EditorGUILayout.HelpBox("实战左右与顶部随相机和窗口比例变化；地面仍使用玩家配置。此处预览范围由场地大小决定。", MessageType.Info);
             Property("Events", "预警／清弹事件", true);
             attackAdvanced = EditorGUILayout.Foldout(attackAdvanced, "更多攻击设置", true);
             if (attackAdvanced) { Property("RandomSeed", "随机种子"); Property("MaxActiveBullets", "同屏子弹上限"); }

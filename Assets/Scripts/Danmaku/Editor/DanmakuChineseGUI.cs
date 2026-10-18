@@ -30,7 +30,7 @@ namespace TapTap.Danmaku.Editor
             { "SplitSpeed", "分裂子弹速度" }, { "InheritDirection", "继承母弹方向" },
             { "RandomSeed", "随机种子" }, { "MaxActiveBullets", "同屏子弹上限" },
             { "Music", "音乐" }, { "MusicAnalysis", "音乐解析结果" }, { "MusicAnalysisSettings", "音乐解析设置" },
-            { "MusicStartSeconds", "音乐开始偏移（秒）" }, { "FieldSize", "场地大小" },
+            { "MusicStartSeconds", "音乐开始偏移（秒）" }, { "FieldSize", "场地大小" }, { "UseCameraBounds", "实战使用相机可视边界" },
             { "ManualMusicBpm", "手动 BPM（0关闭）" }, { "ManualMusicBeatOffsetSeconds", "首拍偏移（秒）" },
             { "PreviewPlayerPosition", "测试玩家位置" }, { "PreviewPlayerConfig", "预览玩家配置" },
             { "BossSprite", "首领图片" }, { "CollisionEnabled", "测试碰撞" }, { "ClearAtEnd", "攻击结束清弹" },

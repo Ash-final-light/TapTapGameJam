@@ -75,7 +75,7 @@ namespace TapTap.Danmaku
         }
         private readonly LWPhysicsWorld world;
         private readonly int maxBullets, playerId;
-        private readonly FPVector2 halfField;
+        private FPVector2 fieldMin, fieldMax;
         public int Tick { get; private set; }
         public int TotalSpawned { get; private set; }
         public int PeakBullets { get; private set; }
@@ -95,10 +95,10 @@ namespace TapTap.Danmaku
             public FP64 Direction, Speed;
             public CompiledProjectile Definition;
         }
-        public ProjectileWorld(DanmakuSequence sequence, int capacity = 0)
+        public ProjectileWorld(DanmakuSequence sequence, int capacity = 0, Rect? bounds = null)
         {
             maxBullets = Math.Max(1, capacity > 0 ? capacity : sequence.MaxActiveBullets);
-            halfField = DanmakuSimulation.ToFP(sequence.FieldSize) * FP64.Half;
+            SetBounds(bounds ?? new Rect(-sequence.FieldSize * 0.5f, sequence.FieldSize));
             var config = LWPhysicsConfig.Default;
             config.InitialBodyCapacity = Math.Max(16, maxBullets + 2);
             config.SleepLinearSpeedSqr = FP64.Zero;
@@ -108,6 +108,11 @@ namespace TapTap.Danmaku
             def.Layer = PlayerLayer; def.Mask = sequence.CollisionEnabled ? EnemyBulletLayer : (ushort)0;
             def.Flags |= LWBodyFlags.Trigger; playerId = world.AddBody(def);
         }
+        public void SetBounds(Rect bounds)
+        { fieldMin = DanmakuSimulation.ToFP(bounds.min); fieldMax = DanmakuSimulation.ToFP(bounds.max); }
+        private bool OutsideField(ProjectileState p) => p.Position.X < fieldMin.X - p.Radius || p.Position.X > fieldMax.X + p.Radius ||
+            p.Position.Y < fieldMin.Y - p.Radius || p.Position.Y > fieldMax.Y + p.Radius;
+
         public void SetPlayerState(in DanmakuPlayerState state)
         { PlayerState = state; SetTarget(playerId, state, EnemyBulletLayer); }
         public void SetBossTarget(FPVector2 position, FP64 radius)
@@ -217,7 +222,7 @@ namespace TapTap.Danmaku
             {
                 if (deaths.ContainsKey(p.Id)) continue;
                 int age = Tick - p.BirthTick;
-                if (FPMath.Abs(p.Position.X) > halfField.X + p.Radius || FPMath.Abs(p.Position.Y) > halfField.Y + p.Radius) deaths[p.Id] = ProjectileDeathReason.OutOfBounds;
+                if (OutsideField(p)) deaths[p.Id] = ProjectileDeathReason.OutOfBounds;
                 else if (age >= Math.Max(1, p.Settings.DurationTicks)) deaths[p.Id] = ProjectileDeathReason.Duration;
             }
             for (int i = bullets.Count - 1; i >= 0; i--)
@@ -294,8 +299,7 @@ namespace TapTap.Danmaku
                 if (parent.SourceClip != sourceClip || parent.Faction != ProjectileFaction.Enemy || parent.Depth != 0 ||
                     parent.Definition.Child == null || deaths.ContainsKey(parent.Id)) continue;
                 if (parent.IsEnergyOrb && parent.Health <= FP64.Zero) continue;
-                if (Tick - parent.BirthTick >= Math.Max(1, parent.Settings.DurationTicks) ||
-                    FPMath.Abs(parent.Position.X) > halfField.X + parent.Radius || FPMath.Abs(parent.Position.Y) > halfField.Y + parent.Radius) continue;
+                if (Tick - parent.BirthTick >= Math.Max(1, parent.Settings.DurationTicks) || OutsideField(parent)) continue;
                 splits.Add(new SplitSpawn
                 {
                     Faction = parent.Faction, OwnerId = parent.OwnerId, SourceClip = parent.SourceClip, Position = parent.Position,

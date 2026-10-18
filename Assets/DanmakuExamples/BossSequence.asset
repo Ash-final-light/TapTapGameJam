@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5063235f47a9b2459c8924f0169f6e3, type: 3}
   m_Name: BossSequence
   m_EditorClassIdentifier: 
-  DurationTicks: 1483
+  DurationTicks: 5403
   MaxActiveBullets: 256
   RandomSeed: 12345
   Music: {fileID: 8300000, guid: 03e1d5a710a5e414386e0dfa978c3a69, type: 3}
-  MusicAnalysis: {fileID: 11400000, guid: e6c28a1111b08e342bc9f83986f646c1, type: 2}
+  MusicAnalysis: {fileID: 11400000, guid: d77f60312a5ba114b96c2976759593e0, type: 2}
   MusicAnalysisSettings:
     WindowSize: 2048
     HopSize: 512
@@ -28,7 +28,8 @@ MonoBehaviour:
   MusicStartSeconds: 0
   ManualMusicBpm: 155
   ManualMusicBeatOffsetSeconds: 0.19
-  FieldSize: {x: 9, y: 11}
+  FieldSize: {x: 21.12, y: 11.88}
+  UseCameraBounds: 1
   PreviewPlayerPosition: {x: 1.82, y: -4}
   PreviewPlayerConfig: {fileID: 0}
   BossSprite: {fileID: 0}
@@ -267,4 +268,1801 @@ MonoBehaviour:
       SplitCount: 8
       SplitSpeed: 2.5
       InheritDirection: 1
-  Events: []
+  - Id: drums155-32-AimedFan
+    Name: "B \u6A2A\u5411\u8FFD\u5C04 \xB7 32\u62CD"
+    StartTick: 755
+    DurationTicks: 371
+    Muted: 0
+    Pattern: 1
+    Keyframes:
+    - Id: drums155-32-AimedFan-0
+      LocalTick: 0
+      Type: 0
+    - Id: drums155-32-AimedFan-4
+      LocalTick: 93
+      Type: 0
+    - Id: drums155-32-AimedFan-8
+      LocalTick: 185
+      Type: 0
+    - Id: drums155-32-AimedFan-12
+      LocalTick: 278
+      Type: 0
+    EmitterPosition: {x: -4, y: 3}
+    EmitterEndPosition: {x: -4, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 1
+      Count: 5
+      DirectionDegrees: 0
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 1
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: -3637049057335902701, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-32-Ring
+    Name: "B \u73AF\u5F62\u56DE\u5E94 \xB7 32\u62CD"
+    StartTick: 755
+    DurationTicks: 371
+    Muted: 0
+    Pattern: 3
+    Keyframes:
+    - Id: drums155-32-Ring-3
+      LocalTick: 69
+      Type: 0
+    - Id: drums155-32-Ring-7
+      LocalTick: 162
+      Type: 0
+    - Id: drums155-32-Ring-11
+      LocalTick: 255
+      Type: 0
+    - Id: drums155-32-Ring-15
+      LocalTick: 348
+      Type: 0
+    EmitterPosition: {x: 2, y: 3}
+    EmitterEndPosition: {x: 2, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 2
+      Count: 12
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 12.1
+      AlternatePhaseDegrees: 11.97
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 5677631186617168813, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-48-AimedFan
+    Name: "B \u6A2A\u5411\u8FFD\u5C04 \xB7 48\u62CD"
+    StartTick: 1126
+    DurationTicks: 372
+    Muted: 0
+    Pattern: 1
+    Keyframes:
+    - Id: drums155-48-AimedFan-0
+      LocalTick: 0
+      Type: 0
+    - Id: drums155-48-AimedFan-4
+      LocalTick: 93
+      Type: 0
+    - Id: drums155-48-AimedFan-8
+      LocalTick: 186
+      Type: 0
+    - Id: drums155-48-AimedFan-12
+      LocalTick: 279
+      Type: 0
+    EmitterPosition: {x: 4, y: 3}
+    EmitterEndPosition: {x: 4, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 1
+      Count: 5
+      DirectionDegrees: 0
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 1
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: -3637049057335902701, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-48-Ring
+    Name: "B \u73AF\u5F62\u56DE\u5E94 \xB7 48\u62CD"
+    StartTick: 1126
+    DurationTicks: 372
+    Muted: 0
+    Pattern: 3
+    Keyframes:
+    - Id: drums155-48-Ring-3
+      LocalTick: 70
+      Type: 0
+    - Id: drums155-48-Ring-7
+      LocalTick: 163
+      Type: 0
+    - Id: drums155-48-Ring-11
+      LocalTick: 256
+      Type: 0
+    - Id: drums155-48-Ring-15
+      LocalTick: 349
+      Type: 0
+    EmitterPosition: {x: -2, y: 3}
+    EmitterEndPosition: {x: -2, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 2
+      Count: 12
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 12.1
+      AlternatePhaseDegrees: 11.97
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 5677631186617168813, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-64-AimedFan
+    Name: "C \u7A00\u758F\u8FFD\u5C04 \xB7 64\u62CD"
+    StartTick: 1498
+    DurationTicks: 371
+    Muted: 0
+    Pattern: 1
+    Keyframes:
+    - Id: drums155-64-AimedFan-0
+      LocalTick: 0
+      Type: 0
+    - Id: drums155-64-AimedFan-8
+      LocalTick: 186
+      Type: 0
+    EmitterPosition: {x: 0, y: 3}
+    EmitterEndPosition: {x: 0, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 1
+      Count: 3
+      DirectionDegrees: 0
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 1
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: -3637049057335902701, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-orb-67
+    Name: "C \u6559\u5B66\u80FD\u91CF\u7403 \xB7 67\u62CD"
+    StartTick: 1568
+    DurationTicks: 93
+    Muted: 0
+    Pattern: 7
+    Keyframes:
+    - Id: orb-emit-67
+      LocalTick: 0
+      Type: 0
+    - Id: orb-split-67
+      LocalTick: 92
+      Type: 1
+    EmitterPosition: {x: -3, y: 0.6}
+    EmitterEndPosition: {x: -3, y: 0.6}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideEmission: 0
+    Emission:
+      Shape: 0
+      Count: 1
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 2
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 4382144406707540714, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-orb-75
+    Name: "C \u6559\u5B66\u80FD\u91CF\u7403 \xB7 75\u62CD"
+    StartTick: 1753
+    DurationTicks: 94
+    Muted: 0
+    Pattern: 7
+    Keyframes:
+    - Id: orb-emit-75
+      LocalTick: 0
+      Type: 0
+    - Id: orb-split-75
+      LocalTick: 93
+      Type: 1
+    EmitterPosition: {x: 3, y: 0.6}
+    EmitterEndPosition: {x: 3, y: 0.6}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideEmission: 0
+    Emission:
+      Shape: 0
+      Count: 1
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 2
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 4382144406707540714, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-80-AimedFan
+    Name: "C \u7A00\u758F\u8FFD\u5C04 \xB7 80\u62CD"
+    StartTick: 1869
+    DurationTicks: 372
+    Muted: 0
+    Pattern: 1
+    Keyframes:
+    - Id: drums155-80-AimedFan-0
+      LocalTick: 0
+      Type: 0
+    - Id: drums155-80-AimedFan-8
+      LocalTick: 186
+      Type: 0
+    EmitterPosition: {x: 0, y: 3}
+    EmitterEndPosition: {x: 0, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 1
+      Count: 3
+      DirectionDegrees: 0
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 1
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: -3637049057335902701, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-orb-83
+    Name: "C \u6559\u5B66\u80FD\u91CF\u7403 \xB7 83\u62CD"
+    StartTick: 1939
+    DurationTicks: 94
+    Muted: 0
+    Pattern: 7
+    Keyframes:
+    - Id: orb-emit-83
+      LocalTick: 0
+      Type: 0
+    - Id: orb-split-83
+      LocalTick: 93
+      Type: 1
+    EmitterPosition: {x: -3, y: 0.6}
+    EmitterEndPosition: {x: -3, y: 0.6}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideEmission: 0
+    Emission:
+      Shape: 0
+      Count: 1
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 2
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 4382144406707540714, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-orb-91
+    Name: "C \u6559\u5B66\u80FD\u91CF\u7403 \xB7 91\u62CD"
+    StartTick: 2125
+    DurationTicks: 94
+    Muted: 0
+    Pattern: 7
+    Keyframes:
+    - Id: orb-emit-91
+      LocalTick: 0
+      Type: 0
+    - Id: orb-split-91
+      LocalTick: 93
+      Type: 1
+    EmitterPosition: {x: 3, y: 0.6}
+    EmitterEndPosition: {x: 3, y: 0.6}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideEmission: 0
+    Emission:
+      Shape: 0
+      Count: 1
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 2
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 4382144406707540714, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-96-Ring
+    Name: "D \u6062\u590D \xB7 \u7A00\u758F\u73AF\u5F62 \xB7 96\u62CD"
+    StartTick: 2241
+    DurationTicks: 372
+    Muted: 0
+    Pattern: 3
+    Keyframes:
+    - Id: drums155-96-Ring-3
+      LocalTick: 70
+      Type: 0
+    - Id: drums155-96-Ring-11
+      LocalTick: 256
+      Type: 0
+    EmitterPosition: {x: 0, y: 3}
+    EmitterEndPosition: {x: 0, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 2
+      Count: 8
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 12.1
+      AlternatePhaseDegrees: 11.97
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 5677631186617168813, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-112-AimedFan
+    Name: "E \u4E3B\u9898\u8FFD\u5C04 \xB7 112\u62CD"
+    StartTick: 2613
+    DurationTicks: 371
+    Muted: 0
+    Pattern: 1
+    Keyframes:
+    - Id: drums155-112-AimedFan-0
+      LocalTick: 0
+      Type: 0
+    - Id: drums155-112-AimedFan-4
+      LocalTick: 93
+      Type: 0
+    - Id: drums155-112-AimedFan-8
+      LocalTick: 185
+      Type: 0
+    - Id: drums155-112-AimedFan-12
+      LocalTick: 278
+      Type: 0
+    EmitterPosition: {x: -4, y: 3}
+    EmitterEndPosition: {x: -4, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 1
+      Count: 5
+      DirectionDegrees: 0
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 1
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: -3637049057335902701, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-112-Ring
+    Name: "E \u73AF\u5F62\u53D8\u594F \xB7 112\u62CD"
+    StartTick: 2613
+    DurationTicks: 371
+    Muted: 0
+    Pattern: 3
+    Keyframes:
+    - Id: drums155-112-Ring-3
+      LocalTick: 69
+      Type: 0
+    - Id: drums155-112-Ring-7
+      LocalTick: 162
+      Type: 0
+    - Id: drums155-112-Ring-11
+      LocalTick: 255
+      Type: 0
+    - Id: drums155-112-Ring-15
+      LocalTick: 348
+      Type: 0
+    EmitterPosition: {x: 0, y: 3}
+    EmitterEndPosition: {x: 0, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 2
+      Count: 12
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 12.1
+      AlternatePhaseDegrees: 11.97
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 5677631186617168813, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-128-AimedFan
+    Name: "E \u4E3B\u9898\u8FFD\u5C04 \xB7 128\u62CD"
+    StartTick: 2984
+    DurationTicks: 372
+    Muted: 0
+    Pattern: 1
+    Keyframes:
+    - Id: drums155-128-AimedFan-0
+      LocalTick: 0
+      Type: 0
+    - Id: drums155-128-AimedFan-4
+      LocalTick: 93
+      Type: 0
+    - Id: drums155-128-AimedFan-8
+      LocalTick: 186
+      Type: 0
+    - Id: drums155-128-AimedFan-12
+      LocalTick: 279
+      Type: 0
+    EmitterPosition: {x: 4, y: 3}
+    EmitterEndPosition: {x: 4, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 1
+      Count: 5
+      DirectionDegrees: 0
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 1
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: -3637049057335902701, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-128-Ring
+    Name: "E \u73AF\u5F62\u53D8\u594F \xB7 128\u62CD"
+    StartTick: 2984
+    DurationTicks: 372
+    Muted: 0
+    Pattern: 3
+    Keyframes:
+    - Id: drums155-128-Ring-3
+      LocalTick: 70
+      Type: 0
+    - Id: drums155-128-Ring-7
+      LocalTick: 163
+      Type: 0
+    - Id: drums155-128-Ring-11
+      LocalTick: 256
+      Type: 0
+    - Id: drums155-128-Ring-15
+      LocalTick: 349
+      Type: 0
+    EmitterPosition: {x: -4, y: 3}
+    EmitterEndPosition: {x: 4, y: 3}
+    MoveEmitter: 1
+    Preset: {fileID: 11400000, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 2
+      Count: 12
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 12.1
+      AlternatePhaseDegrees: 11.97
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 5677631186617168813, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-144-AimedFan
+    Name: "E \u4E3B\u9898\u8FFD\u5C04 \xB7 144\u62CD"
+    StartTick: 3356
+    DurationTicks: 372
+    Muted: 0
+    Pattern: 1
+    Keyframes:
+    - Id: drums155-144-AimedFan-0
+      LocalTick: 0
+      Type: 0
+    - Id: drums155-144-AimedFan-4
+      LocalTick: 93
+      Type: 0
+    - Id: drums155-144-AimedFan-8
+      LocalTick: 186
+      Type: 0
+    - Id: drums155-144-AimedFan-12
+      LocalTick: 279
+      Type: 0
+    EmitterPosition: {x: 4, y: 3}
+    EmitterEndPosition: {x: -4, y: 3}
+    MoveEmitter: 1
+    Preset: {fileID: 11400000, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 1
+      Count: 5
+      DirectionDegrees: 0
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 1
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: -3637049057335902701, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-144-Ring
+    Name: "E \u73AF\u5F62\u53D8\u594F \xB7 144\u62CD"
+    StartTick: 3356
+    DurationTicks: 372
+    Muted: 0
+    Pattern: 3
+    Keyframes:
+    - Id: drums155-144-Ring-3
+      LocalTick: 70
+      Type: 0
+    - Id: drums155-144-Ring-7
+      LocalTick: 162
+      Type: 0
+    - Id: drums155-144-Ring-11
+      LocalTick: 255
+      Type: 0
+    - Id: drums155-144-Ring-15
+      LocalTick: 348
+      Type: 0
+    EmitterPosition: {x: 0, y: 3}
+    EmitterEndPosition: {x: 0, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 2
+      Count: 12
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 12.1
+      AlternatePhaseDegrees: 11.97
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 5677631186617168813, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-160-AimedFan
+    Name: "F \u7EFC\u5408\u8FFD\u5C04 \xB7 160\u62CD"
+    StartTick: 3728
+    DurationTicks: 371
+    Muted: 0
+    Pattern: 1
+    Keyframes:
+    - Id: drums155-160-AimedFan-0
+      LocalTick: 0
+      Type: 0
+    - Id: drums155-160-AimedFan-4
+      LocalTick: 92
+      Type: 0
+    - Id: drums155-160-AimedFan-8
+      LocalTick: 185
+      Type: 0
+    - Id: drums155-160-AimedFan-12
+      LocalTick: 278
+      Type: 0
+    EmitterPosition: {x: -4, y: 3}
+    EmitterEndPosition: {x: -4, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 1
+      Count: 5
+      DirectionDegrees: 0
+      ArcDegrees: 50
+      SpawnRadius: 0
+      AimAtPlayer: 1
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: -3637049057335902701, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-160-Ring
+    Name: "F \u73AF\u5F62\u56DE\u5E94 \xB7 160\u62CD"
+    StartTick: 3728
+    DurationTicks: 371
+    Muted: 0
+    Pattern: 3
+    Keyframes:
+    - Id: drums155-160-Ring-7
+      LocalTick: 162
+      Type: 0
+    - Id: drums155-160-Ring-15
+      LocalTick: 348
+      Type: 0
+    EmitterPosition: {x: 3, y: 3}
+    EmitterEndPosition: {x: 3, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 2
+      Count: 12
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 12.1
+      AlternatePhaseDegrees: 11.97
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 5677631186617168813, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-orb-163
+    Name: "F \u7EFC\u5408\u80FD\u91CF\u7403 \xB7 163\u62CD"
+    StartTick: 3797
+    DurationTicks: 71
+    Muted: 0
+    Pattern: 7
+    Keyframes:
+    - Id: orb-emit-163
+      LocalTick: 0
+      Type: 0
+    - Id: orb-split-163
+      LocalTick: 70
+      Type: 1
+    EmitterPosition: {x: -3, y: 0.8}
+    EmitterEndPosition: {x: -3, y: 0.8}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideEmission: 0
+    Emission:
+      Shape: 0
+      Count: 1
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 2
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 4382144406707540714, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-orb-171
+    Name: "F \u7EFC\u5408\u80FD\u91CF\u7403 \xB7 171\u62CD"
+    StartTick: 3983
+    DurationTicks: 71
+    Muted: 0
+    Pattern: 7
+    Keyframes:
+    - Id: orb-emit-171
+      LocalTick: 0
+      Type: 0
+    - Id: orb-split-171
+      LocalTick: 70
+      Type: 1
+    EmitterPosition: {x: 3, y: 0.8}
+    EmitterEndPosition: {x: 3, y: 0.8}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideEmission: 0
+    Emission:
+      Shape: 0
+      Count: 1
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 2
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 4382144406707540714, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-176-AimedFan
+    Name: "F \u7EFC\u5408\u8FFD\u5C04 \xB7 176\u62CD"
+    StartTick: 4099
+    DurationTicks: 372
+    Muted: 0
+    Pattern: 1
+    Keyframes:
+    - Id: drums155-176-AimedFan-0
+      LocalTick: 0
+      Type: 0
+    - Id: drums155-176-AimedFan-4
+      LocalTick: 93
+      Type: 0
+    - Id: drums155-176-AimedFan-8
+      LocalTick: 186
+      Type: 0
+    - Id: drums155-176-AimedFan-12
+      LocalTick: 279
+      Type: 0
+    EmitterPosition: {x: 4, y: 3}
+    EmitterEndPosition: {x: 4, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 1
+      Count: 5
+      DirectionDegrees: 0
+      ArcDegrees: 50
+      SpawnRadius: 0
+      AimAtPlayer: 1
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: -3637049057335902701, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-176-Ring
+    Name: "F \u73AF\u5F62\u56DE\u5E94 \xB7 176\u62CD"
+    StartTick: 4099
+    DurationTicks: 372
+    Muted: 0
+    Pattern: 3
+    Keyframes:
+    - Id: drums155-176-Ring-7
+      LocalTick: 163
+      Type: 0
+    - Id: drums155-176-Ring-15
+      LocalTick: 349
+      Type: 0
+    EmitterPosition: {x: -3, y: 3}
+    EmitterEndPosition: {x: 3, y: 3}
+    MoveEmitter: 1
+    Preset: {fileID: 11400000, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 2
+      Count: 12
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 12.1
+      AlternatePhaseDegrees: 11.97
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 5677631186617168813, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-orb-179
+    Name: "F \u7EFC\u5408\u80FD\u91CF\u7403 \xB7 179\u62CD"
+    StartTick: 4169
+    DurationTicks: 70
+    Muted: 0
+    Pattern: 7
+    Keyframes:
+    - Id: orb-emit-179
+      LocalTick: 0
+      Type: 0
+    - Id: orb-split-179
+      LocalTick: 69
+      Type: 1
+    EmitterPosition: {x: 3, y: 0.8}
+    EmitterEndPosition: {x: 3, y: 0.8}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideEmission: 0
+    Emission:
+      Shape: 0
+      Count: 1
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 2
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 4382144406707540714, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-orb-187
+    Name: "F \u7EFC\u5408\u80FD\u91CF\u7403 \xB7 187\u62CD"
+    StartTick: 4355
+    DurationTicks: 70
+    Muted: 0
+    Pattern: 7
+    Keyframes:
+    - Id: orb-emit-187
+      LocalTick: 0
+      Type: 0
+    - Id: orb-split-187
+      LocalTick: 69
+      Type: 1
+    EmitterPosition: {x: -3, y: 0.8}
+    EmitterEndPosition: {x: -3, y: 0.8}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideEmission: 0
+    Emission:
+      Shape: 0
+      Count: 1
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 2
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 4382144406707540714, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-192-AimedFan
+    Name: "F \u7EFC\u5408\u8FFD\u5C04 \xB7 192\u62CD"
+    StartTick: 4471
+    DurationTicks: 371
+    Muted: 0
+    Pattern: 1
+    Keyframes:
+    - Id: drums155-192-AimedFan-0
+      LocalTick: 0
+      Type: 0
+    - Id: drums155-192-AimedFan-4
+      LocalTick: 93
+      Type: 0
+    - Id: drums155-192-AimedFan-8
+      LocalTick: 186
+      Type: 0
+    - Id: drums155-192-AimedFan-12
+      LocalTick: 278
+      Type: 0
+    EmitterPosition: {x: -4, y: 3}
+    EmitterEndPosition: {x: -4, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 1
+      Count: 5
+      DirectionDegrees: 0
+      ArcDegrees: 50
+      SpawnRadius: 0
+      AimAtPlayer: 1
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: -3637049057335902701, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-192-Ring
+    Name: "F \u73AF\u5F62\u56DE\u5E94 \xB7 192\u62CD"
+    StartTick: 4471
+    DurationTicks: 371
+    Muted: 0
+    Pattern: 3
+    Keyframes:
+    - Id: drums155-192-Ring-7
+      LocalTick: 162
+      Type: 0
+    - Id: drums155-192-Ring-15
+      LocalTick: 348
+      Type: 0
+    EmitterPosition: {x: 3, y: 3}
+    EmitterEndPosition: {x: 3, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 2
+      Count: 12
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 12.1
+      AlternatePhaseDegrees: 11.97
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 5677631186617168813, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-orb-195
+    Name: "F \u7EFC\u5408\u80FD\u91CF\u7403 \xB7 195\u62CD"
+    StartTick: 4540
+    DurationTicks: 71
+    Muted: 0
+    Pattern: 7
+    Keyframes:
+    - Id: orb-emit-195
+      LocalTick: 0
+      Type: 0
+    - Id: orb-split-195
+      LocalTick: 70
+      Type: 1
+    EmitterPosition: {x: -3, y: 0.8}
+    EmitterEndPosition: {x: -3, y: 0.8}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideEmission: 0
+    Emission:
+      Shape: 0
+      Count: 1
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 2
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 4382144406707540714, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-orb-203
+    Name: "F \u7EFC\u5408\u80FD\u91CF\u7403 \xB7 203\u62CD"
+    StartTick: 4726
+    DurationTicks: 71
+    Muted: 0
+    Pattern: 7
+    Keyframes:
+    - Id: orb-emit-203
+      LocalTick: 0
+      Type: 0
+    - Id: orb-split-203
+      LocalTick: 70
+      Type: 1
+    EmitterPosition: {x: 3, y: 0.8}
+    EmitterEndPosition: {x: 3, y: 0.8}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideEmission: 0
+    Emission:
+      Shape: 0
+      Count: 1
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 2
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 4382144406707540714, guid: c3770580cbc62444798204eb47b682e1, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-208-AimedFan
+    Name: "G \u9AD8\u6F6E\u8FFD\u5C04 \xB7 208\u62CD"
+    StartTick: 4842
+    DurationTicks: 372
+    Muted: 0
+    Pattern: 1
+    Keyframes:
+    - Id: drums155-208-AimedFan-0
+      LocalTick: 0
+      Type: 0
+    - Id: drums155-208-AimedFan-4
+      LocalTick: 93
+      Type: 0
+    - Id: drums155-208-AimedFan-8
+      LocalTick: 186
+      Type: 0
+    - Id: drums155-208-AimedFan-12
+      LocalTick: 279
+      Type: 0
+    EmitterPosition: {x: -3, y: 3}
+    EmitterEndPosition: {x: 3, y: 3}
+    MoveEmitter: 1
+    Preset: {fileID: 11400000, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 1
+      Count: 5
+      DirectionDegrees: 0
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 1
+      RotationDegreesPerSecond: 0
+      AlternatePhaseDegrees: 0
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: -3637049057335902701, guid: a8533e23f98f87a468ebcbcfcbde30a8, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  - Id: drums155-208-Ring
+    Name: "G \u9AD8\u6F6E\u73AF\u5F62 \xB7 208\u62CD"
+    StartTick: 4842
+    DurationTicks: 372
+    Muted: 0
+    Pattern: 3
+    Keyframes:
+    - Id: drums155-208-Ring-3
+      LocalTick: 70
+      Type: 0
+    - Id: drums155-208-Ring-7
+      LocalTick: 163
+      Type: 0
+    - Id: drums155-208-Ring-11
+      LocalTick: 256
+      Type: 0
+    - Id: drums155-208-Ring-15
+      LocalTick: 349
+      Type: 0
+    EmitterPosition: {x: 0, y: 3}
+    EmitterEndPosition: {x: 0, y: 3}
+    MoveEmitter: 0
+    Preset: {fileID: 11400000, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideEmission: 1
+    Emission:
+      Shape: 2
+      Count: 14
+      DirectionDegrees: -90
+      ArcDegrees: 60
+      SpawnRadius: 0
+      AimAtPlayer: 0
+      RotationDegreesPerSecond: 12.1
+      AlternatePhaseDegrees: 11.97
+      Speed: 20
+      SegmentStart: {x: -3, y: 0}
+      SegmentEnd: {x: 3, y: 0}
+      SpawnPosition: 0
+      RandomSpawnMin: {x: 0, y: 0}
+      RandomSpawnMax: {x: 0, y: 0}
+      PlayerProtectionDistance: 0
+    Projectile: {fileID: 5677631186617168813, guid: d79171d174b9e014b903ce3207e5e14b, type: 2}
+    OverrideProjectile: 0
+    ProjectileOverride:
+      Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      VisualSize: 0.18
+      HitRadius: 0.06
+      Interaction: 0
+      EnergyOrb:
+        ContactDamage: 0
+        FinalVisualSize: 0.18
+        FinalHitRadius: 0.06
+        GrowthCurve: 0
+      DurationTicks: 240
+      SplitChild: {fileID: 0}
+      SplitCount: 8
+      SplitSpeed: 2.5
+      InheritDirection: 1
+  Events:
+  - Tick: 0
+    Type: 0
+    Label: "\u4E3B\u9898\uFF1A\u73AF\u5F62\u4E0E\u8FFD\u5C04"
+    DurationTicks: 755
+    ClipIndex: -1
+  - Tick: 755
+    Type: 0
+    Label: "\u6A2A\u5411\u8D70\u4F4D\uFF1A\u5DE6\u53F3\u4EA4\u66FF"
+    DurationTicks: 743
+    ClipIndex: -1
+  - Tick: 1498
+    Type: 0
+    Label: "\u80FD\u91CF\u7403\uFF1A\u7784\u51C6\u51FB\u7834"
+    DurationTicks: 743
+    ClipIndex: -1
+  - Tick: 1544
+    Type: 0
+    Label: "\u91D1\u8272\u80FD\u91CF\u7403 \xB7 \u7784\u51C6\u51FB\u7834"
+    DurationTicks: 116
+    ClipIndex: 9
+  - Tick: 1730
+    Type: 0
+    Label: "\u91D1\u8272\u80FD\u91CF\u7403 \xB7 \u7784\u51C6\u51FB\u7834"
+    DurationTicks: 116
+    ClipIndex: 10
+  - Tick: 1916
+    Type: 0
+    Label: "\u91D1\u8272\u80FD\u91CF\u7403 \xB7 \u7784\u51C6\u51FB\u7834"
+    DurationTicks: 116
+    ClipIndex: 12
+  - Tick: 2102
+    Type: 0
+    Label: "\u91D1\u8272\u80FD\u91CF\u7403 \xB7 \u7784\u51C6\u51FB\u7834"
+    DurationTicks: 116
+    ClipIndex: 13
+  - Tick: 2241
+    Type: 0
+    Label: "\u6062\u590D\uFF1A\u8C03\u6574\u7AD9\u4F4D\u4E0E\u4F53\u529B"
+    DurationTicks: 372
+    ClipIndex: -1
+  - Tick: 2613
+    Type: 0
+    Label: "\u53D8\u594F\uFF1A\u79FB\u52A8\u53D1\u5C04\u5668"
+    DurationTicks: 1115
+    ClipIndex: -1
+  - Tick: 3728
+    Type: 0
+    Label: "\u7EFC\u5408\uFF1A\u8FFD\u5C04\u4E0E\u80FD\u91CF\u7403"
+    DurationTicks: 1114
+    ClipIndex: -1
+  - Tick: 3774
+    Type: 0
+    Label: "\u80FD\u91CF\u7403 \xB7 \u51FB\u7834\u6216\u8EB2\u5F00\u5206\u88C2"
+    DurationTicks: 93
+    ClipIndex: 23
+  - Tick: 3960
+    Type: 0
+    Label: "\u80FD\u91CF\u7403 \xB7 \u51FB\u7834\u6216\u8EB2\u5F00\u5206\u88C2"
+    DurationTicks: 93
+    ClipIndex: 24
+  - Tick: 4146
+    Type: 0
+    Label: "\u80FD\u91CF\u7403 \xB7 \u51FB\u7834\u6216\u8EB2\u5F00\u5206\u88C2"
+    DurationTicks: 92
+    ClipIndex: 27
+  - Tick: 4331
+    Type: 0
+    Label: "\u80FD\u91CF\u7403 \xB7 \u51FB\u7834\u6216\u8EB2\u5F00\u5206\u88C2"
+    DurationTicks: 93
+    ClipIndex: 28
+  - Tick: 4517
+    Type: 0
+    Label: "\u80FD\u91CF\u7403 \xB7 \u51FB\u7834\u6216\u8EB2\u5F00\u5206\u88C2"
+    DurationTicks: 93
+    ClipIndex: 31
+  - Tick: 4703
+    Type: 0
+    Label: "\u80FD\u91CF\u7403 \xB7 \u51FB\u7834\u6216\u8EB2\u5F00\u5206\u88C2"
+    DurationTicks: 93
+    ClipIndex: 32
+  - Tick: 4842
+    Type: 0
+    Label: "\u9AD8\u6F6E\uFF1A\u6700\u540E\u56DB\u5C0F\u8282"
+    DurationTicks: 372
+    ClipIndex: -1
+  - Tick: 5214
+    Type: 0
+    Label: "\u6536\u675F\uFF1A\u4FDD\u6301\u5230\u66F2\u7EC8"
+    DurationTicks: 189
+    ClipIndex: -1
+  - Tick: 5391
+    Type: 1
+    Label: "\u5C3E\u594F\u6E05\u5F39"
+    DurationTicks: 1
+    ClipIndex: -1

@@ -118,6 +118,8 @@ namespace TapTap.Danmaku
         [Tooltip("第一拍在音乐文件中的位置，以秒为单位；与音乐开始偏移一起决定时间轴位置。")]
         [Min(0)] public float ManualMusicBeatOffsetSeconds;
         public Vector2 FieldSize = new(9, 11);
+        [Tooltip("实战中使用 AimCamera 在战斗平面的可视范围作为左右／顶部边界，并同步弹幕回收范围。地面高度仍由 PlayerDefinition 决定；编辑器预览继续使用场地大小。")]
+        public bool UseCameraBounds;
         public Vector2 PreviewPlayerPosition = new(0, -4);
         public DanmakuPlayerConfig PreviewPlayerConfig;
         public float PreviewHitRadius => PreviewPlayerConfig ? PreviewPlayerConfig.HitRadius : 0.08f;

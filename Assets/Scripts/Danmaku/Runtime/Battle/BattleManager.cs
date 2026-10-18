@@ -43,6 +43,7 @@ namespace TapTap.Danmaku
         private string runId;
         private BattleStartData setup;
         private int missedThisTick;
+        private Rect activeBounds;
         public event Action<RunResult> RunFinished;
         public RunResult Result { get; private set; }
         public HudSnapshot Current => new()
@@ -78,8 +79,14 @@ namespace TapTap.Danmaku
             }
             try
             {
+                activeBounds = new Rect(-Config.Sequence.FieldSize * 0.5f, Config.Sequence.FieldSize);
+                if (Config.Sequence.UseCameraBounds)
+                {
+                    if (BattleInputProjection.TryGetVisibleBounds(AimCamera, transform, out var visible)) activeBounds = visible;
+                    else Debug.LogWarning("相机可视范围不能投影为战斗平面的轴对齐矩形，使用 SO 场地大小。", this);
+                }
                 scores = new ScoreManager(system ? system.Config.ScoreFormulas : null, BossScoring, Config.Sequence);
-                Simulation = new BattleSimulation(Config, PlayerDefinition, PlayerSpawn, setup?.Weapon, BossScoring);
+                Simulation = new BattleSimulation(Config, PlayerDefinition, PlayerSpawn, setup?.Weapon, BossScoring, activeBounds);
             }
             catch (ArgumentException error) { Debug.LogError(error.Message, this); system = null; return; }
             var obj = new GameObject("Battle Views"); obj.transform.SetParent(transform, false); viewRoot = obj.transform;
@@ -111,6 +118,8 @@ namespace TapTap.Danmaku
         {
             if (!IsRunning || Simulation == null) return;
             if (Simulation.Finished) { FinishRun(); return; }
+            if (Config.Sequence.UseCameraBounds && BattleInputProjection.TryGetVisibleBounds(AimCamera, transform, out var visible) && visible != activeBounds)
+            { activeBounds = visible; Simulation.SetBounds(activeBounds); }
             if (!system)
             {
                 if (!StandaloneInput) { Pause(); return; }

@@ -24,7 +24,7 @@ namespace TapTap.Danmaku
         public bool Finished => !Player.Alive || Tick >= EndTick;
         public RunEndReason EndReason => Player.Alive ? RunEndReason.Completed : RunEndReason.PlayerDied;
         public BattleSimulation(BattleConfig config, PlayerDefinition playerDefinition, Vector2 playerSpawn, PlayerWeaponDefinition selectedWeapon = null,
-            BossScoringSettings bossScoring = null)
+            BossScoringSettings bossScoring = null, Rect? bounds = null)
         {
             string error = config.Validate(); if (error != null) throw new System.ArgumentException(error);
             if (!playerDefinition) throw new System.ArgumentException("请指定独立 PlayerDefinition。");
@@ -33,9 +33,9 @@ namespace TapTap.Danmaku
             EndTick = config.Sequence.Music
                 ? MusicTime.EndTick(config.Sequence.MusicStartSeconds + (double)config.Sequence.Music.samples / config.Sequence.Music.frequency)
                 : System.Math.Max(1, config.Sequence.DurationTicks);
-            World = new ProjectileWorld(config.Sequence, config.MaxActiveProjectiles);
+            World = new ProjectileWorld(config.Sequence, config.MaxActiveProjectiles, bounds);
             BossTimeline = new BossSequenceRunner(config.Sequence, World);
-            PlayerSystem = new PlayerRuntime(playerDefinition, config.Sequence.FieldSize, playerSpawn);
+            PlayerSystem = new PlayerRuntime(playerDefinition, config.Sequence.FieldSize, playerSpawn, bounds: bounds);
             Player = PlayerSystem.Actor;
             BossPosition = DanmakuSimulation.ToFP(config.BossPosition);
             if (bossScoring?.Enabled == true)
@@ -50,6 +50,11 @@ namespace TapTap.Danmaku
             // Compile point-event projectile templates with the same lifetime as this battle.
             foreach (var binding in playerDefinition.Actions.Bindings)
                 foreach (var node in binding.Clip.Nodes) if (node.Projectile) actionProjectiles[binding.Clip.GetInstanceID() + ":" + node.Id] = ProjectileWorld.CompileProjectile(node.Projectile.Settings);
+        }
+        public void SetBounds(Rect bounds)
+        {
+            PlayerMotor.SetBounds(bounds); Player.Pose = PlayerMotor.State;
+            World.SetBounds(bounds); World.SetPlayerState(Player.Pose);
         }
         public void Step(in BattleInput input)
             => Step(input, new PlayerTickInput(input.Movement.MoveX, fireHeld: input.Movement.FireHeld));

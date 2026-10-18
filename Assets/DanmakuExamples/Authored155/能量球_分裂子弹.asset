@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3767697b8930fb4498de4a2706d4fc08, type: 3}
+  m_Name: "\u80FD\u91CF\u7403_\u5206\u88C2\u5B50\u5F39"
+  m_EditorClassIdentifier: 
+  Settings:
+    Sprite: {fileID: 0}
+    Color: {r: 1, g: 0.75, b: 0.3, a: 1}
+    VisualSize: 0.18
+    HitRadius: 0.06
+    Interaction: 0
+    EnergyOrb:
+      ContactDamage: 0
+      FinalVisualSize: 0.18
+      FinalHitRadius: 0.06
+      GrowthCurve: 0
+    DurationTicks: 150
+    SplitChild: {fileID: 0}
+    SplitCount: 8
+    SplitSpeed: 2.5
+    InheritDirection: 1

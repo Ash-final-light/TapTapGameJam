@@ -1,0 +1,6384 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22de8ca631f13d94cb08af797fd80508, type: 3}
+  m_Name: "Drums155_\u97F3\u4E50\u5206\u6790"
+  m_EditorClassIdentifier: 
+  Source: {fileID: 8300000, guid: 03e1d5a710a5e414386e0dfa978c3a69, type: 3}
+  SampleRate: 48000
+  Channels: 2
+  SampleFrameCount: 4322304
+  AlgorithmVersion: 1
+  SourceFingerprint: 4d6c60414b0e93285a4c9c7ccd94c626
+  SettingsFingerprint: '{"WindowSize":2048,"HopSize":512,"ThresholdMultiplier":1.5,"MinimumIntervalSeconds":0.11999999731779099,"LowBand":{"x":40.0,"y":250.0},"MidBand":{"x":250.0,"y":2000.0},"HighBand":{"x":2000.0,"y":10000.0}}'
+  Markers:
+  - SampleFrame: 3072
+    Band: 2
+    Strength: 0.08769504
+  - SampleFrame: 3584
+    Band: 0
+    Strength: 0.08341747
+  - SampleFrame: 3584
+    Band: 1
+    Strength: 0.01914446
+  - SampleFrame: 10752
+    Band: 2
+    Strength: 0.015794028
+  - SampleFrame: 22016
+    Band: 1
+    Strength: 0.0013640085
+  - SampleFrame: 22016
+    Band: 2
+    Strength: 0.035124544
+  - SampleFrame: 34304
+    Band: 2
+    Strength: 0.12240881
+  - SampleFrame: 34816
+    Band: 0
+    Strength: 0.01480749
+  - SampleFrame: 34816
+    Band: 1
+    Strength: 0.021874115
+  - SampleFrame: 40448
+    Band: 2
+    Strength: 0.033810653
+  - SampleFrame: 40960
+    Band: 0
+    Strength: 0.085532136
+  - SampleFrame: 59392
+    Band: 1
+    Strength: 0.00670184
+  - SampleFrame: 59392
+    Band: 2
+    Strength: 0.27776396
+  - SampleFrame: 77824
+    Band: 0
+    Strength: 0.12421948
+  - SampleFrame: 77824
+    Band: 1
+    Strength: 0.013551985
+  - SampleFrame: 77824
+    Band: 2
+    Strength: 0.044627924
+  - SampleFrame: 96256
+    Band: 1
+    Strength: 0.002862313
+  - SampleFrame: 96256
+    Band: 2
+    Strength: 0.037225485
+  - SampleFrame: 102400
+    Band: 2
+    Strength: 0.012815617
+  - SampleFrame: 109056
+    Band: 0
+    Strength: 0.086090535
+  - SampleFrame: 109056
+    Band: 1
+    Strength: 0.014246716
+  - SampleFrame: 109056
+    Band: 2
+    Strength: 0.054506805
+  - SampleFrame: 128000
+    Band: 2
+    Strength: 0.010436203
+  - SampleFrame: 133632
+    Band: 1
+    Strength: 0.0146294795
+  - SampleFrame: 134144
+    Band: 0
+    Strength: 0.009014319
+  - SampleFrame: 135168
+    Band: 2
+    Strength: 0.10039592
+  - SampleFrame: 152064
+    Band: 0
+    Strength: 0.11462932
+  - SampleFrame: 152064
+    Band: 1
+    Strength: 0.013327392
+  - SampleFrame: 152064
+    Band: 2
+    Strength: 0.04570821
+  - SampleFrame: 170496
+    Band: 1
+    Strength: 0.0029030135
+  - SampleFrame: 170496
+    Band: 2
+    Strength: 0.07263214
+  - SampleFrame: 183296
+    Band: 1
+    Strength: 0.024002943
+  - SampleFrame: 183296
+    Band: 2
+    Strength: 0.13541561
+  - SampleFrame: 183808
+    Band: 0
+    Strength: 0.017427798
+  - SampleFrame: 189440
+    Band: 1
+    Strength: 0.009050826
+  - SampleFrame: 189440
+    Band: 2
+    Strength: 0.031514417
+  - SampleFrame: 189952
+    Band: 0
+    Strength: 0.09114982
+  - SampleFrame: 202240
+    Band: 2
+    Strength: 0.009049383
+  - SampleFrame: 207872
+    Band: 1
+    Strength: 0.01091262
+  - SampleFrame: 208384
+    Band: 0
+    Strength: 0.010687169
+  - SampleFrame: 209408
+    Band: 2
+    Strength: 0.06397165
+  - SampleFrame: 226304
+    Band: 0
+    Strength: 0.09575636
+  - SampleFrame: 226304
+    Band: 2
+    Strength: 0.04546682
+  - SampleFrame: 226816
+    Band: 1
+    Strength: 0.012733452
+  - SampleFrame: 245248
+    Band: 1
+    Strength: 0.0023809737
+  - SampleFrame: 245248
+    Band: 2
+    Strength: 0.061865818
+  - SampleFrame: 263680
+    Band: 1
+    Strength: 0.01182109
+  - SampleFrame: 263680
+    Band: 2
+    Strength: 0.049027603
+  - SampleFrame: 264192
+    Band: 0
+    Strength: 0.11912096
+  - SampleFrame: 276992
+    Band: 2
+    Strength: 0.009215929
+  - SampleFrame: 282624
+    Band: 0
+    Strength: 0.018820716
+  - SampleFrame: 282624
+    Band: 1
+    Strength: 0.040566407
+  - SampleFrame: 294912
+    Band: 0
+    Strength: 0.053145897
+  - SampleFrame: 294912
+    Band: 1
+    Strength: 0.013464274
+  - SampleFrame: 294912
+    Band: 2
+    Strength: 0.034079477
+  - SampleFrame: 301056
+    Band: 0
+    Strength: 0.12778924
+  - SampleFrame: 301056
+    Band: 1
+    Strength: 0.0152231585
+  - SampleFrame: 301056
+    Band: 2
+    Strength: 0.04599527
+  - SampleFrame: 319488
+    Band: 1
+    Strength: 0.003274096
+  - SampleFrame: 319488
+    Band: 2
+    Strength: 0.062892646
+  - SampleFrame: 332288
+    Band: 0
+    Strength: 0.0151621215
+  - SampleFrame: 332288
+    Band: 1
+    Strength: 0.03389027
+  - SampleFrame: 332288
+    Band: 2
+    Strength: 0.17691192
+  - SampleFrame: 338432
+    Band: 0
+    Strength: 0.1171767
+  - SampleFrame: 338432
+    Band: 1
+    Strength: 0.010532301
+  - SampleFrame: 338432
+    Band: 2
+    Strength: 0.03190483
+  - SampleFrame: 351232
+    Band: 2
+    Strength: 0.008943265
+  - SampleFrame: 356864
+    Band: 0
+    Strength: 0.007791828
+  - SampleFrame: 356864
+    Band: 1
+    Strength: 0.01494005
+  - SampleFrame: 375296
+    Band: 0
+    Strength: 0.12396497
+  - SampleFrame: 375296
+    Band: 1
+    Strength: 0.013880684
+  - SampleFrame: 375296
+    Band: 2
+    Strength: 0.05530521
+  - SampleFrame: 393728
+    Band: 1
+    Strength: 0.0034459888
+  - SampleFrame: 393728
+    Band: 2
+    Strength: 0.07735334
+  - SampleFrame: 406528
+    Band: 1
+    Strength: 0.019591337
+  - SampleFrame: 406528
+    Band: 2
+    Strength: 0.077110715
+  - SampleFrame: 407040
+    Band: 0
+    Strength: 0.092545986
+  - SampleFrame: 425472
+    Band: 2
+    Strength: 0.011340693
+  - SampleFrame: 431104
+    Band: 1
+    Strength: 0.016132899
+  - SampleFrame: 431616
+    Band: 0
+    Strength: 0.012393184
+  - SampleFrame: 432640
+    Band: 2
+    Strength: 0.11506338
+  - SampleFrame: 444416
+    Band: 0
+    Strength: 0.019736705
+  - SampleFrame: 449536
+    Band: 1
+    Strength: 0.016246771
+  - SampleFrame: 449536
+    Band: 2
+    Strength: 0.03967171
+  - SampleFrame: 468480
+    Band: 1
+    Strength: 0.0028854331
+  - SampleFrame: 468480
+    Band: 2
+    Strength: 0.06791455
+  - SampleFrame: 480768
+    Band: 1
+    Strength: 0.024402618
+  - SampleFrame: 480768
+    Band: 2
+    Strength: 0.15465644
+  - SampleFrame: 481280
+    Band: 0
+    Strength: 0.011111428
+  - SampleFrame: 486912
+    Band: 1
+    Strength: 0.013876278
+  - SampleFrame: 486912
+    Band: 2
+    Strength: 0.031459786
+  - SampleFrame: 500224
+    Band: 2
+    Strength: 0.009925232
+  - SampleFrame: 505344
+    Band: 1
+    Strength: 0.010703278
+  - SampleFrame: 505856
+    Band: 0
+    Strength: 0.0092015825
+  - SampleFrame: 524288
+    Band: 0
+    Strength: 0.05888181
+  - SampleFrame: 524288
+    Band: 1
+    Strength: 0.012020839
+  - SampleFrame: 524288
+    Band: 2
+    Strength: 0.032561336
+  - SampleFrame: 542720
+    Band: 1
+    Strength: 0.0023040602
+  - SampleFrame: 542720
+    Band: 2
+    Strength: 0.06649027
+  - SampleFrame: 561152
+    Band: 0
+    Strength: 0.11514258
+  - SampleFrame: 561152
+    Band: 1
+    Strength: 0.015829323
+  - SampleFrame: 561152
+    Band: 2
+    Strength: 0.03149643
+  - SampleFrame: 573952
+    Band: 0
+    Strength: 0.049509767
+  - SampleFrame: 573952
+    Band: 1
+    Strength: 0.014109226
+  - SampleFrame: 573952
+    Band: 2
+    Strength: 0.025809497
+  - SampleFrame: 580096
+    Band: 0
+    Strength: 0.02095718
+  - SampleFrame: 599040
+    Band: 0
+    Strength: 0.08069759
+  - SampleFrame: 599040
+    Band: 1
+    Strength: 0.020810673
+  - SampleFrame: 599040
+    Band: 2
+    Strength: 0.105663925
+  - SampleFrame: 617984
+    Band: 2
+    Strength: 0.030558173
+  - SampleFrame: 630272
+    Band: 0
+    Strength: 0.014162203
+  - SampleFrame: 630272
+    Band: 1
+    Strength: 0.02618014
+  - SampleFrame: 630272
+    Band: 2
+    Strength: 0.15468197
+  - SampleFrame: 636416
+    Band: 0
+    Strength: 0.09957893
+  - SampleFrame: 636416
+    Band: 1
+    Strength: 0.009390997
+  - SampleFrame: 654848
+    Band: 2
+    Strength: 0.27041742
+  - SampleFrame: 655360
+    Band: 1
+    Strength: 0.0063402825
+  - SampleFrame: 673280
+    Band: 0
+    Strength: 0.11002073
+  - SampleFrame: 673280
+    Band: 1
+    Strength: 0.01286409
+  - SampleFrame: 673280
+    Band: 2
+    Strength: 0.048165224
+  - SampleFrame: 691712
+    Band: 1
+    Strength: 0.00267719
+  - SampleFrame: 691712
+    Band: 2
+    Strength: 0.034992877
+  - SampleFrame: 697856
+    Band: 2
+    Strength: 0.010451737
+  - SampleFrame: 704512
+    Band: 0
+    Strength: 0.07398325
+  - SampleFrame: 704512
+    Band: 1
+    Strength: 0.01353202
+  - SampleFrame: 704512
+    Band: 2
+    Strength: 0.059125315
+  - SampleFrame: 723456
+    Band: 2
+    Strength: 0.009566026
+  - SampleFrame: 729088
+    Band: 1
+    Strength: 0.012727392
+  - SampleFrame: 729600
+    Band: 0
+    Strength: 0.010762224
+  - SampleFrame: 730624
+    Band: 2
+    Strength: 0.10277079
+  - SampleFrame: 747520
+    Band: 1
+    Strength: 0.012948111
+  - SampleFrame: 747520
+    Band: 2
+    Strength: 0.043643977
+  - SampleFrame: 748032
+    Band: 0
+    Strength: 0.102255635
+  - SampleFrame: 765952
+    Band: 2
+    Strength: 0.061984506
+  - SampleFrame: 766464
+    Band: 1
+    Strength: 0.002470328
+  - SampleFrame: 778752
+    Band: 2
+    Strength: 0.10827118
+  - SampleFrame: 779264
+    Band: 0
+    Strength: 0.01853899
+  - SampleFrame: 779264
+    Band: 1
+    Strength: 0.021600818
+  - SampleFrame: 784896
+    Band: 2
+    Strength: 0.026951497
+  - SampleFrame: 785408
+    Band: 0
+    Strength: 0.106528684
+  - SampleFrame: 785408
+    Band: 1
+    Strength: 0.008124209
+  - SampleFrame: 798208
+    Band: 2
+    Strength: 0.009609622
+  - SampleFrame: 803840
+    Band: 0
+    Strength: 0.010367232
+  - SampleFrame: 803840
+    Band: 1
+    Strength: 0.011146943
+  - SampleFrame: 805376
+    Band: 2
+    Strength: 0.059017
+  - SampleFrame: 821760
+    Band: 2
+    Strength: 0.03821546
+  - SampleFrame: 822272
+    Band: 0
+    Strength: 0.10703809
+  - SampleFrame: 822272
+    Band: 1
+    Strength: 0.014370723
+  - SampleFrame: 840704
+    Band: 1
+    Strength: 0.002642585
+  - SampleFrame: 840704
+    Band: 2
+    Strength: 0.07066198
+  - SampleFrame: 859648
+    Band: 0
+    Strength: 0.13190743
+  - SampleFrame: 859648
+    Band: 1
+    Strength: 0.011315177
+  - SampleFrame: 859648
+    Band: 2
+    Strength: 0.041465774
+  - SampleFrame: 872448
+    Band: 2
+    Strength: 0.00867849
+  - SampleFrame: 878080
+    Band: 0
+    Strength: 0.018304413
+  - SampleFrame: 878080
+    Band: 1
+    Strength: 0.04614891
+  - SampleFrame: 890368
+    Band: 1
+    Strength: 0.0121011315
+  - SampleFrame: 890368
+    Band: 2
+    Strength: 0.02707114
+  - SampleFrame: 890880
+    Band: 0
+    Strength: 0.04964828
+  - SampleFrame: 896512
+    Band: 1
+    Strength: 0.014564341
+  - SampleFrame: 896512
+    Band: 2
+    Strength: 0.045274876
+  - SampleFrame: 897024
+    Band: 0
+    Strength: 0.104724884
+  - SampleFrame: 914944
+    Band: 1
+    Strength: 0.002735598
+  - SampleFrame: 914944
+    Band: 2
+    Strength: 0.05341505
+  - SampleFrame: 927744
+    Band: 1
+    Strength: 0.030499173
+  - SampleFrame: 927744
+    Band: 2
+    Strength: 0.1727525
+  - SampleFrame: 928256
+    Band: 0
+    Strength: 0.0138740605
+  - SampleFrame: 933888
+    Band: 1
+    Strength: 0.01130498
+  - SampleFrame: 933888
+    Band: 2
+    Strength: 0.03433346
+  - SampleFrame: 946688
+    Band: 2
+    Strength: 0.008954759
+  - SampleFrame: 952320
+    Band: 0
+    Strength: 0.0069041867
+  - SampleFrame: 952320
+    Band: 1
+    Strength: 0.014712762
+  - SampleFrame: 970752
+    Band: 1
+    Strength: 0.011826849
+  - SampleFrame: 970752
+    Band: 2
+    Strength: 0.049785815
+  - SampleFrame: 971264
+    Band: 0
+    Strength: 0.12770033
+  - SampleFrame: 989184
+    Band: 1
+    Strength: 0.002984507
+  - SampleFrame: 989184
+    Band: 2
+    Strength: 0.07269257
+  - SampleFrame: 1001984
+    Band: 2
+    Strength: 0.0682738
+  - SampleFrame: 1002496
+    Band: 0
+    Strength: 0.11250348
+  - SampleFrame: 1002496
+    Band: 1
+    Strength: 0.019183801
+  - SampleFrame: 1021440
+    Band: 2
+    Strength: 0.011759103
+  - SampleFrame: 1027072
+    Band: 0
+    Strength: 0.012857426
+  - SampleFrame: 1027072
+    Band: 1
+    Strength: 0.016007975
+  - SampleFrame: 1028096
+    Band: 2
+    Strength: 0.110797934
+  - SampleFrame: 1040384
+    Band: 0
+    Strength: 0.02313331
+  - SampleFrame: 1045504
+    Band: 1
+    Strength: 0.017428773
+  - SampleFrame: 1045504
+    Band: 2
+    Strength: 0.04449564
+  - SampleFrame: 1063936
+    Band: 1
+    Strength: 0.0031884217
+  - SampleFrame: 1063936
+    Band: 2
+    Strength: 0.076492034
+  - SampleFrame: 1076224
+    Band: 1
+    Strength: 0.019362582
+  - SampleFrame: 1076224
+    Band: 2
+    Strength: 0.13324542
+  - SampleFrame: 1076736
+    Band: 0
+    Strength: 0.013524281
+  - SampleFrame: 1082368
+    Band: 1
+    Strength: 0.013335286
+  - SampleFrame: 1082368
+    Band: 2
+    Strength: 0.03305291
+  - SampleFrame: 1095680
+    Band: 2
+    Strength: 0.010609426
+  - SampleFrame: 1101312
+    Band: 0
+    Strength: 0.008649854
+  - SampleFrame: 1101312
+    Band: 1
+    Strength: 0.0118536735
+  - SampleFrame: 1103872
+    Band: 2
+    Strength: 0.048174303
+  - SampleFrame: 1119744
+    Band: 0
+    Strength: 0.05625972
+  - SampleFrame: 1119744
+    Band: 1
+    Strength: 0.013338051
+  - SampleFrame: 1119744
+    Band: 2
+    Strength: 0.03440279
+  - SampleFrame: 1138176
+    Band: 1
+    Strength: 0.0026541112
+  - SampleFrame: 1138176
+    Band: 2
+    Strength: 0.077591985
+  - SampleFrame: 1156608
+    Band: 0
+    Strength: 0.09780919
+  - SampleFrame: 1156608
+    Band: 1
+    Strength: 0.0150575135
+  - SampleFrame: 1156608
+    Band: 2
+    Strength: 0.03142853
+  - SampleFrame: 1169408
+    Band: 0
+    Strength: 0.043176755
+  - SampleFrame: 1169408
+    Band: 1
+    Strength: 0.013513491
+  - SampleFrame: 1169408
+    Band: 2
+    Strength: 0.027117928
+  - SampleFrame: 1175552
+    Band: 0
+    Strength: 0.02375184
+  - SampleFrame: 1175552
+    Band: 1
+    Strength: 0.025850084
+  - SampleFrame: 1194496
+    Band: 0
+    Strength: 0.07108014
+  - SampleFrame: 1194496
+    Band: 1
+    Strength: 0.021120647
+  - SampleFrame: 1194496
+    Band: 2
+    Strength: 0.113780804
+  - SampleFrame: 1213440
+    Band: 1
+    Strength: 0.0017224236
+  - SampleFrame: 1213440
+    Band: 2
+    Strength: 0.035698213
+  - SampleFrame: 1225728
+    Band: 0
+    Strength: 0.011799307
+  - SampleFrame: 1225728
+    Band: 1
+    Strength: 0.026728729
+  - SampleFrame: 1225728
+    Band: 2
+    Strength: 0.1726024
+  - SampleFrame: 1231872
+    Band: 0
+    Strength: 0.10325242
+  - SampleFrame: 1231872
+    Band: 1
+    Strength: 0.010470046
+  - SampleFrame: 1231872
+    Band: 2
+    Strength: 0.029731574
+  - SampleFrame: 1250304
+    Band: 2
+    Strength: 0.23570198
+  - SampleFrame: 1250816
+    Band: 1
+    Strength: 0.0066794334
+  - SampleFrame: 1268736
+    Band: 2
+    Strength: 0.044495534
+  - SampleFrame: 1269248
+    Band: 0
+    Strength: 0.11205035
+  - SampleFrame: 1269248
+    Band: 1
+    Strength: 0.011963106
+  - SampleFrame: 1287168
+    Band: 1
+    Strength: 0.0020322916
+  - SampleFrame: 1287680
+    Band: 2
+    Strength: 0.029866617
+  - SampleFrame: 1293824
+    Band: 2
+    Strength: 0.012447662
+  - SampleFrame: 1299968
+    Band: 2
+    Strength: 0.055594634
+  - SampleFrame: 1300480
+    Band: 0
+    Strength: 0.07951275
+  - SampleFrame: 1300480
+    Band: 1
+    Strength: 0.012351616
+  - SampleFrame: 1319424
+    Band: 2
+    Strength: 0.009316965
+  - SampleFrame: 1325056
+    Band: 0
+    Strength: 0.010809066
+  - SampleFrame: 1325056
+    Band: 1
+    Strength: 0.013341456
+  - SampleFrame: 1326080
+    Band: 2
+    Strength: 0.0911264
+  - SampleFrame: 1342976
+    Band: 1
+    Strength: 0.010898116
+  - SampleFrame: 1342976
+    Band: 2
+    Strength: 0.03640565
+  - SampleFrame: 1343488
+    Band: 0
+    Strength: 0.11931811
+  - SampleFrame: 1361920
+    Band: 1
+    Strength: 0.002981098
+  - SampleFrame: 1361920
+    Band: 2
+    Strength: 0.07097432
+  - SampleFrame: 1374720
+    Band: 0
+    Strength: 0.017462684
+  - SampleFrame: 1374720
+    Band: 1
+    Strength: 0.025411155
+  - SampleFrame: 1374720
+    Band: 2
+    Strength: 0.1345164
+  - SampleFrame: 1380864
+    Band: 0
+    Strength: 0.109765835
+  - SampleFrame: 1380864
+    Band: 1
+    Strength: 0.009403386
+  - SampleFrame: 1380864
+    Band: 2
+    Strength: 0.027191801
+  - SampleFrame: 1393664
+    Band: 2
+    Strength: 0.010293986
+  - SampleFrame: 1399296
+    Band: 0
+    Strength: 0.008862345
+  - SampleFrame: 1399296
+    Band: 1
+    Strength: 0.012419604
+  - SampleFrame: 1400832
+    Band: 2
+    Strength: 0.061863016
+  - SampleFrame: 1417728
+    Band: 0
+    Strength: 0.11616794
+  - SampleFrame: 1417728
+    Band: 1
+    Strength: 0.014793883
+  - SampleFrame: 1417728
+    Band: 2
+    Strength: 0.043178838
+  - SampleFrame: 1436160
+    Band: 1
+    Strength: 0.0026187564
+  - SampleFrame: 1436160
+    Band: 2
+    Strength: 0.07195902
+  - SampleFrame: 1455104
+    Band: 0
+    Strength: 0.13011707
+  - SampleFrame: 1455104
+    Band: 1
+    Strength: 0.012607754
+  - SampleFrame: 1455104
+    Band: 2
+    Strength: 0.050790455
+  - SampleFrame: 1468416
+    Band: 2
+    Strength: 0.009030085
+  - SampleFrame: 1473536
+    Band: 0
+    Strength: 0.01573951
+  - SampleFrame: 1473536
+    Band: 1
+    Strength: 0.04614541
+  - SampleFrame: 1486336
+    Band: 0
+    Strength: 0.058053724
+  - SampleFrame: 1486336
+    Band: 1
+    Strength: 0.010989376
+  - SampleFrame: 1486336
+    Band: 2
+    Strength: 0.033549488
+  - SampleFrame: 1492480
+    Band: 0
+    Strength: 0.12777612
+  - SampleFrame: 1492480
+    Band: 1
+    Strength: 0.012863991
+  - SampleFrame: 1510912
+    Band: 1
+    Strength: 0.0030453708
+  - SampleFrame: 1510912
+    Band: 2
+    Strength: 0.06099268
+  - SampleFrame: 1523200
+    Band: 2
+    Strength: 0.14502814
+  - SampleFrame: 1523712
+    Band: 0
+    Strength: 0.0165051
+  - SampleFrame: 1523712
+    Band: 1
+    Strength: 0.026279107
+  - SampleFrame: 1529344
+    Band: 2
+    Strength: 0.03380586
+  - SampleFrame: 1542144
+    Band: 2
+    Strength: 0.008098738
+  - SampleFrame: 1547776
+    Band: 1
+    Strength: 0.012831669
+  - SampleFrame: 1548288
+    Band: 0
+    Strength: 0.0073307017
+  - SampleFrame: 1566720
+    Band: 0
+    Strength: 0.14188035
+  - SampleFrame: 1566720
+    Band: 1
+    Strength: 0.013766238
+  - SampleFrame: 1566720
+    Band: 2
+    Strength: 0.044334605
+  - SampleFrame: 1585152
+    Band: 1
+    Strength: 0.0032151265
+  - SampleFrame: 1585152
+    Band: 2
+    Strength: 0.06305709
+  - SampleFrame: 1597952
+    Band: 0
+    Strength: 0.118039735
+  - SampleFrame: 1597952
+    Band: 1
+    Strength: 0.02094752
+  - SampleFrame: 1597952
+    Band: 2
+    Strength: 0.062314443
+  - SampleFrame: 1616896
+    Band: 2
+    Strength: 0.012874376
+  - SampleFrame: 1622528
+    Band: 0
+    Strength: 0.011812353
+  - SampleFrame: 1622528
+    Band: 1
+    Strength: 0.018525073
+  - SampleFrame: 1623552
+    Band: 2
+    Strength: 0.102627404
+  - SampleFrame: 1635840
+    Band: 0
+    Strength: 0.02426993
+  - SampleFrame: 1640960
+    Band: 1
+    Strength: 0.019208465
+  - SampleFrame: 1640960
+    Band: 2
+    Strength: 0.04704759
+  - SampleFrame: 1659392
+    Band: 1
+    Strength: 0.0031276718
+  - SampleFrame: 1659392
+    Band: 2
+    Strength: 0.077131666
+  - SampleFrame: 1672192
+    Band: 0
+    Strength: 0.014145035
+  - SampleFrame: 1672192
+    Band: 1
+    Strength: 0.024421012
+  - SampleFrame: 1672192
+    Band: 2
+    Strength: 0.13391526
+  - SampleFrame: 1678336
+    Band: 0
+    Strength: 0.10549571
+  - SampleFrame: 1691136
+    Band: 2
+    Strength: 0.010588446
+  - SampleFrame: 1696768
+    Band: 0
+    Strength: 0.0072525563
+  - SampleFrame: 1696768
+    Band: 1
+    Strength: 0.012750479
+  - SampleFrame: 1715200
+    Band: 1
+    Strength: 0.013242285
+  - SampleFrame: 1715200
+    Band: 2
+    Strength: 0.034335908
+  - SampleFrame: 1715712
+    Band: 0
+    Strength: 0.057890568
+  - SampleFrame: 1733632
+    Band: 1
+    Strength: 0.002637152
+  - SampleFrame: 1733632
+    Band: 2
+    Strength: 0.07993379
+  - SampleFrame: 1752064
+    Band: 1
+    Strength: 0.012653776
+  - SampleFrame: 1752064
+    Band: 2
+    Strength: 0.027559238
+  - SampleFrame: 1752576
+    Band: 0
+    Strength: 0.11426606
+  - SampleFrame: 1764864
+    Band: 1
+    Strength: 0.011424717
+  - SampleFrame: 1764864
+    Band: 2
+    Strength: 0.025008889
+  - SampleFrame: 1765376
+    Band: 0
+    Strength: 0.04287787
+  - SampleFrame: 1771008
+    Band: 1
+    Strength: 0.030175505
+  - SampleFrame: 1771008
+    Band: 2
+    Strength: 0.2669731
+  - SampleFrame: 1789952
+    Band: 1
+    Strength: 0.019126533
+  - SampleFrame: 1789952
+    Band: 2
+    Strength: 0.107785106
+  - SampleFrame: 1790464
+    Band: 0
+    Strength: 0.076772206
+  - SampleFrame: 1808896
+    Band: 1
+    Strength: 0.0016400232
+  - SampleFrame: 1808896
+    Band: 2
+    Strength: 0.038333036
+  - SampleFrame: 1821184
+    Band: 1
+    Strength: 0.023409966
+  - SampleFrame: 1821184
+    Band: 2
+    Strength: 0.16088922
+  - SampleFrame: 1821696
+    Band: 0
+    Strength: 0.013440965
+  - SampleFrame: 1827328
+    Band: 1
+    Strength: 0.0104295015
+  - SampleFrame: 1827328
+    Band: 2
+    Strength: 0.03411718
+  - SampleFrame: 1846272
+    Band: 1
+    Strength: 0.0068410323
+  - SampleFrame: 1846272
+    Band: 2
+    Strength: 0.25254202
+  - SampleFrame: 1864704
+    Band: 0
+    Strength: 0.12497305
+  - SampleFrame: 1864704
+    Band: 1
+    Strength: 0.013226339
+  - SampleFrame: 1864704
+    Band: 2
+    Strength: 0.035223175
+  - SampleFrame: 1883136
+    Band: 1
+    Strength: 0.002580667
+  - SampleFrame: 1883136
+    Band: 2
+    Strength: 0.035345398
+  - SampleFrame: 1889280
+    Band: 2
+    Strength: 0.013647317
+  - SampleFrame: 1895424
+    Band: 2
+    Strength: 0.044355527
+  - SampleFrame: 1895936
+    Band: 0
+    Strength: 0.08839518
+  - SampleFrame: 1895936
+    Band: 1
+    Strength: 0.013711156
+  - SampleFrame: 1914880
+    Band: 2
+    Strength: 0.01036232
+  - SampleFrame: 1920512
+    Band: 0
+    Strength: 0.009264135
+  - SampleFrame: 1920512
+    Band: 1
+    Strength: 0.014878701
+  - SampleFrame: 1922048
+    Band: 2
+    Strength: 0.09409784
+  - SampleFrame: 1938944
+    Band: 0
+    Strength: 0.123749375
+  - SampleFrame: 1938944
+    Band: 1
+    Strength: 0.011888683
+  - SampleFrame: 1938944
+    Band: 2
+    Strength: 0.042326156
+  - SampleFrame: 1957376
+    Band: 1
+    Strength: 0.003132021
+  - SampleFrame: 1957376
+    Band: 2
+    Strength: 0.07560553
+  - SampleFrame: 1970176
+    Band: 0
+    Strength: 0.0147172995
+  - SampleFrame: 1970176
+    Band: 1
+    Strength: 0.026197476
+  - SampleFrame: 1970176
+    Band: 2
+    Strength: 0.14488545
+  - SampleFrame: 1976320
+    Band: 0
+    Strength: 0.10114247
+  - SampleFrame: 1976320
+    Band: 1
+    Strength: 0.009722906
+  - SampleFrame: 1976320
+    Band: 2
+    Strength: 0.031340797
+  - SampleFrame: 1989120
+    Band: 2
+    Strength: 0.010142763
+  - SampleFrame: 1994752
+    Band: 1
+    Strength: 0.0123682
+  - SampleFrame: 1995264
+    Band: 0
+    Strength: 0.009430288
+  - SampleFrame: 1996288
+    Band: 2
+    Strength: 0.06591174
+  - SampleFrame: 2013184
+    Band: 0
+    Strength: 0.11198886
+  - SampleFrame: 2013184
+    Band: 1
+    Strength: 0.014206336
+  - SampleFrame: 2013184
+    Band: 2
+    Strength: 0.047090486
+  - SampleFrame: 2031616
+    Band: 1
+    Strength: 0.0023298578
+  - SampleFrame: 2031616
+    Band: 2
+    Strength: 0.06580485
+  - SampleFrame: 2050560
+    Band: 0
+    Strength: 0.11453886
+  - SampleFrame: 2050560
+    Band: 1
+    Strength: 0.012790474
+  - SampleFrame: 2050560
+    Band: 2
+    Strength: 0.053501207
+  - SampleFrame: 2063872
+    Band: 2
+    Strength: 0.009318486
+  - SampleFrame: 2068992
+    Band: 1
+    Strength: 0.039556257
+  - SampleFrame: 2069504
+    Band: 0
+    Strength: 0.016862884
+  - SampleFrame: 2081792
+    Band: 0
+    Strength: 0.059116006
+  - SampleFrame: 2081792
+    Band: 1
+    Strength: 0.013102066
+  - SampleFrame: 2081792
+    Band: 2
+    Strength: 0.03624429
+  - SampleFrame: 2087936
+    Band: 0
+    Strength: 0.13687606
+  - SampleFrame: 2087936
+    Band: 1
+    Strength: 0.014728582
+  - SampleFrame: 2087936
+    Band: 2
+    Strength: 0.041714005
+  - SampleFrame: 2106368
+    Band: 1
+    Strength: 0.003378909
+  - SampleFrame: 2106368
+    Band: 2
+    Strength: 0.06547565
+  - SampleFrame: 2119168
+    Band: 0
+    Strength: 0.016894192
+  - SampleFrame: 2119168
+    Band: 1
+    Strength: 0.03233826
+  - SampleFrame: 2119168
+    Band: 2
+    Strength: 0.15599026
+  - SampleFrame: 2125312
+    Band: 0
+    Strength: 0.10796124
+  - SampleFrame: 2138112
+    Band: 2
+    Strength: 0.008203784
+  - SampleFrame: 2143744
+    Band: 0
+    Strength: 0.0078722155
+  - SampleFrame: 2143744
+    Band: 1
+    Strength: 0.013534155
+  - SampleFrame: 2162176
+    Band: 0
+    Strength: 0.15081416
+  - SampleFrame: 2162176
+    Band: 1
+    Strength: 0.017392807
+  - SampleFrame: 2162176
+    Band: 2
+    Strength: 0.054618146
+  - SampleFrame: 2180608
+    Band: 1
+    Strength: 0.0035199884
+  - SampleFrame: 2180608
+    Band: 2
+    Strength: 0.07369467
+  - SampleFrame: 2193408
+    Band: 0
+    Strength: 0.10893899
+  - SampleFrame: 2193408
+    Band: 1
+    Strength: 0.021133525
+  - SampleFrame: 2193408
+    Band: 2
+    Strength: 0.07490128
+  - SampleFrame: 2212352
+    Band: 2
+    Strength: 0.012712932
+  - SampleFrame: 2217984
+    Band: 1
+    Strength: 0.018497817
+  - SampleFrame: 2218496
+    Band: 0
+    Strength: 0.010371048
+  - SampleFrame: 2219520
+    Band: 2
+    Strength: 0.10813332
+  - SampleFrame: 2231296
+    Band: 0
+    Strength: 0.028083125
+  - SampleFrame: 2236416
+    Band: 1
+    Strength: 0.020737661
+  - SampleFrame: 2236416
+    Band: 2
+    Strength: 0.050347086
+  - SampleFrame: 2254848
+    Band: 1
+    Strength: 0.0027212212
+  - SampleFrame: 2254848
+    Band: 2
+    Strength: 0.07022309
+  - SampleFrame: 2267648
+    Band: 0
+    Strength: 0.012989953
+  - SampleFrame: 2267648
+    Band: 1
+    Strength: 0.026229853
+  - SampleFrame: 2267648
+    Band: 2
+    Strength: 0.15537983
+  - SampleFrame: 2273792
+    Band: 0
+    Strength: 0.11797388
+  - SampleFrame: 2273792
+    Band: 1
+    Strength: 0.013000329
+  - SampleFrame: 2273792
+    Band: 2
+    Strength: 0.026771957
+  - SampleFrame: 2286592
+    Band: 2
+    Strength: 0.009867425
+  - SampleFrame: 2292224
+    Band: 1
+    Strength: 0.0123866135
+  - SampleFrame: 2292736
+    Band: 0
+    Strength: 0.008701854
+  - SampleFrame: 2310656
+    Band: 1
+    Strength: 0.013569637
+  - SampleFrame: 2310656
+    Band: 2
+    Strength: 0.03596613
+  - SampleFrame: 2311168
+    Band: 0
+    Strength: 0.064863615
+  - SampleFrame: 2329088
+    Band: 1
+    Strength: 0.002182183
+  - SampleFrame: 2329088
+    Band: 2
+    Strength: 0.07188087
+  - SampleFrame: 2348032
+    Band: 0
+    Strength: 0.12125669
+  - SampleFrame: 2348032
+    Band: 1
+    Strength: 0.014910525
+  - SampleFrame: 2348032
+    Band: 2
+    Strength: 0.028035726
+  - SampleFrame: 2360832
+    Band: 0
+    Strength: 0.04955864
+  - SampleFrame: 2360832
+    Band: 1
+    Strength: 0.012738474
+  - SampleFrame: 2360832
+    Band: 2
+    Strength: 0.021410061
+  - SampleFrame: 2385408
+    Band: 2
+    Strength: 0.09754249
+  - SampleFrame: 2385920
+    Band: 0
+    Strength: 0.08666838
+  - SampleFrame: 2385920
+    Band: 1
+    Strength: 0.019619044
+  - SampleFrame: 2404352
+    Band: 2
+    Strength: 0.036378965
+  - SampleFrame: 2416640
+    Band: 2
+    Strength: 0.121216096
+  - SampleFrame: 2417152
+    Band: 0
+    Strength: 0.01481142
+  - SampleFrame: 2417152
+    Band: 1
+    Strength: 0.021874424
+  - SampleFrame: 2422784
+    Band: 2
+    Strength: 0.033810653
+  - SampleFrame: 2423296
+    Band: 0
+    Strength: 0.085532136
+  - SampleFrame: 2441728
+    Band: 1
+    Strength: 0.0067405114
+  - SampleFrame: 2441728
+    Band: 2
+    Strength: 0.27628592
+  - SampleFrame: 2460160
+    Band: 0
+    Strength: 0.13359049
+  - SampleFrame: 2460160
+    Band: 1
+    Strength: 0.014383366
+  - SampleFrame: 2460160
+    Band: 2
+    Strength: 0.048114903
+  - SampleFrame: 2478592
+    Band: 1
+    Strength: 0.0028541675
+  - SampleFrame: 2478592
+    Band: 2
+    Strength: 0.0372429
+  - SampleFrame: 2484736
+    Band: 2
+    Strength: 0.012815617
+  - SampleFrame: 2491392
+    Band: 0
+    Strength: 0.08609065
+  - SampleFrame: 2491392
+    Band: 1
+    Strength: 0.014236049
+  - SampleFrame: 2491392
+    Band: 2
+    Strength: 0.05450387
+  - SampleFrame: 2510336
+    Band: 2
+    Strength: 0.010521866
+  - SampleFrame: 2515968
+    Band: 1
+    Strength: 0.014618411
+  - SampleFrame: 2516480
+    Band: 0
+    Strength: 0.00901421
+  - SampleFrame: 2517504
+    Band: 2
+    Strength: 0.10029551
+  - SampleFrame: 2534400
+    Band: 0
+    Strength: 0.12090146
+  - SampleFrame: 2534400
+    Band: 1
+    Strength: 0.0140922945
+  - SampleFrame: 2534400
+    Band: 2
+    Strength: 0.04751684
+  - SampleFrame: 2552832
+    Band: 1
+    Strength: 0.0028534029
+  - SampleFrame: 2552832
+    Band: 2
+    Strength: 0.069424845
+  - SampleFrame: 2565632
+    Band: 1
+    Strength: 0.024002869
+  - SampleFrame: 2565632
+    Band: 2
+    Strength: 0.13541442
+  - SampleFrame: 2566144
+    Band: 0
+    Strength: 0.017427731
+  - SampleFrame: 2571776
+    Band: 1
+    Strength: 0.009050301
+  - SampleFrame: 2571776
+    Band: 2
+    Strength: 0.031514864
+  - SampleFrame: 2572288
+    Band: 0
+    Strength: 0.09114989
+  - SampleFrame: 2584576
+    Band: 2
+    Strength: 0.009049383
+  - SampleFrame: 2590208
+    Band: 1
+    Strength: 0.01091262
+  - SampleFrame: 2590720
+    Band: 0
+    Strength: 0.010687169
+  - SampleFrame: 2591744
+    Band: 2
+    Strength: 0.06397165
+  - SampleFrame: 2608640
+    Band: 0
+    Strength: 0.103458904
+  - SampleFrame: 2608640
+    Band: 1
+    Strength: 0.013417618
+  - SampleFrame: 2608640
+    Band: 2
+    Strength: 0.049257558
+  - SampleFrame: 2627584
+    Band: 1
+    Strength: 0.0023915672
+  - SampleFrame: 2627584
+    Band: 2
+    Strength: 0.061081443
+  - SampleFrame: 2646016
+    Band: 1
+    Strength: 0.01182109
+  - SampleFrame: 2646016
+    Band: 2
+    Strength: 0.049027603
+  - SampleFrame: 2646528
+    Band: 0
+    Strength: 0.11912096
+  - SampleFrame: 2659328
+    Band: 2
+    Strength: 0.009215929
+  - SampleFrame: 2664960
+    Band: 0
+    Strength: 0.018820716
+  - SampleFrame: 2664960
+    Band: 1
+    Strength: 0.040566407
+  - SampleFrame: 2677248
+    Band: 0
+    Strength: 0.064234
+  - SampleFrame: 2677248
+    Band: 1
+    Strength: 0.016303608
+  - SampleFrame: 2677248
+    Band: 2
+    Strength: 0.04146735
+  - SampleFrame: 2683392
+    Band: 0
+    Strength: 0.13392904
+  - SampleFrame: 2683392
+    Band: 1
+    Strength: 0.016059354
+  - SampleFrame: 2683392
+    Band: 2
+    Strength: 0.04754237
+  - SampleFrame: 2701824
+    Band: 1
+    Strength: 0.0032976042
+  - SampleFrame: 2701824
+    Band: 2
+    Strength: 0.05938802
+  - SampleFrame: 2714624
+    Band: 0
+    Strength: 0.015159876
+  - SampleFrame: 2714624
+    Band: 1
+    Strength: 0.03391669
+  - SampleFrame: 2714624
+    Band: 2
+    Strength: 0.17716444
+  - SampleFrame: 2720768
+    Band: 0
+    Strength: 0.11717896
+  - SampleFrame: 2720768
+    Band: 1
+    Strength: 0.010480894
+  - SampleFrame: 2720768
+    Band: 2
+    Strength: 0.031915907
+  - SampleFrame: 2733568
+    Band: 2
+    Strength: 0.008943265
+  - SampleFrame: 2739200
+    Band: 0
+    Strength: 0.007791828
+  - SampleFrame: 2739200
+    Band: 1
+    Strength: 0.01494005
+  - SampleFrame: 2757632
+    Band: 0
+    Strength: 0.12909785
+  - SampleFrame: 2757632
+    Band: 1
+    Strength: 0.01403899
+  - SampleFrame: 2757632
+    Band: 2
+    Strength: 0.058213703
+  - SampleFrame: 2776064
+    Band: 1
+    Strength: 0.0034144127
+  - SampleFrame: 2776064
+    Band: 2
+    Strength: 0.07737804
+  - SampleFrame: 2788864
+    Band: 1
+    Strength: 0.019591337
+  - SampleFrame: 2788864
+    Band: 2
+    Strength: 0.077110715
+  - SampleFrame: 2789376
+    Band: 0
+    Strength: 0.092545986
+  - SampleFrame: 2807808
+    Band: 2
+    Strength: 0.011340693
+  - SampleFrame: 2813440
+    Band: 1
+    Strength: 0.016132899
+  - SampleFrame: 2813952
+    Band: 0
+    Strength: 0.012393184
+  - SampleFrame: 2814976
+    Band: 2
+    Strength: 0.11506338
+  - SampleFrame: 2827264
+    Band: 0
+    Strength: 0.024851317
+  - SampleFrame: 2831872
+    Band: 1
+    Strength: 0.017098349
+  - SampleFrame: 2832384
+    Band: 2
+    Strength: 0.04204841
+  - SampleFrame: 2850816
+    Band: 1
+    Strength: 0.0029032216
+  - SampleFrame: 2850816
+    Band: 2
+    Strength: 0.066925965
+  - SampleFrame: 2863104
+    Band: 1
+    Strength: 0.024413493
+  - SampleFrame: 2863104
+    Band: 2
+    Strength: 0.15486099
+  - SampleFrame: 2863616
+    Band: 0
+    Strength: 0.011112405
+  - SampleFrame: 2869248
+    Band: 1
+    Strength: 0.013876278
+  - SampleFrame: 2869248
+    Band: 2
+    Strength: 0.031459786
+  - SampleFrame: 2882560
+    Band: 2
+    Strength: 0.009925232
+  - SampleFrame: 2887680
+    Band: 1
+    Strength: 0.010703278
+  - SampleFrame: 2888192
+    Band: 0
+    Strength: 0.0092015825
+  - SampleFrame: 2906624
+    Band: 0
+    Strength: 0.05919942
+  - SampleFrame: 2906624
+    Band: 1
+    Strength: 0.0120990025
+  - SampleFrame: 2906624
+    Band: 2
+    Strength: 0.032827195
+  - SampleFrame: 2925056
+    Band: 1
+    Strength: 0.002278231
+  - SampleFrame: 2925056
+    Band: 2
+    Strength: 0.0665911
+  - SampleFrame: 2938368
+    Band: 2
+    Strength: 0.007148473
+  - SampleFrame: 2943488
+    Band: 0
+    Strength: 0.116559766
+  - SampleFrame: 2943488
+    Band: 1
+    Strength: 0.016063482
+  - SampleFrame: 2956288
+    Band: 0
+    Strength: 0.049509645
+  - SampleFrame: 2956288
+    Band: 1
+    Strength: 0.014109623
+  - SampleFrame: 2956288
+    Band: 2
+    Strength: 0.025809066
+  - SampleFrame: 2962432
+    Band: 0
+    Strength: 0.02095718
+  - SampleFrame: 2981376
+    Band: 0
+    Strength: 0.08062784
+  - SampleFrame: 2981376
+    Band: 1
+    Strength: 0.021089101
+  - SampleFrame: 2981376
+    Band: 2
+    Strength: 0.106397815
+  - SampleFrame: 3000320
+    Band: 2
+    Strength: 0.030558173
+  - SampleFrame: 3012608
+    Band: 0
+    Strength: 0.018344073
+  - SampleFrame: 3012608
+    Band: 1
+    Strength: 0.033686224
+  - SampleFrame: 3012608
+    Band: 2
+    Strength: 0.1976846
+  - SampleFrame: 3018752
+    Band: 0
+    Strength: 0.1000638
+  - SampleFrame: 3018752
+    Band: 1
+    Strength: 0.009503783
+  - SampleFrame: 3037184
+    Band: 2
+    Strength: 0.27041742
+  - SampleFrame: 3037696
+    Band: 1
+    Strength: 0.0063402825
+  - SampleFrame: 3055616
+    Band: 0
+    Strength: 0.110857256
+  - SampleFrame: 3055616
+    Band: 1
+    Strength: 0.012955893
+  - SampleFrame: 3055616
+    Band: 2
+    Strength: 0.048485816
+  - SampleFrame: 3074048
+    Band: 1
+    Strength: 0.002688081
+  - SampleFrame: 3074048
+    Band: 2
+    Strength: 0.03510193
+  - SampleFrame: 3080192
+    Band: 2
+    Strength: 0.010451737
+  - SampleFrame: 3086848
+    Band: 0
+    Strength: 0.092403464
+  - SampleFrame: 3086848
+    Band: 1
+    Strength: 0.016338091
+  - SampleFrame: 3086848
+    Band: 2
+    Strength: 0.07228964
+  - SampleFrame: 3105792
+    Band: 2
+    Strength: 0.009575888
+  - SampleFrame: 3111424
+    Band: 1
+    Strength: 0.012727544
+  - SampleFrame: 3111936
+    Band: 0
+    Strength: 0.010762158
+  - SampleFrame: 3112960
+    Band: 2
+    Strength: 0.10277079
+  - SampleFrame: 3129856
+    Band: 1
+    Strength: 0.013047904
+  - SampleFrame: 3129856
+    Band: 2
+    Strength: 0.04355303
+  - SampleFrame: 3130368
+    Band: 0
+    Strength: 0.10278659
+  - SampleFrame: 3148288
+    Band: 2
+    Strength: 0.06191363
+  - SampleFrame: 3148800
+    Band: 1
+    Strength: 0.0024703837
+  - SampleFrame: 3161088
+    Band: 2
+    Strength: 0.13956589
+  - SampleFrame: 3161600
+    Band: 0
+    Strength: 0.023808913
+  - SampleFrame: 3161600
+    Band: 1
+    Strength: 0.028161129
+  - SampleFrame: 3167232
+    Band: 2
+    Strength: 0.02699893
+  - SampleFrame: 3167744
+    Band: 0
+    Strength: 0.106903784
+  - SampleFrame: 3167744
+    Band: 1
+    Strength: 0.008084455
+  - SampleFrame: 3180544
+    Band: 2
+    Strength: 0.0095695015
+  - SampleFrame: 3186176
+    Band: 0
+    Strength: 0.010367144
+  - SampleFrame: 3186176
+    Band: 1
+    Strength: 0.011109605
+  - SampleFrame: 3187712
+    Band: 2
+    Strength: 0.05901687
+  - SampleFrame: 3204096
+    Band: 2
+    Strength: 0.038648333
+  - SampleFrame: 3204608
+    Band: 0
+    Strength: 0.10781233
+  - SampleFrame: 3204608
+    Band: 1
+    Strength: 0.014357985
+  - SampleFrame: 3223040
+    Band: 1
+    Strength: 0.002658455
+  - SampleFrame: 3223040
+    Band: 2
+    Strength: 0.06925973
+  - SampleFrame: 3236352
+    Band: 2
+    Strength: 0.007892721
+  - SampleFrame: 3241984
+    Band: 0
+    Strength: 0.1322586
+  - SampleFrame: 3241984
+    Band: 1
+    Strength: 0.011359654
+  - SampleFrame: 3254784
+    Band: 2
+    Strength: 0.00867849
+  - SampleFrame: 3260416
+    Band: 0
+    Strength: 0.018304413
+  - SampleFrame: 3260416
+    Band: 1
+    Strength: 0.04614891
+  - SampleFrame: 3272704
+    Band: 1
+    Strength: 0.015862962
+  - SampleFrame: 3272704
+    Band: 2
+    Strength: 0.035702057
+  - SampleFrame: 3273216
+    Band: 0
+    Strength: 0.06467201
+  - SampleFrame: 3278848
+    Band: 1
+    Strength: 0.014701862
+  - SampleFrame: 3278848
+    Band: 2
+    Strength: 0.045728583
+  - SampleFrame: 3279360
+    Band: 0
+    Strength: 0.10507216
+  - SampleFrame: 3297280
+    Band: 1
+    Strength: 0.0027361293
+  - SampleFrame: 3297280
+    Band: 2
+    Strength: 0.05326486
+  - SampleFrame: 3310080
+    Band: 1
+    Strength: 0.03888094
+  - SampleFrame: 3310080
+    Band: 2
+    Strength: 0.22008154
+  - SampleFrame: 3310592
+    Band: 0
+    Strength: 0.017761918
+  - SampleFrame: 3316224
+    Band: 1
+    Strength: 0.011291553
+  - SampleFrame: 3316224
+    Band: 2
+    Strength: 0.03443261
+  - SampleFrame: 3329024
+    Band: 2
+    Strength: 0.008954759
+  - SampleFrame: 3334656
+    Band: 0
+    Strength: 0.0069041834
+  - SampleFrame: 3334656
+    Band: 1
+    Strength: 0.014712639
+  - SampleFrame: 3353088
+    Band: 1
+    Strength: 0.011752845
+  - SampleFrame: 3353088
+    Band: 2
+    Strength: 0.050027844
+  - SampleFrame: 3353600
+    Band: 0
+    Strength: 0.12774745
+  - SampleFrame: 3371520
+    Band: 1
+    Strength: 0.0029622596
+  - SampleFrame: 3371520
+    Band: 2
+    Strength: 0.072734125
+  - SampleFrame: 3384320
+    Band: 2
+    Strength: 0.0897643
+  - SampleFrame: 3384832
+    Band: 0
+    Strength: 0.14787354
+  - SampleFrame: 3384832
+    Band: 1
+    Strength: 0.025088338
+  - SampleFrame: 3403776
+    Band: 2
+    Strength: 0.011380046
+  - SampleFrame: 3409408
+    Band: 0
+    Strength: 0.012861601
+  - SampleFrame: 3409408
+    Band: 1
+    Strength: 0.016003126
+  - SampleFrame: 3410432
+    Band: 2
+    Strength: 0.11078903
+  - SampleFrame: 3422720
+    Band: 0
+    Strength: 0.030418115
+  - SampleFrame: 3427840
+    Band: 1
+    Strength: 0.01750732
+  - SampleFrame: 3427840
+    Band: 2
+    Strength: 0.045290597
+  - SampleFrame: 3446272
+    Band: 1
+    Strength: 0.0031884217
+  - SampleFrame: 3446272
+    Band: 2
+    Strength: 0.076492034
+  - SampleFrame: 3458560
+    Band: 1
+    Strength: 0.024669522
+  - SampleFrame: 3458560
+    Band: 2
+    Strength: 0.1703541
+  - SampleFrame: 3459072
+    Band: 0
+    Strength: 0.017416948
+  - SampleFrame: 3464704
+    Band: 1
+    Strength: 0.013349349
+  - SampleFrame: 3464704
+    Band: 2
+    Strength: 0.033082373
+  - SampleFrame: 3478016
+    Band: 2
+    Strength: 0.010609426
+  - SampleFrame: 3483648
+    Band: 0
+    Strength: 0.008649854
+  - SampleFrame: 3483648
+    Band: 1
+    Strength: 0.0118536735
+  - SampleFrame: 3486208
+    Band: 2
+    Strength: 0.048174303
+  - SampleFrame: 3502080
+    Band: 0
+    Strength: 0.05636687
+  - SampleFrame: 3502080
+    Band: 1
+    Strength: 0.013271822
+  - SampleFrame: 3502080
+    Band: 2
+    Strength: 0.035636336
+  - SampleFrame: 3520512
+    Band: 1
+    Strength: 0.0025536101
+  - SampleFrame: 3520512
+    Band: 2
+    Strength: 0.07617864
+  - SampleFrame: 3533824
+    Band: 2
+    Strength: 0.0069140824
+  - SampleFrame: 3538944
+    Band: 0
+    Strength: 0.097983085
+  - SampleFrame: 3538944
+    Band: 1
+    Strength: 0.015109481
+  - SampleFrame: 3551744
+    Band: 0
+    Strength: 0.043176755
+  - SampleFrame: 3551744
+    Band: 1
+    Strength: 0.013513491
+  - SampleFrame: 3551744
+    Band: 2
+    Strength: 0.027117928
+  - SampleFrame: 3557888
+    Band: 0
+    Strength: 0.02375184
+  - SampleFrame: 3557888
+    Band: 1
+    Strength: 0.025850084
+  - SampleFrame: 3576832
+    Band: 0
+    Strength: 0.07104256
+  - SampleFrame: 3576832
+    Band: 1
+    Strength: 0.021411313
+  - SampleFrame: 3576832
+    Band: 2
+    Strength: 0.11282739
+  - SampleFrame: 3595776
+    Band: 1
+    Strength: 0.0017224272
+  - SampleFrame: 3595776
+    Band: 2
+    Strength: 0.03569809
+  - SampleFrame: 3608064
+    Band: 0
+    Strength: 0.016036509
+  - SampleFrame: 3608064
+    Band: 1
+    Strength: 0.036123738
+  - SampleFrame: 3608064
+    Band: 2
+    Strength: 0.23403896
+  - SampleFrame: 3614208
+    Band: 0
+    Strength: 0.10325111
+  - SampleFrame: 3614208
+    Band: 1
+    Strength: 0.010448867
+  - SampleFrame: 3614208
+    Band: 2
+    Strength: 0.029564658
+  - SampleFrame: 3632640
+    Band: 2
+    Strength: 0.23538184
+  - SampleFrame: 3633152
+    Band: 1
+    Strength: 0.0066751237
+  - SampleFrame: 3651072
+    Band: 2
+    Strength: 0.044495866
+  - SampleFrame: 3651584
+    Band: 0
+    Strength: 0.112050354
+  - SampleFrame: 3651584
+    Band: 1
+    Strength: 0.011963164
+  - SampleFrame: 3664384
+    Band: 2
+    Strength: 0.010622405
+  - SampleFrame: 3669504
+    Band: 1
+    Strength: 0.0021214094
+  - SampleFrame: 3676160
+    Band: 2
+    Strength: 0.012447662
+  - SampleFrame: 3682304
+    Band: 2
+    Strength: 0.07415728
+  - SampleFrame: 3682816
+    Band: 0
+    Strength: 0.104856215
+  - SampleFrame: 3682816
+    Band: 1
+    Strength: 0.016757358
+  - SampleFrame: 3701760
+    Band: 2
+    Strength: 0.011639435
+  - SampleFrame: 3707392
+    Band: 0
+    Strength: 0.0108086355
+  - SampleFrame: 3707392
+    Band: 1
+    Strength: 0.0133417435
+  - SampleFrame: 3708416
+    Band: 2
+    Strength: 0.09112646
+  - SampleFrame: 3725312
+    Band: 1
+    Strength: 0.010925819
+  - SampleFrame: 3725312
+    Band: 2
+    Strength: 0.036467783
+  - SampleFrame: 3725824
+    Band: 0
+    Strength: 0.11944884
+  - SampleFrame: 3738624
+    Band: 2
+    Strength: 0.010501131
+  - SampleFrame: 3744256
+    Band: 1
+    Strength: 0.00292566
+  - SampleFrame: 3757056
+    Band: 0
+    Strength: 0.02393196
+  - SampleFrame: 3757056
+    Band: 1
+    Strength: 0.034592245
+  - SampleFrame: 3757056
+    Band: 2
+    Strength: 0.17832777
+  - SampleFrame: 3763200
+    Band: 0
+    Strength: 0.10976535
+  - SampleFrame: 3763200
+    Band: 1
+    Strength: 0.0094124265
+  - SampleFrame: 3763200
+    Band: 2
+    Strength: 0.027258076
+  - SampleFrame: 3776000
+    Band: 2
+    Strength: 0.013013394
+  - SampleFrame: 3781632
+    Band: 0
+    Strength: 0.008879398
+  - SampleFrame: 3781632
+    Band: 1
+    Strength: 0.01254656
+  - SampleFrame: 3783168
+    Band: 2
+    Strength: 0.061493617
+  - SampleFrame: 3800064
+    Band: 0
+    Strength: 0.11616767
+  - SampleFrame: 3800064
+    Band: 1
+    Strength: 0.014794301
+  - SampleFrame: 3800064
+    Band: 2
+    Strength: 0.043174323
+  - SampleFrame: 3818496
+    Band: 1
+    Strength: 0.0026193403
+  - SampleFrame: 3818496
+    Band: 2
+    Strength: 0.07267498
+  - SampleFrame: 3831808
+    Band: 2
+    Strength: 0.008179555
+  - SampleFrame: 3837440
+    Band: 0
+    Strength: 0.13007899
+  - SampleFrame: 3837440
+    Band: 1
+    Strength: 0.0125969285
+  - SampleFrame: 3850752
+    Band: 2
+    Strength: 0.011263426
+  - SampleFrame: 3855872
+    Band: 0
+    Strength: 0.01573985
+  - SampleFrame: 3855872
+    Band: 1
+    Strength: 0.046135858
+  - SampleFrame: 3868672
+    Band: 0
+    Strength: 0.07783891
+  - SampleFrame: 3868672
+    Band: 1
+    Strength: 0.014787158
+  - SampleFrame: 3868672
+    Band: 2
+    Strength: 0.04594526
+  - SampleFrame: 3874816
+    Band: 0
+    Strength: 0.12776859
+  - SampleFrame: 3874816
+    Band: 1
+    Strength: 0.012864397
+  - SampleFrame: 3887616
+    Band: 2
+    Strength: 0.008611041
+  - SampleFrame: 3893248
+    Band: 1
+    Strength: 0.0030615344
+  - SampleFrame: 3905536
+    Band: 2
+    Strength: 0.19763781
+  - SampleFrame: 3906048
+    Band: 0
+    Strength: 0.02210415
+  - SampleFrame: 3906048
+    Band: 1
+    Strength: 0.03555372
+  - SampleFrame: 3911680
+    Band: 2
+    Strength: 0.03340481
+  - SampleFrame: 3924480
+    Band: 2
+    Strength: 0.010594506
+  - SampleFrame: 3930112
+    Band: 1
+    Strength: 0.0129062375
+  - SampleFrame: 3930624
+    Band: 0
+    Strength: 0.007457963
+  - SampleFrame: 3949056
+    Band: 0
+    Strength: 0.14187983
+  - SampleFrame: 3949056
+    Band: 1
+    Strength: 0.013770691
+  - SampleFrame: 3949056
+    Band: 2
+    Strength: 0.04433373
+  - SampleFrame: 3961856
+    Band: 2
+    Strength: 0.013131795
+  - SampleFrame: 3967488
+    Band: 1
+    Strength: 0.0032999553
+  - SampleFrame: 3980288
+    Band: 0
+    Strength: 0.1540152
+  - SampleFrame: 3980288
+    Band: 1
+    Strength: 0.027340943
+  - SampleFrame: 3980288
+    Band: 2
+    Strength: 0.08126712
+  - SampleFrame: 3999232
+    Band: 2
+    Strength: 0.01790706
+  - SampleFrame: 4004864
+    Band: 0
+    Strength: 0.011816365
+  - SampleFrame: 4004864
+    Band: 1
+    Strength: 0.01852609
+  - SampleFrame: 4005888
+    Band: 2
+    Strength: 0.10261765
+  - SampleFrame: 4018176
+    Band: 0
+    Strength: 0.028019704
+  - SampleFrame: 4023296
+    Band: 1
+    Strength: 0.019207329
+  - SampleFrame: 4023296
+    Band: 2
+    Strength: 0.047943216
+  - SampleFrame: 4041728
+    Band: 1
+    Strength: 0.003158823
+  - SampleFrame: 4041728
+    Band: 2
+    Strength: 0.076318264
+  - SampleFrame: 4054528
+    Band: 0
+    Strength: 0.019274652
+  - SampleFrame: 4054528
+    Band: 1
+    Strength: 0.033322908
+  - SampleFrame: 4054528
+    Band: 2
+    Strength: 0.18174456
+  - SampleFrame: 4060672
+    Band: 0
+    Strength: 0.10549566
+  - SampleFrame: 4073472
+    Band: 2
+    Strength: 0.012764832
+  - SampleFrame: 4079104
+    Band: 0
+    Strength: 0.007093396
+  - SampleFrame: 4079104
+    Band: 1
+    Strength: 0.012760828
+  - SampleFrame: 4081152
+    Band: 2
+    Strength: 0.053112354
+  - SampleFrame: 4097536
+    Band: 1
+    Strength: 0.013259711
+  - SampleFrame: 4097536
+    Band: 2
+    Strength: 0.035026897
+  - SampleFrame: 4098048
+    Band: 0
+    Strength: 0.0578733
+  - SampleFrame: 4110848
+    Band: 2
+    Strength: 0.010798144
+  - SampleFrame: 4115968
+    Band: 1
+    Strength: 0.0025195295
+  - SampleFrame: 4134400
+    Band: 1
+    Strength: 0.012707598
+  - SampleFrame: 4134400
+    Band: 2
+    Strength: 0.027895058
+  - SampleFrame: 4134912
+    Band: 0
+    Strength: 0.114157654
+  - SampleFrame: 4147200
+    Band: 1
+    Strength: 0.015157057
+  - SampleFrame: 4147200
+    Band: 2
+    Strength: 0.033253267
+  - SampleFrame: 4147712
+    Band: 0
+    Strength: 0.05693682
+  - SampleFrame: 4153344
+    Band: 1
+    Strength: 0.03018462
+  - SampleFrame: 4153344
+    Band: 2
+    Strength: 0.26697975
+  - SampleFrame: 4172288
+    Band: 1
+    Strength: 0.019121803
+  - SampleFrame: 4172288
+    Band: 2
+    Strength: 0.10755063
+  - SampleFrame: 4172800
+    Band: 0
+    Strength: 0.076780245
+  - SampleFrame: 4191232
+    Band: 2
+    Strength: 0.039159436
+  - SampleFrame: 4203520
+    Band: 1
+    Strength: 0.028492883
+  - SampleFrame: 4203520
+    Band: 2
+    Strength: 0.19112074
+  - SampleFrame: 4204032
+    Band: 0
+    Strength: 0.016250072
+  - SampleFrame: 4209664
+    Band: 1
+    Strength: 0.010433742
+  - SampleFrame: 4209664
+    Band: 2
+    Strength: 0.034266036
+  - SampleFrame: 4228608
+    Band: 1
+    Strength: 0.0065311054
+  - SampleFrame: 4228608
+    Band: 2
+    Strength: 0.24684674
+  - SampleFrame: 4247040
+    Band: 0
+    Strength: 0.09761309
+  - SampleFrame: 4247040
+    Band: 1
+    Strength: 0.010268778
+  - SampleFrame: 4247040
+    Band: 2
+    Strength: 0.02732939
+  - SampleFrame: 4265472
+    Band: 1
+    Strength: 0.0015122007
+  - SampleFrame: 4265472
+    Band: 2
+    Strength: 0.022674985
+  - SampleFrame: 4271616
+    Band: 2
+    Strength: 0.0069934637
+  - SampleFrame: 4277760
+    Band: 2
+    Strength: 0.026699949
+  - SampleFrame: 4278272
+    Band: 0
+    Strength: 0.049859863
+  - SampleFrame: 4278272
+    Band: 1
+    Strength: 0.009454649
+  - SampleFrame: 4297216
+    Band: 2
+    Strength: 0.0030629223
+  - SampleFrame: 4302848
+    Band: 0
+    Strength: 0.001823994
+  - SampleFrame: 4302848
+    Band: 1
+    Strength: 0.0030380704
+  - SampleFrame: 4304384
+    Band: 2
+    Strength: 0.016875805
+  - SampleFrame: 4321280
+    Band: 0
+    Strength: 0.000908134
+  WaveformMinMax:
+  - -0.000091552734
+  - 0.000091552734
+  - -0.29507446
+  - 0.2859192
+  - -0.32702637
+  - 0.199646
+  - -0.115234375
+  - 0.08691406
+  - -0.07778931
+  - 0.07647705
+  - -0.057434082
+  - 0.07284546
+  - -0.05480957
+  - 0.05407715
+  - -0.050445557
+  - 0.047729492
+  - -0.035827637
+  - 0.043273926
+  - -0.03479004
+  - 0.03439331
+  - -0.1272583
+  - 0.10134888
+  - -0.055023193
+  - 0.05630493
+  - -0.035583496
+  - 0.029327393
+  - -0.026153564
+  - 0.027313232
+  - -0.022277832
+  - 0.027679443
+  - -0.025268555
+  - 0.022979736
+  - -0.1993103
+  - 0.23617554
+  - -0.041290283
+  - 0.039123535
+  - -0.01876831
+  - 0.01864624
+  - -0.31292725
+  - 0.36090088
+  - -0.12243652
+  - 0.11187744
+  - -0.059783936
+  - 0.058288574
+  - -0.027130127
+  - 0.032684326
+  - -0.027770996
+  - 0.020568848
+  - -0.01574707
+  - 0.013549805
+  - -0.018829346
+  - 0.020019531
+  - -0.014099121
+  - 0.013549805
+  - -0.011138916
+  - 0.012176514
+  - -0.287323
+  - 0.41177368
+  - -0.2157898
+  - 0.2341919
+  - -0.102142334
+  - 0.13214111
+  - -0.078552246
+  - 0.058685303
+  - -0.035308838
+  - 0.041778564
+  - -0.018859863
+  - 0.017700195
+  - -0.014770508
+  - 0.01361084
+  - -0.0087890625
+  - 0.011230469
+  - -0.27389526
+  - 0.20043945
+  - -0.35836792
+  - 0.3855896
+  - -0.1060791
+  - 0.1055603
+  - -0.04019165
+  - 0.04269409
+  - -0.029907227
+  - 0.031219482
+  - -0.028686523
+  - 0.02911377
+  - -0.012084961
+  - 0.0105896
+  - -0.017425537
+  - 0.022766113
+  - -0.010650635
+  - 0.010955811
+  - -0.07727051
+  - 0.08441162
+  - -0.09094238
+  - 0.0769043
+  - -0.029846191
+  - 0.035949707
+  - -0.038970947
+  - 0.038604736
+  - -0.014160156
+  - 0.016357422
+  - -0.006439209
+  - 0.005493164
+  - -0.25326538
+  - 0.28079224
+  - -0.14233398
+  - 0.100494385
+  - -0.054870605
+  - 0.05203247
+  - -0.029022217
+  - 0.029510498
+  - -0.024230957
+  - 0.02947998
+  - -0.02029419
+  - 0.014984131
+  - -0.009521484
+  - 0.010650635
+  - -0.007446289
+  - 0.006652832
+  - -0.00390625
+  - 0.0047912598
+  - -0.019836426
+  - 0.019256592
+  - -0.017303467
+  - 0.014404297
+  - -0.007446289
+  - 0.010223389
+  - -0.33111572
+  - 0.37561035
+  - -0.2735901
+  - 0.30099487
+  - -0.12606812
+  - 0.15527344
+  - -0.077056885
+  - 0.069610596
+  - -0.04284668
+  - 0.054718018
+  - -0.02355957
+  - 0.02355957
+  - -0.013977051
+  - 0.013671875
+  - -0.011291504
+  - 0.011169434
+  - -0.0078125
+  - 0.0078125
+  - -0.3562622
+  - 0.40930176
+  - -0.09005737
+  - 0.105163574
+  - -0.07171631
+  - 0.048309326
+  - -0.029907227
+  - 0.025756836
+  - -0.018493652
+  - 0.0211792
+  - -0.005004883
+  - 0.007873535
+  - -0.018432617
+  - 0.021820068
+  - -0.011566162
+  - 0.010070801
+  - -0.12844849
+  - 0.15170288
+  - -0.15490723
+  - 0.13040161
+  - -0.03149414
+  - 0.03451538
+  - -0.01461792
+  - 0.013092041
+  - -0.006164551
+  - 0.0059814453
+  - -0.002746582
+  - 0.0028381348
+  - -0.18167114
+  - 0.17404175
+  - -0.16268921
+  - 0.14019775
+  - -0.01889038
+  - 0.02029419
+  - -0.1670227
+  - 0.3564453
+  - -0.31430054
+  - 0.3300171
+  - -0.095947266
+  - 0.09527588
+  - -0.04446411
+  - 0.040924072
+  - -0.015258789
+  - 0.021026611
+  - -0.013000488
+  - 0.0113220215
+  - -0.014831543
+  - 0.012359619
+  - -0.015411377
+  - 0.01965332
+  - -0.008453369
+  - 0.007843018
+  - -0.36727905
+  - 0.34909058
+  - -0.23284912
+  - 0.35125732
+  - -0.13867188
+  - 0.15985107
+  - -0.07977295
+  - 0.08010864
+  - -0.05328369
+  - 0.061401367
+  - -0.024261475
+  - 0.028320312
+  - -0.015838623
+  - 0.013824463
+  - -0.01071167
+  - 0.010559082
+  - -0.0071411133
+  - 0.007293701
+  - -0.38848877
+  - 0.35263062
+  - -0.12005615
+  - 0.11898804
+  - -0.054840088
+  - 0.0831604
+  - -0.025238037
+  - 0.03152466
+  - -0.022338867
+  - 0.023956299
+  - -0.018218994
+  - 0.0146484375
+  - -0.021118164
+  - 0.018341064
+  - -0.014312744
+  - 0.014556885
+  - -0.006134033
+  - 0.009796143
+  - -0.14022827
+  - 0.13626099
+  - -0.03652954
+  - 0.03704834
+  - -0.023040771
+  - 0.023834229
+  - -0.009185791
+  - 0.0119018555
+  - -0.0058288574
+  - 0.0045166016
+  - -0.0023498535
+  - 0.0018920898
+  - -0.011627197
+  - 0.0115356445
+  - -0.008758545
+  - 0.009613037
+  - -0.016815186
+  - 0.018737793
+  - -0.3887329
+  - 0.46954346
+  - -0.12771606
+  - 0.13623047
+  - -0.065582275
+  - 0.05078125
+  - -0.028167725
+  - 0.019439697
+  - -0.017486572
+  - 0.022857666
+  - -0.005859375
+  - 0.0072021484
+  - -0.018432617
+  - 0.020141602
+  - -0.0121154785
+  - 0.01449585
+  - -0.26315308
+  - 0.2973938
+  - -0.19277954
+  - 0.16125488
+  - -0.0390625
+  - 0.045654297
+  - -0.022491455
+  - 0.016113281
+  - -0.014984131
+  - 0.014099121
+  - -0.009277344
+  - 0.0095825195
+  - -0.1972351
+  - 0.1281128
+  - -0.27975464
+  - 0.24111938
+  - -0.13104248
+  - 0.14874268
+  - -0.37280273
+  - 0.4767151
+  - -0.35321045
+  - 0.36364746
+  - -0.13232422
+  - 0.13659668
+  - -0.099609375
+  - 0.08786011
+  - -0.054534912
+  - 0.064208984
+  - -0.028900146
+  - 0.025817871
+  - -0.01928711
+  - 0.018035889
+  - -0.015167236
+  - 0.017211914
+  - -0.008880615
+  - 0.0099487305
+  - -0.1227417
+  - 0.15060425
+  - -0.07839966
+  - 0.0687561
+  - -0.030883789
+  - 0.027282715
+  - -0.010192871
+  - 0.009063721
+  - -0.0037841797
+  - 0.0036621094
+  - -0.0018615723
+  - 0.0029296875
+  - -0.22006226
+  - 0.20809937
+  - -0.044799805
+  - 0.03201294
+  - -0.013641357
+  - 0.010314941
+  - -0.34210205
+  - 0.39440918
+  - -0.13113403
+  - 0.1131897
+  - -0.06341553
+  - 0.08596802
+  - -0.025817871
+  - 0.029510498
+  - -0.023956299
+  - 0.018096924
+  - -0.010070801
+  - 0.010467529
+  - -0.017150879
+  - 0.018737793
+  - -0.012908936
+  - 0.011474609
+  - -0.011169434
+  - 0.01663208
+  - -0.3284912
+  - 0.38702393
+  - -0.19207764
+  - 0.21347046
+  - -0.13156128
+  - 0.1300354
+  - -0.061309814
+  - 0.060668945
+  - -0.037475586
+  - 0.037872314
+  - -0.022857666
+  - 0.019226074
+  - -0.0134887695
+  - 0.013336182
+  - -0.009002686
+  - 0.008758545
+  - -0.33816528
+  - 0.17871094
+  - -0.4270935
+  - 0.4429016
+  - -0.10562134
+  - 0.11654663
+  - -0.04107666
+  - 0.041656494
+  - -0.02923584
+  - 0.03375244
+  - -0.025024414
+  - 0.025726318
+  - -0.01638794
+  - 0.012512207
+  - -0.020111084
+  - 0.024749756
+  - -0.010345459
+  - 0.011230469
+  - -0.21362305
+  - 0.22549438
+  - -0.10751343
+  - 0.10183716
+  - -0.029266357
+  - 0.034118652
+  - -0.028869629
+  - 0.032989502
+  - -0.017120361
+  - 0.0184021
+  - -0.007507324
+  - 0.007385254
+  - -0.28723145
+  - 0.41589355
+  - -0.21096802
+  - 0.15612793
+  - -0.08023071
+  - 0.072509766
+  - -0.040039062
+  - 0.041229248
+  - -0.02923584
+  - 0.037017822
+  - -0.025512695
+  - 0.018066406
+  - -0.010803223
+  - 0.013519287
+  - -0.008056641
+  - 0.006713867
+  - -0.006225586
+  - 0.0067749023
+  - -0.019683838
+  - 0.019378662
+  - -0.016784668
+  - 0.014587402
+  - -0.009460449
+  - 0.008514404
+  - -0.3887024
+  - 0.48934937
+  - -0.37042236
+  - 0.29101562
+  - -0.15588379
+  - 0.1348877
+  - -0.06503296
+  - 0.06161499
+  - -0.042663574
+  - 0.055877686
+  - -0.021820068
+  - 0.023986816
+  - -0.09024048
+  - 0.082977295
+  - -0.0637207
+  - 0.076812744
+  - -0.025421143
+  - 0.025848389
+  - -0.41983032
+  - 0.42373657
+  - -0.11160278
+  - 0.13284302
+  - -0.050964355
+  - 0.06109619
+  - -0.039093018
+  - 0.043945312
+  - -0.010803223
+  - 0.012359619
+  - -0.0061035156
+  - 0.0065612793
+  - -0.015411377
+  - 0.015411377
+  - -0.010681152
+  - 0.010467529
+  - -0.14425659
+  - 0.1338501
+  - -0.14477539
+  - 0.13528442
+  - -0.043151855
+  - 0.03918457
+  - -0.017791748
+  - 0.01626587
+  - -0.0063476562
+  - 0.006011963
+  - -0.0029907227
+  - 0.003112793
+  - -0.17208862
+  - 0.25872803
+  - -0.09887695
+  - 0.103302
+  - -0.016479492
+  - 0.015563965
+  - -0.2993164
+  - 0.36999512
+  - -0.3624878
+  - 0.3010254
+  - -0.09112549
+  - 0.08984375
+  - -0.04071045
+  - 0.03515625
+  - -0.017913818
+  - 0.01763916
+  - -0.013549805
+  - 0.013580322
+  - -0.00982666
+  - 0.014770508
+  - -0.018798828
+  - 0.018554688
+  - -0.008392334
+  - 0.0077819824
+  - -0.3034973
+  - 0.35614014
+  - -0.2684021
+  - 0.35214233
+  - -0.15368652
+  - 0.17456055
+  - -0.09585571
+  - 0.08496094
+  - -0.04888916
+  - 0.050720215
+  - -0.024383545
+  - 0.02859497
+  - -0.016845703
+  - 0.01763916
+  - -0.011108398
+  - 0.011413574
+  - -0.007751465
+  - 0.008331299
+  - -0.32537842
+  - 0.29745483
+  - -0.16912842
+  - 0.15206909
+  - -0.08569336
+  - 0.12960815
+  - -0.04336548
+  - 0.05987549
+  - -0.040130615
+  - 0.02923584
+  - -0.01550293
+  - 0.017364502
+  - -0.018859863
+  - 0.029632568
+  - -0.016693115
+  - 0.024841309
+  - -0.007507324
+  - 0.010101318
+  - -0.15893555
+  - 0.14889526
+  - -0.042755127
+  - 0.039276123
+  - -0.023132324
+  - 0.021972656
+  - -0.009124756
+  - 0.009429932
+  - -0.004547119
+  - 0.0031738281
+  - -0.001953125
+  - 0.001739502
+  - -0.01071167
+  - 0.00970459
+  - -0.007171631
+  - 0.009490967
+  - -0.27853394
+  - 0.077301025
+  - -0.34973145
+  - 0.37768555
+  - -0.11868286
+  - 0.13604736
+  - -0.057647705
+  - 0.053466797
+  - -0.028961182
+  - 0.026855469
+  - -0.02078247
+  - 0.019348145
+  - -0.015777588
+  - 0.085113525
+  - -0.181427
+  - 0.1368103
+  - -0.10720825
+  - 0.1269226
+  - -0.34155273
+  - 0.3373413
+  - -0.16400146
+  - 0.16186523
+  - -0.08026123
+  - 0.07312012
+  - -0.07244873
+  - 0.082458496
+  - -0.065093994
+  - 0.062164307
+  - -0.07208252
+  - 0.06674194
+  - -0.044555664
+  - 0.054107666
+  - -0.04196167
+  - 0.051696777
+  - -0.037384033
+  - 0.042236328
+  - -0.2989502
+  - 0.23840332
+  - -0.32254028
+  - 0.29037476
+  - -0.115753174
+  - 0.15847778
+  - -0.07571411
+  - 0.07739258
+  - -0.06826782
+  - 0.06793213
+  - -0.0541687
+  - 0.062927246
+  - -0.053131104
+  - 0.052490234
+  - -0.042816162
+  - 0.047821045
+  - -0.03451538
+  - 0.040527344
+  - -0.1217041
+  - 0.112335205
+  - -0.08880615
+  - 0.06832886
+  - -0.035583496
+  - 0.035369873
+  - -0.026245117
+  - 0.027557373
+  - -0.020507812
+  - 0.025177002
+  - -0.025360107
+  - 0.022277832
+  - -0.20007324
+  - 0.23498535
+  - -0.042877197
+  - 0.053955078
+  - -0.024017334
+  - 0.022247314
+  - -0.31292725
+  - 0.36090088
+  - -0.12243652
+  - 0.22946167
+  - -0.059783936
+  - 0.090423584
+  - -0.039398193
+  - 0.032440186
+  - -0.027038574
+  - 0.020477295
+  - -0.015838623
+  - 0.019500732
+  - -0.018829346
+  - 0.01586914
+  - -0.014099121
+  - 0.020019531
+  - -0.011352539
+  - 0.012268066
+  - -0.28756714
+  - 0.41986084
+  - -0.2157898
+  - 0.23422241
+  - -0.14065552
+  - 0.13165283
+  - -0.078552246
+  - 0.0625
+  - -0.035308838
+  - 0.041778564
+  - -0.019165039
+  - 0.017578125
+  - -0.018188477
+  - 0.017730713
+  - -0.010131836
+  - 0.011230469
+  - -0.007446289
+  - 0.007446289
+  - -0.35836792
+  - 0.3855896
+  - -0.1060791
+  - 0.10882568
+  - -0.05731201
+  - 0.04269409
+  - -0.031280518
+  - 0.031219482
+  - -0.028686523
+  - 0.02911377
+  - -0.0072021484
+  - 0.014801025
+  - -0.017425537
+  - 0.022766113
+  - -0.010955811
+  - 0.010955811
+  - -0.07727051
+  - 0.08441162
+  - -0.09094238
+  - 0.08239746
+  - -0.029846191
+  - 0.035949707
+  - -0.038970947
+  - 0.038604736
+  - -0.021087646
+  - 0.01687622
+  - -0.006439209
+  - 0.0063171387
+  - -0.25326538
+  - 0.100372314
+  - -0.14233398
+  - 0.28079224
+  - -0.054870605
+  - 0.079437256
+  - -0.023925781
+  - 0.029510498
+  - -0.029022217
+  - 0.02947998
+  - -0.02029419
+  - 0.021118164
+  - -0.009521484
+  - 0.011016846
+  - -0.007446289
+  - 0.006652832
+  - -0.006011963
+  - 0.0047912598
+  - -0.019836426
+  - 0.015930176
+  - -0.017303467
+  - 0.019256592
+  - -0.010223389
+  - 0.010345459
+  - -0.33111572
+  - 0.37561035
+  - -0.2735901
+  - 0.30099487
+  - -0.13244629
+  - 0.15527344
+  - -0.077056885
+  - 0.08004761
+  - -0.057159424
+  - 0.059326172
+  - -0.023742676
+  - 0.028900146
+  - -0.014923096
+  - 0.013671875
+  - -0.013977051
+  - 0.011169434
+  - -0.008300781
+  - 0.008270264
+  - -0.3562622
+  - 0.40930176
+  - -0.16546631
+  - 0.105163574
+  - -0.07171631
+  - 0.0786438
+  - -0.029907227
+  - 0.035858154
+  - -0.023284912
+  - 0.0211792
+  - -0.012634277
+  - 0.007873535
+  - -0.018432617
+  - 0.021820068
+  - -0.011566162
+  - 0.015594482
+  - -0.015136719
+  - 0.016784668
+  - -0.15490723
+  - 0.15170288
+  - -0.04776001
+  - 0.042419434
+  - -0.023742676
+  - 0.016937256
+  - -0.006164551
+  - 0.009002686
+  - -0.002746582
+  - 0.0028381348
+  - -0.001373291
+  - 0.0016174316
+  - -0.18167114
+  - 0.17404175
+  - -0.03353882
+  - 0.02029419
+  - -0.010223389
+  - 0.011199951
+  - -0.31430054
+  - 0.3564453
+  - -0.095947266
+  - 0.12207031
+  - -0.05517578
+  - 0.040924072
+  - -0.025726318
+  - 0.021026611
+  - -0.013000488
+  - 0.017456055
+  - -0.007751465
+  - 0.008392334
+  - -0.015411377
+  - 0.01965332
+  - -0.008453369
+  - 0.01171875
+  - -0.36727905
+  - 0.34909058
+  - -0.32366943
+  - 0.35125732
+  - -0.13867188
+  - 0.16607666
+  - -0.09561157
+  - 0.09109497
+  - -0.05328369
+  - 0.061401367
+  - -0.029510498
+  - 0.029510498
+  - -0.015838623
+  - 0.01776123
+  - -0.01071167
+  - 0.013244629
+  - -0.0076904297
+  - 0.007659912
+  - -0.38848877
+  - 0.35263062
+  - -0.12005615
+  - 0.25909424
+  - -0.060333252
+  - 0.08859253
+  - -0.037872314
+  - 0.03152466
+  - -0.023284912
+  - 0.021270752
+  - -0.018218994
+  - 0.023956299
+  - -0.016845703
+  - 0.018341064
+  - -0.021118164
+  - 0.014556885
+  - -0.00881958
+  - 0.009796143
+  - -0.14022827
+  - 0.13626099
+  - -0.045440674
+  - 0.042816162
+  - -0.023071289
+  - 0.03186035
+  - -0.011871338
+  - 0.0119018555
+  - -0.0058288574
+  - 0.0045166016
+  - -0.0023498535
+  - 0.0030517578
+  - -0.011627197
+  - 0.0115356445
+  - -0.008850098
+  - 0.010437012
+  - -0.004760742
+  - 0.0047302246
+  - -0.3887329
+  - 0.46954346
+  - -0.13482666
+  - 0.13623047
+  - -0.065582275
+  - 0.057128906
+  - -0.027770996
+  - 0.03881836
+  - -0.028167725
+  - 0.022857666
+  - -0.009918213
+  - 0.00579834
+  - -0.018432617
+  - 0.020141602
+  - -0.0121154785
+  - 0.01449585
+  - -0.055389404
+  - 0.062683105
+  - -0.26315308
+  - 0.2973938
+  - -0.05697632
+  - 0.061950684
+  - -0.022491455
+  - 0.019165039
+  - -0.014984131
+  - 0.0134887695
+  - -0.012298584
+  - 0.014099121
+  - -0.0072631836
+  - 0.010223389
+  - -0.27975464
+  - 0.24111938
+  - -0.181427
+  - 0.14874268
+  - -0.26828003
+  - 0.399292
+  - -0.37280273
+  - 0.4767151
+  - -0.13232422
+  - 0.13659668
+  - -0.099609375
+  - 0.12149048
+  - -0.068603516
+  - 0.064208984
+  - -0.03866577
+  - 0.025817871
+  - -0.01928711
+  - 0.018035889
+  - -0.015167236
+  - 0.017211914
+  - -0.008880615
+  - 0.010894775
+  - -0.1227417
+  - 0.15060425
+  - -0.088775635
+  - 0.07336426
+  - -0.030883789
+  - 0.027648926
+  - -0.010192871
+  - 0.012756348
+  - -0.0043029785
+  - 0.0036621094
+  - -0.0025634766
+  - 0.0029296875
+  - -0.22006226
+  - 0.20809937
+  - -0.0718689
+  - 0.07098389
+  - -0.018005371
+  - 0.01663208
+  - -0.34210205
+  - 0.39440918
+  - -0.13113403
+  - 0.31243896
+  - -0.06341553
+  - 0.09552002
+  - -0.039733887
+  - 0.029510498
+  - -0.023956299
+  - 0.018096924
+  - -0.010070801
+  - 0.013671875
+  - -0.0138549805
+  - 0.018737793
+  - -0.017150879
+  - 0.015625
+  - -0.007293701
+  - 0.009307861
+  - -0.3284912
+  - 0.38702393
+  - -0.28512573
+  - 0.26208496
+  - -0.13156128
+  - 0.1300354
+  - -0.061309814
+  - 0.060668945
+  - -0.04425049
+  - 0.046936035
+  - -0.022857666
+  - 0.02923584
+  - -0.01461792
+  - 0.013458252
+  - -0.010467529
+  - 0.012512207
+  - -0.007659912
+  - 0.008605957
+  - -0.4270935
+  - 0.4429016
+  - -0.10562134
+  - 0.11654663
+  - -0.067352295
+  - 0.041656494
+  - -0.02923584
+  - 0.03375244
+  - -0.025024414
+  - 0.026519775
+  - -0.009002686
+  - 0.0154418945
+  - -0.020111084
+  - 0.024749756
+  - -0.014587402
+  - 0.011230469
+  - -0.21362305
+  - 0.22549438
+  - -0.16775513
+  - 0.1618042
+  - -0.03302002
+  - 0.034118652
+  - -0.028869629
+  - 0.032989502
+  - -0.02432251
+  - 0.0184021
+  - -0.007507324
+  - 0.010101318
+  - -0.2824402
+  - 0.10928345
+  - -0.28723145
+  - 0.41589355
+  - -0.08023071
+  - 0.102996826
+  - -0.040039062
+  - 0.041229248
+  - -0.03540039
+  - 0.037017822
+  - -0.025512695
+  - 0.023986816
+  - -0.010803223
+  - 0.014587402
+  - -0.008361816
+  - 0.006713867
+  - -0.007385254
+  - 0.0067749023
+  - -0.019683838
+  - 0.01272583
+  - -0.016998291
+  - 0.019378662
+  - -0.009460449
+  - 0.010650635
+  - -0.3887024
+  - 0.48934937
+  - -0.37042236
+  - 0.29101562
+  - -0.1723938
+  - 0.21347046
+  - -0.085754395
+  - 0.07595825
+  - -0.048065186
+  - 0.055877686
+  - -0.026153564
+  - 0.03048706
+  - -0.037231445
+  - 0.082977295
+  - -0.09024048
+  - 0.076812744
+  - -0.026123047
+  - 0.026977539
+  - -0.41983032
+  - 0.42373657
+  - -0.16925049
+  - 0.13284302
+  - -0.050964355
+  - 0.09466553
+  - -0.039093018
+  - 0.043945312
+  - -0.024536133
+  - 0.012359619
+  - -0.0061035156
+  - 0.007507324
+  - -0.015411377
+  - 0.015411377
+  - -0.010681152
+  - 0.012176514
+  - -0.007904053
+  - 0.007293701
+  - -0.14477539
+  - 0.13528442
+  - -0.050964355
+  - 0.05606079
+  - -0.020385742
+  - 0.019012451
+  - -0.0063476562
+  - 0.008270264
+  - -0.0037231445
+  - 0.003112793
+  - -0.001373291
+  - 0.0015258789
+  - -0.17208862
+  - 0.25872803
+  - -0.020111084
+  - 0.019378662
+  - -0.22091675
+  - 0.053375244
+  - -0.3624878
+  - 0.36999512
+  - -0.09112549
+  - 0.09750366
+  - -0.04071045
+  - 0.037109375
+  - -0.023406982
+  - 0.01763916
+  - -0.015411377
+  - 0.013580322
+  - -0.0066833496
+  - 0.009185791
+  - -0.018798828
+  - 0.018554688
+  - -0.008392334
+  - 0.010192871
+  - -0.3034973
+  - 0.35614014
+  - -0.2684021
+  - 0.35214233
+  - -0.15368652
+  - 0.17456055
+  - -0.09585571
+  - 0.09173584
+  - -0.04888916
+  - 0.050720215
+  - -0.035095215
+  - 0.03527832
+  - -0.019073486
+  - 0.022460938
+  - -0.016845703
+  - 0.013977051
+  - -0.010803223
+  - 0.010223389
+  - -0.32537842
+  - 0.1803894
+  - -0.16912842
+  - 0.29745483
+  - -0.15603638
+  - 0.12960815
+  - -0.06765747
+  - 0.05987549
+  - -0.040130615
+  - 0.043518066
+  - -0.01550293
+  - 0.022888184
+  - -0.018859863
+  - 0.014373779
+  - -0.016693115
+  - 0.029632568
+  - -0.009185791
+  - 0.010101318
+  - -0.15893555
+  - 0.14889526
+  - -0.050323486
+  - 0.04660034
+  - -0.026519775
+  - 0.025909424
+  - -0.011657715
+  - 0.010192871
+  - -0.004547119
+  - 0.0038452148
+  - -0.001953125
+  - 0.0025634766
+  - -0.01071167
+  - 0.00970459
+  - -0.009185791
+  - 0.009490967
+  - -0.0055236816
+  - 0.0050354004
+  - -0.34973145
+  - 0.37768555
+  - -0.11868286
+  - 0.13604736
+  - -0.07891846
+  - 0.053466797
+  - -0.028961182
+  - 0.03012085
+  - -0.02078247
+  - 0.022033691
+  - -0.0073547363
+  - 0.019104004
+  - -0.181427
+  - 0.1368103
+  - -0.11288452
+  - 0.1269226
+  - -0.34155273
+  - 0.3373413
+  - -0.2116394
+  - 0.23986816
+  - -0.07739258
+  - 0.08331299
+  - -0.08026123
+  - 0.082458496
+  - -0.06613159
+  - 0.07345581
+  - -0.07208252
+  - 0.06674194
+  - -0.05822754
+  - 0.054107666
+  - -0.04196167
+  - 0.051696777
+  - -0.037628174
+  - 0.042236328
+  - -0.05444336
+  - 0.036865234
+  - -0.32254028
+  - 0.29037476
+  - -0.11663818
+  - 0.15847778
+  - -0.07571411
+  - 0.066833496
+  - -0.06826782
+  - 0.07739258
+  - -0.0541687
+  - 0.06375122
+  - -0.053710938
+  - 0.052490234
+  - -0.042816162
+  - 0.047821045
+  - -0.03677368
+  - 0.042785645
+  - -0.1217041
+  - 0.09951782
+  - -0.11242676
+  - 0.112335205
+  - -0.040222168
+  - 0.035369873
+  - -0.028015137
+  - 0.027557373
+  - -0.020507812
+  - 0.026763916
+  - -0.025360107
+  - 0.02444458
+  - -0.20007324
+  - 0.23498535
+  - -0.07531738
+  - 0.11703491
+  - -0.024597168
+  - 0.028686523
+  - -0.31292725
+  - 0.36090088
+  - -0.29611206
+  - 0.26193237
+  - -0.09310913
+  - 0.090423584
+  - -0.039398193
+  - 0.032440186
+  - -0.027038574
+  - 0.020477295
+  - -0.015838623
+  - 0.019500732
+  - -0.013977051
+  - 0.01586914
+  - -0.018829346
+  - 0.020019531
+  - -0.010772705
+  - 0.012268066
+  - -0.28756714
+  - 0.41986084
+  - -0.21710205
+  - 0.23797607
+  - -0.16314697
+  - 0.14642334
+  - -0.078552246
+  - 0.066345215
+  - -0.0423584
+  - 0.042541504
+  - -0.026123047
+  - 0.022277832
+  - -0.018188477
+  - 0.017730713
+  - -0.010406494
+  - 0.0128479
+  - -0.007446289
+  - 0.007751465
+  - -0.35836792
+  - 0.3855896
+  - -0.16360474
+  - 0.10882568
+  - -0.058166504
+  - 0.057556152
+  - -0.031280518
+  - 0.04269409
+  - -0.028686523
+  - 0.02911377
+  - -0.01864624
+  - 0.014801025
+  - -0.017425537
+  - 0.022766113
+  - -0.014434814
+  - 0.014343262
+  - -0.017089844
+  - 0.016204834
+  - -0.09094238
+  - 0.08441162
+  - -0.03439331
+  - 0.035949707
+  - -0.027679443
+  - 0.033081055
+  - -0.038970947
+  - 0.038604736
+  - -0.0064697266
+  - 0.0063171387
+  - -0.0038757324
+  - 0.0038757324
+  - -0.25326538
+  - 0.28079224
+  - -0.08984375
+  - 0.079437256
+  - -0.032318115
+  - 0.029510498
+  - -0.029022217
+  - 0.02947998
+  - -0.02029419
+  - 0.024902344
+  - -0.012481689
+  - 0.011016846
+  - -0.007446289
+  - 0.006652832
+  - -0.006011963
+  - 0.006591797
+  - -0.0034484863
+  - 0.0047912598
+  - -0.019836426
+  - 0.019256592
+  - -0.011352539
+  - 0.010437012
+  - -0.33111572
+  - 0.37561035
+  - -0.29299927
+  - 0.30099487
+  - -0.1572876
+  - 0.1637268
+  - -0.08981323
+  - 0.09677124
+  - -0.057159424
+  - 0.059326172
+  - -0.02835083
+  - 0.028900146
+  - -0.015930176
+  - 0.014373779
+  - -0.013977051
+  - 0.013671875
+  - -0.008666992
+  - 0.009796143
+  - -0.3562622
+  - 0.40930176
+  - -0.16546631
+  - 0.35690308
+  - -0.07171631
+  - 0.09677124
+  - -0.040130615
+  - 0.035858154
+  - -0.023284912
+  - 0.0211792
+  - -0.012634277
+  - 0.016540527
+  - -0.017852783
+  - 0.018249512
+  - -0.018432617
+  - 0.021820068
+  - -0.007537842
+  - 0.008850098
+  - -0.15490723
+  - 0.15170288
+  - -0.04776001
+  - 0.048034668
+  - -0.023742676
+  - 0.021606445
+  - -0.008972168
+  - 0.009002686
+  - -0.00289917
+  - 0.0028381348
+  - -0.0014953613
+  - 0.0016174316
+  - -0.18167114
+  - 0.17404175
+  - -0.03353882
+  - 0.029846191
+  - -0.01272583
+  - 0.011749268
+  - -0.31430054
+  - 0.3564453
+  - -0.14370728
+  - 0.12207031
+  - -0.061706543
+  - 0.040924072
+  - -0.025726318
+  - 0.034179688
+  - -0.013000488
+  - 0.017456055
+  - -0.007751465
+  - 0.008392334
+  - -0.015411377
+  - 0.01965332
+  - -0.009521484
+  - 0.01260376
+  - -0.1824646
+  - 0.17663574
+  - -0.36727905
+  - 0.35125732
+  - -0.1767273
+  - 0.17437744
+  - -0.11550903
+  - 0.10977173
+  - -0.05328369
+  - 0.061401367
+  - -0.039886475
+  - 0.03466797
+  - -0.024261475
+  - 0.02746582
+  - -0.011688232
+  - 0.013458252
+  - -0.0093688965
+  - 0.010559082
+  - -0.2536316
+  - 0.35263062
+  - -0.38848877
+  - 0.25909424
+  - -0.09121704
+  - 0.08859253
+  - -0.037872314
+  - 0.032806396
+  - -0.023284912
+  - 0.026641846
+  - -0.02029419
+  - 0.023956299
+  - -0.011047363
+  - 0.010375977
+  - -0.021118164
+  - 0.018341064
+  - -0.009155273
+  - 0.009796143
+  - -0.14022827
+  - 0.13626099
+  - -0.06088257
+  - 0.0725708
+  - -0.030792236
+  - 0.03186035
+  - -0.012329102
+  - 0.0119018555
+  - -0.0058288574
+  - 0.006072998
+  - -0.0023498535
+  - 0.0034484863
+  - -0.007598877
+  - 0.0115356445
+  - -0.011627197
+  - 0.010437012
+  - -0.005004883
+  - 0.0053100586
+  - -0.3887329
+  - 0.46954346
+  - -0.13482666
+  - 0.25634766
+  - -0.065582275
+  - 0.117767334
+  - -0.046691895
+  - 0.03881836
+  - -0.028167725
+  - 0.022857666
+  - -0.009918213
+  - 0.01864624
+  - -0.018432617
+  - 0.015106201
+  - -0.015014648
+  - 0.020141602
+  - -0.0078125
+  - 0.011688232
+  - -0.26315308
+  - 0.2973938
+  - -0.06567383
+  - 0.07489014
+  - -0.032318115
+  - 0.023040771
+  - -0.014984131
+  - 0.0134887695
+  - -0.012298584
+  - 0.014099121
+  - -0.0048217773
+  - 0.004333496
+  - -0.27975464
+  - 0.1619873
+  - -0.181427
+  - 0.24111938
+  - -0.07180786
+  - 0.077301025
+  - -0.37280273
+  - 0.4767151
+  - -0.13232422
+  - 0.1473999
+  - -0.103637695
+  - 0.12149048
+  - -0.068603516
+  - 0.064208984
+  - -0.03866577
+  - 0.043121338
+  - -0.017242432
+  - 0.018035889
+  - -0.01928711
+  - 0.017211914
+  - -0.01184082
+  - 0.010894775
+  - -0.10986328
+  - 0.15060425
+  - -0.1227417
+  - 0.114715576
+  - -0.03503418
+  - 0.03555298
+  - -0.014862061
+  - 0.012756348
+  - -0.0043029785
+  - 0.0043945312
+  - -0.0025634766
+  - 0.0029296875
+  - -0.22006226
+  - 0.20809937
+  - -0.13903809
+  - 0.13546753
+  - -0.02230835
+  - 0.01663208
+  - -0.34210205
+  - 0.39440918
+  - -0.3352356
+  - 0.31243896
+  - -0.10638428
+  - 0.09552002
+  - -0.039733887
+  - 0.039398193
+  - -0.023956299
+  - 0.019317627
+  - -0.011444092
+  - 0.013671875
+  - -0.012878418
+  - 0.018737793
+  - -0.017150879
+  - 0.015625
+  - -0.008270264
+  - 0.009307861
+  - -0.3284912
+  - 0.38702393
+  - -0.28512573
+  - 0.26208496
+  - -0.13156128
+  - 0.15625
+  - -0.08843994
+  - 0.09875488
+  - -0.051361084
+  - 0.051330566
+  - -0.030426025
+  - 0.03527832
+  - -0.01663208
+  - 0.014801025
+  - -0.010467529
+  - 0.012512207
+  - -0.008880615
+  - 0.008605957
+  - -0.4270935
+  - 0.4429016
+  - -0.14544678
+  - 0.11654663
+  - -0.067352295
+  - 0.076690674
+  - -0.02923584
+  - 0.041656494
+  - -0.025024414
+  - 0.026519775
+  - -0.018371582
+  - 0.0154418945
+  - -0.020111084
+  - 0.024749756
+  - -0.014587402
+  - 0.01663208
+  - -0.14169312
+  - 0.1534729
+  - -0.21362305
+  - 0.22549438
+  - -0.039855957
+  - 0.03845215
+  - -0.019134521
+  - 0.019714355
+  - -0.028869629
+  - 0.032989502
+  - -0.009979248
+  - 0.011413574
+  - -0.0051574707
+  - 0.0039978027
+  - -0.28723145
+  - 0.41589355
+  - -0.09182739
+  - 0.102996826
+  - -0.053466797
+  - 0.041229248
+  - -0.03540039
+  - 0.037017822
+  - -0.025512695
+  - 0.026824951
+  - -0.018005371
+  - 0.014587402
+  - -0.008361816
+  - 0.006713867
+  - -0.007385254
+  - 0.006134033
+  - -0.0036315918
+  - 0.0067749023
+  - -0.019683838
+  - 0.019378662
+  - -0.010192871
+  - 0.010650635
+  - -0.3887024
+  - 0.48934937
+  - -0.37042236
+  - 0.29101562
+  - -0.18692017
+  - 0.21347046
+  - -0.09347534
+  - 0.10430908
+  - -0.048065186
+  - 0.055877686
+  - -0.028717041
+  - 0.03048706
+  - -0.018615723
+  - 0.018157959
+  - -0.09024048
+  - 0.082977295
+  - -0.026123047
+  - 0.038116455
+  - -0.41983032
+  - 0.42373657
+  - -0.16925049
+  - 0.34701538
+  - -0.09970093
+  - 0.09750366
+  - -0.04736328
+  - 0.043945312
+  - -0.024536133
+  - 0.021728516
+  - -0.005493164
+  - 0.009094238
+  - -0.01184082
+  - 0.015411377
+  - -0.015411377
+  - 0.013305664
+  - -0.0064086914
+  - 0.007873535
+  - -0.14477539
+  - 0.13528442
+  - -0.050964355
+  - 0.05606079
+  - -0.020843506
+  - 0.024536133
+  - -0.012420654
+  - 0.008270264
+  - -0.0037231445
+  - 0.0032043457
+  - -0.0018005371
+  - 0.0018005371
+  - -0.17208862
+  - 0.25872803
+  - -0.02670288
+  - 0.02911377
+  - -0.010681152
+  - 0.009521484
+  - -0.3624878
+  - 0.36999512
+  - -0.09112549
+  - 0.09750366
+  - -0.06619263
+  - 0.037109375
+  - -0.02645874
+  - 0.018707275
+  - -0.015411377
+  - 0.016448975
+  - -0.0066833496
+  - 0.011413574
+  - -0.018798828
+  - 0.018554688
+  - -0.012878418
+  - 0.010192871
+  - -0.094177246
+  - 0.13317871
+  - -0.3034973
+  - 0.35614014
+  - -0.17047119
+  - 0.17984009
+  - -0.1156311
+  - 0.15405273
+  - -0.055236816
+  - 0.050720215
+  - -0.03729248
+  - 0.03527832
+  - -0.019561768
+  - 0.022460938
+  - -0.016845703
+  - 0.013977051
+  - -0.010803223
+  - 0.010223389
+  - -0.14422607
+  - 0.1803894
+  - -0.32537842
+  - 0.29745483
+  - -0.16912842
+  - 0.12960815
+  - -0.06765747
+  - 0.067230225
+  - -0.040130615
+  - 0.043548584
+  - -0.028289795
+  - 0.022888184
+  - -0.015411377
+  - 0.014373779
+  - -0.018859863
+  - 0.029632568
+  - -0.013092041
+  - 0.010101318
+  - -0.15893555
+  - 0.14889526
+  - -0.07040405
+  - 0.06607056
+  - -0.028381348
+  - 0.030059814
+  - -0.013458252
+  - 0.016082764
+  - -0.004547119
+  - 0.0038452148
+  - -0.0030822754
+  - 0.0025634766
+  - -0.005859375
+  - 0.007293701
+  - -0.01071167
+  - 0.00970459
+  - -0.0055236816
+  - 0.0063476562
+  - -0.34973145
+  - 0.37768555
+  - -0.1482544
+  - 0.13604736
+  - -0.07891846
+  - 0.10189819
+  - -0.028961182
+  - 0.041046143
+  - -0.022979736
+  - 0.022033691
+  - -0.016601562
+  - 0.014923096
+  - -0.181427
+  - 0.1368103
+  - -0.11288452
+  - 0.1269226
+  - -0.041870117
+  - 0.07537842
+  - -0.34155273
+  - 0.3373413
+  - -0.08166504
+  - 0.08331299
+  - -0.08026123
+  - 0.082458496
+  - -0.06613159
+  - 0.07345581
+  - -0.07208252
+  - 0.06674194
+  - -0.05822754
+  - 0.054107666
+  - -0.04196167
+  - 0.051696777
+  - -0.037628174
+  - 0.042236328
+  - -0.015655518
+  - 0.012176514
+  - -0.32254028
+  - 0.29037476
+  - -0.14907837
+  - 0.15847778
+  - -0.07571411
+  - 0.066833496
+  - -0.06826782
+  - 0.07739258
+  - -0.0541687
+  - 0.06375122
+  - -0.053710938
+  - 0.049591064
+  - -0.042816162
+  - 0.052490234
+  - -0.038879395
+  - 0.047821045
+  - -0.033172607
+  - 0.033050537
+  - -0.1217041
+  - 0.112335205
+  - -0.040222168
+  - 0.035369873
+  - -0.028015137
+  - 0.029327393
+  - -0.026245117
+  - 0.027526855
+  - -0.025360107
+  - 0.02444458
+  - -0.023223877
+  - 0.02230835
+  - -0.20007324
+  - 0.23498535
+  - -0.024597168
+  - 0.028686523
+  - -0.20056152
+  - 0.35855103
+  - -0.31292725
+  - 0.36090088
+  - -0.09310913
+  - 0.11187744
+  - -0.039398193
+  - 0.038024902
+  - -0.027038574
+  - 0.020477295
+  - -0.018127441
+  - 0.019500732
+  - -0.013977051
+  - 0.01260376
+  - -0.018829346
+  - 0.020019531
+  - -0.010772705
+  - 0.011932373
+  - -0.28756714
+  - 0.41986084
+  - -0.21710205
+  - 0.31869507
+  - -0.2157898
+  - 0.20037842
+  - -0.084106445
+  - 0.08239746
+  - -0.046722412
+  - 0.042541504
+  - -0.03515625
+  - 0.032958984
+  - -0.018188477
+  - 0.017730713
+  - -0.011810303
+  - 0.0128479
+  - -0.0068359375
+  - 0.007751465
+  - -0.35836792
+  - 0.3855896
+  - -0.16360474
+  - 0.3145752
+  - -0.058166504
+  - 0.10189819
+  - -0.03982544
+  - 0.04269409
+  - -0.028686523
+  - 0.027557373
+  - -0.01864624
+  - 0.02911377
+  - -0.012573242
+  - 0.022766113
+  - -0.017425537
+  - 0.018035889
+  - -0.008911133
+  - 0.008483887
+  - -0.09094238
+  - 0.08441162
+  - -0.037353516
+  - 0.037078857
+  - -0.024719238
+  - 0.02331543
+  - -0.038970947
+  - 0.038604736
+  - -0.0082092285
+  - 0.0074157715
+  - -0.004119873
+  - 0.0038757324
+  - -0.25326538
+  - 0.28079224
+  - -0.08984375
+  - 0.079437256
+  - -0.032318115
+  - 0.05203247
+  - -0.029022217
+  - 0.02947998
+  - -0.024230957
+  - 0.024902344
+  - -0.012481689
+  - 0.014984131
+  - -0.007446289
+  - 0.0069885254
+  - -0.0064697266
+  - 0.006591797
+  - -0.00390625
+  - 0.0047912598
+  - -0.019836426
+  - 0.019256592
+  - -0.011352539
+  - 0.013214111
+  - -0.2763672
+  - 0.35476685
+  - -0.33111572
+  - 0.37561035
+  - -0.1572876
+  - 0.1637268
+  - -0.08981323
+  - 0.10256958
+  - -0.058776855
+  - 0.06695557
+  - -0.035064697
+  - 0.037963867
+  - -0.01928711
+  - 0.021270752
+  - -0.013977051
+  - 0.013671875
+  - -0.009796143
+  - 0.0099487305
+  - -0.3361206
+  - 0.40930176
+  - -0.3562622
+  - 0.35690308
+  - -0.09005737
+  - 0.09677124
+  - -0.040130615
+  - 0.046539307
+  - -0.023284912
+  - 0.022338867
+  - -0.014038086
+  - 0.016540527
+  - -0.009979248
+  - 0.016052246
+  - -0.018432617
+  - 0.021820068
+  - -0.0077209473
+  - 0.008850098
+  - -0.15490723
+  - 0.15170288
+  - -0.06588745
+  - 0.07611084
+  - -0.02444458
+  - 0.021606445
+  - -0.011810303
+  - 0.010437012
+  - -0.003112793
+  - 0.0038146973
+  - -0.0014953613
+  - 0.0026245117
+  - -0.18167114
+  - 0.17404175
+  - -0.049316406
+  - 0.04534912
+  - -0.013702393
+  - 0.012786865
+  - -0.31430054
+  - 0.3564453
+  - -0.15240479
+  - 0.21505737
+  - -0.061706543
+  - 0.09527588
+  - -0.025726318
+  - 0.034179688
+  - -0.015258789
+  - 0.017456055
+  - -0.007751465
+  - 0.009918213
+  - -0.015411377
+  - 0.01965332
+  - -0.013946533
+  - 0.01260376
+  - -0.0074768066
+  - 0.008544922
+  - -0.36727905
+  - 0.35125732
+  - -0.18237305
+  - 0.2059021
+  - -0.12576294
+  - 0.15985107
+  - -0.06448364
+  - 0.062347412
+  - -0.039886475
+  - 0.035827637
+  - -0.024261475
+  - 0.02746582
+  - -0.012542725
+  - 0.013458252
+  - -0.01071167
+  - 0.010559082
+  - -0.2536316
+  - 0.03112793
+  - -0.38848877
+  - 0.35263062
+  - -0.09121704
+  - 0.11898804
+  - -0.037872314
+  - 0.036590576
+  - -0.025238037
+  - 0.026641846
+  - -0.022003174
+  - 0.023956299
+  - -0.011047363
+  - 0.013885498
+  - -0.021118164
+  - 0.018341064
+  - -0.009155273
+  - 0.010864258
+  - -0.14022827
+  - 0.13626099
+  - -0.09539795
+  - 0.109954834
+  - -0.030792236
+  - 0.03186035
+  - -0.012878418
+  - 0.016174316
+  - -0.005859375
+  - 0.006072998
+  - -0.0045776367
+  - 0.0034484863
+  - -0.004852295
+  - 0.0071411133
+  - -0.011627197
+  - 0.0115356445
+  - -0.0075683594
+  - 0.0077209473
+  - -0.3887329
+  - 0.46954346
+  - -0.3487854
+  - 0.2861328
+  - -0.12771606
+  - 0.117767334
+  - -0.049194336
+  - 0.03881836
+  - -0.028167725
+  - 0.022857666
+  - -0.016723633
+  - 0.01864624
+  - -0.011627197
+  - 0.015106201
+  - -0.018432617
+  - 0.020141602
+  - -0.011962891
+  - 0.011688232
+  - -0.26315308
+  - 0.2973938
+  - -0.09716797
+  - 0.077056885
+  - -0.037322998
+  - 0.028839111
+  - -0.013122559
+  - 0.016113281
+  - -0.014984131
+  - 0.014099121
+  - -0.006591797
+  - 0.0048217773
+  - -0.1972351
+  - 0.1619873
+  - -0.27975464
+  - 0.24111938
+  - -0.09585571
+  - 0.077301025
+  - -0.37280273
+  - 0.4767151
+  - -0.17102051
+  - 0.1473999
+  - -0.106292725
+  - 0.12149048
+  - -0.068603516
+  - 0.08786011
+  - -0.052490234
+  - 0.043121338
+  - -0.021911621
+  - 0.016448975
+  - -0.01928711
+  - 0.018035889
+  - -0.015167236
+  - 0.012268066
+  - -0.021728516
+  - 0.021575928
+  - -0.1227417
+  - 0.15060425
+  - -0.038970947
+  - 0.03555298
+  - -0.01828003
+  - 0.018554688
+  - -0.004486084
+  - 0.0056762695
+  - -0.0025634766
+  - 0.0029296875
+  - -0.0010375977
+  - 0.0013427734
+  - -0.22006226
+  - 0.20809937
+  - -0.024169922
+  - 0.021148682
+  - -0.18814087
+  - 0.175354
+  - -0.34210205
+  - 0.39440918
+  - -0.10638428
+  - 0.1131897
+  - -0.039733887
+  - 0.047729492
+  - -0.025817871
+  - 0.019317627
+  - -0.016021729
+  - 0.013671875
+  - -0.01071167
+  - 0.008758545
+  - -0.017150879
+  - 0.018737793
+  - -0.0099487305
+  - 0.0113220215
+  - -0.3284912
+  - 0.33251953
+  - -0.28512573
+  - 0.38702393
+  - -0.1666565
+  - 0.19030762
+  - -0.13156128
+  - 0.10281372
+  - -0.05142212
+  - 0.05419922
+  - -0.037475586
+  - 0.037872314
+  - -0.022857666
+  - 0.019226074
+  - -0.01083374
+  - 0.012512207
+  - -0.008880615
+  - 0.008605957
+  - -0.45913696
+  - 0.47491455
+  - -0.15060425
+  - 0.35983276
+  - -0.06741333
+  - 0.09963989
+  - -0.041046143
+  - 0.041809082
+  - -0.026672363
+  - 0.02645874
+  - -0.018371582
+  - 0.025665283
+  - -0.017456055
+  - 0.024841309
+  - -0.020111084
+  - 0.018157959
+  - -0.010345459
+  - 0.008056641
+  - -0.21365356
+  - 0.22546387
+  - -0.039855957
+  - 0.04434204
+  - -0.028900146
+  - 0.025177002
+  - -0.028869629
+  - 0.032989502
+  - -0.010925293
+  - 0.011413574
+  - -0.005584717
+  - 0.0052490234
+  - -0.28723145
+  - 0.41589355
+  - -0.09182739
+  - 0.102996826
+  - -0.053466797
+  - 0.072509766
+  - -0.03540039
+  - 0.037017822
+  - -0.02923584
+  - 0.026824951
+  - -0.018005371
+  - 0.014831543
+  - -0.008361816
+  - 0.008361816
+  - -0.007385254
+  - 0.006652832
+  - -0.006225586
+  - 0.0067749023
+  - -0.019683838
+  - 0.019378662
+  - -0.011657715
+  - 0.010650635
+  - -0.3887024
+  - 0.48934937
+  - -0.37042236
+  - 0.4729309
+  - -0.18692017
+  - 0.21347046
+  - -0.10253906
+  - 0.1048584
+  - -0.05557251
+  - 0.05706787
+  - -0.033203125
+  - 0.034240723
+  - -0.018920898
+  - 0.024017334
+  - -0.10925293
+  - 0.10134888
+  - -0.058013916
+  - 0.04714966
+  - -0.31774902
+  - 0.47262573
+  - -0.44415283
+  - 0.3704834
+  - -0.11218262
+  - 0.09814453
+  - -0.047332764
+  - 0.06137085
+  - -0.0262146
+  - 0.021728516
+  - -0.010803223
+  - 0.009094238
+  - -0.011169434
+  - 0.011688232
+  - -0.015319824
+  - 0.014434814
+  - -0.009185791
+  - 0.007873535
+  - -0.14425659
+  - 0.13546753
+  - -0.061309814
+  - 0.06713867
+  - -0.03152466
+  - 0.024932861
+  - -0.012420654
+  - 0.01626587
+  - -0.0037231445
+  - 0.0035095215
+  - -0.0018310547
+  - 0.0022277832
+  - -0.1729126
+  - 0.25823975
+  - -0.03286743
+  - 0.035827637
+  - -0.01184082
+  - 0.009521484
+  - -0.3624878
+  - 0.36999512
+  - -0.11709595
+  - 0.09750366
+  - -0.06619263
+  - 0.07495117
+  - -0.02645874
+  - 0.030822754
+  - -0.017913818
+  - 0.016448975
+  - -0.013549805
+  - 0.011413574
+  - -0.018798828
+  - 0.018554688
+  - -0.012878418
+  - 0.014190674
+  - -0.006011963
+  - 0.0077819824
+  - -0.3034973
+  - 0.35614014
+  - -0.17385864
+  - 0.2441101
+  - -0.1156311
+  - 0.15405273
+  - -0.055236816
+  - 0.06335449
+  - -0.037353516
+  - 0.03564453
+  - -0.024810791
+  - 0.023254395
+  - -0.019927979
+  - 0.01940918
+  - -0.013671875
+  - 0.013122559
+  - -0.15490723
+  - 0.029968262
+  - -0.35324097
+  - 0.31741333
+  - -0.17111206
+  - 0.15341187
+  - -0.067840576
+  - 0.067352295
+  - -0.04336548
+  - 0.043548584
+  - -0.02835083
+  - 0.02923584
+  - -0.015411377
+  - 0.014373779
+  - -0.018859863
+  - 0.029632568
+  - -0.0154418945
+  - 0.01763916
+  - -0.15270996
+  - 0.14196777
+  - -0.08413696
+  - 0.106903076
+  - -0.028381348
+  - 0.036010742
+  - -0.019592285
+  - 0.017211914
+  - -0.0065307617
+  - 0.0047912598
+  - -0.003112793
+  - 0.0031433105
+  - -0.0015258789
+  - 0.001739502
+  - -0.01071167
+  - 0.00970459
+  - -0.006439209
+  - 0.006439209
+  - -0.34942627
+  - 0.3774414
+  - -0.1484375
+  - 0.34420776
+  - -0.07891846
+  - 0.111572266
+  - -0.057647705
+  - 0.041046143
+  - -0.024902344
+  - 0.022033691
+  - -0.016540527
+  - 0.01928711
+  - -0.181427
+  - 0.1368103
+  - -0.11288452
+  - 0.1269226
+  - -0.10720825
+  - 0.07537842
+  - -0.34155273
+  - 0.3373413
+  - -0.13058472
+  - 0.09854126
+  - -0.08026123
+  - 0.0796814
+  - -0.06881714
+  - 0.082458496
+  - -0.07156372
+  - 0.06729126
+  - -0.0657959
+  - 0.06677246
+  - -0.051727295
+  - 0.06600952
+  - -0.053009033
+  - 0.049591064
+  - -0.040283203
+  - 0.044891357
+  - -0.33392334
+  - 0.30541992
+  - -0.14920044
+  - 0.18807983
+  - -0.071777344
+  - 0.09146118
+  - -0.07571411
+  - 0.077423096
+  - -0.0541687
+  - 0.06375122
+  - -0.053710938
+  - 0.054748535
+  - -0.053131104
+  - 0.053955078
+  - -0.037902832
+  - 0.04623413
+  - -0.033172607
+  - 0.03274536
+  - -0.1217041
+  - 0.112335205
+  - -0.042633057
+  - 0.046295166
+  - -0.028625488
+  - 0.029327393
+  - -0.026245117
+  - 0.027526855
+  - -0.02331543
+  - 0.02444458
+  - -0.025390625
+  - 0.022766113
+  - -0.19818115
+  - 0.23651123
+  - -0.041290283
+  - 0.037506104
+  - -0.018066406
+  - 0.037384033
+  - -0.31292725
+  - 0.36090088
+  - -0.09310913
+  - 0.11187744
+  - -0.05731201
+  - 0.038024902
+  - -0.027496338
+  - 0.019317627
+  - -0.0184021
+  - 0.020477295
+  - -0.0121154785
+  - 0.013305664
+  - -0.018829346
+  - 0.020019531
+  - -0.014099121
+  - 0.013549805
+  - -0.28756714
+  - 0.27526855
+  - -0.26361084
+  - 0.41986084
+  - -0.2157898
+  - 0.20037842
+  - -0.084106445
+  - 0.09094238
+  - -0.052825928
+  - 0.054138184
+  - -0.03427124
+  - 0.04208374
+  - -0.019744873
+  - 0.019012451
+  - -0.017425537
+  - 0.016143799
+  - -0.010314941
+  - 0.012451172
+  - -0.34854126
+  - 0.41430664
+  - -0.36853027
+  - 0.32574463
+  - -0.106170654
+  - 0.10202026
+  - -0.04019165
+  - 0.04269409
+  - -0.028717041
+  - 0.031219482
+  - -0.019073486
+  - 0.0289917
+  - -0.012084961
+  - 0.01473999
+  - -0.017425537
+  - 0.022766113
+  - -0.0105896
+  - 0.008361816
+  - -0.09094238
+  - 0.08441162
+  - -0.058624268
+  - 0.06460571
+  - -0.024719238
+  - 0.02331543
+  - -0.038970947
+  - 0.038604736
+  - -0.010894775
+  - 0.009613037
+  - -0.0041503906
+  - 0.005493164
+  - -0.25326538
+  - 0.28079224
+  - -0.08984375
+  - 0.100494385
+  - -0.04916382
+  - 0.05203247
+  - -0.029022217
+  - 0.02947998
+  - -0.024230957
+  - 0.026031494
+  - -0.012481689
+  - 0.014984131
+  - -0.009521484
+  - 0.0069885254
+  - -0.007446289
+  - 0.006591797
+  - -0.00390625
+  - 0.004760742
+  - -0.021057129
+  - 0.01889038
+  - -0.016448975
+  - 0.013214111
+  - -0.007446289
+  - 0.0073242188
+  - -0.31671143
+  - 0.36608887
+  - -0.1803894
+  - 0.24014282
+  - -0.12606812
+  - 0.11248779
+  - -0.07699585
+  - 0.067108154
+  - -0.043518066
+  - 0.042022705
+  - -0.02508545
+  - 0.024902344
+  - -0.017028809
+  - 0.016326904
+  - -0.01373291
+  - 0.013641357
+  - -0.27130127
+  - 0.14035034
+  - -0.37408447
+  - 0.4320984
+  - -0.09060669
+  - 0.10580444
+  - -0.040130615
+  - 0.04824829
+  - -0.030273438
+  - 0.02243042
+  - -0.018493652
+  - 0.016571045
+  - -0.009979248
+  - 0.0064086914
+  - -0.018463135
+  - 0.021820068
+  - -0.0077209473
+  - 0.009796143
+  - -0.15515137
+  - 0.1453247
+  - -0.113708496
+  - 0.109313965
+  - -0.02444458
+  - 0.03451538
+  - -0.011810303
+  - 0.013092041
+  - -0.004699707
+  - 0.004058838
+  - -0.002746582
+  - 0.0026550293
+  - -0.18167114
+  - 0.17404175
+  - -0.11685181
+  - 0.087646484
+  - -0.01889038
+  - 0.02029419
+  - -0.31430054
+  - 0.3564453
+  - -0.17770386
+  - 0.2727356
+  - -0.08956909
+  - 0.09527588
+  - -0.04446411
+  - 0.034179688
+  - -0.015258789
+  - 0.021026611
+  - -0.0065307617
+  - 0.0113220215
+  - -0.014831543
+  - 0.01965332
+  - -0.015411377
+  - 0.01638794
+  - -0.008453369
+  - 0.008544922
+  - -0.36727905
+  - 0.35125732
+  - -0.23190308
+  - 0.2059021
+  - -0.12835693
+  - 0.15985107
+  - -0.07974243
+  - 0.08010864
+  - -0.041229248
+  - 0.044555664
+  - -0.02557373
+  - 0.028717041
+  - -0.014709473
+  - 0.015625
+  - -0.013183594
+  - 0.012878418
+  - -0.00869751
+  - 0.009155273
+  - -0.4093628
+  - 0.38354492
+  - -0.09173584
+  - 0.12033081
+  - -0.055023193
+  - 0.036621094
+  - -0.025238037
+  - 0.026611328
+  - -0.022094727
+  - 0.023956299
+  - -0.011047363
+  - 0.01461792
+  - -0.021118164
+  - 0.018310547
+  - -0.014312744
+  - 0.014556885
+  - -0.11706543
+  - 0.10040283
+  - -0.14022827
+  - 0.13250732
+  - -0.030792236
+  - 0.03186035
+  - -0.018463135
+  - 0.022338867
+  - -0.009185791
+  - 0.0070495605
+  - -0.0045776367
+  - 0.004333496
+  - -0.0016174316
+  - 0.0018920898
+  - -0.011627197
+  - 0.0115356445
+  - -0.008056641
+  - 0.007965088
+  - -0.27160645
+  - 0.42694092
+  - -0.3887329
+  - 0.46954346
+  - -0.12771606
+  - 0.13150024
+  - -0.049194336
+  - 0.05078125
+  - -0.028167725
+  - 0.022857666
+  - -0.017486572
+  - 0.01864624
+  - -0.009613037
+  - 0.0072021484
+  - -0.018432617
+  - 0.020141602
+  - -0.011962891
+  - 0.01449585
+  - -0.26315308
+  - 0.2973938
+  - -0.104400635
+  - 0.097229004
+  - -0.037322998
+  - 0.03225708
+  - -0.015014648
+  - 0.016113281
+  - -0.014984131
+  - 0.013397217
+  - -0.0067443848
+  - 0.009063721
+  - -0.23861694
+  - 0.18475342
+  - -0.3491211
+  - 0.30319214
+  - -0.11395264
+  - 0.18478394
+  - -0.39007568
+  - 0.50305176
+  - -0.20474243
+  - 0.3446045
+  - -0.10525513
+  - 0.13650513
+  - -0.09933472
+  - 0.08786011
+  - -0.054473877
+  - 0.043121338
+  - -0.021911621
+  - 0.025848389
+  - -0.019348145
+  - 0.018035889
+  - -0.015167236
+  - 0.015411377
+  - -0.008880615
+  - 0.010620117
+  - -0.12084961
+  - 0.14486694
+  - -0.05529785
+  - 0.049835205
+  - -0.021759033
+  - 0.027282715
+  - -0.010192871
+  - 0.0068359375
+  - -0.0037841797
+  - 0.0029296875
+  - -0.0018615723
+  - 0.0014038086
+  - -0.21951294
+  - 0.20837402
+  - -0.029876709
+  - 0.03189087
+  - -0.010650635
+  - 0.010314941
+  - -0.3413391
+  - 0.39346313
+  - -0.10638428
+  - 0.1131897
+  - -0.06341553
+  - 0.047729492
+  - -0.025817871
+  - 0.02142334
+  - -0.016021729
+  - 0.018096924
+  - -0.0050354004
+  - 0.010467529
+  - -0.017150879
+  - 0.018737793
+  - -0.011047363
+  - 0.0113220215
+  - -0.3284912
+  - 0.3006897
+  - -0.30358887
+  - 0.38702393
+  - -0.18237305
+  - 0.21347046
+  - -0.13156128
+  - 0.1078186
+  - -0.06161499
+  - 0.060638428
+  - -0.037841797
+  - 0.03805542
+  - -0.024719238
+  - 0.019561768
+  - -0.016326904
+  - 0.016235352
+  - -0.011871338
+  - 0.010772705
+  - -0.3930664
+  - 0.45840454
+  - -0.44406128
+  - 0.34509277
+  - -0.10592651
+  - 0.09887695
+  - -0.041046143
+  - 0.041809082
+  - -0.026611328
+  - 0.033813477
+  - -0.019348145
+  - 0.025665283
+  - -0.017456055
+  - 0.020385742
+  - -0.020202637
+  - 0.024841309
+  - -0.010406494
+  - 0.009490967
+  - -0.2135315
+  - 0.22543335
+  - -0.08920288
+  - 0.073394775
+  - -0.029266357
+  - 0.025177002
+  - -0.028869629
+  - 0.032989502
+  - -0.013305664
+  - 0.01449585
+  - -0.005584717
+  - 0.007385254
+  - -0.28723145
+  - 0.41589355
+  - -0.09182739
+  - 0.15612793
+  - -0.08023071
+  - 0.072509766
+  - -0.040039062
+  - 0.037017822
+  - -0.02923584
+  - 0.027038574
+  - -0.018005371
+  - 0.018066406
+  - -0.010803223
+  - 0.008361816
+  - -0.008056641
+  - 0.0066833496
+  - -0.006225586
+  - 0.0067749023
+  - -0.019683838
+  - 0.019378662
+  - -0.014282227
+  - 0.013153076
+  - -0.010925293
+  - 0.0119018555
+  - -0.3887024
+  - 0.48934937
+  - -0.18692017
+  - 0.23590088
+  - -0.121398926
+  - 0.1348877
+  - -0.06530762
+  - 0.059326172
+  - -0.04385376
+  - 0.043701172
+  - -0.022644043
+  - 0.02508545
+  - -0.113342285
+  - 0.10507202
+  - -0.0574646
+  - 0.09265137
+  - -0.30404663
+  - 0.04949951
+  - -0.4390564
+  - 0.45074463
+  - -0.1111145
+  - 0.13171387
+  - -0.04736328
+  - 0.06112671
+  - -0.039093018
+  - 0.021728516
+  - -0.010864258
+  - 0.011566162
+  - -0.0067443848
+  - 0.0065612793
+  - -0.015319824
+  - 0.014434814
+  - -0.009521484
+  - 0.010375977
+  - -0.14535522
+  - 0.13986206
+  - -0.11795044
+  - 0.096191406
+  - -0.03152466
+  - 0.03918457
+  - -0.012420654
+  - 0.01626587
+  - -0.004486084
+  - 0.004425049
+  - -0.0029907227
+  - 0.0022277832
+  - -0.1729126
+  - 0.25823975
+  - -0.057434082
+  - 0.055725098
+  - -0.014587402
+  - 0.015563965
+  - -0.3624878
+  - 0.36999512
+  - -0.11709595
+  - 0.3010254
+  - -0.06619263
+  - 0.08984375
+  - -0.039794922
+  - 0.030822754
+  - -0.017913818
+  - 0.016448975
+  - -0.013549805
+  - 0.013580322
+  - -0.018798828
+  - 0.018554688
+  - -0.017364502
+  - 0.014373779
+  - -0.00793457
+  - 0.0077819824
+  - -0.3034973
+  - 0.35614014
+  - -0.18563843
+  - 0.2441101
+  - -0.13775635
+  - 0.15405273
+  - -0.07876587
+  - 0.07156372
+  - -0.047668457
+  - 0.048339844
+  - -0.024780273
+  - 0.028778076
+  - -0.021881104
+  - 0.020477295
+  - -0.013641357
+  - 0.012969971
+  - -0.009155273
+  - 0.009918213
+  - -0.32946777
+  - 0.29830933
+  - -0.1690979
+  - 0.1517334
+  - -0.08596802
+  - 0.067230225
+  - -0.04336548
+  - 0.05987549
+  - -0.028320312
+  - 0.02923584
+  - -0.015472412
+  - 0.014343262
+  - -0.018859863
+  - 0.029632568
+  - -0.016693115
+  - 0.018310547
+  - -0.15789795
+  - 0.15011597
+  - -0.15060425
+  - 0.14172363
+  - -0.03567505
+  - 0.036010742
+  - -0.023132324
+  - 0.020202637
+  - -0.0065307617
+  - 0.009429932
+  - -0.003112793
+  - 0.0032653809
+  - -0.0020141602
+  - 0.0018920898
+  - -0.011627197
+  - 0.012878418
+  - -0.008422852
+  - 0.009429932
+  - -0.28164673
+  - 0.38168335
+  - -0.35369873
+  - 0.3477173
+  - -0.11868286
+  - 0.111572266
+  - -0.057647705
+  - 0.053466797
+  - -0.024902344
+  - 0.026855469
+  - -0.016540527
+  - 0.01928711
+  - -0.181427
+  - 0.1368103
+  - -0.11425781
+  - 0.1269226
+  - -0.10720825
+  - 0.07537842
+  - -0.34155273
+  - 0.3373413
+  - -0.13058472
+  - 0.14935303
+  - -0.08026123
+  - 0.07028198
+  - -0.072265625
+  - 0.082458496
+  - -0.072052
+  - 0.062164307
+  - -0.06716919
+  - 0.0670166
+  - -0.046783447
+  - 0.061767578
+  - -0.053771973
+  - 0.052337646
+  - -0.04019165
+  - 0.050445557
+  - -0.30126953
+  - 0.2904663
+  - -0.32937622
+  - 0.19717407
+  - -0.115722656
+  - 0.09072876
+  - -0.07571411
+  - 0.07739258
+  - -0.053588867
+  - 0.06793213
+  - -0.0541687
+  - 0.054748535
+  - -0.053131104
+  - 0.052490234
+  - -0.042816162
+  - 0.047821045
+  - -0.033172607
+  - 0.040527344
+  - -0.1217041
+  - 0.112335205
+  - -0.055419922
+  - 0.059417725
+  - -0.035583496
+  - 0.029327393
+  - -0.0262146
+  - 0.027526855
+  - -0.022247314
+  - 0.024414062
+  - -0.025360107
+  - 0.024230957
+  - -0.24765015
+  - 0.29455566
+  - -0.053344727
+  - 0.049713135
+  - -0.020050049
+  - 0.021209717
+  - -0.31463623
+  - 0.36260986
+  - -0.12423706
+  - 0.11175537
+  - -0.059783936
+  - 0.058288574
+  - -0.027435303
+  - 0.032348633
+  - -0.027038574
+  - 0.020477295
+  - -0.015838623
+  - 0.013305664
+  - -0.018859863
+  - 0.020019531
+  - -0.014099121
+  - 0.013549805
+  - -0.011352539
+  - 0.012268066
+  - -0.28756714
+  - 0.41986084
+  - -0.2157898
+  - 0.23422241
+  - -0.10031128
+  - 0.13165283
+  - -0.078552246
+  - 0.058685303
+  - -0.0345459
+  - 0.041748047
+  - -0.020324707
+  - 0.019500732
+  - -0.017578125
+  - 0.017089844
+  - -0.010681152
+  - 0.013824463
+  - -0.27618408
+  - 0.20172119
+  - -0.3571167
+  - 0.38787842
+  - -0.1060791
+  - 0.1055603
+  - -0.04019165
+  - 0.04269409
+  - -0.02999878
+  - 0.031219482
+  - -0.028717041
+  - 0.029022217
+  - -0.012084961
+  - 0.010498047
+  - -0.017425537
+  - 0.022766113
+  - -0.010650635
+  - 0.010955811
+  - -0.07727051
+  - 0.08456421
+  - -0.09094238
+  - 0.0769043
+  - -0.029846191
+  - 0.035949707
+  - -0.038970947
+  - 0.038604736
+  - -0.014160156
+  - 0.016357422
+  - -0.006378174
+  - 0.005340576
+  - -0.31015015
+  - 0.36987305
+  - -0.18634033
+  - 0.13574219
+  - -0.06304932
+  - 0.059783936
+  - -0.028411865
+  - 0.031066895
+  - -0.023986816
+  - 0.029510498
+  - -0.020263672
+  - 0.015014648
+  - -0.009552002
+  - 0.010650635
+  - -0.0074768066
+  - 0.006652832
+  - -0.00390625
+  - 0.0047912598
+  - -0.019836426
+  - 0.019256592
+  - -0.017303467
+  - 0.014404297
+  - -0.007446289
+  - 0.010223389
+  - -0.33111572
+  - 0.37561035
+  - -0.2735901
+  - 0.30099487
+  - -0.12606812
+  - 0.15527344
+  - -0.077056885
+  - 0.069610596
+  - -0.042816162
+  - 0.05581665
+  - -0.025512695
+  - 0.024932861
+  - -0.020385742
+  - 0.019592285
+  - -0.014953613
+  - 0.01550293
+  - -0.008392334
+  - 0.0073242188
+  - -0.3579712
+  - 0.41119385
+  - -0.09005737
+  - 0.10531616
+  - -0.07171631
+  - 0.048309326
+  - -0.030212402
+  - 0.025726318
+  - -0.018493652
+  - 0.0211792
+  - -0.0049743652
+  - 0.007904053
+  - -0.018463135
+  - 0.021820068
+  - -0.011566162
+  - 0.010070801
+  - -0.12844849
+  - 0.15170288
+  - -0.15490723
+  - 0.13040161
+  - -0.03149414
+  - 0.03451538
+  - -0.01461792
+  - 0.013092041
+  - -0.006164551
+  - 0.0059814453
+  - -0.0027770996
+  - 0.0027160645
+  - -0.2341919
+  - 0.22366333
+  - -0.20510864
+  - 0.18496704
+  - -0.023376465
+  - 0.02407837
+  - -0.16790771
+  - 0.35769653
+  - -0.315094
+  - 0.33203125
+  - -0.09509277
+  - 0.095458984
+  - -0.04446411
+  - 0.04107666
+  - -0.015289307
+  - 0.021057129
+  - -0.013000488
+  - 0.011352539
+  - -0.014862061
+  - 0.011779785
+  - -0.015411377
+  - 0.01965332
+  - -0.008453369
+  - 0.009124756
+  - -0.36709595
+  - 0.34796143
+  - -0.26104736
+  - 0.35125732
+  - -0.13867188
+  - 0.15985107
+  - -0.07977295
+  - 0.08010864
+  - -0.05065918
+  - 0.058166504
+  - -0.025482178
+  - 0.028656006
+  - -0.01763916
+  - 0.016296387
+  - -0.013366699
+  - 0.012786865
+  - -0.00793457
+  - 0.008514404
+  - -0.38897705
+  - 0.35653687
+  - -0.12008667
+  - 0.118927
+  - -0.054840088
+  - 0.0831604
+  - -0.025238037
+  - 0.031829834
+  - -0.022338867
+  - 0.023956299
+  - -0.018218994
+  - 0.0146484375
+  - -0.021118164
+  - 0.018341064
+  - -0.014129639
+  - 0.014526367
+  - -0.006134033
+  - 0.009490967
+  - -0.14022827
+  - 0.13250732
+  - -0.03652954
+  - 0.03704834
+  - -0.023040771
+  - 0.023834229
+  - -0.009185791
+  - 0.0119018555
+  - -0.0058288574
+  - 0.0045166016
+  - -0.002380371
+  - 0.0022888184
+  - -0.014404297
+  - 0.015258789
+  - -0.011230469
+  - 0.0126953125
+  - -0.01675415
+  - 0.018798828
+  - -0.38894653
+  - 0.47024536
+  - -0.12771606
+  - 0.1359253
+  - -0.065582275
+  - 0.05078125
+  - -0.028167725
+  - 0.019439697
+  - -0.017425537
+  - 0.02279663
+  - -0.0061035156
+  - 0.0072021484
+  - -0.018432617
+  - 0.020141602
+  - -0.0121154785
+  - 0.01449585
+  - -0.26315308
+  - 0.2973938
+  - -0.19277954
+  - 0.16125488
+  - -0.0390625
+  - 0.045654297
+  - -0.022491455
+  - 0.016113281
+  - -0.014984131
+  - 0.0134887695
+  - -0.009094238
+  - 0.0095825195
+  - -0.25683594
+  - 0.16647339
+  - -0.36538696
+  - 0.31433105
+  - -0.15679932
+  - 0.17642212
+  - -0.37408447
+  - 0.4798584
+  - -0.3546753
+  - 0.36410522
+  - -0.13232422
+  - 0.13659668
+  - -0.099609375
+  - 0.08786011
+  - -0.054534912
+  - 0.06454468
+  - -0.029632568
+  - 0.025848389
+  - -0.019348145
+  - 0.018035889
+  - -0.015167236
+  - 0.017425537
+  - -0.008880615
+  - 0.010253906
+  - -0.1227417
+  - 0.15060425
+  - -0.07839966
+  - 0.0687561
+  - -0.030883789
+  - 0.027282715
+  - -0.010192871
+  - 0.009063721
+  - -0.0037841797
+  - 0.0036315918
+  - -0.0018920898
+  - 0.0029907227
+  - -0.28070068
+  - 0.2654724
+  - -0.05706787
+  - 0.04095459
+  - -0.014556885
+  - 0.011444092
+  - -0.3420105
+  - 0.39642334
+  - -0.13375854
+  - 0.1131897
+  - -0.06341553
+  - 0.08596802
+  - -0.025817871
+  - 0.029510498
+  - -0.023925781
+  - 0.018066406
+  - -0.010070801
+  - 0.010467529
+  - -0.017150879
+  - 0.018737793
+  - -0.012969971
+  - 0.011505127
+  - -0.011169434
+  - 0.01663208
+  - -0.3284912
+  - 0.38702393
+  - -0.19207764
+  - 0.21347046
+  - -0.13156128
+  - 0.1300354
+  - -0.06124878
+  - 0.06036377
+  - -0.037200928
+  - 0.037231445
+  - -0.024627686
+  - 0.02017212
+  - -0.017547607
+  - 0.017456055
+  - -0.011474609
+  - 0.010864258
+  - -0.340271
+  - 0.11758423
+  - -0.42486572
+  - 0.44296265
+  - -0.10562134
+  - 0.11691284
+  - -0.04107666
+  - 0.041809082
+  - -0.029144287
+  - 0.033813477
+  - -0.025024414
+  - 0.025665283
+  - -0.016448975
+  - 0.013549805
+  - -0.020202637
+  - 0.024841309
+  - -0.010406494
+  - 0.011108398
+  - -0.2135315
+  - 0.22543335
+  - -0.10751343
+  - 0.11331177
+  - -0.029266357
+  - 0.034118652
+  - -0.028839111
+  - 0.03277588
+  - -0.017059326
+  - 0.018463135
+  - -0.0076293945
+  - 0.007751465
+  - -0.37670898
+  - 0.5459595
+  - -0.2783203
+  - 0.20056152
+  - -0.092926025
+  - 0.0765686
+  - -0.04058838
+  - 0.041809082
+  - -0.02923584
+  - 0.035217285
+  - -0.025512695
+  - 0.018035889
+  - -0.010803223
+  - 0.013824463
+  - -0.008056641
+  - 0.006713867
+  - -0.006225586
+  - 0.0067749023
+  - -0.019683838
+  - 0.01776123
+  - -0.016784668
+  - 0.018463135
+  - -0.009460449
+  - 0.008514404
+  - -0.3887024
+  - 0.48950195
+  - -0.37042236
+  - 0.29101562
+  - -0.15588379
+  - 0.1348877
+  - -0.064208984
+  - 0.06161499
+  - -0.044525146
+  - 0.057281494
+  - -0.023406982
+  - 0.025665283
+  - -0.118011475
+  - 0.108551025
+  - -0.08694458
+  - 0.09988403
+  - -0.027801514
+  - 0.02758789
+  - -0.4217224
+  - 0.4288025
+  - -0.11160278
+  - 0.13342285
+  - -0.050964355
+  - 0.06112671
+  - -0.039093018
+  - 0.043945312
+  - -0.011291504
+  - 0.012359619
+  - -0.0061035156
+  - 0.0065307617
+  - -0.015411377
+  - 0.015411377
+  - -0.010681152
+  - 0.010467529
+  - -0.14425659
+  - 0.1338501
+  - -0.14477539
+  - 0.13528442
+  - -0.043151855
+  - 0.03918457
+  - -0.017791748
+  - 0.01626587
+  - -0.0063476562
+  - 0.006011963
+  - -0.0030212402
+  - 0.0031433105
+  - -0.22055054
+  - 0.33145142
+  - -0.1257019
+  - 0.1324768
+  - -0.01977539
+  - 0.018829346
+  - -0.2934265
+  - 0.37234497
+  - -0.36141968
+  - 0.30065918
+  - -0.09112549
+  - 0.08984375
+  - -0.04071045
+  - 0.035247803
+  - -0.0178833
+  - 0.01763916
+  - -0.013549805
+  - 0.013580322
+  - -0.00982666
+  - 0.014770508
+  - -0.018798828
+  - 0.018554688
+  - -0.008392334
+  - 0.0077819824
+  - -0.3034973
+  - 0.35614014
+  - -0.2684021
+  - 0.35214233
+  - -0.15368652
+  - 0.17456055
+  - -0.09585571
+  - 0.08496094
+  - -0.04888916
+  - 0.050689697
+  - -0.026031494
+  - 0.029388428
+  - -0.022033691
+  - 0.021148682
+  - -0.01586914
+  - 0.015014648
+  - -0.008178711
+  - 0.009063721
+  - -0.32580566
+  - 0.2977295
+  - -0.16833496
+  - 0.15216064
+  - -0.08596802
+  - 0.12945557
+  - -0.04336548
+  - 0.05987549
+  - -0.040130615
+  - 0.02923584
+  - -0.01550293
+  - 0.017333984
+  - -0.018859863
+  - 0.029632568
+  - -0.016693115
+  - 0.025543213
+  - -0.007507324
+  - 0.010101318
+  - -0.15270996
+  - 0.14196777
+  - -0.042755127
+  - 0.04058838
+  - -0.023132324
+  - 0.021972656
+  - -0.009124756
+  - 0.009429932
+  - -0.004547119
+  - 0.003112793
+  - -0.0020446777
+  - 0.002105713
+  - -0.0113220215
+  - 0.010986328
+  - -0.009765625
+  - 0.012786865
+  - -0.27896118
+  - 0.077545166
+  - -0.3501892
+  - 0.3782959
+  - -0.1187439
+  - 0.13604736
+  - -0.057647705
+  - 0.053466797
+  - -0.028961182
+  - 0.026855469
+  - -0.02078247
+  - 0.019348145
+  - -0.015777588
+  - 0.085113525
+  - -0.181427
+  - 0.1368103
+  - -0.10720825
+  - 0.1269226
+  - -0.34155273
+  - 0.3373413
+  - -0.16400146
+  - 0.16186523
+  - -0.08026123
+  - 0.07312012
+  - -0.07244873
+  - 0.082458496
+  - -0.064819336
+  - 0.062286377
+  - -0.072265625
+  - 0.067840576
+  - -0.05606079
+  - 0.06854248
+  - -0.05618286
+  - 0.06338501
+  - -0.043670654
+  - 0.04348755
+  - -0.2980652
+  - 0.23956299
+  - -0.32254028
+  - 0.29067993
+  - -0.11569214
+  - 0.15759277
+  - -0.07571411
+  - 0.07739258
+  - -0.06826782
+  - 0.06793213
+  - -0.0541687
+  - 0.062927246
+  - -0.053131104
+  - 0.052490234
+  - -0.042816162
+  - 0.047821045
+  - -0.03451538
+  - 0.040527344
+  - -0.1217041
+  - 0.112335205
+  - -0.08880615
+  - 0.06832886
+  - -0.035583496
+  - 0.035369873
+  - -0.026245117
+  - 0.027526855
+  - -0.020477295
+  - 0.025177002
+  - -0.02508545
+  - 0.022949219
+  - -0.26651
+  - 0.31826782
+  - -0.055603027
+  - 0.07110596
+  - -0.024169922
+  - 0.022216797
+  - -0.31292725
+  - 0.36090088
+  - -0.12243652
+  - 0.23840332
+  - -0.059783936
+  - 0.090423584
+  - -0.040039062
+  - 0.032592773
+  - -0.027038574
+  - 0.020507812
+  - -0.01739502
+  - 0.01965332
+  - -0.024261475
+  - 0.021728516
+  - -0.018981934
+  - 0.024871826
+  - -0.011352539
+  - 0.0121154785
+  - -0.28683472
+  - 0.41445923
+  - -0.2157898
+  - 0.23449707
+  - -0.14065552
+  - 0.13214111
+  - -0.078552246
+  - 0.0625
+  - -0.035217285
+  - 0.041809082
+  - -0.020324707
+  - 0.018371582
+  - -0.021850586
+  - 0.020996094
+  - -0.012176514
+  - 0.012329102
+  - -0.007446289
+  - 0.007446289
+  - -0.35836792
+  - 0.3855896
+  - -0.1060791
+  - 0.10882568
+  - -0.057495117
+  - 0.04269409
+  - -0.031280518
+  - 0.031311035
+  - -0.028869629
+  - 0.02923584
+  - -0.008483887
+  - 0.015380859
+  - -0.022033691
+  - 0.029083252
+  - -0.010925293
+  - 0.012084961
+  - -0.092681885
+  - 0.10195923
+  - -0.09075928
+  - 0.082458496
+  - -0.029846191
+  - 0.035858154
+  - -0.038970947
+  - 0.038604736
+  - -0.021087646
+  - 0.01687622
+  - -0.0064086914
+  - 0.006134033
+  - -0.33898926
+  - 0.13415527
+  - -0.1854248
+  - 0.36346436
+  - -0.05618286
+  - 0.08654785
+  - -0.023986816
+  - 0.029571533
+  - -0.029022217
+  - 0.02947998
+  - -0.02029419
+  - 0.021118164
+  - -0.009552002
+  - 0.011016846
+  - -0.0074157715
+  - 0.006652832
+  - -0.006011963
+  - 0.0053710938
+  - -0.026641846
+  - 0.019744873
+  - -0.022094727
+  - 0.023742676
+  - -0.010314941
+  - 0.011474609
+  - -0.33111572
+  - 0.37561035
+  - -0.2735901
+  - 0.30099487
+  - -0.13244629
+  - 0.15527344
+  - -0.077056885
+  - 0.08004761
+  - -0.06173706
+  - 0.060272217
+  - -0.026275635
+  - 0.029510498
+  - -0.019897461
+  - 0.019439697
+  - -0.017028809
+  - 0.014587402
+  - -0.008422852
+  - 0.008300781
+  - -0.35601807
+  - 0.41012573
+  - -0.16586304
+  - 0.10534668
+  - -0.07171631
+  - 0.0786438
+  - -0.03024292
+  - 0.03579712
+  - -0.023468018
+  - 0.021270752
+  - -0.012786865
+  - 0.008605957
+  - -0.023803711
+  - 0.025634766
+  - -0.013214111
+  - 0.019104004
+  - -0.012390137
+  - 0.018371582
+  - -0.15530396
+  - 0.14257812
+  - -0.04776001
+  - 0.042419434
+  - -0.023742676
+  - 0.016937256
+  - -0.006164551
+  - 0.009002686
+  - -0.002746582
+  - 0.0027770996
+  - -0.0017089844
+  - 0.0020751953
+  - -0.247406
+  - 0.23550415
+  - -0.039916992
+  - 0.031036377
+  - -0.010437012
+  - 0.011230469
+  - -0.3139038
+  - 0.35638428
+  - -0.09509277
+  - 0.12164307
+  - -0.055999756
+  - 0.04107666
+  - -0.025726318
+  - 0.021148682
+  - -0.013061523
+  - 0.017486572
+  - -0.009490967
+  - 0.008911133
+  - -0.020507812
+  - 0.023223877
+  - -0.009063721
+  - 0.012176514
+  - -0.36349487
+  - 0.35516357
+  - -0.32373047
+  - 0.3511963
+  - -0.13867188
+  - 0.16607666
+  - -0.09561157
+  - 0.09109497
+  - -0.05065918
+  - 0.05819702
+  - -0.030548096
+  - 0.029571533
+  - -0.018798828
+  - 0.021057129
+  - -0.0121154785
+  - 0.01550293
+  - -0.0077819824
+  - 0.007965088
+  - -0.38848877
+  - 0.35263062
+  - -0.12005615
+  - 0.2592163
+  - -0.060455322
+  - 0.08859253
+  - -0.037841797
+  - 0.031829834
+  - -0.023010254
+  - 0.021240234
+  - -0.018951416
+  - 0.02407837
+  - -0.021911621
+  - 0.024108887
+  - -0.026184082
+  - 0.017089844
+  - -0.009521484
+  - 0.009857178
+  - -0.14019775
+  - 0.1378479
+  - -0.04550171
+  - 0.04510498
+  - -0.023071289
+  - 0.03186035
+  - -0.011871338
+  - 0.0119018555
+  - -0.00579834
+  - 0.0045166016
+  - -0.002380371
+  - 0.0031738281
+  - -0.015960693
+  - 0.015380859
+  - -0.011016846
+  - 0.012207031
+  - -0.0050354004
+  - 0.004486084
+  - -0.38787842
+  - 0.4694214
+  - -0.13482666
+  - 0.13623047
+  - -0.065582275
+  - 0.057128906
+  - -0.027374268
+  - 0.03881836
+  - -0.028137207
+  - 0.022857666
+  - -0.011199951
+  - 0.0065612793
+  - -0.024536133
+  - 0.022888184
+  - -0.013153076
+  - 0.015258789
+  - -0.055480957
+  - 0.065704346
+  - -0.26583862
+  - 0.30361938
+  - -0.05718994
+  - 0.06289673
+  - -0.022491455
+  - 0.019165039
+  - -0.014892578
+  - 0.0134887695
+  - -0.011932373
+  - 0.012939453
+  - -0.009521484
+  - 0.008300781
+  - -0.32125854
+  - 0.27859497
+  - -0.18719482
+  - 0.15270996
+  - -0.26828003
+  - 0.39135742
+  - -0.37280273
+  - 0.4767151
+  - -0.13232422
+  - 0.13659668
+  - -0.099609375
+  - 0.12149048
+  - -0.068603516
+  - 0.06466675
+  - -0.039154053
+  - 0.026184082
+  - -0.02609253
+  - 0.022979736
+  - -0.0178833
+  - 0.023529053
+  - -0.009552002
+  - 0.012145996
+  - -0.12084961
+  - 0.14486694
+  - -0.087646484
+  - 0.07330322
+  - -0.030883789
+  - 0.027648926
+  - -0.010192871
+  - 0.012756348
+  - -0.0043029785
+  - 0.0036621094
+  - -0.0025634766
+  - 0.0030212402
+  - -0.30078125
+  - 0.2822876
+  - -0.08743286
+  - 0.086242676
+  - -0.017822266
+  - 0.017303467
+  - -0.3418579
+  - 0.3942566
+  - -0.13113403
+  - 0.31259155
+  - -0.06341553
+  - 0.09552002
+  - -0.039733887
+  - 0.029510498
+  - -0.023925781
+  - 0.018096924
+  - -0.010620117
+  - 0.01449585
+  - -0.017578125
+  - 0.022491455
+  - -0.021575928
+  - 0.0206604
+  - -0.0073242188
+  - 0.009338379
+  - -0.3284912
+  - 0.38858032
+  - -0.2822876
+  - 0.263031
+  - -0.13156128
+  - 0.1300354
+  - -0.05871582
+  - 0.06417847
+  - -0.04348755
+  - 0.046203613
+  - -0.027282715
+  - 0.030151367
+  - -0.02078247
+  - 0.018310547
+  - -0.012420654
+  - 0.014465332
+  - -0.007904053
+  - 0.00881958
+  - -0.4270935
+  - 0.4429016
+  - -0.10562134
+  - 0.11654663
+  - -0.067352295
+  - 0.041900635
+  - -0.029144287
+  - 0.033813477
+  - -0.02508545
+  - 0.026641846
+  - -0.010375977
+  - 0.017913818
+  - -0.025543213
+  - 0.033172607
+  - -0.014831543
+  - 0.011932373
+  - -0.21551514
+  - 0.22473145
+  - -0.1690979
+  - 0.162323
+  - -0.03302002
+  - 0.034118652
+  - -0.028869629
+  - 0.032989502
+  - -0.02432251
+  - 0.0184021
+  - -0.007537842
+  - 0.00970459
+  - -0.35494995
+  - 0.14178467
+  - -0.37408447
+  - 0.54330444
+  - -0.08251953
+  - 0.104766846
+  - -0.040100098
+  - 0.041381836
+  - -0.03527832
+  - 0.037017822
+  - -0.025512695
+  - 0.023986816
+  - -0.010803223
+  - 0.014587402
+  - -0.008361816
+  - 0.006713867
+  - -0.007537842
+  - 0.007598877
+  - -0.02935791
+  - 0.017608643
+  - -0.025665283
+  - 0.028442383
+  - -0.009429932
+  - 0.010894775
+  - -0.38867188
+  - 0.48953247
+  - -0.37042236
+  - 0.29101562
+  - -0.1723938
+  - 0.21347046
+  - -0.085754395
+  - 0.07876587
+  - -0.04824829
+  - 0.05618286
+  - -0.026397705
+  - 0.031188965
+  - -0.047790527
+  - 0.096343994
+  - -0.10437012
+  - 0.08874512
+  - -0.025939941
+  - 0.027740479
+  - -0.4206848
+  - 0.4267578
+  - -0.16925049
+  - 0.13284302
+  - -0.051757812
+  - 0.094818115
+  - -0.039093018
+  - 0.043945312
+  - -0.024536133
+  - 0.012359619
+  - -0.0077209473
+  - 0.008178711
+  - -0.017486572
+  - 0.017700195
+  - -0.012481689
+  - 0.015167236
+  - -0.0071105957
+  - 0.0074157715
+  - -0.14535522
+  - 0.13967896
+  - -0.050964355
+  - 0.05606079
+  - -0.020385742
+  - 0.019012451
+  - -0.0063476562
+  - 0.008270264
+  - -0.003692627
+  - 0.003112793
+  - -0.0014343262
+  - 0.0015869141
+  - -0.23446655
+  - 0.35186768
+  - -0.0206604
+  - 0.021453857
+  - -0.22091675
+  - 0.042236328
+  - -0.3624878
+  - 0.36999512
+  - -0.09112549
+  - 0.09750366
+  - -0.04071045
+  - 0.037109375
+  - -0.023651123
+  - 0.017578125
+  - -0.015533447
+  - 0.013671875
+  - -0.008666992
+  - 0.010650635
+  - -0.022338867
+  - 0.02218628
+  - -0.008392334
+  - 0.01071167
+  - -0.30722046
+  - 0.35543823
+  - -0.26391602
+  - 0.34072876
+  - -0.15368652
+  - 0.17456055
+  - -0.09585571
+  - 0.09173584
+  - -0.048797607
+  - 0.048309326
+  - -0.03414917
+  - 0.03475952
+  - -0.022735596
+  - 0.027282715
+  - -0.022216797
+  - 0.018676758
+  - -0.011413574
+  - 0.010894775
+  - -0.3260498
+  - 0.17996216
+  - -0.16912842
+  - 0.2975769
+  - -0.1565857
+  - 0.12960815
+  - -0.06765747
+  - 0.05987549
+  - -0.040130615
+  - 0.043548584
+  - -0.017944336
+  - 0.023529053
+  - -0.023742676
+  - 0.019256592
+  - -0.0206604
+  - 0.03250122
+  - -0.009613037
+  - 0.0101623535
+  - -0.16122437
+  - 0.1482544
+  - -0.05053711
+  - 0.04675293
+  - -0.026397705
+  - 0.025848389
+  - -0.011657715
+  - 0.010192871
+  - -0.004547119
+  - 0.004058838
+  - -0.0021972656
+  - 0.0026550293
+  - -0.0099487305
+  - 0.01159668
+  - -0.010101318
+  - 0.010772705
+  - -0.005554199
+  - 0.005065918
+  - -0.34973145
+  - 0.37753296
+  - -0.11868286
+  - 0.13604736
+  - -0.07891846
+  - 0.053466797
+  - -0.028961182
+  - 0.030151367
+  - -0.020843506
+  - 0.022033691
+  - -0.009643555
+  - 0.02508545
+  - -0.24072266
+  - 0.18267822
+  - -0.124176025
+  - 0.13027954
+  - -0.34152222
+  - 0.3373108
+  - -0.2116394
+  - 0.23986816
+  - -0.07739258
+  - 0.08331299
+  - -0.08026123
+  - 0.0843811
+  - -0.065826416
+  - 0.07345581
+  - -0.07266235
+  - 0.06619263
+  - -0.06677246
+  - 0.06668091
+  - -0.05029297
+  - 0.059387207
+  - -0.0418396
+  - 0.04324341
+  - -0.028167725
+  - 0.037109375
+  - -0.32250977
+  - 0.29037476
+  - -0.11672974
+  - 0.15582275
+  - -0.07571411
+  - 0.066833496
+  - -0.068237305
+  - 0.07739258
+  - -0.06210327
+  - 0.061340332
+  - -0.073272705
+  - 0.072265625
+  - -0.049926758
+  - 0.050476074
+  - -0.035705566
+  - 0.041809082
+  - -0.12173462
+  - 0.099609375
+  - -0.113220215
+  - 0.11071777
+  - -0.040222168
+  - 0.035339355
+  - -0.028320312
+  - 0.027526855
+  - -0.021209717
+  - 0.027648926
+  - -0.02798462
+  - 0.026062012
+  - -0.2371521
+  - 0.28936768
+  - -0.08831787
+  - 0.13894653
+  - -0.024505615
+  - 0.02798462
+  - -0.31292725
+  - 0.36090088
+  - -0.29611206
+  - 0.26193237
+  - -0.09310913
+  - 0.090423584
+  - -0.039398193
+  - 0.032440186
+  - -0.02722168
+  - 0.021240234
+  - -0.01928711
+  - 0.02053833
+  - -0.017608643
+  - 0.019317627
+  - -0.021331787
+  - 0.021697998
+  - -0.010528564
+  - 0.012268066
+  - -0.2781067
+  - 0.4119873
+  - -0.2064209
+  - 0.2340393
+  - -0.13842773
+  - 0.1394043
+  - -0.07028198
+  - 0.06317139
+  - -0.037078857
+  - 0.038208008
+  - -0.02255249
+  - 0.021606445
+  - -0.020690918
+  - 0.020080566
+  - -0.0101623535
+  - 0.012237549
+  - -0.0056762695
+  - 0.0059509277
+  - -0.27770996
+  - 0.29992676
+  - -0.12512207
+  - 0.08401489
+  - -0.043762207
+  - 0.042755127
+  - -0.022491455
+  - 0.030792236
+  - -0.02053833
+  - 0.020690918
+  - -0.01461792
+  - 0.011474609
+  - -0.0126953125
+  - 0.017700195
+  - -0.008728027
+  - 0.010345459
+  - -0.0099487305
+  - 0.009490967
+  - -0.05819702
+  - 0.057281494
+  - -0.019317627
+  - 0.019592285
+  - -0.0128479
+  - 0.018676758
+  - -0.021057129
+  - 0.022064209
+  - -0.003326416
+  - 0.0030822754
+  - -0.0020751953
+  - 0.0024719238
+  - -0.15240479
+  - 0.14398193
+  - -0.040374756
+  - 0.03488159
+  - -0.013305664
+  - 0.011993408
+  - -0.011138916
+  - 0.011260986
+  - -0.007446289
+  - 0.009124756
+  - -0.004425049
+  - 0.0037841797
+  - -0.002319336
+  - 0.002105713
+  - -0.0018310547
+  - 0.0020446777
+  - -0.0012512207
+  - 0.001739502
+  - -0.006072998
+  - 0.005493164
+  - -0.0026245117
+  - 0.0025024414
+  - -0.065979004
+  - 0.07519531
+  - -0.053253174
+  - 0.055145264
+  - -0.02758789
+  - 0.02960205
+  - -0.013305664
+  - 0.014434814
+  - -0.0074768066
+  - 0.0073242188
+  - -0.0031433105
+  - 0.0031433105
+  - -0.0016479492
+  - 0.0015258789
+  - -0.0009460449
+  - 0.0010375977
+  - -0.00036621094
+  - 0.00036621094
+  - -0.0024414062
+  - 0.0029907227

@@ -22,6 +22,7 @@ namespace TapTap.Systems.UI
         private int previousScore = -1, previousCombo = -1, feedbackRevision = -1, lastPerfectTick = -1000;
         private Rect previousSafeArea;
         private Vector2Int previousScreen;
+        private TMP_Text timelineHint;
 
         private void LateUpdate()
         {
@@ -35,6 +36,27 @@ namespace TapTap.Systems.UI
             double songSeconds = Battle.Config.Sequence.Music ? Battle.MusicSongSeconds
                 : Battle.Scores.Beats.SongSecondsAtTick(Battle.Simulation.Tick);
             Render(Battle.Scores, songSeconds, Battle.Simulation.Tick);
+            if (!timelineHint && BeatHint) timelineHint = BeatHint.GetComponent<TMP_Text>();
+            if (timelineHint)
+            {
+                var warning = TimelineWarningAt(Battle.Config.Sequence, Battle.Simulation.Tick);
+                timelineHint.text = warning?.Label ?? "跟着节拍开火 · 命中 Boss 获得奖励";
+                timelineHint.color = warning?.ClipIndex >= 0 ? PerfectColor : new Color(.7f, .8f, .9f);
+            }
+        }
+
+        // Per-clip warnings take precedence over the longer section label.
+        public static DanmakuTimelineEvent TimelineWarningAt(DanmakuSequence sequence, int tick)
+        {
+            DanmakuTimelineEvent selected = null;
+            if (!sequence) return null;
+            foreach (var e in sequence.Events)
+            {
+                if (e == null || e.Type != DanmakuEventType.Warning || tick < e.Tick || tick - e.Tick >= e.DurationTicks) continue;
+                if (selected == null || (e.ClipIndex >= 0 && selected.ClipIndex < 0) ||
+                    ((e.ClipIndex >= 0) == (selected.ClipIndex >= 0) && e.Tick > selected.Tick)) selected = e;
+            }
+            return selected;
         }
 
         private void UpdateSafeArea()

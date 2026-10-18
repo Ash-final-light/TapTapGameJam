@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f957c5045a1805f4d9ccbd8d70672e8e, type: 3}
+  m_Name: "155BPM_\u80FD\u91CF\u7403_\u56DB\u62CD\u51FB\u7834"
+  m_EditorClassIdentifier: 
+  Pattern: 7
+  DurationTicks: 94
+  Keyframes:
+  - Id: 25cbb9c3596f495990a6b7d961939728
+    LocalTick: 0
+    Type: 0
+  - Id: fd826de4842f4012aff4bd828e736abd
+    LocalTick: 93
+    Type: 1
+  Settings:
+    Shape: 0
+    Count: 1
+    DirectionDegrees: -90
+    ArcDegrees: 60
+    SpawnRadius: 0
+    AimAtPlayer: 0
+    RotationDegreesPerSecond: 0
+    AlternatePhaseDegrees: 0
+    Speed: 0
+    SegmentStart: {x: -3, y: 0}
+    SegmentEnd: {x: 3, y: 0}
+    SpawnPosition: 0
+    RandomSpawnMin: {x: 0, y: 0}
+    RandomSpawnMax: {x: 0, y: 0}
+    PlayerProtectionDistance: 0
+  Projectile: {fileID: 4382144406707540714}
+--- !u!114 &4382144406707540714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3767697b8930fb4498de4a2706d4fc08, type: 3}
+  m_Name: "\u80FD\u91CF\u7403\u6BCD\u5F39"
+  m_EditorClassIdentifier: 
+  Settings:
+    Sprite: {fileID: 0}
+    Color: {r: 1, g: 0.8, b: 0.25, a: 1}
+    VisualSize: 0.55
+    HitRadius: 0.16
+    Interaction: 1
+    EnergyOrb:
+      ContactDamage: 0
+      FinalVisualSize: 1.1
+      FinalHitRadius: 0.4
+      GrowthCurve: 1
+    DurationTicks: 180
+    SplitChild: {fileID: 11400000, guid: beb70462c19a7e440b37b6d91e94bed9, type: 2}
+    SplitCount: 8
+    SplitSpeed: 8
+    InheritDirection: 0

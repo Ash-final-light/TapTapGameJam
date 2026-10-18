@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 162bbbd40771f404687e42166f6038d0, type: 3}
-  m_Name: Remembrance
+  m_Name: Drums155
   m_EditorClassIdentifier: 
-  Id: remembrance
-  Title: VISUAL ARTS , Key - Remembrance
-  Subtitle: "\u805A\u5149\u706F \xB7 \u6F14\u51FA\u66F2\u76EE"
-  Artist: VISUAL ARTS / Key
+  Id: drums155-90s-v1
+  Title: "\u9F13\u70B9\u821E\u53F0 \xB7 155 BPM"
+  Subtitle: "90 \u79D2 \xB7 \u73AF\u5F62\u3001\u8FFD\u5C04\u4E0E\u80FD\u91CF\u7403"
+  Artist: "155 BPM / 4\u62CD\u8282\u594F"
   Cover: {fileID: 21300000, guid: ff9f7862f5a2ecc4f97fd0bae8fe3c4d, type: 3}
   Difficulties:
   - Difficulty: 0
