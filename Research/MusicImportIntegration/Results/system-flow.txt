@@ -1,8 +1,0 @@
-Unity 2022.3.62f1c1 PlayMode — existing SystemFlowTests
-Result: Passed; total: 6; passed: 6; failed: 0
-Passed Spotlight.Tests.SystemFlowTests.AppliedBindingsSurviveReopenApplyAndRestart
-Passed Spotlight.Tests.SystemFlowTests.EquippedItemUsesAcceptedIntentAndRestoresOnRetry
-Passed Spotlight.Tests.SystemFlowTests.ExitGameplayPreservesPermanentSaveAndReturnsToTitle
-Passed Spotlight.Tests.SystemFlowTests.LoadoutPreviewDoubleClickSlotsAndStartGate
-Passed Spotlight.Tests.SystemFlowTests.LongRenderFrameKeepsSimulationTimeAndPauseState
-Passed Spotlight.Tests.SystemFlowTests.SongLoadoutBattleResultDropRetryContinueAndNewGame

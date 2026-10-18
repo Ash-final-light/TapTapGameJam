@@ -6,8 +6,6 @@ using TapTap.Danmaku;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 namespace TapTap.MusicPresentation.Editor
@@ -96,8 +94,6 @@ namespace TapTap.MusicPresentation.Editor
                 "\nRadius: " + curve.Radius + "\nPoints: " + line.positionCount +
                 "\nSorting: " + line.sortingLayerName + "/" + line.sortingOrder +
                 "\nMaterial: " + AssetDatabase.GetAssetPath(curve.Material) + "\n");
-            // Render after the editor completes this update and has a current URP instance.
-            EditorApplication.delayCall += () => Capture(battle.AimCamera, line);
             Debug.Log("音乐背景已接入并保存：" + scene.path, curve);
         }
 
@@ -118,36 +114,5 @@ namespace TapTap.MusicPresentation.Editor
             return material;
         }
 
-        private static void Capture(Camera camera, LineRenderer line)
-        {
-            if (!camera || !line) return;
-            var rt = new RenderTexture(960, 540, 24);
-            var image = new Texture2D(960, 540, TextureFormat.RGB24, false);
-            var previous = RenderTexture.active; bool enabled = line.enabled;
-            try
-            {
-                rt.Create();
-                var request = new UniversalRenderPipeline.SingleCameraRequest { destination = rt };
-                RenderPipeline.SubmitRenderRequest(camera, request);
-                RenderTexture.active = rt; image.ReadPixels(new Rect(0, 0, 960, 540), 0, 0); image.Apply();
-                File.WriteAllBytes("Logs/BattleMusicBackground.png", image.EncodeToPNG());
-                var withLine = image.GetPixels32();
-                line.enabled = false;
-                RenderPipeline.SubmitRenderRequest(camera, request);
-                RenderTexture.active = rt; image.ReadPixels(new Rect(0, 0, 960, 540), 0, 0); image.Apply();
-                var withoutLine = image.GetPixels32(); int changed = 0;
-                for (int i = 0; i < withLine.Length; i++)
-                    if (Math.Abs(withLine[i].r - withoutLine[i].r) + Math.Abs(withLine[i].g - withoutLine[i].g) +
-                        Math.Abs(withLine[i].b - withoutLine[i].b) > 8) changed++;
-                File.AppendAllText(ReportPath, "Visible curve pixels: " + changed +
-                    "\nRender: " + (changed > 20 ? "PASS" : "CHECK REQUIRED") + "\n");
-            }
-            catch (Exception error) { File.AppendAllText(ReportPath, "Render check unavailable: " + error.Message + "\n"); }
-            finally
-            {
-                line.enabled = enabled; RenderTexture.active = previous;
-                rt.Release(); UnityEngine.Object.DestroyImmediate(rt); UnityEngine.Object.DestroyImmediate(image);
-            }
-        }
     }
 }

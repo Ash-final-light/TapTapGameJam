@@ -1,5 +1,0 @@
-{
-  "name": "Spotlight.PlayModeTests",
-  "references": ["Unity.InputSystem", "Unity.TextMeshPro", "Unity.ugui"],
-  "optionalUnityReferences": ["TestAssemblies"]
-}

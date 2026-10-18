@@ -34,7 +34,6 @@ namespace TapTap.Danmaku.Editor
                 manager.Config = config; manager.AimCamera = cameras[0];
                 manager.PlayerDefinition = PlayerEditorAssets.EnsureAssets();
                 cameras[0].orthographicSize = Mathf.Max(cameras[0].orthographicSize, config.Sequence.FieldSize.y * 0.54f);
-                foreach (var debug in scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<HudDebugDataSource>(true))) debug.enabled = false;
                 if (!scene.GetRootGameObjects().Any(g => g.GetComponentInChildren<SystemRoot>(true)))
                 {
                     const string path = "Assets/UI/Spotlight/Prefabs/SystemRoot.prefab";

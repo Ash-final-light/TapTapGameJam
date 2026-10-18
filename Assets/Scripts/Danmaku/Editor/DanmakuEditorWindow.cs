@@ -227,7 +227,6 @@ namespace TapTap.Danmaku.Editor
                     menu.AddItem(new GUIContent("另存为"), false, () => Save(true));
                     menu.AddItem(new GUIContent("打开内存示例"), false, () => { var example = DanmakuSequence.CreateExample(); example.hideFlags = HideFlags.DontSave; SetSequence(example); });
                     menu.AddItem(new GUIContent("创建八类示例资产"), false, () => SetSequence(DanmakuEditorAssets.CreateExamples()));
-                    menu.AddItem(new GUIContent("运行模拟验证"), false, DanmakuValidation.Run);
                     menu.ShowAsContext();
                 }
             }

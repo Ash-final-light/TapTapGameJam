@@ -40,22 +40,4 @@ namespace TapTap.Danmaku.Editor
         }
     }
 
-    public static class DanmakuSimpleValidation
-    {
-        [MenuItem("工具/弹幕/验证简化版本")]
-        public static void Run()
-        {
-            DanmakuSimpleMigration.Migrate();
-            DanmakuValidation.Run();
-            EnergyOrbValidation.Run();
-            MusicAnalysisValidation.Run();
-            Directory.CreateDirectory("Logs");
-            File.WriteAllText("Logs/DanmakuSimpleValidation.txt", "PASS：弹幕模拟与编辑操作、八类默认发射点、单一弹速、发射时间替换／撤销、子母弹末尾边界、能量球、音乐解析与传输。\n");
-        }
-        public static void RunBatch()
-        {
-            try { Run(); }
-            catch (Exception error) { Debug.LogException(error); EditorApplication.Exit(1); }
-        }
-    }
 }

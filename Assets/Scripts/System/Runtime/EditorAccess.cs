@@ -1,4 +1,4 @@
 #if UNITY_EDITOR
-// Editor validations exercise the same fixed-tick internals as the runtime.
+// Authoring tools share the runtime's fixed-tick internals for timeline previews.
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Assembly-CSharp-Editor")]
 #endif

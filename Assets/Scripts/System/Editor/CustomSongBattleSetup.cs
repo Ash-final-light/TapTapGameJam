@@ -10,25 +10,8 @@ using UnityEngine.SceneManagement;
 
 namespace TapTap.Systems.Editor
 {
-    [InitializeOnLoad]
     public static class CustomSongBattleSetup
     {
-        private const string RequestPath = "Temp/CustomSongBattle.request";
-        static CustomSongBattleSetup() => EditorApplication.update += ProcessRequest;
-        private static void ProcessRequest()
-        {
-            if (!File.Exists(RequestPath) || EditorApplication.isCompiling || EditorApplication.isUpdating || EditorApplication.isPlayingOrWillChangePlaymode) return;
-            string action;
-            try { action = File.ReadAllText(RequestPath).Trim(); File.Delete(RequestPath); }
-            catch (IOException) { return; }
-            try
-            {
-                if (action == "install") { Install(); CustomSongBattleValidation.Run(); }
-                else if (action == "validate") CustomSongBattleValidation.Run();
-            }
-            catch (Exception error)
-            { Directory.CreateDirectory("Logs"); File.WriteAllText("Logs/CustomSongBattleRequest.txt", "FAIL\n" + error); Debug.LogException(error); }
-        }
         [MenuItem("工具/共鸣舞台/接入自定义歌曲战斗")]
         public static void Install()
         {
@@ -77,7 +60,7 @@ namespace TapTap.Systems.Editor
         }
         public static void RunBatch()
         {
-            try { Install(); CustomSongBattleValidation.Run(); }
+            try { Install(); }
             catch (Exception error) { Debug.LogException(error); EditorApplication.Exit(1); }
         }
     }

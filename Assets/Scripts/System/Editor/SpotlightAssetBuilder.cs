@@ -261,10 +261,8 @@ namespace TapTap.Systems.Editor
             if(File.Exists(path))scene=EditorSceneManager.OpenScene(path,OpenSceneMode.Single);else scene=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Single);
             if(!UnityEngine.Object.FindObjectOfType<Camera>()){var camera=new GameObject("Main Camera",typeof(Camera),typeof(AudioListener));camera.tag="MainCamera";camera.transform.position=new Vector3(0,0,-10);camera.GetComponent<Camera>().orthographic=true;}
             var current=UnityEngine.Object.FindObjectOfType<SystemRoot>();if(!current)PrefabUtility.InstantiatePrefab(system,scene);
-            if(gameplay && !UnityEngine.Object.FindObjectOfType<HudDebugDataSource>())
+            if(gameplay && !GameObject.Find("StagePlaceholder"))
             {
-                var debug=new GameObject("HudDebugDataSource").AddComponent<HudDebugDataSource>();debug.Portrait=avatar;debug.SelectedItemId="crystal";
-                debug.Items=new[]{new ItemViewData{Id="crystal",Name="水晶（占位）",Icon=icon,Count=3},new ItemViewData{Id="potion",Name="药剂（占位）",Icon=avatar,Count=2}};
                 var stage=new GameObject("StagePlaceholder");var sprite=stage.AddComponent<SpriteRenderer>();sprite.sprite=icon;sprite.color=new Color(.35f,.4f,.45f,.35f);stage.transform.localScale=new Vector3(6,4,1);
                 var camera=UnityEngine.Object.FindObjectOfType<Camera>();camera.backgroundColor=new Color(.7f,.73f,.76f);camera.clearFlags=CameraClearFlags.SolidColor;
             }

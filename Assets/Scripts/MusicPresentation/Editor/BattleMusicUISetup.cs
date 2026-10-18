@@ -114,37 +114,5 @@ namespace TapTap.MusicPresentation.Editor
         private static T[] Find<T>(Scene scene) where T : Component
             => scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<T>(true)).ToArray();
 
-        public static void ValidateInstalled()
-        {
-            var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
-            var battle = Find<BattleManager>(scene).Single();
-            var binding = battle.GetComponent<BattleMusicHudBinding>();
-            if (!binding || binding.Source != battle.GetComponent<BattleMusicPresentationSource>())
-                throw new InvalidOperationException("场景 HUD 音乐源引用错误。");
-            var root = Find<SystemRoot>(scene).Single();
-            var prefab = PrefabUtility.LoadPrefabContents(AssetDatabase.GetAssetPath(root.Config.UIPrefab));
-            try
-            {
-                var hud = prefab.GetComponent<SystemUIController>().Hud;
-                foreach (var image in new[] { hud.Portrait, hud.Skill1, hud.Skill2, hud.Microphone })
-                {
-                    ValidateTarget(image);
-                    var ui = image.GetComponent<MusicReactiveUI>();
-                    if (!ui || !ui.enabled || ui.Target != image.rectTransform)
-                        throw new InvalidOperationException("图标跳动组件或目标错误：" + image.name);
-                }
-                binding.BindHud(hud);
-                foreach (var ui in hud.GetComponentsInChildren<MusicReactiveUI>(true))
-                    if (ui.Source != binding.Source) throw new InvalidOperationException("运行时绑定错误。");
-                binding.BindHud(null);
-                foreach (var ui in hud.GetComponentsInChildren<MusicReactiveUI>(true))
-                    if (ui.Source) throw new InvalidOperationException("退出战斗未解除绑定。");
-            }
-            finally { PrefabUtility.UnloadPrefabContents(prefab); }
-            Directory.CreateDirectory("Logs");
-            File.WriteAllText("Logs/BattleMusicUIInstalledValidation.txt",
-                "PASS: saved battle binding; four HUD icons; layout/button/animator checks; runtime bind and detach.\n");
-            MusicPresentationValidation.Run();
-        }
     }
 }

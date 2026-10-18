@@ -11,40 +11,13 @@ using UnityEngine.SceneManagement;
 
 namespace TapTap.Systems.Editor
 {
-    [InitializeOnLoad]
     public static class BossRhythmSceneSetup
     {
         public const string ScenePath = "Assets/Scenes/GameplayPlaceholder.unity";
-        private const string RequestPath = "Temp/BossRhythmSceneSetup.request";
         private const string ReportPath = "Logs/BossRhythmSceneSetup.txt";
         private static readonly Color Ink = new(0.055f, 0.08f, 0.13f, 0.94f);
         private static readonly Color Cyan = new(0.25f, 0.9f, 1);
         private static readonly Color Gold = new(1, 0.8f, 0.24f);
-
-        static BossRhythmSceneSetup() => EditorApplication.update += ProcessRequest;
-        public static void RunBatch()
-        {
-            try { Install(); BossScoringValidation.Run(); CapturePreview(); }
-            catch (Exception error) { Debug.LogException(error); EditorApplication.Exit(1); }
-        }
-        public static void CaptureBatch()
-        {
-            try { Install(); CapturePreview(); }
-            catch (Exception error) { Debug.LogException(error); EditorApplication.Exit(1); }
-        }
-        private static void ProcessRequest()
-        {
-            if (!File.Exists(RequestPath) || EditorApplication.isCompiling || EditorApplication.isUpdating ||
-                EditorApplication.isPlayingOrWillChangePlaymode) return;
-            string action = File.ReadAllText(RequestPath).Trim(); File.Delete(RequestPath);
-            try
-            {
-                if (action == "validate") BossScoringValidation.Run();
-                else { Install(); BossScoringValidation.Run(); CapturePreview(); }
-            }
-            catch (Exception error)
-            { Directory.CreateDirectory("Logs"); File.WriteAllText(ReportPath, "FAIL\n" + error); Debug.LogException(error); }
-        }
 
         [MenuItem("工具/战斗计分/接入 Boss 节拍计分与 HUD")]
         public static void Install()
@@ -175,54 +148,5 @@ namespace TapTap.Systems.Editor
             text.alignment = TextAlignmentOptions.Center; text.raycastTarget = false; return text;
         }
 
-        public static void CapturePreview()
-        {
-            var scene = SceneManager.GetSceneByPath(ScenePath);
-            var live = Find<BossRhythmHud>(scene).Single();
-            var copy = UnityEngine.Object.Instantiate(live.gameObject); copy.hideFlags = HideFlags.HideAndDontSave;
-            var view = copy.GetComponent<BossRhythmHud>(); view.enabled = false;
-            var systemConfig = Find<SystemRoot>(scene).Single().Config;
-            var existingHud = UnityEngine.Object.Instantiate(systemConfig.UIPrefab);
-            existingHud.gameObject.hideFlags = HideFlags.HideAndDontSave;
-            existingHud.enabled = false;
-            foreach (var panel in new[] { existingHud.Menu.gameObject, existingHud.Loading.gameObject, existingHud.Settings.gameObject,
-                existingHud.Pause.gameObject, existingHud.Dialog.gameObject, existingHud.Songs.gameObject, existingHud.Loadout.gameObject,
-                existingHud.Result.gameObject, existingHud.ImportedMusic ? existingHud.ImportedMusic.gameObject : null,
-                existingHud.Alignment ? existingHud.Alignment.gameObject : null, existingHud.ToastLabel.gameObject })
-                if (panel) panel.SetActive(false);
-            existingHud.Hud.gameObject.SetActive(true); existingHud.Hud.Selector.SetActive(false);
-            existingHud.Hud.Render(new HudSnapshot { Portrait = live.Battle.PlayerDefinition.Portrait });
-            var cameraObject = new GameObject("Boss HUD preview camera") { hideFlags = HideFlags.HideAndDontSave };
-            var camera = cameraObject.AddComponent<Camera>(); camera.enabled = false; camera.orthographic = true;
-            camera.clearFlags = CameraClearFlags.SolidColor; camera.backgroundColor = new Color(0.12f, 0.15f, 0.2f);
-            camera.cullingMask = 1 << 5;
-            foreach (var child in copy.GetComponentsInChildren<Transform>(true)) child.gameObject.layer = 5;
-            foreach (var child in existingHud.GetComponentsInChildren<Transform>(true)) child.gameObject.layer = 5;
-            var target = new RenderTexture(1920, 1080, 24);
-            var image = new Texture2D(1920, 1080, TextureFormat.RGB24, false); var previous = RenderTexture.active;
-            try
-            {
-                camera.targetTexture = target; view.Canvas.renderMode = RenderMode.ScreenSpaceCamera;
-                view.Canvas.worldCamera = camera; view.Canvas.planeDistance = 1; view.Canvas.enabled = true;
-                var hudCanvas = existingHud.GetComponent<Canvas>(); hudCanvas.renderMode = RenderMode.ScreenSpaceCamera;
-                hudCanvas.worldCamera = camera; hudCanvas.planeDistance = 1.1f;
-                Canvas.ForceUpdateCanvases();
-                var scores = new ScoreManager(null, live.Battle.BossScoring, live.Battle.Config.Sequence);
-                int fireTick = (int)Math.Round((scores.Beats.MusicStartSeconds + scores.Beats.FirstBeatSeconds) * 60);
-                for (int i = 0; i < 23; i++)
-                    scores.Consume(new BattleEvent(fireTick + 30, new ProjectileState { FireTick = fireTick }, Framework.FixedPoint.FPVector2.Zero));
-                view.Render(scores, scores.Beats.FirstBeatSeconds + scores.Beats.PeriodSeconds * 0.25, fireTick + 30);
-                Canvas.ForceUpdateCanvases(); camera.Render(); RenderTexture.active = target;
-                image.ReadPixels(new Rect(0, 0, target.width, target.height), 0, 0); image.Apply();
-                File.WriteAllBytes("Logs/BossRhythmHudPreview.png", image.EncodeToPNG());
-            }
-            finally
-            {
-                RenderTexture.active = previous;
-                UnityEngine.Object.DestroyImmediate(copy); UnityEngine.Object.DestroyImmediate(cameraObject);
-                UnityEngine.Object.DestroyImmediate(existingHud.gameObject);
-                UnityEngine.Object.DestroyImmediate(image); UnityEngine.Object.DestroyImmediate(target);
-            }
-        }
     }
 }
