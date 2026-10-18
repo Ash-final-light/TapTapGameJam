@@ -10,6 +10,7 @@ namespace TapTap.Systems.UI
         public TMP_Text Title, Subtitle, Artist, Best, Empty;
         public UnityEngine.UI.Button Back, Confirm;
         public UnityEngine.UI.Button[] DifficultyButtons;
+        public UnityEngine.UI.Image[] DifficultySelectionArt;
         public SongDefinition SelectedSong { get; private set; }
         public SongDifficulty SelectedDifficulty { get; private set; }
         private SystemRoot root;
@@ -39,7 +40,15 @@ namespace TapTap.Systems.UI
             {
                 var d = SelectedSong ? SelectedSong.Find((SongDifficulty)i) : null;
                 DifficultyButtons[i].interactable = d != null && d.Enabled;
-                DifficultyButtons[i].GetComponent<UnityEngine.UI.Image>().color = (int)SelectedDifficulty == i ? new Color(1, .64f, .14f) : new Color(.18f, .26f, .34f);
+                bool hasArt = DifficultySelectionArt != null && i < DifficultySelectionArt.Length && DifficultySelectionArt[i];
+                if (hasArt)
+                {
+                    DifficultySelectionArt[i].gameObject.SetActive((int)SelectedDifficulty == i);
+                    DifficultyButtons[i].GetComponent<UnityEngine.UI.Image>().color = Color.clear;
+                    var group = DifficultyButtons[i].GetComponent<CanvasGroup>();
+                    if (group) group.alpha = DifficultyButtons[i].interactable ? 1 : .35f;
+                }
+                else DifficultyButtons[i].GetComponent<UnityEngine.UI.Image>().color = (int)SelectedDifficulty == i ? new Color(1, .64f, .14f) : new Color(.18f, .26f, .34f);
             }
             var record = SelectedSong ? root.Saves.Record(SelectedSong.Id, SelectedDifficulty) : null;
             var firstDifficulty = Array.Find(DifficultyButtons, b => b.interactable);

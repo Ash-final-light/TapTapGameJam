@@ -7,6 +7,7 @@ namespace TapTap.Systems.UI
     {
         public UnityEngine.UI.Button Button;
         public TMP_Text Label;
+        public UnityEngine.UI.Image Artwork;
         public RectTransform Rect;
         public LoopSongList Owner;
         public void OnMove(AxisEventData e)

@@ -49,7 +49,12 @@ namespace TapTap.Systems.UI
                 float y = -relative * 105 + animatedOffset;
                 row.Rect.anchoredPosition = new Vector2(Mathf.Min(145, y * y / 1800), y);
                 row.Rect.localScale = Vector3.one * (relative == 0 ? 1 : .88f);
-                row.Button.GetComponent<UnityEngine.UI.Image>().color = relative == 0 ? new Color(.04f, .62f, .82f) : new Color(.28f, .35f, .44f);
+                if (row.Artwork)
+                {
+                    row.Artwork.color = relative == 0 ? Color.white : new Color(.8f, .82f, .9f, .72f);
+                    row.Label.color = relative == 0 ? new Color(.12f, .1f, .28f) : new Color(.25f, .28f, .4f);
+                }
+                else row.Button.GetComponent<UnityEngine.UI.Image>().color = relative == 0 ? new Color(.04f, .62f, .82f) : new Color(.28f, .35f, .44f);
             }
         }
     }

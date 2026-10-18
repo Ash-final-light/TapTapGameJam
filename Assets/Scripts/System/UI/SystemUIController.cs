@@ -62,6 +62,7 @@ namespace TapTap.Systems.UI
             Settings.gameObject.SetActive(false); Pause.gameObject.SetActive(false); Dialog.gameObject.SetActive(false);
             Hud.Selector.SetActive(false); ToastLabel.gameObject.SetActive(false);
             Hud.RefreshBindings(root.Binding, root.Input.Controls);
+            GetComponent<ImportedButtonTheme>()?.ApplyAll();
         }
         public void ShowContext(UIContext context)
         {
