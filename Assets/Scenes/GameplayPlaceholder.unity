@@ -1387,8 +1387,8 @@ MonoBehaviour:
   Material: {fileID: 2100000, guid: d94a5ee84e773df4c9f1bee07dfc7394, type: 2}
   Colors:
     serializedVersion: 2
-    key0: {r: 0.15, g: 0.6, b: 1, a: 1}
-    key1: {r: 0.6, g: 0.25, b: 1, a: 1}
+    key0: {r: 0.12, g: 0.12, b: 1, a: 1}
+    key1: {r: 1, g: 0.2, b: 0.52, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1416,8 +1416,8 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   Width: 0.035
-  Opacity: 0.3
-  Brightness: 1.5
+  Opacity: 0.2
+  Brightness: 1
   SortingLayer: Default
   SortingOrder: -100
 --- !u!120 &1261352851
@@ -1636,8 +1636,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.15, g: 0.6, b: 1, a: 1}
-      key1: {r: 0.6, g: 0.25, b: 1, a: 1}
+      key0: {r: 0.12, g: 0.12, b: 1, a: 1}
+      key1: {r: 1, g: 0.2, b: 0.52, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1977,7 +1977,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BackGroundColor: {r: 0.025, g: 0.02, b: 0.075, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2313,6 +2313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1521264169}
   - component: {fileID: 1521264168}
+  - component: {fileID: 1521264170}
   m_Layer: 0
   m_Name: StagePlaceholder
   m_TagString: Untagged
@@ -2340,7 +2341,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 8ab784486a7856b41be62cfe3bc199c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2360,9 +2361,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -200
-  m_Sprite: {fileID: 21300000, guid: 14cb3f0db9557624e9f4d1b7dbb6b492, type: 3}
-  m_Color: {r: 0.35, g: 0.4, b: 0.45, a: 0.35}
+  m_SortingOrder: -1000
+  m_Sprite: {fileID: 21300000, guid: 5ba29ddfadd8e6c479160b6ae9a8dc77, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2381,12 +2382,25 @@ Transform:
   m_GameObject: {fileID: 1521264167}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 4, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalScale: {x: 12.375001, y: 9.28125, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1521264170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521264167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f6917bcc2550e41aba276884675c80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 1495465606}
 --- !u!1 &1640073133
 GameObject:
   m_ObjectHideFlags: 0

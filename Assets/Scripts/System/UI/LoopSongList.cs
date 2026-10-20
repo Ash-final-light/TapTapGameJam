@@ -8,6 +8,7 @@ namespace TapTap.Systems.UI
     {
         public SongListItemView[] Rows;
         public UnityEngine.UI.Button Previous, Next;
+        public Vector2[] ArtworkRowPositions;
         public int SelectedIndex { get; private set; }
         public event Action<int> SelectionChanged;
         private SongDefinition[] songs = Array.Empty<SongDefinition>();
@@ -47,8 +48,11 @@ namespace TapTap.Systems.UI
                 int index = ((SelectedIndex + relative) % songs.Length + songs.Length) % songs.Length;
                 var song = songs[index]; row.Label.text = song ? song.Title : "未配置歌曲"; row.Button.interactable = song;
                 float y = -relative * 105 + animatedOffset;
-                row.Rect.anchoredPosition = new Vector2(Mathf.Min(145, y * y / 1800), y);
-                row.Rect.localScale = Vector3.one * (relative == 0 ? 1 : .88f);
+                bool fixedArtwork = ArtworkRowPositions != null && ArtworkRowPositions.Length == Rows.Length;
+                row.Rect.anchoredPosition = fixedArtwork
+                    ? ArtworkRowPositions[i] + Vector2.up * (animatedOffset * .15f)
+                    : new Vector2(Mathf.Min(145, y * y / 1800), y);
+                row.Rect.localScale = Vector3.one * (fixedArtwork || relative == 0 ? 1 : .88f);
                 if (row.Artwork)
                 {
                     row.Artwork.color = relative == 0 ? Color.white : new Color(.8f, .82f, .9f, .72f);

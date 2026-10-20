@@ -63,6 +63,7 @@ namespace TapTap.Systems.UI
             Hud.Selector.SetActive(false); ToastLabel.gameObject.SetActive(false);
             Hud.RefreshBindings(root.Binding, root.Input.Controls);
             GetComponent<ImportedButtonTheme>()?.ApplyAll();
+            GetComponent<PopBackgroundTheme>()?.ApplyDynamicPages(this);
         }
         public void ShowContext(UIContext context)
         {

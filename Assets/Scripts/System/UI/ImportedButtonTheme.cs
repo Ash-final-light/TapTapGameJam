@@ -21,7 +21,7 @@ namespace TapTap.Systems.UI
         {
             if (!Face || !Arrow || !Icon) return;
             // These already use the imported row, difficulty and back artwork.
-            if (button.transform.Find("ImportedRowArtwork") || button.transform.Find("ImportedDifficultyFrame") ||
+            if (button.transform.Find("Package4Artwork") || button.transform.Find("ImportedRowArtwork") || button.transform.Find("ImportedDifficultyFrame") ||
                 button.transform.Find("ImportedBackArtwork")) return;
             var hit = button.GetComponent<UnityEngine.UI.Image>();
             if (!hit) return;

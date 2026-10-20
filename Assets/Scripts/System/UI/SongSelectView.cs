@@ -8,6 +8,8 @@ namespace TapTap.Systems.UI
         public LoopSongList List;
         public UnityEngine.UI.Image Cover;
         public TMP_Text Title, Subtitle, Artist, Best, Empty;
+        public TMP_Text BestGrade, BestScore;
+        public Package4SongSelectArt PackageArtwork;
         public UnityEngine.UI.Button Back, Confirm;
         public UnityEngine.UI.Button[] DifficultyButtons;
         public UnityEngine.UI.Image[] DifficultySelectionArt;
@@ -58,7 +60,10 @@ namespace TapTap.Systems.UI
                 navigation.selectOnRight = firstDifficulty ? firstDifficulty : Back; navigation.selectOnLeft = Back;
                 row.Button.navigation = navigation;
             }
-            Best.text = record == null ? "最高成绩\n暂无记录" : $"最高成绩\n{record.Grade}   {record.Score:D6}";
+            Best.text = BestGrade ? "最高成绩" : record == null ? "最高成绩\n暂无记录" : $"最高成绩\n{record.Grade}   {record.Score:D6}";
+            if (BestGrade) BestGrade.text = record?.Grade ?? "—";
+            if (BestScore) BestScore.text = record == null ? "暂无记录" : record.Score.ToString("D6");
+            if (PackageArtwork) PackageArtwork.ShowDifficulty((int)SelectedDifficulty);
             Confirm.interactable = SelectedSong && SelectedSong.Find(SelectedDifficulty)?.Enabled == true;
             Empty.text = SelectedSong ? "" : "请配置歌曲目录";
         }
