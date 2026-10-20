@@ -81,6 +81,8 @@ namespace TapTap.Player
         {
             Events.Clear(); Decisions.Clear(); Inputs.Capture(input, Tick, Decisions);
             if (!Actor.Alive) { Inputs.Clear(); if (Action?.Clip.Kind != PlayerActionKind.Dead) { StopAction(); StartSlot(PlayerClipSlot.Dead, false, 0); } Evaluate(); return; }
+            if ((input.Edges & PlayerButtonEdges.UseItem) != 0)
+                Events.Add(new(PlayerRuntimeEventKind.IntentExecuted, null, 0, intent: PlayerIntentKind.UseItem));
             CompleteIfNeeded();
             if (Motor.Flying && (!Inputs.JumpHeld || Stamina < flightDrain))
             { Motor.SetFlight(false); if (Action == null) StartSlot(PlayerClipSlot.FlyEnd, false, 0); }

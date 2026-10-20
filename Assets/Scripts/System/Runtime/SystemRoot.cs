@@ -35,6 +35,7 @@ namespace TapTap.Systems
             { Debug.LogError("[Spotlight] SystemRoot 配置不完整。", this); enabled = false; return; }
             Instance = this; DontDestroyOnLoad(gameObject);
             Input = new SystemInputRouter(config.Controls); Binding = new BindingService(Input.Controls);
+            Input.SelectedItemId = () => source?.Current.SelectedItemId;
             Audio = new AudioVolumeService(); Pause = new PauseService();
             var store = new JsonFileStore(System.IO.Path.Combine(Application.persistentDataPath, config.SaveFolder));
             Settings = new SettingsService(store, config.Defaults, Binding, Audio, new UnityDisplaySettings());
@@ -62,7 +63,7 @@ namespace TapTap.Systems
         public void ConsumeGameplayCommands()
         {
             if (Input == null) return;
-            while (Input.Commands.TryConsume(out var command)) { UI.DispatchCommand(command); CommandConsumed?.Invoke(command); }
+            while (Input.Commands.TryConsume(out var command, out var itemId)) { UI.DispatchCommand(command, itemId); CommandConsumed?.Invoke(command); }
         }
         private void OnFocus(bool focus) { if (!focus) { Input?.Clear(); if (UI && UI.Context == UIContext.Gameplay) UI.OpenPause(); } }
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

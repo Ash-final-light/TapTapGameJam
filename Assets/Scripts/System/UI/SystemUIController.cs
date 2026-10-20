@@ -31,6 +31,7 @@ namespace TapTap.Systems.UI
         private IDisposable pauseLease;
         private IHudDataSource data;
         private IGameplayRequestSink requests;
+        private ItemRuntime itemFeedback;
         private float toastUntil;
         private int escapeFrame=-1;
         private bool settingsFromPause;
@@ -146,20 +147,27 @@ namespace TapTap.Systems.UI
             if(IsPauseOpen) Resume(); else if(Context==UIContext.Gameplay) OpenPause();
         }
         public void BindHud(IHudDataSource source,IGameplayRequestSink sink)
-        { if(data!=null) data.Changed-=Render; data=source; requests=sink; if(data!=null) { data.Changed+=Render; Render(data.Current); } else Hud.Render(null); }
+        {
+            if(data!=null) data.Changed-=Render;
+            if(itemFeedback!=null) itemFeedback.UseResolved-=OnItemUsed;
+            data=source; requests=sink; itemFeedback=sink as ItemRuntime;
+            if(itemFeedback!=null) itemFeedback.UseResolved+=OnItemUsed;
+            if(data!=null) { data.Changed+=Render; Render(data.Current); } else Hud.Render(null);
+        }
+        private void OnItemUsed(ItemUseResult result) => Hud.ShowItemFeedback(result);
         private void Render(HudSnapshot snapshot) => Hud.Render(snapshot);
         private void ShowSelector(bool visible) { Hud.Selector.SetActive(visible && Context==UIContext.Gameplay && !IsPauseOpen); }
         private void SelectSlot(int index)
-        { if(!Hud.Selector.activeSelf || index<0 || index>=Hud.VisibleItems.Count || index>=10) return; requests?.RequestSelectItem(Hud.VisibleItems[index].Id); }
-        public void DispatchCommand(GameplayCommand command)
+        {
+            if(!Hud.Selector.activeSelf || index<0 || index>=Hud.VisibleItems.Count || index>=10) return;
+            requests?.RequestSelectItem(Hud.VisibleItems[index].Id);
+            if(data!=null) Render(data.Current);
+        }
+        public void DispatchCommand(GameplayCommand command, string itemId = null)
         {
             if(command==GameplayCommand.Skill1) requests?.RequestSkill(1);
             else if(command==GameplayCommand.Skill2) requests?.RequestSkill(2);
-            else if(command==GameplayCommand.UseItem && data!=null)
-            {
-                var selected=Array.Find(data.Current.Items,i=>i!=null && i.Id==data.Current.SelectedItemId && i.Count>0 && i.Usable);
-                if(selected!=null) requests?.RequestUseItem(selected.Id);
-            }
+            else if(command==GameplayCommand.UseItem) requests?.RequestUseItem(itemId);
         }
         public void Toast(string message)
         { ToastLabel.text=message; ToastLabel.gameObject.SetActive(true); toastUntil=Time.unscaledTime+4; }

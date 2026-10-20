@@ -16,6 +16,7 @@ namespace TapTap.Systems.Editor
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("请退出 Play 模式后更新。");
             var config = AssetDatabase.LoadAssetAtPath<SystemConfig>("Assets/Configs/Spotlight/SystemConfig.asset");
             if (!config || !config.UIPrefab || !config.UIPrefab.Loadout) throw new InvalidOperationException("缺少现有准备界面。");
+            SpotlightItemSetup.ConfigureDefaults(config);
             var healItem = Array.Find(config.Items, item => item && item.Id == "item-1");
             var burstItem = Array.Find(config.Items, item => item && item.Id == "item-2");
             if (!healItem || !burstItem) throw new InvalidOperationException("缺少首批道具 item-1 / item-2。");

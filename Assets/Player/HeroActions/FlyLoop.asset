@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99cd9c98ddb3ac742acb73b16a95c76b, type: 3}
+  m_Name: FlyLoop
+  m_EditorClassIdentifier: 
+  SchemaVersion: 1
+  StableId: f32b027d069948c7ac9afe77cbab933d
+  DisplayName: FlyLoop
+  DurationTicks: 160
+  ActionKind: 0
+  EndMode: 10
+  ActiveStartTick: -1
+  RecoveryStartTick: -1
+  DefaultAllowFire: 1
+  DefaultTransitions: 0
+  StaminaCost: 0
+  CooldownTicks: 0
+  Nodes:
+  - Id: b560c106cbbf4772a31a8c8ed8334b3d
+    Name: Spine player_idle
+    Kind: 0
+    StartTick: 0
+    EndTick: 160
+    Order: 0
+    Spine:
+      Animation: {fileID: 11400000, guid: dbe3474ea7dd3b741940c3652b2799b2, type: 2}
+      FallbackAnimation: 
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 1
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 0
+    Conditions: 
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 0}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1
+    MirrorWithFacing: 0

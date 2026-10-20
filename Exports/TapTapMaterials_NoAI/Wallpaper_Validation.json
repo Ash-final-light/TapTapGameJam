@@ -1,0 +1,20 @@
+{
+  "file": "10_PC_Library_Wallpaper_3840x1240.png",
+  "width": 3840,
+  "height": 1240,
+  "bytes": 1107012,
+  "contains_text": false,
+  "contains_logo": false,
+  "ai_generated": false,
+  "character_source": "Original Spine setup pose, original atlas, software rasterized",
+  "hero_source_render_size": [
+    1306,
+    1800
+  ],
+  "hero_placement": [
+    1989,
+    98
+  ],
+  "background_source": "Text-free crops of real game loading screen",
+  "sha256": "b0988e31eaa8007b26419c7dc7d06cbfacb2dc3ba6352596e2cbcd4bef0daa68"
+}

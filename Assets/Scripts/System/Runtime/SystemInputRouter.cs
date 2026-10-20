@@ -18,12 +18,17 @@ namespace TapTap.Systems
     }
     public sealed class GameplayCommandBuffer
     {
-        private readonly Queue<GameplayCommand> commands = new();
+        private readonly Queue<(GameplayCommand Command, string ItemId)> commands = new();
         public int Count => commands.Count;
         public GameplayInputState State { get; internal set; }
-        public void Queue(GameplayCommand command) { if (commands.Count < 128) commands.Enqueue(command); }
+        public void Queue(GameplayCommand command, string itemId = null) { if (commands.Count < 128) commands.Enqueue((command, itemId)); }
         public bool TryConsume(out GameplayCommand command)
-        { if (commands.Count == 0) { command = default; return false; } command = commands.Dequeue(); return true; }
+            => TryConsume(out command, out _);
+        public bool TryConsume(out GameplayCommand command, out string itemId)
+        {
+            if (commands.Count == 0) { command = default; itemId = null; return false; }
+            var queued = commands.Dequeue(); command = queued.Command; itemId = queued.ItemId; return true;
+        }
         public void Clear() { commands.Clear(); State = default; }
     }
     public sealed class SystemInputRouter : IDisposable
@@ -31,6 +36,7 @@ namespace TapTap.Systems
         public InputActionAsset Controls { get; }
         public GameplayCommandBuffer Commands { get; } = new();
         public bool GameplayEnabled { get; private set; }
+        public Func<string> SelectedItemId { get; set; }
         public event Action PauseRequested, CancelRequested;
         public event Action<bool> SelectionHeldChanged;
         public event Action<int> SlotRequested;
@@ -52,7 +58,8 @@ namespace TapTap.Systems
         }
         private void OnPause(InputAction.CallbackContext _) => PauseRequested?.Invoke();
         private void OnCancel(InputAction.CallbackContext _) => CancelRequested?.Invoke();
-        private void Queue(GameplayCommand command) { Commands.Queue(command); CommandQueued?.Invoke(command); }
+        private void Queue(GameplayCommand command)
+        { Commands.Queue(command, command == GameplayCommand.UseItem ? SelectedItemId?.Invoke() : null); CommandQueued?.Invoke(command); }
         private void OnJump(InputAction.CallbackContext _) { heldSeconds = 0; if (GameplayEnabled) Queue(GameplayCommand.JumpPressed); }
         private void OnJumpRelease(InputAction.CallbackContext _) { if (GameplayEnabled) Queue(GameplayCommand.JumpReleased); }
         private void OnCommand(InputAction.CallbackContext context)
@@ -102,8 +109,12 @@ namespace TapTap.Systems
         {
             if (!GameplayEnabled) { Commands.Clear(); return default; }
             PlayerButtonEdges edges = 0;
-            while (Commands.TryConsume(out var command)) edges |= command switch
+            string itemId = null;
+            while (Commands.TryConsume(out var command, out var queuedItemId))
             {
+                // One item press per simulation tick, retaining the identity of the first press.
+                if (command == GameplayCommand.UseItem && (edges & PlayerButtonEdges.UseItem) == 0) itemId = queuedItemId;
+                edges |= command switch {
                 GameplayCommand.JumpPressed => PlayerButtonEdges.JumpPressed,
                 GameplayCommand.JumpReleased => PlayerButtonEdges.JumpReleased,
                 GameplayCommand.Dodge => PlayerButtonEdges.Dash,
@@ -111,10 +122,11 @@ namespace TapTap.Systems
                 GameplayCommand.Skill2 => PlayerButtonEdges.Skill2,
                 GameplayCommand.UseItem => PlayerButtonEdges.UseItem,
                 _ => PlayerButtonEdges.None,
-            };
+                };
+            }
             int axis = (gameplay.FindAction("Right", true).IsPressed() ? 1 : 0) - (gameplay.FindAction("Left", true).IsPressed() ? 1 : 0);
             return new PlayerTickInput((short)(axis * short.MaxValue), gameplay.FindAction("JumpFly", true).IsPressed(),
-                gameplay.FindAction("Fire", true).IsPressed(), edges);
+                gameplay.FindAction("Fire", true).IsPressed(), edges, itemId);
         }
         public void Dispose()
         {

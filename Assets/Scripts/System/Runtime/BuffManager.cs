@@ -39,6 +39,12 @@ namespace TapTap.Systems
             entries.Add(new Entry { Id = id, Modifiers = copy, UntilTick = durationTicks <= 0 ? int.MaxValue : (int)Math.Min(int.MaxValue, (long)tick + durationTicks) }); Rebuild();
         }
         public void Remove(string id) { if (entries.RemoveAll(e => e.Id == id) > 0) Rebuild(); }
+        public int RemainingTicks(string id, int tick)
+        {
+            int remaining = 0;
+            foreach (var entry in entries) if (entry.Id == id) remaining = Math.Max(remaining, Math.Max(0, entry.UntilTick - tick));
+            return remaining;
+        }
         public void Advance(int tick) { if (entries.RemoveAll(e => tick >= e.UntilTick) > 0) Rebuild(); }
         private void Rebuild()
         {

@@ -1,0 +1,47 @@
+[
+  {
+    "file": "Logo_AI处理参考_1672x941.png",
+    "width": 1672,
+    "height": 941,
+    "format": "png",
+    "bytes": 557889,
+    "alpha": true,
+    "submissionReady": false
+  },
+  {
+    "file": "主菜单_AI清理版_1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "bytes": 1857217,
+    "alpha": false,
+    "submissionReady": true
+  },
+  {
+    "file": "主菜单_实机原图适配_1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "bytes": 1155451,
+    "alpha": false,
+    "submissionReady": true
+  },
+  {
+    "file": "游戏Logo_原始素材_2168x725.png",
+    "width": 2168,
+    "height": 725,
+    "format": "png",
+    "bytes": 745599,
+    "alpha": true,
+    "submissionReady": false
+  },
+  {
+    "file": "游戏Logo_透明底_1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "bytes": 582774,
+    "alpha": true,
+    "submissionReady": true
+  }
+]

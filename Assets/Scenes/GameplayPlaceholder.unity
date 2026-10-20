@@ -2243,7 +2243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Config: {fileID: 11400000, guid: c161e67cfd5acda419db2a2f84cd92f2, type: 2}
-  PlayerDefinition: {fileID: 11400000, guid: d1ee92fe73d087f4bab55b8c889d9d12, type: 2}
+  PlayerDefinition: {fileID: 11400000, guid: dc0f3fa30b20eeb49a5955457efc6b90, type: 2}
   PlayerSpawn: {x: 0, y: -4}
   AimCamera: {fileID: 1495465606}
   StandaloneInput: {fileID: 0}

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cee676502954ff4ba90895259728be2, type: 3}
+  m_Name: HeroActions
+  m_EditorClassIdentifier: 
+  Bindings:
+  - Slot: 0
+    Clip: {fileID: 11400000, guid: 5f837921310d29542b6b13c5396d8956, type: 2}
+  - Slot: 10
+    Clip: {fileID: 11400000, guid: 6756fe70e4049fa4aa6f8ddf78fd5bfd, type: 2}
+  - Slot: 20
+    Clip: {fileID: 11400000, guid: 71ab22be8410a354e95e6cad7aad11cc, type: 2}
+  - Slot: 30
+    Clip: {fileID: 11400000, guid: 66507b1fb9cff3e46a92e5f4a4afb82f, type: 2}
+  - Slot: 40
+    Clip: {fileID: 11400000, guid: e4bd51ecb09e76b48bdc145fa2829a73, type: 2}
+  - Slot: 41
+    Clip: {fileID: 11400000, guid: 9faf70f84bb0eb440827a95293364f21, type: 2}
+  - Slot: 42
+    Clip: {fileID: 11400000, guid: f174d4644ed4faf4cad101f51e665b8d, type: 2}
+  - Slot: 50
+    Clip: {fileID: 11400000, guid: 589c7c72bd1a169459c51c78de00c25b, type: 2}
+  - Slot: 60
+    Clip: {fileID: 11400000, guid: 7fb3d11882f8f014a9795e8e8acae3ca, type: 2}
+  - Slot: 70
+    Clip: {fileID: 11400000, guid: 7031b3f5a978f36438caea1bbaabb6e5, type: 2}
+  - Slot: 71
+    Clip: {fileID: 11400000, guid: dc5719c692a28214f8d03a7e704ff39a, type: 2}
+  - Slot: 80
+    Clip: {fileID: 11400000, guid: 1fd2f35ae93fe854aa6288eb1bf76095, type: 2}
+  - Slot: 90
+    Clip: {fileID: 11400000, guid: 28993aae80d618647a56424e8fb5aa1a, type: 2}

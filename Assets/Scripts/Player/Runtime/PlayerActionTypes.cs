@@ -24,8 +24,9 @@ namespace TapTap.Player
         public readonly short Horizontal;
         public readonly bool JumpHeld, FireHeld;
         public readonly PlayerButtonEdges Edges;
-        public PlayerTickInput(short horizontal, bool jumpHeld = false, bool fireHeld = false, PlayerButtonEdges edges = 0)
-        { Horizontal = horizontal; JumpHeld = jumpHeld; FireHeld = fireHeld; Edges = edges; }
+        public readonly string ItemId;
+        public PlayerTickInput(short horizontal, bool jumpHeld = false, bool fireHeld = false, PlayerButtonEdges edges = 0, string itemId = null)
+        { Horizontal = horizontal; JumpHeld = jumpHeld; FireHeld = fireHeld; Edges = edges; ItemId = itemId; }
     }
 
     [Serializable] public sealed class PlayerMotorConfig
@@ -75,6 +76,8 @@ namespace TapTap.Player
         public GameObject Effect;
         public Vector3 LocalOffset;
         public bool FollowPlayer = true;
+        [Tooltip("特效使用战斗坐标下的偏移和预制体缩放，并随角色朝向镜像。")]
+        public bool MirrorWithFacing;
         public bool IsPoint => Kind == PlayerActionNodeKind.PointEvent || Kind == PlayerActionNodeKind.Audio;
         public bool Contains(int tick) => !IsPoint && tick >= StartTick && tick < EndTick;
         public PlayerActionNode Copy()

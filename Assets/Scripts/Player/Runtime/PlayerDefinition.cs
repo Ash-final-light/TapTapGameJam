@@ -23,6 +23,7 @@ namespace TapTap.Player
         public bool ShowHitRange = true;
         public Color HitRangeColor = new(1, 0.9f, 0.25f, 1), InvulnerableHitRangeColor = new(0.25f, 1, 1, 1);
         public Color Skill1Color = new(0.35f, 0.75f, 1), Skill2Color = new(1, 0.75f, 0.3f);
+        public bool TintDuringSkills = true;
         public string Validate()
         {
             if (!Positive(MaxHealth) || !Positive(HitRadius) || !Positive(FallbackVisualSize) || !NonNegative(MaxStamina) ||

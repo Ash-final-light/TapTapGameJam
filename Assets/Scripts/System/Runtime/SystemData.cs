@@ -36,8 +36,11 @@ namespace TapTap.Systems
     {
         public string Id, Name;
         public Sprite Icon;
+        public Color IconColor = Color.white;
         [Min(0)] public int Count;
         public bool Usable = true;
+        public int CooldownTicks, CooldownRemainingTicks, EffectRemainingTicks;
+        public string UnavailableReason;
     }
     public sealed class HudSnapshot
     {

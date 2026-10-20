@@ -51,20 +51,7 @@ namespace TapTap.Systems.Editor
         }
         private static void Configure(SystemConfig config)
         {
-            if (!config.Drops)
-            {
-                var effect = Asset<DebugLogItemEffect>("DebugItemEffect");
-                string[] names = { "节奏徽章", "舞台通行证", "星光护符", "演出耳机", "幸运手环", "聚光镜片" };
-                config.Items = new ItemDefinition[names.Length];
-                var icon = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/UI/Spotlight/Placeholders/Item.png") ?? AssetDatabase.LoadAssetAtPath<Sprite>("Assets/DanmakuExamples/BulletCircle.png");
-                for (int i = 0; i < names.Length; i++)
-                {
-                    var item = Asset<ItemDefinition>("Item" + (i+1)); item.Id = "item-" + (i+1); item.DisplayName = names[i];
-                    item.Description = "道具效果占位：" + (i < 3 ? "使用时" : "开局时") + "在 Console 输出一条语句。";
-                    item.Passive = i >= 3; item.UsesPerRun = 3; item.Effect = effect; item.Icon = icon; config.Items[i] = item; EditorUtility.SetDirty(item);
-                }
-                config.Drops = Asset<ItemDropTable>("Drops"); config.Drops.Entries = config.Items.Select(i => new ItemDropEntry { Item = i }).ToArray(); EditorUtility.SetDirty(config.Drops);
-            }
+            SpotlightItemSetup.ConfigureDefaults(config);
             if (config.ScoreFormulas.Length == 0) config.ScoreFormulas = new ScoreFormula[] { Asset<OrbScoreFormula>("OrbScore"), Asset<ComboScoreFormula>("ComboBonus"), Asset<MissScoreFormula>("MissPenalty"), Asset<CompletionScoreFormula>("CompletionBonus") };
             if (config.Weapons.Length == 0) config.Weapons = new[] { AssetDatabase.LoadAssetAtPath<PlayerWeaponDefinition>("Assets/DanmakuExamples/PhaseOne/NormalWeapon.asset"), AssetDatabase.LoadAssetAtPath<PlayerWeaponDefinition>("Assets/DanmakuExamples/PhaseOne/SpreadWeapon.asset") }.Where(w => w).ToArray();
             if (!config.Songs)
@@ -74,7 +61,7 @@ namespace TapTap.Systems.Editor
                 var rating = Asset<ThresholdRatingFormula>("Rating"); var song = Asset<SongDefinition>("Remembrance");
                 song.Id = "remembrance"; song.Title = battle.Sequence.Music ? battle.Sequence.Music.name : "Remembrance";
                 song.Subtitle = "聚光灯 · 演出曲目"; song.Artist = "VISUAL ARTS / Key";
-                song.Cover = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/UI/Spotlight/Placeholders/Avatar.png") ?? AssetDatabase.LoadAssetAtPath<TapTap.Player.PlayerDefinition>("Assets/Player/MaidGhost.asset")?.Portrait;
+                song.Cover = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/UI/Spotlight/Placeholders/Avatar.png") ?? AssetDatabase.LoadAssetAtPath<TapTap.Player.PlayerDefinition>(TapTap.Player.Editor.PlayerEditorAssets.DefinitionPath)?.Portrait;
                 song.Difficulties = new[] { new SongDifficultyConfig { Difficulty = SongDifficulty.Normal, Enabled = true, Battle = battle, Rating = rating, LevelEntryId = config.Levels.FirstEntryId },
                     new SongDifficultyConfig { Difficulty = SongDifficulty.Hard, Enabled = false, Rating = rating, LevelEntryId = config.Levels.FirstEntryId },
                     new SongDifficultyConfig { Difficulty = SongDifficulty.Expert, Enabled = false, Rating = rating, LevelEntryId = config.Levels.FirstEntryId } };

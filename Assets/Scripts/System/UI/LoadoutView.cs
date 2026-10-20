@@ -103,6 +103,7 @@ namespace TapTap.Systems.UI
                     () => ShowItem(item), () =>
                     {
                         if (quantity <= 0 || !item.Effect || equipped) return;
+                        if (item.Effect.Validate() is string error) { root.UI.Toast(error); return; }
                         if (equipment.Count >= Math.Min(3, root.Config.ItemSlotCount)) { root.UI.Toast("道具槽已满，请先卸下一个道具。"); return; }
                         equipment.Add(item); Refresh();
                     }, quantity > 0 ? equipped ? EquippedColor : AvailableColor : LockedColor, item.Icon);

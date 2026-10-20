@@ -1,0 +1,167 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99cd9c98ddb3ac742acb73b16a95c76b, type: 3}
+  m_Name: Skill2
+  m_EditorClassIdentifier: 
+  SchemaVersion: 1
+  StableId: 5f130a84c2aa4b93b37f9835348c58c5
+  DisplayName: Skill2
+  DurationTicks: 30
+  ActionKind: 30
+  EndMode: 0
+  ActiveStartTick: 6
+  RecoveryStartTick: 18
+  DefaultAllowFire: 0
+  DefaultTransitions: 0
+  StaminaCost: 0
+  CooldownTicks: 60
+  Nodes:
+  - Id: c8a290221a1649ba8b7105d2e2a0bcc4
+    Name: Spine palyer_counter
+    Kind: 0
+    StartTick: 0
+    EndTick: 30
+    Order: 0
+    Spine:
+      Animation: {fileID: 11400000, guid: d8e0b21484161764ba6ea758abb06c66, type: 2}
+      FallbackAnimation: 
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 2
+      MixSeconds: 0.08
+      Loop: 0
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 0
+    Conditions: 
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 0}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1
+    MirrorWithFacing: 0
+  - Id: b27dab68a3f0421fb68bea122e0aa424
+    Name: "\u6280\u80FD\u53D1\u5C04"
+    Kind: 50
+    StartTick: 6
+    EndTick: 1
+    Order: 0
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: 
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 0
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 0
+    Conditions: 
+    AllowFire: 0
+    Event: 30
+    Projectile: {fileID: 11400000, guid: 278ab59cd9ccfa7499255f97b25cb7f0, type: 2}
+    ProjectileSpeed: 12
+    Audio: {fileID: 0}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1
+    MirrorWithFacing: 0
+  - Id: 21f22d3b5c724ed489d6ea289c654059
+    Name: "\u540E\u6447\u53EF\u51B2\u523A"
+    Kind: 30
+    StartTick: 18
+    EndTick: 30
+    Order: 0
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: 
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 0
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 2
+    Conditions: 
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 0}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1
+    MirrorWithFacing: 0
+  - Id: 6f81ce547e484f83901661840a18f12a
+    Name: "\u63D0\u793A\u97F3"
+    Kind: 60
+    StartTick: 0
+    EndTick: 1
+    Order: 100
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: 
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 0
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 0
+    Conditions: 
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 8300000, guid: bb9d51c3181068949983b6a558208fef, type: 3}
+    Volume: 1
+    Effect: {fileID: 0}
+    LocalOffset: {x: 0, y: 0, z: 0}
+    FollowPlayer: 1
+    MirrorWithFacing: 0
+  - Id: 7a3c9ed38f3e45468c73b4b1770bb5f9
+    Name: "\u9EC4\u8272\u6280\u80FD\u91CA\u653E"
+    Kind: 70
+    StartTick: 6
+    EndTick: 30
+    Order: 0
+    Spine:
+      Animation: {fileID: 0}
+      FallbackAnimation: 
+      TrackIndex: 0
+      SourceOffset: 0
+      Speed: 1
+      MixSeconds: 0.08
+      Loop: 0
+    Motion: 0
+    SpeedScale: 1
+    AllowedIntents: 0
+    Conditions: 
+    AllowFire: 0
+    Event: 0
+    Projectile: {fileID: 0}
+    ProjectileSpeed: 8
+    Audio: {fileID: 0}
+    Volume: 1
+    Effect: {fileID: 4901152324199095125, guid: 8fa22ef11f224ac428885b5d47d5642a, type: 3}
+    LocalOffset: {x: 0.9, y: 1, z: -0.02}
+    FollowPlayer: 1
+    MirrorWithFacing: 1

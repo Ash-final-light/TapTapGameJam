@@ -1,6 +1,40 @@
 # Hero 角色导入与使用
 
-角色来自 `char_hero.zip`，已独立导入为 Spine 3.8 资源。当前战斗仍使用原有玩家配置；本次不修改 MaidGhost、玩家动作库或战斗入口的角色引用。
+角色来自 `char_hero.zip`，已独立导入为 Spine 3.8 资源，并接入普通战斗和自定义歌曲战斗。两个战斗入口使用独立的 `Assets/Player/Hero.asset`；原 MaidGhost 角色和动作库保留。
+
+## 战斗角色与动作
+
+- 玩家配置：`Assets/Player/Hero.asset`。
+- 动作库：`Assets/Player/HeroActions.asset`，13 个片段位于 `Assets/Player/HeroActions/`。
+- 角色头像：`Assets/Player/HeroPortrait.png`，由 Hero 待机姿态渲染。
+- 场景入口：`GameplayPlaceholder.unity`、`CustomSongBattle.unity` 的 BattleManager。
+- 动作编辑器和新建战斗的默认角色均为 Hero。
+
+| 动作槽 | Hero 动画 | 播放规则 |
+| --- | --- | --- |
+| Idle / Move | `player_idle` / `player_run` | 分别以 160 / 48 Tick 循环 |
+| Jump | `player_jump_up` | 适配原 28 Tick 起跳动作；保留跳跃冲量 |
+| Fall | `player_jump_fall` | 40 Tick 循环 |
+| FlyStart | `player_jump_up` | 6 Tick 短片段 |
+| FlyLoop | `player_idle` | 160 Tick 循环，作为悬浮表现 |
+| FlyEnd | `player_jump_fall` | 6 Tick 短片段，然后进入下落 |
+| Land | `player_idle` | 保留 6 Tick 过渡，然后回到待机或移动 |
+| Dash | `player_dash` | 适配原 24 Tick；位移、无敌和接续窗口保持原配置 |
+| Skill1 / Skill2 | `palyer_counter` | 2 倍速播放，保留 30 Tick 动作、第 6 Tick 释放和 60 Tick 冷却 |
+| Hurt | `player_hurt_flash` | 适配原 32 Tick 受伤动作 |
+| Dead | `player_dead` | 60 Tick，末帧保持 |
+
+每秒 60 Tick。两个技能允许正常左右移动，随输入立即转身；转身不重启动画。技能期间保留 Hero 原色，HUD 技能颜色为绿、黄。
+
+技能一在释放时播放 `Assets/VFX/Parry/绿色弹反.prefab`，技能二播放黄色版本。序列帧以 15 FPS 播放一次，约 0.33 秒；跟随玩家位置和朝向，使用战斗坐标偏移和预制体原始缩放。技能被中断时清理特效，暂停时冻结序列帧。
+
+这里仅复用反击动画和弹反命名的视觉素材，不添加弹反窗口、弹幕反射或额外无敌。原技能投射物和普通射击规则保留；`player_shoot` 尚未作为普通射击叠加动画接入。
+
+菜单 `Tools > 角色 > 接入 Hero 到现有战斗` 可在配置缺失时生成独立 Hero 配置，并重新绑定两个入口。已有 Hero 配置不会被该菜单重建；有未保存修改的目标场景会阻止接入。
+
+接入在隔离副本中使用 Unity 2022.3.62f1c1 验证：13 个动作绑定、两个场景引用、技能第 6 Tick 单次释放、移动和即时转身、受伤中断清理、30 Tick 技能结束、6 Tick 落地、飞行切换均通过；真实 Play 模式的序列帧播放、暂停/恢复、镜像和自动销毁通过。包含 5 个启用场景的 Windows 构建成功，0 错误、0 警告。
+
+记录位于 `Logs/HeroIntegrationVerify.txt`、`Logs/HeroIntegrationPlay.txt`、`Logs/HeroIntegrationBuild.txt`；技能画面为 `Logs/HeroSkills.png` 和 `Logs/HeroSkillsTurned.png`。
 
 ## 在 Unity 中使用
 
@@ -22,7 +56,7 @@ SkeletonData 的导入 Scale 为 0.01。预制体根节点另按待机初始帧�
 | `player_shoot` | 射击 |
 | `palyer_counter` | 反击/弹反 |
 
-预制体只提供视觉表现；运动、碰撞、射击、弹反和技能触发应由游戏系统驱动。接入玩家系统时需要为新角色配置动作映射，不能沿用旧角色的 Standby、Run、Jump 等动画名。
+预制体只提供视觉表现；运动、碰撞、射击和技能触发由游戏系统驱动。Hero 动作库使用新角色自己的 AnimationReferenceAsset，不沿用旧角色的 Standby、Run、Jump 等动画名。
 
 ## 原始素材与运行时副本
 

@@ -1,0 +1,123 @@
+{
+  "requirements_url": "https://developer.taptap.cn/docs/store/release/publish/material/",
+  "no_generative_image_tools": true,
+  "screenshot_capture": "Real Windows game via @oai/sky, 1920x1080 fullscreen",
+  "screenshots_unretouched": true,
+  "files": [
+    {
+      "file": "01_Icon_512x512.png",
+      "purpose": "游戏图标",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 152433,
+      "sources": [
+        "Assets/Player/HeroPortrait.png",
+        "Sources/battle-later-3.png"
+      ],
+      "sha256": "fa5ffb4bb26a81145ba0b7f94e05cf46eb7f9b4dae3ca9c017664584f8ebcfbc"
+    },
+    {
+      "file": "02_Logo_Transparent.png",
+      "purpose": "PC 游戏 LOGO（透明，裁去无用边距）",
+      "width": 2099,
+      "height": 509,
+      "mode": "RGBA",
+      "bytes": 547125,
+      "sources": [
+        "Assets/ArtAsset/package4/霓虹几何风格_VARIATION_标志.png"
+      ],
+      "sha256": "d665617b88d2d4a6dcc64b3a612171407e5e542222a731a91a200762179c2a29"
+    },
+    {
+      "file": "03_Screenshot_01_Battle_1920x1080.png",
+      "purpose": "实机截图 1：弹幕战斗，建议首张",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGB",
+      "bytes": 870601,
+      "sources": [
+        "Sources/battle-later-3.png"
+      ],
+      "sha256": "a4500c86a52e4095a0cc82948f49dd127b0e7d908a9720bf1dcaea8301bbbd30"
+    },
+    {
+      "file": "04_Screenshot_02_Songs_1920x1080.png",
+      "purpose": "实机截图 2：歌曲选择",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGB",
+      "bytes": 974262,
+      "sources": [
+        "Sources/song-selection.png"
+      ],
+      "sha256": "e8f117f12077142e41a190aa55594b4cd0826e7861896fb93afe9b7d5aa58c5b"
+    },
+    {
+      "file": "05_Screenshot_03_Loadout_1920x1080.png",
+      "purpose": "实机截图 3：弹幕装备",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGB",
+      "bytes": 549125,
+      "sources": [
+        "Sources/loadout.png"
+      ],
+      "sha256": "bf7d15fc2b091aaeda6c98e60cd312fb641f4714c3201578c903a850ad0f3540"
+    },
+    {
+      "file": "06_Screenshot_04_Result_1920x1080.png",
+      "purpose": "实机截图 4：战斗结算（可选）",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGB",
+      "bytes": 551450,
+      "sources": [
+        "Sources/result.png"
+      ],
+      "sha256": "72afd491fc199b198a43c870a24553d4b0269591ff0505e2f9cea4d0b415364d"
+    },
+    {
+      "file": "07_Promo_1920x1080.png",
+      "purpose": "16:9 宣传图：原素材排版，仅游戏名",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGB",
+      "bytes": 729217,
+      "sources": [
+        "Sources/main-menu.png (text-free background crops)",
+        "Assets/Player/HeroPortrait.png",
+        "Assets/ArtAsset/package4/霓虹几何风格_VARIATION_标志.png"
+      ],
+      "sha256": "ac2d1fdbe46e53a3a07cbcb85d1cd4e62e1855d08c63b70bc3813e93815b1824"
+    },
+    {
+      "file": "08_PC_Cover_460x215.png",
+      "purpose": "PC 横版游戏封面",
+      "width": 460,
+      "height": 215,
+      "mode": "RGB",
+      "bytes": 77184,
+      "sources": [
+        "Sources/main-menu.png (text-free background crops)",
+        "Assets/Player/HeroPortrait.png",
+        "Assets/ArtAsset/package4/霓虹几何风格_VARIATION_标志.png"
+      ],
+      "sha256": "1df4a70f0afd783094f2c340833083b99700569c62487353cc421121414412dd"
+    },
+    {
+      "file": "09_PC_Cover_600x900.png",
+      "purpose": "PC 竖版游戏封面",
+      "width": 600,
+      "height": 900,
+      "mode": "RGB",
+      "bytes": 382091,
+      "sources": [
+        "Sources/main-menu.png (text-free background crops)",
+        "Assets/Player/HeroPortrait.png",
+        "Assets/ArtAsset/package4/霓虹几何风格_VARIATION_标志.png"
+      ],
+      "sha256": "de219f2bedf8352faffcec47f5f1e11072aeee36c5791a85b902a9941cdfd7b1"
+    }
+  ]
+}

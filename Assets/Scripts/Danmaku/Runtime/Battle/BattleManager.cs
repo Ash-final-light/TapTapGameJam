@@ -101,7 +101,8 @@ namespace TapTap.Danmaku
             clock.Reset(); IsRunning = true;
             Result = null; runId = Guid.NewGuid().ToString("N"); missedThisTick = 0;
             Simulation.World.EnergyOrbMissed += OnOrbMissed;
-            items = setup == null ? null : new ItemRuntime(setup.Items, Simulation.Buffs, () => Simulation.Tick, Simulation.Player, system.Saves.Quantity);
+            if (setup != null) Simulation.ConfigureItems(setup.Items, system.Saves.Quantity);
+            items = Simulation.Items;
             if (system)
             {
                 previousExternalConsumer = system.ExternalCommandConsumer; system.ExternalCommandConsumer = true;
@@ -136,9 +137,6 @@ namespace TapTap.Danmaku
                 Simulation.Step(input, playerInput);
                 playerView?.SetPosition(Simulation.PlayerSystem);
                 playerView?.ConsumeEvents(Simulation.PlayerSystem);
-                // UI/item adapters are notified only after the player resolver accepts the request.
-                foreach (var e in Simulation.PlayerSystem.Events)
-                    if (system && e.Kind == PlayerRuntimeEventKind.IntentExecuted && e.Intent == PlayerIntentKind.UseItem) system.UI.DispatchCommand(GameplayCommand.UseItem);
                 scores?.Advance(Simulation.Tick);
                 foreach (var result in Simulation.Events) { scores?.Consume(result); Resolved?.Invoke(result); }
                 while (missedThisTick > 0) { scores?.MissOrb(); missedThisTick--; }

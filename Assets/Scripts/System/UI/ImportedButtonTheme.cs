@@ -49,7 +49,10 @@ namespace TapTap.Systems.UI
             art.raycastTarget = false; art.type = UnityEngine.UI.Image.Type.Simple;
             art.transform.SetAsFirstSibling();
             style.Button = button; style.HitArea = hit; style.Artwork = art;
-            style.Labels = labels; style.Icons = button.GetComponentsInChildren<UnityEngine.UI.Image>(true).Where(i => i.name == "Icon").ToArray();
+            // The item runtime owns its icon, availability tint and white cooldown text.
+            bool itemSlot = button.GetComponent<ItemSlotView>();
+            style.Labels = itemSlot ? labels.Where(t => t.name != "CooldownText").ToArray() : labels;
+            style.Icons = itemSlot ? System.Array.Empty<UnityEngine.UI.Image>() : button.GetComponentsInChildren<UnityEngine.UI.Image>(true).Where(i => i.name == "Icon").ToArray();
             style.Borders = button.GetComponentsInChildren<UnityEngine.UI.Image>(true).Where(i => i.name == "Border" || i.name == "SelectedBorder").ToArray();
             style.FrameSprite = Frame;
             style.Arrows = button.GetComponentsInChildren<UnityEngine.UI.Image>(true).Where(i => i.name == "Arrow" || i.name == "ImportedDropdownArrow").ToArray();

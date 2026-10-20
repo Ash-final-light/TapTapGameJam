@@ -24,10 +24,6 @@ MonoBehaviour:
   Items:
   - {fileID: 11400000, guid: 734f0a69f6562394a8f8b0dd9a984763, type: 2}
   - {fileID: 11400000, guid: c71b865f4c30e5b418cff1c2117b40da, type: 2}
-  - {fileID: 11400000, guid: 6d236b408bc4aa5448fb1fdea0a0fcf7, type: 2}
-  - {fileID: 11400000, guid: 15361cacfb7efad45bb9d6077aea0cd5, type: 2}
-  - {fileID: 11400000, guid: 722b517061262e348b3a4a31e9ceea73, type: 2}
-  - {fileID: 11400000, guid: 8c34bc885122c0f4a8d92f2be44c5603, type: 2}
   ItemSlotCount: 3
   Drops: {fileID: 11400000, guid: 49ffb897d68e37b4998689da366d1459, type: 2}
   ScoreFormulas:

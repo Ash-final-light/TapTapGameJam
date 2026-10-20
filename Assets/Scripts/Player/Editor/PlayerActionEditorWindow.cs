@@ -150,7 +150,7 @@ namespace TapTap.Player.Editor
                     PlayerActionNodeKind.FirePermission => new[] { "AllowFire" },
                     PlayerActionNodeKind.PointEvent => new[] { "Event", "Projectile", "ProjectileSpeed" },
                     PlayerActionNodeKind.Audio => new[] { "Audio", "Volume" },
-                    PlayerActionNodeKind.Effect => new[] { "Effect", "LocalOffset", "FollowPlayer" },
+                    PlayerActionNodeKind.Effect => new[] { "Effect", "LocalOffset", "FollowPlayer", "MirrorWithFacing" },
                     _ => Array.Empty<string>(),
                 };
                 if (kind == PlayerActionNodeKind.Spine) DrawSpineFields(p.FindPropertyRelative("Spine"));
@@ -184,7 +184,7 @@ namespace TapTap.Player.Editor
             "Name" => "名称", "Kind" => "类型", "StartTick" => "开始帧", "EndTick" => "结束帧", "Order" => "同帧顺序",
             "SpeedScale" => "速度倍率", "AllowedIntents" => "可接续动作", "Conditions" => "接续条件", "AllowFire" => "允许射击",
             "Event" => "事件类型", "Projectile" => "子弹", "ProjectileSpeed" => "子弹速度", "Volume" => "音量",
-            "LocalOffset" => "位置偏移", "FollowPlayer" => "跟随角色", "Animation" => "动画资源", "FallbackAnimation" => "备用动画",
+            "LocalOffset" => "位置偏移", "FollowPlayer" => "跟随角色", "MirrorWithFacing" => "随朝向镜像（战斗坐标）", "Animation" => "动画资源", "FallbackAnimation" => "备用动画",
             "TrackIndex" => "动画轨道", "SourceOffset" => "起播时间（秒）", "Speed" => "播放速度", "MixSeconds" => "混合时间（秒）",
             null => "",
             _ => text.StartsWith("Spine ", StringComparison.Ordinal) ? "动画 · " + text.Substring(6) : text,

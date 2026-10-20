@@ -45,7 +45,7 @@ namespace TapTap.Systems
             if (Items.Length > Math.Min(3, config.ItemSlotCount)) return "装备道具超过槽位上限。";
             var ids = new System.Collections.Generic.HashSet<string>();
             foreach (var item in Items)
-                if (item && (!ids.Add(item.Id) || Array.IndexOf(config.Items, item) < 0 || saves.Quantity(item.Id) <= 0 || !item.Effect)) return "道具未获得、重复装备或未配置效果。";
+                if (item && (!ids.Add(item.Id) || Array.IndexOf(config.Items, item) < 0 || saves.Quantity(item.Id) <= 0 || !item.Effect || item.Effect.Validate() != null)) return "道具未获得、重复装备或效果配置无效。";
             if (!config.Drops) return "未配置结算掉落表。";
             string dropError = config.Drops.Validate(); if (dropError != null) return dropError;
             foreach (var drop in config.Drops.Entries) if (Array.IndexOf(config.Items, drop.Item) < 0) return "掉落道具未加入装备目录。";

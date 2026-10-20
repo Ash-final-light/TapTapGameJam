@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a542010b8ea6847a70685d382d3473, type: 3}
+  m_Name: Hero
+  m_EditorClassIdentifier: 
+  MaxHealth: 5
+  HitRadius: 0.08
+  MaxStamina: 100
+  StaminaRecoveryPerSecond: 20
+  StaminaRecoveryDelayTicks: 30
+  HurtInvulnerableTicks: 30
+  Motor:
+    MoveSpeed: 4
+    Gravity: 20
+    JumpSpeed: 8
+    DashSpeed: 12
+    FlightRiseSpeed: 2
+    GroundHeight: -4
+    FlightStaminaPerSecond: 12
+  Input:
+    BufferTicks: 8
+    FlyHoldTicks: 10
+    SkillPriority: 300
+    DashPriority: 200
+    JumpPriority: 100
+  Actions: {fileID: 11400000, guid: 432b14748483a554ab913875b0203883, type: 2}
+  Weapon: {fileID: 11400000, guid: 610d2d2d9b13fa0489ce609101f5d2dd, type: 2}
+  VisualPrefab: {fileID: 3207161300307632000, guid: 24b8320da8a4e7d4c994112c51d6bcfa, type: 3}
+  SkeletonData: {fileID: 11400000, guid: 213e847af4b26064d97c2c19b9839a70, type: 2}
+  Portrait: {fileID: 21300000, guid: b3883fbcb2273a4478f018f564dfa1cd, type: 3}
+  FallbackSprite: {fileID: 21300000, guid: b3883fbcb2273a4478f018f564dfa1cd, type: 3}
+  FallbackVisualSize: 2.2
+  InvulnerableAlpha: 0.48
+  ShowHitRange: 1
+  HitRangeColor: {r: 1, g: 0.9, b: 0.25, a: 1}
+  InvulnerableHitRangeColor: {r: 0.25, g: 1, b: 1, a: 1}
+  Skill1Color: {r: 0.05, g: 1, b: 0.55, a: 1}
+  Skill2Color: {r: 1, g: 0.88, b: 0.08, a: 1}
+  TintDuringSkills: 0

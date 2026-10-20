@@ -18,6 +18,7 @@ namespace TapTap.Danmaku
         public readonly List<BattleEvent> Events = new();
         public readonly CombatComboState Combo = new();
         public readonly BuffManager Buffs = new();
+        public ItemRuntime Items { get; private set; }
         private readonly CombatResolver resolver;
         private readonly Dictionary<string, CompiledProjectile> actionProjectiles = new();
         public int Tick => World.Tick;
@@ -56,11 +57,15 @@ namespace TapTap.Danmaku
             PlayerMotor.SetBounds(bounds); Player.Pose = PlayerMotor.State;
             World.SetBounds(bounds); World.SetPlayerState(Player.Pose);
         }
+        public void ConfigureItems(ItemDefinition[] equipment, System.Func<string, int> quantity = null)
+            => Items = new ItemRuntime(equipment, Buffs, () => Tick, Player, quantity);
         public void Step(in BattleInput input)
             => Step(input, new PlayerTickInput(input.Movement.MoveX, fireHeld: input.Movement.FireHeld));
         public void Step(in BattleInput input, in PlayerTickInput playerInput)
         {
             Events.Clear(); if (Finished || World.Fault != null) return;
+            // Healing precedes this tick's collisions; buffs affect this tick's movement and shots.
+            if ((playerInput.Edges & PlayerButtonEdges.UseItem) != 0) Items?.RequestUseItem(playerInput.ItemId);
             Buffs.Advance(Tick);
             var modifiers = Buffs.Current;
             PlayerMotor.MoveFlat = modifiers.MoveFlat; PlayerMotor.MoveMultiplier = modifiers.MoveMultiplier;

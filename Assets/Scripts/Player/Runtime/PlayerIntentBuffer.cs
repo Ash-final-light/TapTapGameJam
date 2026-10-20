@@ -39,7 +39,7 @@ namespace TapTap.Player
             AddEdge(PlayerButtonEdges.Skill2, PlayerIntentKind.Skill, 2, input, tick);
             AddEdge(PlayerButtonEdges.Dash, PlayerIntentKind.Dash, 0, input, tick);
             AddEdge(PlayerButtonEdges.JumpPressed, PlayerIntentKind.Jump, 0, input, tick);
-            AddEdge(PlayerButtonEdges.UseItem, PlayerIntentKind.UseItem, 0, input, tick);
+            // Items resolve at the battle tick boundary, independently of animation transitions.
             pending.Sort((a, b) =>
             {
                 int c = Priority(b.Kind).CompareTo(Priority(a.Kind)); if (c != 0) return c;

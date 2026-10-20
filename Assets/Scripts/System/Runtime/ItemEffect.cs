@@ -11,5 +11,11 @@ namespace TapTap.Systems
         public ItemEffectContext(BuffManager buffs, int tick, string itemId, TapTap.Danmaku.ActorState player = null)
         { Buffs = buffs; Tick = tick; ItemId = itemId; Player = player; }
     }
-    public abstract class ItemEffect : ScriptableObject, IItemEffect { public abstract bool Apply(ItemEffectContext context); }
+    public abstract class ItemEffect : ScriptableObject, IItemEffect
+    {
+        public virtual string Validate() => null;
+        public virtual string UnavailableReason(ItemEffectContext context) => Validate();
+        public virtual int RemainingTicks(ItemEffectContext context) => 0;
+        public abstract bool Apply(ItemEffectContext context);
+    }
 }

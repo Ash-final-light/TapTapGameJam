@@ -4,6 +4,7 @@ using Spine;
 using Spine.Unity;
 using TapTap.Danmaku;
 using TapTap.Systems;
+using TapTap.VFX;
 using UnityEngine;
 
 namespace TapTap.Player
@@ -14,7 +15,15 @@ namespace TapTap.Player
         private readonly PlayerDefinition definition;
         private readonly SkeletonAnimation skeleton;
         private readonly SpriteRenderer fallback;
-        private readonly Dictionary<string, GameObject> effects = new();
+        private sealed class EffectInstance
+        {
+            public readonly GameObject Root;
+            public readonly PlayerActionNode Node;
+            public readonly Vector3 Scale;
+            public EffectInstance(GameObject root, PlayerActionNode node)
+            { Root = root; Node = node; Scale = root.transform.localScale; }
+        }
+        private readonly Dictionary<string, EffectInstance> effects = new();
         private readonly Dictionary<int, List<AudioSource>> audio = new();
         private readonly Dictionary<int, string> tracks = new();
         private readonly HashSet<int> activeTracks = new();
@@ -60,10 +69,15 @@ namespace TapTap.Player
                         sources.Add(source); source.Play(); break;
                     case PlayerRuntimeEventKind.EffectStarted:
                         if (!e.Node.Effect || effects.ContainsKey(key)) break;
-                        var fx = UnityEngine.Object.Instantiate(e.Node.Effect, e.Node.FollowPlayer ? Root.transform : Root.transform.parent);
-                        fx.transform.position = Root.transform.TransformPoint(e.Node.LocalOffset); effects.Add(key, fx); break;
+                        // Mirrored bursts share the arena space, so a scaled Spine prefab cannot shrink them.
+                        var fx = UnityEngine.Object.Instantiate(e.Node.Effect,
+                            e.Node.FollowPlayer && !e.Node.MirrorWithFacing ? Root.transform : Root.transform.parent);
+                        var instance = new EffectInstance(fx, e.Node);
+                        if (e.Node.MirrorWithFacing) SyncEffect(instance, player.Motor.Facing);
+                        else fx.transform.position = Root.transform.TransformPoint(e.Node.LocalOffset);
+                        effects.Add(key, instance); break;
                     case PlayerRuntimeEventKind.EffectStopped:
-                        if (effects.Remove(key, out var effect)) Release(effect); break;
+                        if (effects.Remove(key, out var effect)) Release(effect.Root); break;
                     case PlayerRuntimeEventKind.ActionStopped:
                         if (audio.Remove(e.InstanceId, out var sounds)) foreach (var sound in sounds) ReleaseAudio(sound); break;
                 }
@@ -82,7 +96,8 @@ namespace TapTap.Player
             SetPosition(player);
             hitRange.Sync(player);
             var color = player.Motor.Flying ? new Color(0.65f, 0.9f, 1) : Color.white;
-            if (player.Action?.Clip.Kind == PlayerActionKind.Skill) color = player.Action.SkillSlot == 2 ? definition.Skill2Color : definition.Skill1Color;
+            if (player.Action?.Clip.Kind == PlayerActionKind.Skill)
+                color = !definition.TintDuringSkills ? Color.white : player.Action.SkillSlot == 2 ? definition.Skill2Color : definition.Skill1Color;
             color.a = player.Invulnerable ? definition.InvulnerableAlpha : 1;
             if (player.Action?.Clip.Kind == PlayerActionKind.Hurt) color = new Color(1, 0.55f, 0.55f, color.a);
             if (skeleton && skeleton.Skeleton != null)
@@ -93,7 +108,18 @@ namespace TapTap.Player
             }
             else if (fallback) { fallback.color = color; fallback.flipX = player.Motor.Facing < 0; }
         }
-        public void SetPosition(PlayerRuntime player) => Root.transform.localPosition = DanmakuSimulation.ToVector(player.Actor.Pose.Position);
+        public void SetPosition(PlayerRuntime player)
+        {
+            Root.transform.localPosition = DanmakuSimulation.ToVector(player.Actor.Pose.Position);
+            foreach (var effect in effects.Values)
+                if (effect.Root && effect.Node.MirrorWithFacing && effect.Node.FollowPlayer) SyncEffect(effect, player.Motor.Facing);
+        }
+        private void SyncEffect(EffectInstance effect, int facing)
+        {
+            var offset = effect.Node.LocalOffset; offset.x *= facing;
+            effect.Root.transform.localPosition = Root.transform.localPosition + offset;
+            var scale = effect.Scale; scale.x *= facing; effect.Root.transform.localScale = scale;
+        }
         private void Apply(PlayerActionInstance action)
         {
             if (visualInstance != (action?.Id ?? 0))
@@ -122,15 +148,20 @@ namespace TapTap.Player
         public void SetPaused(bool paused)
         {
             foreach (var sounds in audio.Values) foreach (var source in sounds) if (source) { if (paused) source.Pause(); else source.UnPause(); }
-            foreach (var effect in effects.Values) if (effect) foreach (var particles in effect.GetComponentsInChildren<ParticleSystem>())
-                if (paused) particles.Pause(); else particles.Play();
+            foreach (var effect in effects.Values)
+            {
+                if (!effect.Root) continue;
+                foreach (var sequence in effect.Root.GetComponentsInChildren<SpriteSequenceEffect>()) sequence.SetPaused(paused);
+                foreach (var particles in effect.Root.GetComponentsInChildren<ParticleSystem>())
+                    if (paused) particles.Pause(); else particles.Play();
+            }
         }
         private void ReleaseAudio(AudioSource source)
         { if (!source) return; if (system) system.Audio.Unregister(source); source.Stop(); Release(source); }
         public void Dispose()
         {
             foreach (var sounds in audio.Values) foreach (var source in sounds) ReleaseAudio(source);
-            foreach (var effect in effects.Values) Release(effect);
+            foreach (var effect in effects.Values) Release(effect.Root);
             audio.Clear(); effects.Clear(); hitRange.Dispose(); Release(Root);
         }
         private static void Release(UnityEngine.Object obj)

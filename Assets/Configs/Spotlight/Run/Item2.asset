@@ -16,6 +16,7 @@ MonoBehaviour:
   DisplayName: "\u77ED\u65F6\u5F39\u5E55\u7206\u53D1\u9053\u5177"
   Description: "\u4F7F\u7528\u540E5\u79D2\u5185\u5F39\u5E55\u5C04\u901F\u5927\u5E45\u63D0\u5347\uFF0C\u4E14\u6BCF\u8F6E\u53D1\u5C04\u7684\u5F39\u5E55\u6570\u91CF\u589E\u591A\u3002\u6682\u505C\u65F6\u4E0D\u6D88\u8017\u6301\u7EED\u65F6\u95F4\u3002"
   Icon: {fileID: 21300000, guid: 631849cd504b1b04abb3b06ab6136ef1, type: 3}
+  IconColor: {r: 0.95, g: 0.55, b: 0.08, a: 1}
   Passive: 0
   MaxHeldPerRun: 3
   UsesPerRun: 3

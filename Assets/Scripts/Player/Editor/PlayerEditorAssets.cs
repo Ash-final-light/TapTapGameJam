@@ -16,7 +16,8 @@ namespace TapTap.Player.Editor
     public static class PlayerEditorAssets
     {
         public const string Root = "Assets/Player";
-        public const string DefinitionPath = Root + "/MaidGhost.asset";
+        public const string DefinitionPath = Root + "/Hero.asset";
+        internal const string LegacyDefinitionPath = Root + "/MaidGhost.asset";
         private const string LegacyBattle = "Assets/DanmakuExamples/PhaseOne/Battle.asset";
         [MenuItem("Tools/角色/创建默认角色与动作库")]
         public static void CreateMenu() { Selection.activeObject = EnsureAssets(); PlayerActionEditorWindow.Open(); }
@@ -34,8 +35,10 @@ namespace TapTap.Player.Editor
             AssetDatabase.SaveAssets();
         }
         public static PlayerDefinition EnsureAssets()
+            => HeroPlayerSetup.EnsureAssets();
+        internal static PlayerDefinition EnsureLegacyAssets()
         {
-            var existing = AssetDatabase.LoadAssetAtPath<PlayerDefinition>(DefinitionPath);
+            var existing = AssetDatabase.LoadAssetAtPath<PlayerDefinition>(LegacyDefinitionPath);
             if (existing) return existing;
             // Read old serialized fields before saving the now smaller BattleConfig.
             string legacy = File.Exists(LegacyBattle) ? File.ReadAllText(LegacyBattle) : "";
@@ -71,7 +74,7 @@ namespace TapTap.Player.Editor
                 if (slot == PlayerClipSlot.Hurt || slot == PlayerClipSlot.Dead) AddAudio(clip, hurtSound);
                 AssetDatabase.CreateAsset(clip, path); library.Bindings.Add(new() { Slot = slot, Clip = clip });
             }
-            AssetDatabase.CreateAsset(definition, DefinitionPath); EditorUtility.SetDirty(library); AssetDatabase.SaveAssets();
+            AssetDatabase.CreateAsset(definition, LegacyDefinitionPath); EditorUtility.SetDirty(library); AssetDatabase.SaveAssets();
             return definition;
         }
         public static PlayerActionClip CreatePreset(PlayerClipSlot slot)
