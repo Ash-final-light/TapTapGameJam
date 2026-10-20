@@ -1,0 +1,2 @@
+# Preserve the delivered Spine source bytes, including binary data named .json.
+* -text
